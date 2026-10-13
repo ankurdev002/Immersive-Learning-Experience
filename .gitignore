@@ -1,0 +1,56 @@
+# Nuxt build / output
+.output
+.nuxt
+dist
+
+# Node dependencies
+node_modules
+.pnpm-store
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Temporary and cache
+*.tmp
+*.temp
+.cache
+
+# Large source documents and root media
+*.pdf
+/*.png
+*.jp2
+
+# Loose development scratch files and unused raw dumps
+public/books/*/page_24_*
+public/books/*/book_all_*.json
+public/books/*/book_curated_*.json
