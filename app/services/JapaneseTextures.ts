@@ -1491,3 +1491,68 @@ export function createSteamVaporTexture(): THREE.CanvasTexture {
 
   return new THREE.CanvasTexture(canvas)
 }
+
+/**
+ * Procedural luminous firefly / star glow texture
+ * Renders a soft bioluminescent radial orb with a delicate central starlight twinkle flare,
+ * eliminating all hardcoded square quad artifacts.
+ */
+let cachedFireflyTexture: THREE.CanvasTexture | null = null
+
+export function createFireflyTexture(): THREE.CanvasTexture {
+  if (cachedFireflyTexture) return cachedFireflyTexture
+
+  const canvas = document.createElement('canvas')
+  canvas.width = 128
+  canvas.height = 128
+  const ctx = canvas.getContext('2d')!
+
+  const cx = 64
+  const cy = 64
+
+  // 1. Soft spherical bioluminescent radial glow (Japanese Hotaru / Starlight)
+  const glowGrad = ctx.createRadialGradient(cx, cy, 0, cx, cy, 62)
+  glowGrad.addColorStop(0, 'rgba(255, 255, 255, 1.0)')        // Ultra-bright starlight core
+  glowGrad.addColorStop(0.12, 'rgba(255, 248, 190, 0.95)')    // Warm incandescent center
+  glowGrad.addColorStop(0.26, 'rgba(255, 220, 85, 0.75)')     // Warm firefly amber
+  glowGrad.addColorStop(0.48, 'rgba(195, 238, 90, 0.40)')     // Bioluminescent Japanese Hotaru green-gold
+  glowGrad.addColorStop(0.72, 'rgba(145, 215, 65, 0.14)')     // Ethereal feathered halo
+  glowGrad.addColorStop(1.0, 'rgba(0, 0, 0, 0.0)')            // Feathered fade to transparent
+
+  ctx.fillStyle = glowGrad
+  ctx.fillRect(0, 0, 128, 128)
+
+  // 2. Delicate 4-point star lens flare twinkle at the core
+  // Horizontal streak
+  const hGrad = ctx.createLinearGradient(cx - 38, cy, cx + 38, cy)
+  hGrad.addColorStop(0, 'rgba(255, 255, 255, 0)')
+  hGrad.addColorStop(0.5, 'rgba(255, 255, 255, 0.85)')
+  hGrad.addColorStop(1, 'rgba(255, 255, 255, 0)')
+  ctx.fillStyle = hGrad
+  ctx.fillRect(cx - 38, cy - 1.5, 76, 3)
+
+  // Vertical streak
+  const vGrad = ctx.createLinearGradient(cx, cy - 38, cx, cy + 38)
+  vGrad.addColorStop(0, 'rgba(255, 255, 255, 0)')
+  vGrad.addColorStop(0.5, 'rgba(255, 255, 255, 0.85)')
+  vGrad.addColorStop(1, 'rgba(255, 255, 255, 0)')
+  ctx.fillStyle = vGrad
+  ctx.fillRect(cx - 1.5, cy - 38, 3, 76)
+
+  // 3. Central pin-point white star core
+  const coreGrad = ctx.createRadialGradient(cx, cy, 0, cx, cy, 7)
+  coreGrad.addColorStop(0, 'rgba(255, 255, 255, 1.0)')
+  coreGrad.addColorStop(0.6, 'rgba(255, 255, 230, 0.9)')
+  coreGrad.addColorStop(1, 'rgba(255, 240, 180, 0)')
+  ctx.fillStyle = coreGrad
+  ctx.beginPath()
+  ctx.arc(cx, cy, 7, 0, Math.PI * 2)
+  ctx.fill()
+
+  const texture = new THREE.CanvasTexture(canvas)
+  texture.generateMipmaps = true
+  texture.minFilter = THREE.LinearMipmapLinearFilter
+  texture.magFilter = THREE.LinearFilter
+  cachedFireflyTexture = texture
+  return texture
+}
