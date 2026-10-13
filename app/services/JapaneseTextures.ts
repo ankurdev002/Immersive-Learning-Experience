@@ -681,7 +681,7 @@ export function createBookPageTexture(
   subject = 'Mathematics',
   bookId?: string
 ): THREE.CanvasTexture {
-  const cacheKey = `${bookId || subject}_p${pageNumber}`
+  const cacheKey = `${bookId || subject}_p${pageNumber}_v2`
   const cached = pageTextureCache.get(cacheKey)
   if (cached) return cached
   // High-DPI 1200x1600 canvas for pin-sharp typography and diagram readability
@@ -706,10 +706,10 @@ export function createBookPageTexture(
   ctx.fillStyle = '#fdfbf7'
   ctx.fillRect(0, 0, 1200, 1600)
 
-  // Subtle page margin border
-  ctx.strokeStyle = 'rgba(180, 160, 130, 0.35)'
+  // Professional book margin border (balanced safe margins)
+  ctx.strokeStyle = 'rgba(180, 160, 130, 0.30)'
   ctx.lineWidth = 2
-  ctx.strokeRect(60, 60, 1080, 1480)
+  ctx.strokeRect(90, 70, 1020, 1460)
 
   // Header band: Do NOT repeat page number on top since it is already in the footer
   const rawHeader = pageData?.header || `Chapter 1: ${subject}`
@@ -721,35 +721,38 @@ export function createBookPageTexture(
     .replace(/Page\s+\d+\s*·\s*/gi, '')
     .trim()
 
+  const CONTENT_X = 140
+  const CONTENT_W = 920
+
   ctx.fillStyle = '#0f172a'
   ctx.font = 'bold 36px "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, sans-serif'
   ctx.textAlign = 'left'
-  ctx.fillText(headerText, 90, 135)
+  ctx.fillText(headerText, CONTENT_X, 135)
 
   if (subHeaderText) {
     ctx.fillStyle = '#475569'
     ctx.font = '500 24px "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, sans-serif'
-    ctx.fillText(subHeaderText, 90, 178)
+    ctx.fillText(subHeaderText, CONTENT_X, 178)
   }
 
   // Header Divider
   ctx.strokeStyle = '#cbd5e1'
   ctx.lineWidth = 2.4
   ctx.beginPath()
-  ctx.moveTo(90, 210)
-  ctx.lineTo(1110, 210)
+  ctx.moveTo(CONTENT_X, 210)
+  ctx.lineTo(CONTENT_X + CONTENT_W, 210)
   ctx.stroke()
 
   let currentY = 270
   const MAX_CONTENT_Y = 1380 // Clean bottom boundary to prevent footer overlap
 
-  // Section Title: Do NOT render title if it just says 'Page X'
+  // Section Title
   const rawTitle = (pageData?.title || '').trim()
   const isPageNumberTitle = /^Page\s+\d+$/i.test(rawTitle)
   if (rawTitle && !isPageNumberTitle) {
     ctx.fillStyle = '#0a0f1d'
     ctx.font = 'bold 32px "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, sans-serif'
-    currentY = wrapText(ctx, rawTitle, 90, currentY, 1020, 46, MAX_CONTENT_Y)
+    currentY = wrapText(ctx, rawTitle, CONTENT_X, currentY, CONTENT_W, 46, MAX_CONTENT_Y)
     currentY += 16
   }
 
@@ -774,9 +777,9 @@ export function createBookPageTexture(
 
     if (hasNoBullets) {
       // Full-Page Diagram (e.g. Page 24 Part I Illustration)
-      const boxX = 90
+      const boxX = 140
       const boxY = currentY + 10
-      const boxW = 1020
+      const boxW = 920
       const boxH = Math.max(300, MAX_CONTENT_Y - boxY - 20)
 
       if (img.complete && img.naturalWidth > 0) {
@@ -790,9 +793,9 @@ export function createBookPageTexture(
       currentY = MAX_CONTENT_Y
     } else {
       // Mixed layout: diagram in figure box, text below
-      const boxX = 90
+      const boxX = 140
       const boxY = currentY + 10
-      const boxW = 1020
+      const boxW = 920
       const boxH = 540
 
       if (img.complete && img.naturalWidth > 0) {
@@ -812,7 +815,7 @@ export function createBookPageTexture(
         ctx.font = '500 26px "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, sans-serif'
         for (const bp of pageData.bulletPoints) {
           if (currentY > MAX_CONTENT_Y - 30) break
-          currentY = wrapText(ctx, `• ${bp}`, 100, currentY, 1000, 44, MAX_CONTENT_Y)
+          currentY = wrapText(ctx, `• ${bp}`, 140, currentY, 920, 44, MAX_CONTENT_Y)
         }
         currentY += 20
       }
@@ -825,7 +828,7 @@ export function createBookPageTexture(
       ctx.font = '500 26px "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, sans-serif'
       for (const obj of pageData.objectives) {
         if (currentY > MAX_CONTENT_Y - 30) break
-        currentY = wrapText(ctx, `• ${obj}`, 100, currentY, 1000, 44, MAX_CONTENT_Y)
+        currentY = wrapText(ctx, `• ${obj}`, 140, currentY, 920, 44, MAX_CONTENT_Y)
       }
       currentY += 20
     }
@@ -836,7 +839,7 @@ export function createBookPageTexture(
       ctx.font = '500 26px "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, sans-serif'
       for (const bp of pageData.bulletPoints) {
         if (currentY > MAX_CONTENT_Y - 30) break
-        currentY = wrapText(ctx, `• ${bp}`, 100, currentY, 1000, 44, MAX_CONTENT_Y)
+        currentY = wrapText(ctx, `• ${bp}`, 140, currentY, 920, 44, MAX_CONTENT_Y)
       }
       currentY += 20
     }
@@ -844,13 +847,13 @@ export function createBookPageTexture(
     // Formula or Summary Box (if defined)
     if (pageData?.formulaOrSummary && currentY + 120 <= MAX_CONTENT_Y) {
       ctx.fillStyle = '#eff6ff'
-      ctx.fillRect(90, currentY, 1020, 110)
+      ctx.fillRect(140, currentY, 920, 110)
       ctx.strokeStyle = '#93c5fd'
       ctx.lineWidth = 2
-      ctx.strokeRect(90, currentY, 1020, 110)
+      ctx.strokeRect(140, currentY, 920, 110)
       ctx.fillStyle = '#1e40af'
       ctx.font = 'bold 30px monospace'
-      ctx.fillText(pageData.formulaOrSummary, 130, currentY + 68)
+      ctx.fillText(pageData.formulaOrSummary, 170, currentY + 68)
       currentY += 140
     }
 
@@ -1004,8 +1007,8 @@ export function createBookPageTexture(
   ctx.strokeStyle = '#e2e8f0'
   ctx.lineWidth = 2
   ctx.beginPath()
-  ctx.moveTo(90, 1450)
-  ctx.lineTo(1110, 1450)
+  ctx.moveTo(140, 1450)
+  ctx.lineTo(1060, 1450)
   ctx.stroke()
 
   // Footer page number

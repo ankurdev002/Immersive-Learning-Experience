@@ -1314,23 +1314,11 @@ export class JapaneseRoomService {
     this.leftPageBlockMesh.scale.set(1, this.minStackH / pageBlockThickness, 1)
     this.heroBookGroup.add(this.leftPageBlockMesh)
 
-    // 2c. Organic Curved Open Pages (Realistic curvature near the spine joint matching Gutenberg Bible)
-    // Right Page: spans from x = 0 to +blockWidth, dipping smoothly into the joint crease
-    const geoRight = new THREE.PlaneGeometry(blockWidth, blockLength, 36, 16)
+    // 2c. Flat Open Pages (Completely flat and flush on the page stacks, eliminating all text cut-offs)
+    // Right Page: spans from x = 0 to +blockWidth flush on top of the right page block
+    const geoRight = new THREE.PlaneGeometry(blockWidth, blockLength, 4, 4)
     geoRight.translate(blockWidth / 2, 0, 0)
     geoRight.rotateX(-Math.PI / 2)
-    const posAttrR = geoRight.getAttribute('position') as THREE.BufferAttribute
-    const posR = posAttrR.array as Float32Array
-    for (let i = 0; i < posR.length; i += 3) {
-      const x = posR[i] ?? 0
-      if (x >= 0 && x <= 0.085) {
-        const t = x / 0.085
-        // Organic arch roll dipping into the central crease
-        const curve = Math.pow(1 - Math.sin(t * Math.PI / 2), 1.8)
-        posR[i + 1] = -0.0075 * curve
-      }
-    }
-    posAttrR.needsUpdate = true
     geoRight.computeVertexNormals()
 
     const rightCurvedMat = new THREE.MeshStandardMaterial({
@@ -1345,21 +1333,10 @@ export class JapaneseRoomService {
     this.rightCurvedPageMesh.visible = false
     this.heroBookGroup.add(this.rightCurvedPageMesh)
 
-    // Left Page: spans from x = -blockWidth to 0, dipping symmetrically into the joint crease
-    const geoLeft = new THREE.PlaneGeometry(blockWidth, blockLength, 36, 16)
+    // Left Page: spans from x = -blockWidth to 0 flush on top of the left page block
+    const geoLeft = new THREE.PlaneGeometry(blockWidth, blockLength, 4, 4)
     geoLeft.translate(-blockWidth / 2, 0, 0)
     geoLeft.rotateX(-Math.PI / 2)
-    const posAttrL = geoLeft.getAttribute('position') as THREE.BufferAttribute
-    const posL = posAttrL.array as Float32Array
-    for (let i = 0; i < posL.length; i += 3) {
-      const x = posL[i] ?? 0
-      if (x <= 0 && x >= -0.085) {
-        const t = -x / 0.085
-        const curve = Math.pow(1 - Math.sin(t * Math.PI / 2), 1.8)
-        posL[i + 1] = -0.0075 * curve
-      }
-    }
-    posAttrL.needsUpdate = true
     geoLeft.computeVertexNormals()
 
     const leftCurvedMat = new THREE.MeshStandardMaterial({
@@ -1374,39 +1351,30 @@ export class JapaneseRoomService {
     this.leftCurvedPageMesh.visible = false
     this.heroBookGroup.add(this.leftCurvedPageMesh)
 
-    // 2d. Authentic Red Shadow in the Midline Join (Sewn binding crease shadow from reference image)
+    // 2d. Subtle, Natural Midline Binding Crease Shadow (Soft neutral gradient, eliminates red stripe & clipping)
     const shadowCanvas = document.createElement('canvas')
     shadowCanvas.width = 128
     shadowCanvas.height = 32
     const sCtx = shadowCanvas.getContext('2d')!
     const sGrad = sCtx.createLinearGradient(0, 0, 128, 0)
-    sGrad.addColorStop(0, 'rgba(150, 20, 20, 0)')
-    sGrad.addColorStop(0.32, 'rgba(155, 25, 25, 0.22)')
-    sGrad.addColorStop(0.47, 'rgba(135, 18, 18, 0.52)')
-    sGrad.addColorStop(0.50, 'rgba(115, 12, 12, 0.78)') // Deep red midline sewn crease
-    sGrad.addColorStop(0.53, 'rgba(135, 18, 18, 0.52)')
-    sGrad.addColorStop(0.68, 'rgba(155, 25, 25, 0.22)')
-    sGrad.addColorStop(1, 'rgba(150, 20, 20, 0)')
+    sGrad.addColorStop(0, 'rgba(30, 20, 10, 0)')
+    sGrad.addColorStop(0.35, 'rgba(30, 20, 10, 0.06)')
+    sGrad.addColorStop(0.48, 'rgba(25, 15, 8, 0.22)')
+    sGrad.addColorStop(0.50, 'rgba(20, 10, 5, 0.35)') // Soft natural sewn crease
+    sGrad.addColorStop(0.52, 'rgba(25, 15, 8, 0.22)')
+    sGrad.addColorStop(0.65, 'rgba(30, 20, 10, 0.06)')
+    sGrad.addColorStop(1, 'rgba(30, 20, 10, 0)')
     sCtx.fillStyle = sGrad
     sCtx.fillRect(0, 0, 128, 32)
     const gutterShadowTex = new THREE.CanvasTexture(shadowCanvas)
 
-    const gutterShadowGeo = new THREE.PlaneGeometry(0.024, blockLength, 8, 1)
+    const gutterShadowGeo = new THREE.PlaneGeometry(0.010, blockLength, 1, 1)
     gutterShadowGeo.rotateX(-Math.PI / 2)
-    const gsPosAttr = gutterShadowGeo.getAttribute('position') as THREE.BufferAttribute
-    const gsPos = gsPosAttr.array as Float32Array
-    for (let i = 0; i < gsPos.length; i += 3) {
-      const x = gsPos[i] ?? 0
-      const t = Math.abs(x) / 0.012
-      gsPos[i + 1] = -0.0072 * Math.pow(1 - Math.min(1, t), 1.5) + 0.0004
-    }
-    gsPosAttr.needsUpdate = true
-    gutterShadowGeo.computeVertexNormals()
 
     const gutterShadowMat = new THREE.MeshBasicMaterial({
       map: gutterShadowTex,
       transparent: true,
-      opacity: 0.72,
+      opacity: 0.45,
       depthWrite: false,
     })
     this.gutterShadowMesh = new THREE.Mesh(gutterShadowGeo, gutterShadowMat)
