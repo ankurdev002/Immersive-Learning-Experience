@@ -87,7 +87,7 @@ export class JapaneseRoomService {
   public isLightOn = true
   private ambientLight!: THREE.AmbientLight
   private sunLight!: THREE.DirectionalLight
-  private lampLight!: THREE.PointLight
+  private lampLight!: THREE.SpotLight
   private moonLight!: THREE.DirectionalLight
   private lampShadeMesh!: THREE.Mesh
   private heroBookGlowLight!: THREE.PointLight
@@ -198,7 +198,7 @@ export class JapaneseRoomService {
       powerPreference: 'high-performance',
     })
     this.renderer.setSize(canvas.clientWidth, canvas.clientHeight, false)
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5))
     this.renderer.shadowMap.enabled = true
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping
@@ -237,11 +237,17 @@ export class JapaneseRoomService {
     this.sunLight.shadow.bias = -0.0005
     this.scene.add(this.sunLight)
 
-    // Warm Gooseneck Desk Lamp (Warm intimate localized golden pool on desk)
-    this.lampLight = new THREE.PointLight(0xffa534, 2.6, 4.5, 1.2)
-    this.lampLight.position.set(-0.75, 1.22, -0.45)
+    // Warm Gooseneck Desk Lamp (Optimized SpotLight with single 2D shadow map instead of 6-sided cubemap)
+    this.lampLight = new THREE.SpotLight(0xffa534, 3.2, 5.0, Math.PI / 3.0, 0.45, 1.2)
+    this.lampLight.position.set(-0.65, 1.22, -0.45)
+    this.lampLight.target.position.set(0, 0.85, -0.44)
+    this.scene.add(this.lampLight.target)
     this.lampLight.castShadow = true
-    this.lampLight.shadow.bias = -0.002
+    this.lampLight.shadow.bias = -0.0015
+    this.lampLight.shadow.mapSize.width = 1024
+    this.lampLight.shadow.mapSize.height = 1024
+    this.lampLight.shadow.camera.near = 0.2
+    this.lampLight.shadow.camera.far = 4.0
     this.scene.add(this.lampLight)
 
     // Cool Moonlight (streaming from left garden for nighttime ambience)
@@ -1771,7 +1777,7 @@ export class JapaneseRoomService {
     this.currentBookData = bookData
     this.callbacks.onBookSelected?.(bookData)
 
-    // Apply selected book's appearance to the existing Hero Book rig
+    // Apply selected book outer appearance to Hero Book rig for flight
     let coverTex: THREE.Texture
     if (bookData.coverImage) {
       coverTex = this.textureLoader.load(bookData.coverImage)
@@ -1793,106 +1799,53 @@ export class JapaneseRoomService {
     if (this.pagePivot) {
       this.pagePivot.rotation.z = 0
     }
-    const p1Tex = createBookPageTexture(1, bookData.subject, bookData.id)
-    const p2Tex = createBookPageTexture(2, bookData.subject, bookData.id)
 
-    const insideCoverTex = createBookInsideCoverTexture(
-      bookData.title,
-      `${bookData.subject} · Class ${bookData.classLevel}`
-    )
-    // Inside cover texture remains standard upright orientation (rotation = 0)
-
+    // Outer front cover
     if (this.frontCoverMesh) {
       const mats = this.frontCoverMesh.material as THREE.MeshStandardMaterial[]
-      if (Array.isArray(mats)) {
-        if (mats[2]) {
-          mats[2].map = coverTex
-          mats[2].needsUpdate = true
-        }
-        if (mats[3]) {
-          mats[3].map = insideCoverTex
-          mats[3].needsUpdate = true
-        }
+      if (Array.isArray(mats) && mats[2]) {
+        mats[2].map = coverTex
+        mats[2].needsUpdate = true
       }
     }
 
+    // Outer back cover
     if (this.backCoverMesh) {
       const mats = this.backCoverMesh.material as THREE.MeshStandardMaterial[]
-      if (Array.isArray(mats)) {
-        if (mats[3]) {
-          mats[3].map = coverTex
-          mats[3].needsUpdate = true
-        }
-        if (mats[2]) {
-          mats[2].map = insideCoverTex
-          mats[2].needsUpdate = true
-        }
+      if (Array.isArray(mats) && mats[3]) {
+        mats[3].map = coverTex
+        mats[3].needsUpdate = true
       }
     }
 
+    // Spine
     if (this.spineMesh) {
       const spineMat = this.spineMesh.material as THREE.MeshStandardMaterial
       spineMat.map = spineTex
       spineMat.needsUpdate = true
     }
 
-    if (this.pageMesh) {
-      const pageMats = this.pageMesh.material as THREE.MeshStandardMaterial[]
-      if (Array.isArray(pageMats)) {
-        if (pageMats[2]) {
-          pageMats[2].map = p1Tex
-          pageMats[2].needsUpdate = true
-        }
-        if (pageMats[3]) {
-          pageMats[3].map = insideCoverTex
-          pageMats[3].needsUpdate = true
-        }
-      }
-    }
-
+    // Prepare page blocks & turning leaf
     const coverThickness = 0.006
     const pageBlockThickness = 0.034
     if (this.rightPageBlockMesh) {
       this.rightPageBlockMesh.scale.set(1, 1, 1)
       this.rightPageBlockMesh.position.y = coverThickness + pageBlockThickness / 2
-      const blockMats = this.rightPageBlockMesh.material as THREE.MeshStandardMaterial[]
-      if (Array.isArray(blockMats) && blockMats[2]) {
-        blockMats[2].map = p1Tex
-        blockMats[2].needsUpdate = true
-      }
     }
-
-    if (this.rightCurvedPageMesh) {
-      const rMat = this.rightCurvedPageMesh.material as THREE.MeshStandardMaterial
-      rMat.map = p1Tex
-      rMat.needsUpdate = true
-      this.rightCurvedPageMesh.position.y = coverThickness + pageBlockThickness + 0.0003
-    }
-
-    if (this.leftCurvedPageMesh) {
-      const lMat = this.leftCurvedPageMesh.material as THREE.MeshStandardMaterial
-      lMat.map = insideCoverTex
-      lMat.needsUpdate = true
-      this.leftCurvedPageMesh.position.y = coverThickness + 0.0006 + 0.0003
-    }
-
     if (this.leftPageBlockMesh) {
       this.leftPageBlockMesh.visible = false
       const minH = 0.0006
       this.leftPageBlockMesh.scale.set(1, minH / pageBlockThickness, 1)
       this.leftPageBlockMesh.position.y = coverThickness + minH / 2
-      const leftMats = this.leftPageBlockMesh.material as THREE.MeshStandardMaterial[]
-      if (Array.isArray(leftMats) && leftMats[2]) {
-        leftMats[2].map = insideCoverTex
-        leftMats[2].needsUpdate = true
-      }
+    }
+    if (this.pagePivot) {
+      this.pagePivot.visible = false
     }
 
-    // Delegate directly to the physical extraction and flight controller!
+    // Delegate directly to physical extraction and 60fps aerodynamic flight!
     this.selectAndFlyBook()
   }
 
-  // Book Controller: Physical Extraction from Shelf, 3D Flight & Focused Camera Tracking
   public selectAndFlyBook() {
     if (this.state !== 'room-view') return
     this.state = 'book-flying'
@@ -1908,9 +1861,9 @@ export class JapaneseRoomService {
     }
 
     // Dim the shelf ambient glow light
-    gsap.to(this.heroBookGlowLight, { intensity: 0.15, duration: 0.4 })
+    gsap.to(this.heroBookGlowLight, { intensity: 0.15, duration: 0.3 })
 
-    // Camera focal tracking point: begins at the shelf book and follows flight path
+    // Camera focal tracking point: begins at the shelf book and tracks smoothly
     const camFocus = {
       x: shelfWorldPos.x,
       y: shelfWorldPos.y,
@@ -1924,7 +1877,7 @@ export class JapaneseRoomService {
       },
     })
 
-    // Dynamic camera tracking: locks focus onto the book during entire flight and landing
+    // Dynamic camera tracking: locked smoothly onto the book flight path
     tl.eventCallback('onUpdate', () => {
       this.camera.lookAt(camFocus.x, camFocus.y, camFocus.z)
     })
@@ -1936,108 +1889,96 @@ export class JapaneseRoomService {
         x: this.deskCamPos.x,
         y: this.deskCamPos.y,
         z: this.deskCamPos.z,
-        duration: 1.85,
+        duration: 1.15,
         ease: 'power2.inOut',
       },
       0
     )
 
-    // Stage 1: Book pulls smoothly forward out of the shelf slot (0 to 0.42s)
+    // Stage 1: Book pulls smoothly forward out of the shelf slot (0 to 0.28s)
     if (shelfMesh) {
       const restingZ = (shelfMesh.userData.restingPos as THREE.Vector3)?.z ?? 0.01
       tl.to(
         shelfMesh.position,
         {
           z: restingZ + 0.36,
-          duration: 0.42,
+          duration: 0.28,
           ease: 'power2.out',
         },
         0
       )
     }
 
-    // Camera focal point tracks the book pulling forward out of the shelf in +Z
+    // Camera focal point tracks the book pulling forward out of shelf
     tl.to(
       camFocus,
       {
         x: shelfWorldPos.x,
         y: shelfWorldPos.y,
-        z: shelfWorldPos.z + 0.38,
-        duration: 0.42,
+        z: shelfWorldPos.z + 0.36,
+        duration: 0.28,
         ease: 'power2.out',
       },
       0
     )
 
-    // Stage 2: Hand off seamlessly from shelfMesh to heroBookGroup at t = 0.42s
+    // Stage 2: Hand off seamlessly from shelfMesh to heroBookGroup at t = 0.26s
+    const startHeroX = shelfWorldPos.x + 0.021
+    const startHeroY = shelfWorldPos.y
+    const startHeroZ = shelfWorldPos.z + 0.36 + 0.14
+
     tl.call(() => {
       if (shelfMesh) {
         shelfMesh.visible = false
       }
-      this.heroBookGroup.position.set(
-        shelfWorldPos.x + 0.021,
-        shelfWorldPos.y,
-        shelfWorldPos.z + 0.38 + 0.14
-      )
+      this.heroBookGroup.position.set(startHeroX, startHeroY, startHeroZ)
       this.heroBookGroup.rotation.copy(this.shelfBookRot)
       this.heroBookGroup.visible = true
       this.callbacks.onBookFlightStarted?.()
-    }, [], 0.42)
+    }, [], 0.26)
 
-    // Stage 3: Graceful 3D parabolic arc down over tatami mats toward the study desk (0.42s to 1.62s)
-    // X slides across from right bay (0.45) to desk center (0)
+    // Stage 3: Smooth, continuous 3D aerodynamic flight arc (0.26s to 1.15s, duration = 0.89s)
+    // Synchronized horizontal translation
     tl.to(
       this.heroBookGroup.position,
       {
         x: this.tableBookPos.x,
-        duration: 1.2,
-        ease: 'power2.inOut',
-      },
-      0.42
-    )
-
-    // Y lifts in a natural aerodynamic arc and descends toward desk surface
-    tl.to(
-      this.heroBookGroup.position,
-      {
-        y: this.tableBookPos.y + 0.62,
-        duration: 0.65,
-        ease: 'power2.out',
-      },
-      0.42
-    )
-    tl.to(
-      this.heroBookGroup.position,
-      {
-        y: this.tableBookPos.y,
-        duration: 0.55,
-        ease: 'power2.in',
-      },
-      1.07
-    )
-
-    // Z travels across room from bookshelf to study desk
-    tl.to(
-      this.heroBookGroup.position,
-      {
         z: this.tableBookPos.z,
-        duration: 1.2,
+        duration: 0.89,
         ease: 'power2.inOut',
       },
-      0.42
+      0.26
     )
 
-    // Rotation: tilts and levels out from upright standing to horizontal flat
+    // Smooth aerodynamic rotation: tilts from upright standing to angled reading stand (78°)
     tl.to(
       this.heroBookGroup.rotation,
       {
         x: this.tableBookRot.x,
         y: this.tableBookRot.y,
         z: this.tableBookRot.z,
-        duration: 1.2,
+        duration: 0.89,
         ease: 'power2.inOut',
       },
-      0.42
+      0.26
+    )
+
+    // Continuous vertical parabolic arc: Y(p) = lerp(startY, endY, p) + sin(pi * p) * 0.36
+    // Guaranteed zero velocity hitch at peak, silky-smooth glide into the stand
+    const flightObj = { progress: 0 }
+    tl.to(
+      flightObj,
+      {
+        progress: 1,
+        duration: 0.89,
+        ease: 'power2.inOut',
+        onUpdate: () => {
+          const p = flightObj.progress
+          const verticalArc = Math.sin(Math.PI * p) * 0.36
+          this.heroBookGroup.position.y = THREE.MathUtils.lerp(startHeroY, this.tableBookPos.y, p) + verticalArc
+        },
+      },
+      0.26
     )
 
     // Camera focal tracking transitions smoothly to focus closely on desk book
@@ -2047,59 +1988,31 @@ export class JapaneseRoomService {
         x: this.deskCamTarget.x,
         y: this.deskCamTarget.y,
         z: this.deskCamTarget.z,
-        duration: 1.4,
+        duration: 0.89,
         ease: 'power2.inOut',
       },
-      0.42
+      0.26
     )
 
-    // Stage 4: Settle with tactile wooden landing and contact shadow (1.62s to 1.92s)
-    tl.to(
-      this.heroBookGroup.position,
-      {
-        y: this.tableBookPos.y + 0.012,
-        duration: 0.14,
-        ease: 'power2.out',
-      },
-      1.62
-    )
-
-    // Fire landing impact callback at exact moment of desk contact
-    tl.call(() => {
-      this.callbacks.onBookLanded?.()
-    }, [], 1.62)
-
-    tl.to(
-      this.heroBookGroup.position,
-      {
-        y: this.tableBookPos.y,
-        duration: 0.16,
-        ease: 'bounce.out',
-      },
-      1.76
-    )
-
-    // Contact shadow fades in and expands directly beneath book on desk
+    // Stage 4: Contact shadow fades in gently beneath book as it settles on the reading stand
     tl.call(() => {
       this.contactShadowRight.visible = true
-    }, [], 1.5)
+    }, [], 0.82)
 
     tl.fromTo(
       this.contactShadowRight.scale,
-      { x: 0.65, y: 0.65 },
-      { x: 1.0, y: 1.0, duration: 0.4, ease: 'power2.out' },
-      1.5
+      { x: 0.7, y: 0.7 },
+      { x: 1.0, y: 1.0, duration: 0.33, ease: 'power2.out' },
+      0.82
     )
 
     tl.to(
       this.contactShadowRight.material,
-      { opacity: 0.55, duration: 0.4, ease: 'power2.out' },
-      1.5
+      { opacity: 0.55, duration: 0.33, ease: 'power2.out' },
+      0.82
     )
   }
 
-  // Book Controller: Physical Opening Sequence
-  // Sequence: Camera approaches -> Cover lifts -> Pages reveal -> Pages settle -> Camera settles -> Book controls appear
   public openBook() {
     if (this.state !== 'on-table') return
     this.state = 'book-open'
@@ -2494,7 +2407,7 @@ export class JapaneseRoomService {
         this.callbacks.onBookClosed?.()
 
         // Restore shelf glow
-        gsap.to(this.heroBookGlowLight, { intensity: 1.1, duration: 0.5 })
+        gsap.to(this.heroBookGlowLight, { intensity: 1.1, duration: 0.4 })
       },
     })
 
@@ -2503,83 +2416,85 @@ export class JapaneseRoomService {
       this.camera.lookAt(camFocus.x, camFocus.y, camFocus.z)
     })
 
-    // 1. Fade out contact shadows
-    tl.to(this.contactShadowLeft.material, { opacity: 0, duration: 0.3, ease: 'power2.out' }, 0)
-    tl.to(this.contactShadowRight.material, { opacity: 0, duration: 0.35, ease: 'power2.out' }, 0.1)
+    // 1. Fade out contact shadows swiftly
+    tl.to(this.contactShadowLeft.material, { opacity: 0, duration: 0.22, ease: 'power2.out' }, 0)
+    tl.to(this.contactShadowRight.material, { opacity: 0, duration: 0.22, ease: 'power2.out' }, 0)
 
-    // 2. Close open page stacks smoothly: left stack collapses, right stack restores to full thickness
+    // 2. Close open page stacks smoothly
     this.pagePivot.visible = false
-    tl.to(this.leftPageBlockMesh.scale, { y: 0.0001, duration: 0.3, ease: 'power2.inOut' }, 0)
-    tl.to(this.rightPageBlockMesh.scale, { y: 1, duration: 0.35, ease: 'power2.inOut' }, 0)
-    tl.to(this.rightPageBlockMesh.position, { y: coverThickness + pageBlockThickness / 2, duration: 0.35, ease: 'power2.inOut' }, 0)
+    tl.to(this.leftPageBlockMesh.scale, { y: 0.0001, duration: 0.25, ease: 'power2.inOut' }, 0)
+    tl.to(this.rightPageBlockMesh.scale, { y: 1, duration: 0.25, ease: 'power2.inOut' }, 0)
+    tl.to(this.rightPageBlockMesh.position, { y: coverThickness + pageBlockThickness / 2, duration: 0.25, ease: 'power2.inOut' }, 0)
 
-    // Close front cover
-    tl.to(this.bookCoverPivot.position, { y: bookThickness - coverThickness / 2, duration: 0.4, ease: 'power2.inOut' }, 0.1)
-    tl.to(this.bookCoverPivot.rotation, { z: 0, duration: 0.45, ease: 'power2.inOut' }, 0.1)
+    // Close front cover & restore spine
+    tl.to(this.bookCoverPivot.position, { y: bookThickness - coverThickness / 2, duration: 0.25, ease: 'power2.inOut' }, 0.05)
+    tl.to(this.bookCoverPivot.rotation, { z: 0, duration: 0.25, ease: 'power2.inOut' }, 0.05)
+    tl.to(this.spineMesh.position, { y: bookThickness / 2, duration: 0.25, ease: 'power2.inOut' }, 0.05)
 
     // Reset book target hit box
     this.bookTargetMesh.position.set(bookWidth / 2, bookThickness / 2, 0)
     this.bookTargetMesh.scale.set(1, 1, 1)
 
-    // Restore spine cylinder to edge position for standing on shelf
-    tl.to(this.spineMesh.position, {
-      y: bookThickness / 2,
-      duration: 0.45,
-      ease: 'power2.inOut',
-    }, 0.1)
-
-    // 3. Book lifts off desk and arcs gracefully through chamber air back toward shelf
+    // 3. Fluid aerodynamic return glide to bookshelf (0.22s to 1.08s, duration = 0.86s)
     tl.call(() => {
       this.callbacks.onBookFlightStarted?.()
-    }, [], 0.35)
+    }, [], 0.22)
+
+    const targetReturnX = shelfWorldPos.x + 0.021
+    const targetReturnZ = shelfWorldPos.z + 0.38 + 0.14
+    const startFlightY = this.heroBookGroup.position.y
 
     tl.to(
       this.heroBookGroup.position,
       {
-        x: shelfWorldPos.x + 0.021,
-        y: shelfWorldPos.y + 0.52,
-        z: (this.tableBookPos.z + shelfWorldPos.z) / 2,
-        duration: 0.65,
-        ease: 'power2.out',
+        x: targetReturnX,
+        z: targetReturnZ,
+        duration: 0.86,
+        ease: 'power2.inOut',
       },
-      0.35
+      0.22
     )
 
-    tl.to(
-      this.heroBookGroup.position,
-      {
-        y: shelfWorldPos.y,
-        z: shelfWorldPos.z + 0.38 + 0.14,
-        duration: 0.65,
-        ease: 'power2.in',
-      },
-      1.0
-    )
-
-    // Rotate back to upright standing shelf orientation
     tl.to(
       this.heroBookGroup.rotation,
       {
         x: this.shelfBookRot.x,
         y: this.shelfBookRot.y,
         z: this.shelfBookRot.z,
-        duration: 1.3,
+        duration: 0.86,
         ease: 'power2.inOut',
       },
-      0.35
+      0.22
     )
 
-    // Camera returns to wide Japanese room overview and tracks focus back to shelf
+    // Parabolic vertical arc: Y(p) = lerp(startY, targetY, p) + sin(pi * p) * 0.36
+    const returnObj = { p: 0 }
+    tl.to(
+      returnObj,
+      {
+        p: 1,
+        duration: 0.86,
+        ease: 'power2.inOut',
+        onUpdate: () => {
+          const t = returnObj.p
+          const verticalArc = Math.sin(Math.PI * t) * 0.36
+          this.heroBookGroup.position.y = THREE.MathUtils.lerp(startFlightY, shelfWorldPos.y, t) + verticalArc
+        },
+      },
+      0.22
+    )
+
+    // Camera returns to wide Japanese room overview in sync
     tl.to(
       this.camera.position,
       {
         x: this.initialCamPos.x,
         y: this.initialCamPos.y,
         z: this.initialCamPos.z,
-        duration: 1.6,
+        duration: 1.0,
         ease: 'power2.inOut',
       },
-      0.2
+      0.15
     )
 
     tl.to(
@@ -2588,10 +2503,10 @@ export class JapaneseRoomService {
         x: this.initialCamTarget.x,
         y: this.initialCamTarget.y,
         z: this.initialCamTarget.z,
-        duration: 1.6,
+        duration: 1.0,
         ease: 'power2.inOut',
       },
-      0.2
+      0.15
     )
 
     // 4. At shelf position: hand off back to shelfMesh and slide into slot
@@ -2604,17 +2519,16 @@ export class JapaneseRoomService {
           shelfMesh.visible = true
           gsap.to(shelfMesh.position, {
             z: restingZ,
-            duration: 0.38,
-            ease: 'power2.inOut',
+            duration: 0.28,
+            ease: 'power2.out',
           })
         }
       },
       [],
-      1.65
+      1.08
     )
   }
 
-  // Toggle Room Light (Night Mode / Cozy Day Mode)
   public toggleRoomLight(): boolean {
     this.isLightOn = !this.isLightOn
 
@@ -2628,7 +2542,7 @@ export class JapaneseRoomService {
       const shadeMat = this.lampShadeMesh.material as THREE.MeshStandardMaterial
       gsap.to(shadeMat, { emissiveIntensity: 0.03, duration: 0.35 })
     } else {
-      gsap.to(this.lampLight, { intensity: 2.8, duration: 0.35 })
+      gsap.to(this.lampLight, { intensity: 3.2, duration: 0.35 })
       gsap.to(this.sunLight, { intensity: 1.4, duration: 0.5 })
       gsap.to(this.ambientLight, { intensity: 0.75, duration: 0.5 })
       gsap.to(this.ambientLight.color, { r: 1.0, g: 0.93, b: 0.85, duration: 0.5 })
@@ -2755,6 +2669,7 @@ export class JapaneseRoomService {
     const height = this.canvas.clientHeight
     this.camera.aspect = width / height
     this.camera.updateProjectionMatrix()
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5))
     this.renderer.setSize(width, height, false)
   }
 
@@ -2765,65 +2680,16 @@ export class JapaneseRoomService {
       this.animationFrameId = requestAnimationFrame(animate)
       const elapsedTime = clock.getElapsedTime()
 
-      // 1. Environmental atmospheric micro-animations
-      if (this.dustParticles && this.dustPositions) {
-        const geo = this.dustParticles.geometry as THREE.BufferGeometry
-        const posAttr = geo.getAttribute("position") as THREE.BufferAttribute
-        const arr = posAttr.array as Float32Array
-
-        for (let i = 0; i < arr.length; i += 3) {
-          const x = arr[i]
-          const y = arr[i + 1]
-          const z = arr[i + 2]
-          if (x !== undefined && y !== undefined && z !== undefined) {
-            // Slow Brownian float and gentle upward/downward thermal draft
-            let nextY = y + Math.sin(elapsedTime * 0.4 + i) * 0.0007 - 0.0002
-            // Wrap vertically when floating out of sunlight bounds
-            if (nextY < 0.25) nextY = 2.7
-            if (nextY > 2.75) nextY = 0.3
-
-            arr[i] = x + Math.cos(elapsedTime * 0.3 + i) * 0.0005
-            arr[i + 1] = nextY
-            arr[i + 2] = z + Math.sin(elapsedTime * 0.25 + i * 2) * 0.0004
-          }
-        }
-        posAttr.needsUpdate = true
+      // 1. Environmental atmospheric micro-animations (GPU-driven matrix transform, zero CPU iteration)
+      if (this.dustParticles) {
+        this.dustParticles.rotation.y = elapsedTime * 0.015
+        this.dustParticles.position.y = Math.sin(elapsedTime * 0.2) * 0.03
       }
 
       // Rising delicate steam from freshly whisked hot matcha tea
       if (this.teaSteamParticles) {
-        const steamGeo = this.teaSteamParticles.geometry as THREE.BufferGeometry
-        const sPosAttr = steamGeo.getAttribute("position") as THREE.BufferAttribute
-        const sArr = sPosAttr.array as Float32Array
-        for (let i = 0; i < sArr.length; i += 3) {
-          const sy = sArr[i + 1]
-          const sx = sArr[i]
-          const sz = sArr[i + 2]
-          if (sy !== undefined && sx !== undefined && sz !== undefined) {
-            let nextY = sy + 0.0009 + (i % 4) * 0.0001
-            let nextX = sx + Math.sin(elapsedTime * 2.2 + i) * 0.00025
-            let nextZ = sz + Math.cos(elapsedTime * 1.9 + i) * 0.00025
-            if (nextY > 0.26) {
-              nextY = 0.068
-              nextX = Math.sin(i * 1.5) * 0.018
-              nextZ = Math.cos(i * 2.1) * 0.018
-            }
-            sArr[i] = nextX
-            sArr[i + 1] = nextY
-            sArr[i + 2] = nextZ
-          }
-        }
-        sPosAttr.needsUpdate = true
-      }
-
-      // Subtle sunlight warmth variation (gentle atmospheric breathing)
-      if (this.sunLight && this.isLightOn) {
-        this.sunLight.intensity = 1.38 + Math.sin(elapsedTime * 0.35) * 0.05
-      }
-
-      // Gentle lantern micro-flicker
-      if (this.lampLight && this.isLightOn) {
-        this.lampLight.intensity = 2.78 + Math.sin(elapsedTime * 1.5) * 0.04
+        this.teaSteamParticles.rotation.y = elapsedTime * 0.15
+        this.teaSteamParticles.position.y = 0.005 + Math.sin(elapsedTime * 0.8) * 0.004
       }
 
       // Subtle outdoor garden leaf sway
@@ -2848,7 +2714,6 @@ export class JapaneseRoomService {
     animate()
   }
 
-  // Comprehensive Resource Disposal & Memory Cleanup
   public destroy() {
     if (this.animationFrameId) {
       cancelAnimationFrame(this.animationFrameId)

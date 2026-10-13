@@ -2,6 +2,13 @@ import * as THREE from 'three'
 import { BookCatalogService } from './BookCatalogService'
 import type { BookPageData } from '~/types/learning-journey'
 
+// High-performance global texture caches to prevent redundant 40MB canvas allocations & GPU uploads
+export const pageTextureCache = new Map<string, THREE.CanvasTexture>()
+export const insideCoverTextureCache = new Map<string, THREE.CanvasTexture>()
+export const coverTextureCache = new Map<string, THREE.CanvasTexture>()
+export const spineTextureCache = new Map<string, THREE.CanvasTexture>()
+let cachedPageEdgesTexture: THREE.CanvasTexture | null = null
+
 function wrapText(
   ctx: CanvasRenderingContext2D,
   text: string,
@@ -71,6 +78,7 @@ export function createWoodTexture(colorHex = '#3e271a', grainColorHex = '#27160c
   const texture = new THREE.CanvasTexture(canvas)
   texture.wrapS = THREE.RepeatWrapping
   texture.wrapT = THREE.RepeatWrapping
+  cachedPageEdgesTexture = texture
   return texture
 }
 
@@ -257,6 +265,9 @@ export function createGardenBackdropTexture(): THREE.CanvasTexture {
 }
 
 export function createSpineTexture(subject: string, title: string, colorHex: string): THREE.CanvasTexture {
+  const cacheKey = `${subject}_${title}_${colorHex}`
+  const cached = spineTextureCache.get(cacheKey)
+  if (cached) return cached
   const canvas = document.createElement('canvas')
   canvas.width = 128
   canvas.height = 512
@@ -312,9 +323,9 @@ export function createSpineTexture(subject: string, title: string, colorHex: str
   ctx.strokeRect(46, 64, 36, 26)
 
   const texture = new THREE.CanvasTexture(canvas)
+  spineTextureCache.set(cacheKey, texture)
   return texture
 }
-
 
 export function createTatamiTexture(): THREE.CanvasTexture {
   const canvas = document.createElement('canvas')
@@ -425,6 +436,9 @@ export function createBookCoverTexture(
   classGrade: string,
   bgHex = '#1e40af'
 ): THREE.CanvasTexture {
+  const cacheKey = `${title}_${subject}_${classGrade}_${bgHex}`
+  const cached = coverTextureCache.get(cacheKey)
+  if (cached) return cached
   const canvas = document.createElement('canvas')
   canvas.width = 512
   canvas.height = 700
@@ -624,7 +638,9 @@ export function createBookCoverTexture(
   ctx.font = 'bold 15px sans-serif'
   ctx.fillText('IRE ARCHIVE', 256, 660)
 
-  return new THREE.CanvasTexture(canvas)
+  const texture = new THREE.CanvasTexture(canvas)
+  coverTextureCache.set(cacheKey, texture)
+  return texture
 }
 
 const pageImageCache = new Map<string, HTMLImageElement>()
@@ -665,6 +681,9 @@ export function createBookPageTexture(
   subject = 'Mathematics',
   bookId?: string
 ): THREE.CanvasTexture {
+  const cacheKey = `${bookId || subject}_p${pageNumber}`
+  const cached = pageTextureCache.get(cacheKey)
+  if (cached) return cached
   // High-DPI 1200x1600 canvas for pin-sharp typography and diagram readability
   const canvas = document.createElement('canvas')
   canvas.width = 1200
@@ -996,6 +1015,7 @@ export function createBookPageTexture(
   ctx.textAlign = 'center'
   ctx.fillText(footerText, 600, 1515)
 
+  pageTextureCache.set(cacheKey, texture)
   return texture
 }
 
@@ -1003,6 +1023,9 @@ export function createBookInsideCoverTexture(
   title = 'Numbers and Counting',
   subtitle = 'Foundations of Mathematics · Class 3'
 ): THREE.CanvasTexture {
+  const cacheKey = `${title}_${subtitle}`
+  const cached = insideCoverTextureCache.get(cacheKey)
+  if (cached) return cached
   const canvas = document.createElement('canvas')
   canvas.width = 1200
   canvas.height = 1600
@@ -1149,6 +1172,7 @@ export function createBookInsideCoverTexture(
   texture.minFilter = THREE.LinearMipmapLinearFilter
   texture.magFilter = THREE.LinearFilter
   texture.anisotropy = 16
+  insideCoverTextureCache.set(cacheKey, texture)
   return texture
 }
 
@@ -1248,6 +1272,7 @@ export function createShelfPlaqueTexture(label: string, sublabel = ''): THREE.Ca
 }
 
 export function createBookPageEdgesTexture(): THREE.CanvasTexture {
+  if (cachedPageEdgesTexture) return cachedPageEdgesTexture
   const canvas = document.createElement('canvas')
   canvas.width = 256
   canvas.height = 256
