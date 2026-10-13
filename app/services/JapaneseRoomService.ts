@@ -1433,6 +1433,15 @@ export class JapaneseRoomService {
     this.bookCoverPivot.position.set(0, bookThickness - coverThickness / 2, 0)
 
     const frontCoverGeo = new THREE.BoxGeometry(bookWidth, coverThickness, bookLength)
+    // Correct UV coordinates for face 3 (-Y, inside endpaper) so that when rotated 180° around Z (hinge)
+    // when opening, the endpaper text and borders are 100% upright throughout the entire opening arc!
+    const frontCoverUvs = frontCoverGeo.getAttribute('uv') as THREE.BufferAttribute
+    frontCoverUvs.setXY(12, 1, 0)
+    frontCoverUvs.setXY(13, 0, 0)
+    frontCoverUvs.setXY(14, 1, 1)
+    frontCoverUvs.setXY(15, 0, 1)
+    frontCoverUvs.needsUpdate = true
+
     const frontCoverMaterials = [
       goldSpineMat, // +X
       goldSpineMat, // -X
@@ -1859,12 +1868,23 @@ export class JapaneseRoomService {
       this.pagePivot.rotation.z = 0
     }
 
-    // Outer front cover
+    const insideCoverTex = createBookInsideCoverTexture(
+      bookData.title,
+      `${bookData.subject} · Class ${bookData.classLevel}`
+    )
+
+    // Outer front cover (+Y) and inside endpaper (-Y)
     if (this.frontCoverMesh) {
       const mats = this.frontCoverMesh.material as THREE.MeshStandardMaterial[]
-      if (Array.isArray(mats) && mats[2]) {
-        mats[2].map = coverTex
-        mats[2].needsUpdate = true
+      if (Array.isArray(mats)) {
+        if (mats[2]) {
+          mats[2].map = coverTex
+          mats[2].needsUpdate = true
+        }
+        if (mats[3]) {
+          mats[3].map = insideCoverTex
+          mats[3].needsUpdate = true
+        }
       }
     }
 
@@ -2429,7 +2449,10 @@ export class JapaneseRoomService {
 
   // Book Controller: Return to Shelf Animation
   public returnToShelf() {
-    if (this.state === 'room-view') return
+    if (this.state === 'room-view' || this.state === 'book-flying') return
+
+    const wasOpen = this.state === 'book-open'
+    this.state = 'book-flying'
 
     const shelfMesh = this.shelfBooksMap.get(this.currentBookData.id) || this.interactiveShelfBookMesh
     const shelfWorldPos = new THREE.Vector3()
@@ -2475,85 +2498,125 @@ export class JapaneseRoomService {
       this.camera.lookAt(camFocus.x, camFocus.y, camFocus.z)
     })
 
-    // 1. Fade out contact shadows swiftly
-    tl.to(this.contactShadowLeft.material, { opacity: 0, duration: 0.22, ease: 'power2.out' }, 0)
-    tl.to(this.contactShadowRight.material, { opacity: 0, duration: 0.22, ease: 'power2.out' }, 0)
-
-    // 2. Close open page stacks smoothly
+    // Park any active flipping leaf immediately
     this.pagePivot.visible = false
-    tl.to(this.leftPageBlockMesh.scale, { y: 0.0001, duration: 0.25, ease: 'power2.inOut' }, 0)
-    tl.to(this.rightPageBlockMesh.scale, { y: 1, duration: 0.25, ease: 'power2.inOut' }, 0)
-    tl.to(this.rightPageBlockMesh.position, { y: coverThickness + pageBlockThickness / 2, duration: 0.25, ease: 'power2.inOut' }, 0)
 
-    // Close front cover & restore spine
-    tl.to(this.bookCoverPivot.position, { y: bookThickness - coverThickness / 2, duration: 0.25, ease: 'power2.inOut' }, 0.05)
-    tl.to(this.bookCoverPivot.rotation, { z: 0, duration: 0.25, ease: 'power2.inOut' }, 0.05)
-    tl.to(this.spineMesh.position, { y: bookThickness / 2, duration: 0.25, ease: 'power2.inOut' }, 0.05)
+    // STAGE 1: Smoothly fold the book COMPLETELY on the reading stand itself
+    // If the book was open, fold all pages and cover neatly over the reading stand before taking off
+    const foldDuration = wasOpen ? 0.45 : 0.0
+    const flightStartTime = foldDuration
+
+    if (wasOpen) {
+      // 1a. Fade out open left contact shadow
+      tl.to(this.contactShadowLeft.material, { opacity: 0, duration: 0.25, ease: 'power2.out' }, 0)
+
+      // 1b. Smoothly collapse left page stack and restore right page stack to full thickness
+      tl.to(this.leftPageBlockMesh.scale, { y: 0.0001, duration: 0.38, ease: 'power2.inOut' }, 0)
+      tl.to(this.rightPageBlockMesh.scale, { y: 1.0, duration: 0.38, ease: 'power2.inOut' }, 0)
+      tl.to(
+        this.rightPageBlockMesh.position,
+        { y: coverThickness + pageBlockThickness / 2, duration: 0.38, ease: 'power2.inOut' },
+        0
+      )
+
+      // 1c. Swing front cover smoothly from left (open = PI) to right (closed = 0) over the book holder
+      tl.to(this.bookCoverPivot.rotation, { z: 0, duration: 0.42, ease: 'power2.inOut' }, 0)
+      tl.to(
+        this.bookCoverPivot.position,
+        { y: bookThickness - coverThickness / 2, duration: 0.42, ease: 'power2.inOut' },
+        0
+      )
+      tl.to(this.spineMesh.position, { y: bookThickness / 2, duration: 0.42, ease: 'power2.inOut' }, 0)
+
+      // 1d. As front cover swings past 90 degrees (t = 0.22s), tuck and hide open curved pages inside
+      // so NO page protrudes or sticks outside the book!
+      tl.call(
+        () => {
+          if (this.leftCurvedPageMesh) this.leftCurvedPageMesh.visible = false
+          if (this.rightCurvedPageMesh) this.rightCurvedPageMesh.visible = false
+          if (this.gutterShadowMesh) this.gutterShadowMesh.visible = false
+          if (this.leftPageBlockMesh) this.leftPageBlockMesh.visible = false
+        },
+        [],
+        0.22
+      )
+    }
 
     // Reset book target hit box
     this.bookTargetMesh.position.set(bookWidth / 2, bookThickness / 2, 0)
     this.bookTargetMesh.scale.set(1, 1, 1)
 
-    // 3. Fluid aerodynamic return glide to bookshelf (0.22s to 1.08s, duration = 0.86s)
+    // STAGE 2: Only after fully folded and closed on the stand, take flight smoothly to the bookshelf!
     tl.call(() => {
       this.callbacks.onBookFlightStarted?.()
-    }, [], 0.22)
+    }, [], flightStartTime)
 
+    const flightDuration = 0.90
     const targetReturnX = shelfWorldPos.x + 0.021
     const targetReturnZ = shelfWorldPos.z + 0.38 + 0.14
-    const startFlightY = this.heroBookGroup.position.y
+    const startFlightY = this.tableBookPos.y
 
+    // Fade out desk contact shadow as the closed book lifts off the stand
+    tl.to(
+      this.contactShadowRight.material,
+      { opacity: 0, duration: 0.25, ease: 'power2.out' },
+      flightStartTime
+    )
+
+    // Smooth horizontal translation (desk -> shelf)
     tl.to(
       this.heroBookGroup.position,
       {
         x: targetReturnX,
         z: targetReturnZ,
-        duration: 0.86,
+        duration: flightDuration,
         ease: 'power2.inOut',
       },
-      0.22
+      flightStartTime
     )
 
+    // Aerodynamic tilt: reading stand angle (78°) -> upright shelf slot angle
     tl.to(
       this.heroBookGroup.rotation,
       {
         x: this.shelfBookRot.x,
         y: this.shelfBookRot.y,
         z: this.shelfBookRot.z,
-        duration: 0.86,
+        duration: flightDuration,
         ease: 'power2.inOut',
       },
-      0.22
+      flightStartTime
     )
 
-    // Parabolic vertical arc: Y(p) = lerp(startY, targetY, p) + sin(pi * p) * 0.36
+    // Continuous parabolic vertical lift arc: Y(p) = lerp(startY, targetY, p) + sin(pi * p) * 0.36
     const returnObj = { p: 0 }
     tl.to(
       returnObj,
       {
         p: 1,
-        duration: 0.86,
+        duration: flightDuration,
         ease: 'power2.inOut',
         onUpdate: () => {
           const t = returnObj.p
           const verticalArc = Math.sin(Math.PI * t) * 0.36
-          this.heroBookGroup.position.y = THREE.MathUtils.lerp(startFlightY, shelfWorldPos.y, t) + verticalArc
+          this.heroBookGroup.position.y =
+            THREE.MathUtils.lerp(startFlightY, shelfWorldPos.y, t) + verticalArc
         },
       },
-      0.22
+      flightStartTime
     )
 
-    // Camera returns to wide Japanese room overview in sync
+    // STAGE 3: Camera smoothly returns to chamber overview in sync with the flight
     tl.to(
       this.camera.position,
       {
         x: this.initialCamPos.x,
         y: this.initialCamPos.y,
         z: this.initialCamPos.z,
-        duration: 1.0,
+        duration: flightDuration,
         ease: 'power2.inOut',
       },
-      0.15
+      flightStartTime
     )
 
     tl.to(
@@ -2562,13 +2625,14 @@ export class JapaneseRoomService {
         x: this.initialCamTarget.x,
         y: this.initialCamTarget.y,
         z: this.initialCamTarget.z,
-        duration: 1.0,
+        duration: flightDuration,
         ease: 'power2.inOut',
       },
-      0.15
+      flightStartTime
     )
 
-    // 4. At shelf position: hand off back to shelfMesh and slide into slot
+    // STAGE 4: Hand off at shelf position and slide gently into shelf slot
+    const handoffTime = flightStartTime + flightDuration
     tl.call(
       () => {
         this.heroBookGroup.visible = false
@@ -2578,13 +2642,13 @@ export class JapaneseRoomService {
           shelfMesh.visible = true
           gsap.to(shelfMesh.position, {
             z: restingZ,
-            duration: 0.28,
+            duration: 0.27,
             ease: 'power2.out',
           })
         }
       },
       [],
-      1.08
+      handoffTime
     )
   }
 
