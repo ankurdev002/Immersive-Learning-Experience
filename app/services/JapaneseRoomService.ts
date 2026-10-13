@@ -2250,7 +2250,6 @@ export class JapaneseRoomService {
       this.currentBookData.title,
       `${this.currentBookData.subject} · Class ${this.currentBookData.classLevel}`
     )
-    // Inside cover texture remains standard upright orientation (rotation = 0)
 
     const getPageTex = (p: number) => {
       if (p <= 0) return insideCoverTex
@@ -2290,10 +2289,11 @@ export class JapaneseRoomService {
       this.pagePivot.visible = true
       this.applyPageCurl(0, true)
 
+      let hasPreloadedLeft = false
       const anim = { p: 0 }
       const tl = gsap.timeline({
         onComplete: () => {
-          // When landed on left stack: update top face of left stack
+          // When landed on left stack: ensure top face of left stack has targetVerso
           if (Array.isArray(leftBlockMats) && leftBlockMats[2]) {
             leftBlockMats[2].map = getPageTex(targetVerso)
             leftBlockMats[2].needsUpdate = true
@@ -2319,11 +2319,15 @@ export class JapaneseRoomService {
             this.gutterShadowMesh.position.y = coverThickness + maxStackH + 0.0004
           }
 
-          // Park leaf mesh
-          this.pagePivot.visible = false
-          this.applyPageCurl(0, true)
-          this.isFlipping = false
-          this.callbacks.onPageFlipped?.(targetPage)
+          // Double-buffered frame synchronization:
+          // Keep pagePivot visible for one frame while WebGL commits the new leftCurvedPageMesh texture
+          // to eliminate any 1-frame flash/flicker of the earlier left page content!
+          requestAnimationFrame(() => {
+            this.pagePivot.visible = false
+            this.applyPageCurl(0, true)
+            this.isFlipping = false
+            this.callbacks.onPageFlipped?.(targetPage)
+          })
         },
       })
 
@@ -2341,6 +2345,29 @@ export class JapaneseRoomService {
 
           this.rightPageBlockMesh.scale.y = curRightH / pageBlockThickness
           this.rightPageBlockMesh.position.y = coverThickness + curRightH / 2
+
+          // Continuous elevation for curved page meshes to eliminate any Z-fighting or clipping
+          if (this.leftCurvedPageMesh) {
+            this.leftCurvedPageMesh.position.y = coverThickness + curLeftH + 0.0003
+          }
+          if (this.rightCurvedPageMesh) {
+            this.rightCurvedPageMesh.position.y = coverThickness + curRightH + 0.0003
+          }
+
+          // Preload targetVerso onto leftCurvedPageMesh as turning page descends over the left stack (p >= 0.65)
+          // so by the time it lands, the underlying page already has the new texture ready in WebGL!
+          if (!hasPreloadedLeft && p >= 0.65) {
+            hasPreloadedLeft = true
+            if (this.leftCurvedPageMesh) {
+              const lMat = this.leftCurvedPageMesh.material as THREE.MeshStandardMaterial
+              lMat.map = getPageTex(targetVerso)
+              lMat.needsUpdate = true
+            }
+            if (Array.isArray(leftBlockMats) && leftBlockMats[2]) {
+              leftBlockMats[2].map = getPageTex(targetVerso)
+              leftBlockMats[2].needsUpdate = true
+            }
+          }
 
           // Continuous organic page turnover from 0 to 180 deg
           this.pagePivot.rotation.z = p * Math.PI
@@ -2383,6 +2410,7 @@ export class JapaneseRoomService {
       this.pagePivot.visible = true
       this.applyPageCurl(0, false)
 
+      let hasPreloadedRight = false
       const anim = { p: 0 }
       const tl = gsap.timeline({
         onComplete: () => {
@@ -2412,10 +2440,13 @@ export class JapaneseRoomService {
             this.gutterShadowMesh.position.y = coverThickness + maxStackHBwd + 0.0004
           }
 
-          this.pagePivot.visible = false
-          this.applyPageCurl(0, false)
-          this.isFlipping = false
-          this.callbacks.onPageFlipped?.(targetPage)
+          // Double-buffered frame synchronization:
+          requestAnimationFrame(() => {
+            this.pagePivot.visible = false
+            this.applyPageCurl(0, false)
+            this.isFlipping = false
+            this.callbacks.onPageFlipped?.(targetPage)
+          })
         },
       })
 
@@ -2434,7 +2465,26 @@ export class JapaneseRoomService {
           this.rightPageBlockMesh.scale.y = curRightH / pageBlockThickness
           this.rightPageBlockMesh.position.y = coverThickness + curRightH / 2
 
-          // Continuous organic page turnover backwards from 180 to 0 deg
+          if (this.leftCurvedPageMesh) {
+            this.leftCurvedPageMesh.position.y = coverThickness + curLeftH + 0.0003
+          }
+          if (this.rightCurvedPageMesh) {
+            this.rightCurvedPageMesh.position.y = coverThickness + curRightH + 0.0003
+          }
+
+          if (!hasPreloadedRight && p >= 0.65) {
+            hasPreloadedRight = true
+            if (this.rightCurvedPageMesh) {
+              const rMat = this.rightCurvedPageMesh.material as THREE.MeshStandardMaterial
+              rMat.map = getPageTex(targetPage)
+              rMat.needsUpdate = true
+            }
+            if (Array.isArray(rightBlockMats) && rightBlockMats[2]) {
+              rightBlockMats[2].map = getPageTex(targetPage)
+              rightBlockMats[2].needsUpdate = true
+            }
+          }
+
           this.pagePivot.rotation.z = (1 - p) * Math.PI
 
           const baseY = p * curRightH + (1 - p) * curLeftH
