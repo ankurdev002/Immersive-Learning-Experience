@@ -872,9 +872,13 @@ export class JapaneseRoomService {
     backPanel.position.set(0, shelfHeight / 2, -shelfDepth / 2 + 0.01)
     shelfGroup.add(backPanel)
 
-    // Horizontal Shelves (5 Tiers for Class 1 to 5)
-    const plankGeo = new THREE.BoxGeometry(shelfWidth, 0.05, shelfDepth)
-    const shelfHeights = [0.1, 0.65, 1.25, 1.85, 2.45, 3.05]
+    // Horizontal Shelves (4 Rows / Tiers for Class 1 to Class 5)
+    // Shelf outer dimensions: height = 3.10m, width = 3.40m, depth = 0.38m
+    // Bottom kickplate plank at 0.10m, top ceiling enclosure plank at 3.08m
+    // 4 book compartments at h = 0.38m (Row 1), 1.05m (Row 2), 1.72m (Row 3), 2.38m (Row 4)
+    // Headroom for top row = 3.08 - (2.38 + 0.48) = 0.22m (zero books protruding!)
+    const plankGeo = new THREE.BoxGeometry(shelfWidth, 0.045, shelfDepth)
+    const shelfHeights = [0.10, 0.38, 1.05, 1.72, 2.38, 3.08]
 
     shelfHeights.forEach((h) => {
       const plank = new THREE.Mesh(plankGeo, shelfMat)
@@ -884,19 +888,18 @@ export class JapaneseRoomService {
       shelfGroup.add(plank)
     })
 
-    // Class Section Brass Plaques (Class 1, Class 2, Class 3, Class 4, Class 5)
+    // Class Section Brass Plaques (4 Tiers)
     const classSectionDefs = [
-      { h: 0.65, label: 'CLASS 1', sub: 'Foundations & Stories' },
-      { h: 1.25, label: 'CLASS 2', sub: 'Discovery & Numbers' },
-      { h: 1.85, label: 'CLASS 3', sub: 'Mathematics & Science' }, // Interactive Tier
-      { h: 2.45, label: 'CLASS 4', sub: 'Exploration & Logic' },
-      { h: 3.05, label: 'CLASS 5', sub: 'Advanced Sciences' },
+      { h: 0.38, label: 'CLASS 1', sub: 'Foundations & Early Reading' },
+      { h: 1.05, label: 'CLASS 2', sub: 'Discovery & Natural Sciences' },
+      { h: 1.72, label: 'CLASS 3 & 4', sub: 'Mathematics & Distributed Systems' },
+      { h: 2.38, label: 'CLASS 5', sub: 'Computer Systems & Architecture' },
     ]
 
     classSectionDefs.forEach(({ h, label, sub }) => {
       // Plaque on left bay
       const leftPlaqueTex = createShelfPlaqueTexture(label, sub)
-      const plaqueGeo = new THREE.PlaneGeometry(0.68, 0.044)
+      const plaqueGeo = new THREE.PlaneGeometry(0.68, 0.040)
       const leftPlaque = new THREE.Mesh(
         plaqueGeo,
         new THREE.MeshStandardMaterial({ map: leftPlaqueTex, roughness: 0.3, metalness: 0.8 })
@@ -914,89 +917,650 @@ export class JapaneseRoomService {
       shelfGroup.add(rightPlaque)
     })
 
-    // Data-Driven Books Placement across the Tiers
+    // Data-Driven Books Placement across 4 Tiers with Authentic Library Stacking (Zero Artificial Gaps)
     const classTierHeights: Record<number, number> = {
-      1: 0.65,
-      2: 1.25,
-      3: 1.85,
-      4: 2.45,
-      5: 3.05,
+      1: 0.38,
+      2: 1.05,
+      3: 1.72,
+      4: 2.38,
     }
 
-    // Map slot numbers (1..5) to X coordinates across the shelf
-    const slotXPositions: Record<number, number> = {
-      1: -1.25,
-      2: -0.75,
-      3: -0.25,
-      4: 0.45, // Class 3 Mathematics placed prominently in right bay!
-      5: 1.15,
+    interface ShelfStackItem {
+      id: string
+      title: string
+      subject: string
+      classLevel: number
+      coverColor: string
+      coverImage?: string
+      isInteractive: boolean
+      thickness: number
+      height: number
     }
 
-    SHELF_BOOKS_CONFIG.forEach((book) => {
-      const tierH = classTierHeights[book.classLevel] || 1.85
-      const slot = book.slot || 1
-      const x = slotXPositions[slot] ?? (-1.2 + (slot - 1) * 0.5)
+    // Helper to get bookData from SHELF_BOOKS_CONFIG
+    const getBookConfig = (id: string) => SHELF_BOOKS_CONFIG.find((b) => b.id === id)
 
-      const bThickness = book.isInteractive ? 0.075 : 0.055
-      const bHeight = book.isInteractive ? 0.48 : 0.42
-      const bDepth = 0.28
-      const bColor = book.coverColor || '#0284c7'
+    // Shelf Stacks by 4 Tiers and Bays: Books sit flush side-by-side touching each other!
+    // Every single book is interactive, hoverable, and clickable to fly to the desk!
+    const shelfTierStacks: Array<{
+      tier: number
+      bay: 'left' | 'right'
+      books: ShelfStackItem[]
+    }> = [
+      // =============================================================
+      // TIER 4 (Row 4, y = 2.38m): Class 5 Computer Systems & Architecture
+      // =============================================================
+      {
+        tier: 4,
+        bay: 'right',
+        books: [
+          {
+            id: 'system-arch',
+            title: 'Systems Architecting',
+            subject: 'System Architecture',
+            classLevel: 5,
+            coverColor: '#1e3a8a',
+            coverImage: '/books/system-arch/cover.png',
+            isInteractive: true,
+            thickness: 0.068,
+            height: 0.47,
+          },
+          {
+            id: 'comp-arch',
+            title: 'Computer System Architecture',
+            subject: 'Computer Systems',
+            classLevel: 5,
+            coverColor: '#065f46',
+            coverImage: '/books/comp-arch/cover.png',
+            isInteractive: true,
+            thickness: 0.072,
+            height: 0.48,
+          },
+          {
+            id: 'mpmc',
+            title: 'Microprocessors & Microcontrollers',
+            subject: 'Microprocessors',
+            classLevel: 5,
+            coverColor: '#9a3412',
+            coverImage: '/books/mpmc/cover.png',
+            isInteractive: true,
+            thickness: 0.074,
+            height: 0.48,
+          },
+          {
+            id: 'dsa-aho',
+            title: 'Data Structures and Algorithms',
+            subject: 'Algorithms',
+            classLevel: 5,
+            coverColor: '#4338ca',
+            coverImage: '/books/dsa-aho/cover.png',
+            isInteractive: true,
+            thickness: 0.066,
+            height: 0.47,
+          },
+          {
+            id: 'compilers',
+            title: 'Compilers: Principles & Tools',
+            subject: 'Compilers',
+            classLevel: 5,
+            coverColor: '#831843',
+            isInteractive: true,
+            thickness: 0.070,
+            height: 0.47,
+          },
+          {
+            id: 'os-concepts',
+            title: 'Operating System Concepts',
+            subject: 'Computer Systems',
+            classLevel: 5,
+            coverColor: '#1e293b',
+            isInteractive: true,
+            thickness: 0.072,
+            height: 0.48,
+          },
+        ],
+      },
+      {
+        tier: 4,
+        bay: 'left',
+        books: [
+          {
+            id: 'comp-org',
+            title: 'Computer Organization & Design',
+            subject: 'Hardware',
+            classLevel: 5,
+            coverColor: '#0369a1',
+            isInteractive: true,
+            thickness: 0.070,
+            height: 0.47,
+          },
+          {
+            id: 'clrs-algo',
+            title: 'Introduction to Algorithms (CLRS)',
+            subject: 'Algorithms',
+            classLevel: 5,
+            coverColor: '#14532d',
+            isInteractive: true,
+            thickness: 0.076,
+            height: 0.48,
+          },
+          {
+            id: 'sicp',
+            title: 'Structure & Interpretation (SICP)',
+            subject: 'Computer Science',
+            classLevel: 5,
+            coverColor: '#4a044e',
+            isInteractive: true,
+            thickness: 0.064,
+            height: 0.46,
+          },
+          {
+            id: 'db-concepts',
+            title: 'Database System Concepts',
+            subject: 'Databases',
+            classLevel: 5,
+            coverColor: '#064e3b',
+            isInteractive: true,
+            thickness: 0.070,
+            height: 0.47,
+          },
+          {
+            id: 'dist-algos',
+            title: 'Distributed Algorithms',
+            subject: 'Distributed Systems',
+            classLevel: 5,
+            coverColor: '#0f766e',
+            isInteractive: true,
+            thickness: 0.066,
+            height: 0.46,
+          },
+          {
+            id: 'networks',
+            title: 'Computer Networks',
+            subject: 'Networking',
+            classLevel: 5,
+            coverColor: '#1c1917',
+            isInteractive: true,
+            thickness: 0.068,
+            height: 0.47,
+          },
+        ],
+      },
 
-      const spineTex = createSpineTexture(book.subject.toUpperCase(), book.title, bColor)
-      let shelfCoverMat: THREE.Material
-      if (book.coverImage) {
-        const cTex = this.textureLoader.load(book.coverImage)
-        cTex.colorSpace = THREE.SRGBColorSpace
-        shelfCoverMat = new THREE.MeshStandardMaterial({ map: cTex, roughness: 0.5 })
-      } else {
-        shelfCoverMat = new THREE.MeshStandardMaterial({ color: bColor, roughness: 0.6 })
-      }
+      // =============================================================
+      // TIER 3 (Row 3, y = 1.72m): Class 3 & 4 + Distributed Systems (DDIA Eye Level)
+      // =============================================================
+      {
+        tier: 3,
+        bay: 'left',
+        books: [
+          {
+            id: 'ddia',
+            title: 'Designing Data-Intensive Applications',
+            subject: 'Distributed Systems',
+            classLevel: 3,
+            coverColor: '#b91c1c',
+            coverImage: '/books/ddia/cover.png',
+            isInteractive: true,
+            thickness: 0.078,
+            height: 0.48,
+          },
+          {
+            id: 'db-internals',
+            title: 'Database Internals',
+            subject: 'Databases',
+            classLevel: 3,
+            coverColor: '#1e1b4b',
+            isInteractive: true,
+            thickness: 0.068,
+            height: 0.47,
+          },
+          {
+            id: 'sre-google',
+            title: 'Site Reliability Engineering',
+            subject: 'DevOps & Reliability',
+            classLevel: 3,
+            coverColor: '#1e3a8a',
+            isInteractive: true,
+            thickness: 0.068,
+            height: 0.47,
+          },
+          {
+            id: 'streaming-sys',
+            title: 'Streaming Systems',
+            subject: 'Real-Time Data',
+            classLevel: 3,
+            coverColor: '#0f766e',
+            isInteractive: true,
+            thickness: 0.066,
+            height: 0.46,
+          },
+          {
+            id: 'hpbn',
+            title: 'High Performance Browser Networking',
+            subject: 'Networking',
+            classLevel: 3,
+            coverColor: '#0369a1',
+            isInteractive: true,
+            thickness: 0.064,
+            height: 0.46,
+          },
+          {
+            id: 'kafka-guide',
+            title: 'Kafka: The Definitive Guide',
+            subject: 'Distributed Logs',
+            classLevel: 3,
+            coverColor: '#312e81',
+            isInteractive: true,
+            thickness: 0.066,
+            height: 0.46,
+          },
+        ],
+      },
+      {
+        tier: 3,
+        bay: 'right',
+        books: [
+          {
+            id: 'ncert-c3-math',
+            title: 'Math Magic 3',
+            subject: 'Mathematics',
+            classLevel: 3,
+            coverColor: '#0284c7',
+            coverImage: '/books/ncert-c3-math/cover.png',
+            isInteractive: true,
+            thickness: 0.064,
+            height: 0.46,
+          },
+          {
+            id: 'ncert-c3-evs',
+            title: 'Looking Around 3',
+            subject: 'Environmental Studies',
+            classLevel: 3,
+            coverColor: '#059669',
+            coverImage: '/books/ncert-c3-evs/cover.png',
+            isInteractive: true,
+            thickness: 0.064,
+            height: 0.46,
+          },
+          {
+            id: 'ncert-c4-math',
+            title: 'Math Magic 4',
+            subject: 'Mathematics',
+            classLevel: 4,
+            coverColor: '#0284c7',
+            coverImage: '/books/ncert-c4-math/cover.png',
+            isInteractive: true,
+            thickness: 0.066,
+            height: 0.47,
+          },
+          {
+            id: 'ncert-c4-evs',
+            title: 'Looking Around 4',
+            subject: 'Environmental Studies',
+            classLevel: 4,
+            coverColor: '#059669',
+            coverImage: '/books/ncert-c4-evs/cover.png',
+            isInteractive: true,
+            thickness: 0.066,
+            height: 0.47,
+          },
+          {
+            id: 'clean-arch',
+            title: 'Clean Architecture',
+            subject: 'Software Craft',
+            classLevel: 3,
+            coverColor: '#1e293b',
+            isInteractive: true,
+            thickness: 0.064,
+            height: 0.46,
+          },
+          {
+            id: 'science-exp',
+            title: 'Hands-on Science Explorations',
+            subject: 'Science',
+            classLevel: 4,
+            coverColor: '#b45309',
+            isInteractive: true,
+            thickness: 0.062,
+            height: 0.45,
+          },
+        ],
+      },
 
-      const bookMatArray = [
-        shelfCoverMat, // +X
-        shelfCoverMat, // -X
-        new THREE.MeshStandardMaterial({ color: '#f5f5f4', roughness: 0.8 }), // +Y
-        new THREE.MeshStandardMaterial({ color: '#f5f5f4', roughness: 0.8 }), // -Y
-        new THREE.MeshStandardMaterial({ map: spineTex, roughness: 0.45 }), // +Z (Spine facing camera!)
-        new THREE.MeshStandardMaterial({ color: bColor, roughness: 0.6 }), // -Z
-      ]
+      // =============================================================
+      // TIER 2 (Row 2, y = 1.05m): Class 2 Numbers & Nature Discovery
+      // =============================================================
+      {
+        tier: 2,
+        bay: 'left',
+        books: [
+          {
+            id: 'ncert-c2-math',
+            title: 'Joyful Mathematics 2',
+            subject: 'Mathematics',
+            classLevel: 2,
+            coverColor: '#0284c7',
+            coverImage: '/books/ncert-c2-math/cover.png',
+            isInteractive: true,
+            thickness: 0.062,
+            height: 0.45,
+          },
+          {
+            id: 'ncert-c2-english',
+            title: 'Mridang 2',
+            subject: 'English & Language',
+            classLevel: 2,
+            coverColor: '#7c3aed',
+            coverImage: '/books/ncert-c2-english/cover.png',
+            isInteractive: true,
+            thickness: 0.062,
+            height: 0.45,
+          },
+          {
+            id: 'plants-trees',
+            title: 'Plants & Forest Trees',
+            subject: 'Botany',
+            classLevel: 2,
+            coverColor: '#15803d',
+            isInteractive: true,
+            thickness: 0.058,
+            height: 0.44,
+          },
+          {
+            id: 'animal-kingdom',
+            title: 'Animals & Wildlife Safari',
+            subject: 'Zoology',
+            classLevel: 2,
+            coverColor: '#c2410c',
+            isInteractive: true,
+            thickness: 0.058,
+            height: 0.44,
+          },
+          {
+            id: 'weather-seasons',
+            title: 'Weather, Rain & Seasons',
+            subject: 'Earth Science',
+            classLevel: 2,
+            coverColor: '#0284c7',
+            isInteractive: true,
+            thickness: 0.056,
+            height: 0.44,
+          },
+        ],
+      },
+      {
+        tier: 2,
+        bay: 'right',
+        books: [
+          {
+            id: 'mental-math-2',
+            title: 'Mental Math & Puzzles',
+            subject: 'Mathematics',
+            classLevel: 2,
+            coverColor: '#d97706',
+            isInteractive: true,
+            thickness: 0.058,
+            height: 0.44,
+          },
+          {
+            id: 'storyland-2',
+            title: 'Tales from Storyland',
+            subject: 'Literature',
+            classLevel: 2,
+            coverColor: '#be185d',
+            isInteractive: true,
+            thickness: 0.058,
+            height: 0.44,
+          },
+          {
+            id: 'shapes-art-2',
+            title: 'Shapes, Geometry & Art',
+            subject: 'Art & Geometry',
+            classLevel: 2,
+            coverColor: '#4f46e5',
+            isInteractive: true,
+            thickness: 0.056,
+            height: 0.44,
+          },
+          {
+            id: 'water-rivers',
+            title: 'Water Cycle & Oceans',
+            subject: 'Geography',
+            classLevel: 2,
+            coverColor: '#0d9488',
+            isInteractive: true,
+            thickness: 0.056,
+            height: 0.44,
+          },
+          {
+            id: 'curious-kids',
+            title: 'Curious Questions for Kids',
+            subject: 'General Knowledge',
+            classLevel: 2,
+            coverColor: '#4338ca',
+            isInteractive: true,
+            thickness: 0.058,
+            height: 0.44,
+          },
+        ],
+      },
 
-      const bGeo = new THREE.BoxGeometry(bThickness, bHeight, bDepth)
-      const bMesh = new THREE.Mesh(bGeo, bookMatArray)
-      bMesh.position.set(x, tierH + bHeight / 2 + 0.025, 0.01)
-      bMesh.castShadow = true
+      // =============================================================
+      // TIER 1 (Row 1, y = 0.38m): Class 1 Foundations & Early Reading
+      // =============================================================
+      {
+        tier: 1,
+        bay: 'left',
+        books: [
+          {
+            id: 'ncert-c1-math',
+            title: 'Joyful Mathematics 1',
+            subject: 'Mathematics',
+            classLevel: 1,
+            coverColor: '#0284c7',
+            coverImage: '/books/ncert-c1-math/cover.png',
+            isInteractive: true,
+            thickness: 0.060,
+            height: 0.44,
+          },
+          {
+            id: 'ncert-c1-english',
+            title: 'Mridang 1',
+            subject: 'English & Language',
+            classLevel: 1,
+            coverColor: '#7c3aed',
+            coverImage: '/books/ncert-c1-english/cover.png',
+            isInteractive: true,
+            thickness: 0.060,
+            height: 0.44,
+          },
+          {
+            id: 'alphabet-book',
+            title: 'Alphabet & First Phonics',
+            subject: 'Language',
+            classLevel: 1,
+            coverColor: '#0891b2',
+            isInteractive: true,
+            thickness: 0.056,
+            height: 0.43,
+          },
+          {
+            id: 'numbers-1-50',
+            title: 'Numbers & Counting 1-50',
+            subject: 'Mathematics',
+            classLevel: 1,
+            coverColor: '#e11d48',
+            isInteractive: true,
+            thickness: 0.056,
+            height: 0.43,
+          },
+          {
+            id: 'colors-drawing',
+            title: 'Rainbow Colors & Drawing',
+            subject: 'Creative Art',
+            classLevel: 1,
+            coverColor: '#ea580c',
+            isInteractive: true,
+            thickness: 0.054,
+            height: 0.43,
+          },
+        ],
+      },
+      {
+        tier: 1,
+        bay: 'right',
+        books: [
+          {
+            id: 'nursery-melodies',
+            title: 'Nursery Rhymes & Poems',
+            subject: 'Poetry & Music',
+            classLevel: 1,
+            coverColor: '#8b5cf6',
+            isInteractive: true,
+            thickness: 0.056,
+            height: 0.43,
+          },
+          {
+            id: 'first-words',
+            title: 'My First 100 Words',
+            subject: 'Vocabulary',
+            classLevel: 1,
+            coverColor: '#16a34a',
+            isInteractive: true,
+            thickness: 0.054,
+            height: 0.43,
+          },
+          {
+            id: 'counting-friends',
+            title: 'Counting with Animal Friends',
+            subject: 'Numbers',
+            classLevel: 1,
+            coverColor: '#ca8a04',
+            isInteractive: true,
+            thickness: 0.054,
+            height: 0.43,
+          },
+          {
+            id: 'green-garden',
+            title: 'Our Green Little Garden',
+            subject: 'Nature Studies',
+            classLevel: 1,
+            coverColor: '#059669',
+            isInteractive: true,
+            thickness: 0.054,
+            height: 0.43,
+          },
+          {
+            id: 'lullabies-music',
+            title: 'Gentle Music & Songs',
+            subject: 'Music',
+            classLevel: 1,
+            coverColor: '#7c2d12',
+            isInteractive: true,
+            thickness: 0.054,
+            height: 0.43,
+          },
+        ],
+      },
+    ]
 
-      // Attach data configuration and resting coordinates
-      bMesh.userData = {
-        bookData: book,
-        restingPos: bMesh.position.clone(),
-        restingRot: bMesh.rotation.clone(),
-      }
-
-      shelfGroup.add(bMesh)
-      this.shelfInteractiveMeshes.push(bMesh)
-      this.shelfBooksMap.set(book.id, bMesh)
-
-      if (book.isInteractive) {
-        this.interactiveShelfBookMesh = bMesh
-        this.shelfBookPos.set(x, tierH + bHeight / 2 + 0.025, -2.48)
-      }
-
-      // Add small realistic placeholder books around each slot
-      if (!book.isInteractive) {
-        for (let cluster = -1; cluster <= 1; cluster += 2) {
-          const cX = x + cluster * 0.065
-          const cHeight = 0.38 + Math.random() * 0.05
-          const cThickness = 0.045
-          const cGeo = new THREE.BoxGeometry(cThickness, cHeight, bDepth * 0.95)
-          const cMat = new THREE.MeshStandardMaterial({ color: bColor, roughness: 0.7 })
-          const cMesh = new THREE.Mesh(cGeo, cMat)
-          cMesh.position.set(cX, tierH + cHeight / 2 + 0.025, 0.01)
-          shelfGroup.add(cMesh)
-        }
-      }
+    // Realistic Wooden / Brass Bookend Material
+    const bookendMat = new THREE.MeshStandardMaterial({
+      color: '#451a03',
+      roughness: 0.4,
+      metalness: 0.35,
     })
 
+    // Construct tightly packed rows of books without artificial gaps!
+    shelfTierStacks.forEach(({ tier, bay, books }) => {
+      const tierH = classTierHeights[tier] || 1.72
+      const bayCenter = bay === 'left' ? -0.85 : 0.85
+      const bDepth = 0.28
+      const bookSpacing = 0.002 // 2mm flush spacing between adjacent touching books
+
+      // Total width of all books in this row
+      const totalRowWidth =
+        books.reduce((sum, b) => sum + b.thickness, 0) + (books.length - 1) * bookSpacing
+      let curX = bayCenter - totalRowWidth / 2
+
+      // Left Bookend
+      const bookendGeo = new THREE.BoxGeometry(0.022, 0.24, bDepth * 0.88)
+      const leftBookend = new THREE.Mesh(bookendGeo, bookendMat)
+      leftBookend.position.set(curX - 0.016, tierH + 0.12 + 0.0225, 0.01)
+      leftBookend.castShadow = true
+      shelfGroup.add(leftBookend)
+
+      books.forEach((bookItem) => {
+        const bookX = curX + bookItem.thickness / 2
+        curX += bookItem.thickness + bookSpacing
+
+        const spineTex = createSpineTexture(
+          bookItem.subject.toUpperCase(),
+          bookItem.title,
+          bookItem.coverColor
+        )
+
+        let shelfCoverMat: THREE.Material
+        if (bookItem.coverImage) {
+          const cTex = this.textureLoader.load(bookItem.coverImage)
+          cTex.colorSpace = THREE.SRGBColorSpace
+          shelfCoverMat = new THREE.MeshStandardMaterial({ map: cTex, roughness: 0.5 })
+        } else {
+          shelfCoverMat = new THREE.MeshStandardMaterial({
+            color: bookItem.coverColor,
+            roughness: 0.6,
+          })
+        }
+
+        const bookMatArray = [
+          shelfCoverMat, // +X
+          shelfCoverMat, // -X
+          new THREE.MeshStandardMaterial({ color: '#f5f5f4', roughness: 0.8 }), // +Y
+          new THREE.MeshStandardMaterial({ color: '#f5f5f4', roughness: 0.8 }), // -Y
+          new THREE.MeshStandardMaterial({ map: spineTex, roughness: 0.45 }), // +Z (Spine facing camera!)
+          new THREE.MeshStandardMaterial({ color: bookItem.coverColor, roughness: 0.6 }), // -Z
+        ]
+
+        const bGeo = new THREE.BoxGeometry(bookItem.thickness, bookItem.height, bDepth)
+        const bMesh = new THREE.Mesh(bGeo, bookMatArray)
+        bMesh.position.set(bookX, tierH + bookItem.height / 2 + 0.0225, 0.01)
+        bMesh.castShadow = true
+
+        const resolvedBookData: ImmersiveBookData = (bookItem.id && getBookConfig(bookItem.id)) || {
+          id: bookItem.id,
+          classLevel: bookItem.classLevel,
+          subject: bookItem.subject,
+          title: bookItem.title,
+          coverColor: bookItem.coverColor,
+          coverImage: bookItem.coverImage,
+          isInteractive: true,
+        }
+
+        bMesh.userData = {
+          bookData: resolvedBookData,
+          restingPos: bMesh.position.clone(),
+          restingRot: bMesh.rotation.clone(),
+        }
+
+        shelfGroup.add(bMesh)
+
+        // Make ALL books interactive and register into raycaster & selection maps!
+        this.shelfInteractiveMeshes.push(bMesh)
+        this.shelfBooksMap.set(resolvedBookData.id, bMesh)
+
+        if (bookItem.id === 'ddia') {
+          this.interactiveShelfBookMesh = bMesh
+          this.shelfBookPos.set(bookX, tierH + bookItem.height / 2 + 0.0225, -2.48)
+        }
+      })
+
+      // Right Bookend
+      const rightBookend = new THREE.Mesh(bookendGeo, bookendMat)
+      rightBookend.position.set(curX + 0.014, tierH + 0.12 + 0.0225, 0.01)
+      rightBookend.castShadow = true
+      shelfGroup.add(rightBookend)
+    })
     // Trailing Ivy Plant on top shelf (Storyboard Frame 1, 2)
     this.buildShelfTopPlant(shelfGroup, shelfWidth, shelfHeight, shelfDepth)
 

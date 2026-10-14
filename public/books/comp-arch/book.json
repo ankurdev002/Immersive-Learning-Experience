@@ -1,0 +1,625 @@
+{
+  "id": "comp-arch",
+  "classGrade": 5,
+  "classLevel": 5,
+  "subject": "Computer Systems",
+  "title": "Computer System Architecture",
+  "subtitle": "Hardware Organization & Architecture (3rd Ed)",
+  "author": "M. Morris Mano",
+  "coverColor": "#065f46",
+  "accentColor": "#34d399",
+  "coverImage": "/books/comp-arch/cover.png",
+  "sourcePdf": "/books/comp-arch/computer-systems-Architecture.pdf",
+  "icon": "💻",
+  "isInteractive": true,
+  "totalPages": 524,
+  "chapters": [
+    {
+      "chapterNumber": 1,
+      "title": "Computer System Architecture",
+      "description": "Hardware Organization & Architecture (3rd Ed)",
+      "pages": [
+        {
+          "pageNumber": 1,
+          "header": "Computer System Architecture",
+          "subHeader": "M. Morris Mano · Computer Systems",
+          "title": "Chapter 1",
+          "bulletPoints": [
+            "Page 1 from Computer System Architecture.",
+            "Read through illustrations, tables, and exercises.",
+            "Turn pages using Next / Previous or click the open book."
+          ],
+          "footerText": "Page 1 of 524 · Computer System Architecture"
+        },
+        {
+          "pageNumber": 2,
+          "header": "Computer System Architecture",
+          "subHeader": "M. Morris Mano · Computer Systems",
+          "title": "Chapter 2",
+          "bulletPoints": [
+            "Page 2 from Computer System Architecture.",
+            "Read through illustrations, tables, and exercises.",
+            "Turn pages using Next / Previous or click the open book."
+          ],
+          "footerText": "Page 2 of 524 · Computer System Architecture"
+        },
+        {
+          "pageNumber": 3,
+          "header": "Computer System Architecture",
+          "subHeader": "M. Morris Mano · Computer Systems",
+          "title": "Chapter 3",
+          "bulletPoints": [
+            "Page 3 from Computer System Architecture.",
+            "Read through illustrations, tables, and exercises.",
+            "Turn pages using Next / Previous or click the open book."
+          ],
+          "footerText": "Page 3 of 524 · Computer System Architecture"
+        },
+        {
+          "pageNumber": 4,
+          "header": "Computer System Architecture",
+          "subHeader": "M. Morris Mano · Computer Systems",
+          "title": "Chapter 4",
+          "bulletPoints": [
+            "Page 4 from Computer System Architecture.",
+            "Read through illustrations, tables, and exercises.",
+            "Turn pages using Next / Previous or click the open book."
+          ],
+          "footerText": "Page 4 of 524 · Computer System Architecture"
+        },
+        {
+          "pageNumber": 5,
+          "header": "Computer System Architecture",
+          "subHeader": "M. Morris Mano · Computer Systems",
+          "title": "Chapter 5",
+          "bulletPoints": [
+            "Page 5 from Computer System Architecture.",
+            "Read through illustrations, tables, and exercises.",
+            "Turn pages using Next / Previous or click the open book."
+          ],
+          "footerText": "Page 5 of 524 · Computer System Architecture"
+        },
+        {
+          "pageNumber": 6,
+          "header": "Computer System Architecture",
+          "subHeader": "M. Morris Mano · Computer Systems",
+          "title": "Chapter 6",
+          "bulletPoints": [
+            "Page 6 from Computer System Architecture.",
+            "Read through illustrations, tables, and exercises.",
+            "Turn pages using Next / Previous or click the open book."
+          ],
+          "footerText": "Page 6 of 524 · Computer System Architecture"
+        },
+        {
+          "pageNumber": 7,
+          "header": "Computer System Architecture",
+          "subHeader": "M. Morris Mano · Computer Systems",
+          "title": "Chapter 7",
+          "bulletPoints": [
+            "Page 7 from Computer System Architecture.",
+            "Read through illustrations, tables, and exercises.",
+            "Turn pages using Next / Previous or click the open book."
+          ],
+          "footerText": "Page 7 of 524 · Computer System Architecture"
+        },
+        {
+          "pageNumber": 8,
+          "header": "Computer System Architecture",
+          "subHeader": "M. Morris Mano · Computer Systems",
+          "title": "Chapter 8",
+          "bulletPoints": [
+            "Page 8 from Computer System Architecture.",
+            "Read through illustrations, tables, and exercises.",
+            "Turn pages using Next / Previous or click the open book."
+          ],
+          "footerText": "Page 8 of 524 · Computer System Architecture"
+        },
+        {
+          "pageNumber": 9,
+          "header": "Computer System Architecture",
+          "subHeader": "M. Morris Mano · Computer Systems",
+          "title": "Chapter 9",
+          "bulletPoints": [
+            "Page 9 from Computer System Architecture.",
+            "Read through illustrations, tables, and exercises.",
+            "Turn pages using Next / Previous or click the open book."
+          ],
+          "footerText": "Page 9 of 524 · Computer System Architecture"
+        },
+        {
+          "pageNumber": 10,
+          "header": "Computer System Architecture",
+          "subHeader": "M. Morris Mano · Computer Systems",
+          "title": "Chapter 10",
+          "bulletPoints": [
+            "Page 10 from Computer System Architecture.",
+            "Read through illustrations, tables, and exercises.",
+            "Turn pages using Next / Previous or click the open book."
+          ],
+          "footerText": "Page 10 of 524 · Computer System Architecture"
+        },
+        {
+          "pageNumber": 11,
+          "header": "Computer System Architecture",
+          "subHeader": "M. Morris Mano · Computer Systems",
+          "title": "Chapter 11",
+          "bulletPoints": [
+            "Page 11 from Computer System Architecture.",
+            "Read through illustrations, tables, and exercises.",
+            "Turn pages using Next / Previous or click the open book."
+          ],
+          "footerText": "Page 11 of 524 · Computer System Architecture"
+        },
+        {
+          "pageNumber": 12,
+          "header": "Computer System Architecture",
+          "subHeader": "M. Morris Mano · Computer Systems",
+          "title": "Chapter 12",
+          "bulletPoints": [
+            "Page 12 from Computer System Architecture.",
+            "Read through illustrations, tables, and exercises.",
+            "Turn pages using Next / Previous or click the open book."
+          ],
+          "footerText": "Page 12 of 524 · Computer System Architecture"
+        },
+        {
+          "pageNumber": 13,
+          "header": "Computer System Architecture",
+          "subHeader": "M. Morris Mano · Computer Systems",
+          "title": "Chapter 13",
+          "bulletPoints": [
+            "Page 13 from Computer System Architecture.",
+            "Read through illustrations, tables, and exercises.",
+            "Turn pages using Next / Previous or click the open book."
+          ],
+          "footerText": "Page 13 of 524 · Computer System Architecture"
+        },
+        {
+          "pageNumber": 14,
+          "header": "Computer System Architecture",
+          "subHeader": "M. Morris Mano · Computer Systems",
+          "title": "Chapter 14",
+          "bulletPoints": [
+            "Page 14 from Computer System Architecture.",
+            "Read through illustrations, tables, and exercises.",
+            "Turn pages using Next / Previous or click the open book."
+          ],
+          "footerText": "Page 14 of 524 · Computer System Architecture"
+        },
+        {
+          "pageNumber": 15,
+          "header": "Computer System Architecture",
+          "subHeader": "M. Morris Mano · Computer Systems",
+          "title": "Chapter 15",
+          "bulletPoints": [
+            "Page 15 from Computer System Architecture.",
+            "Read through illustrations, tables, and exercises.",
+            "Turn pages using Next / Previous or click the open book."
+          ],
+          "footerText": "Page 15 of 524 · Computer System Architecture"
+        },
+        {
+          "pageNumber": 16,
+          "header": "Computer System Architecture",
+          "subHeader": "M. Morris Mano · Computer Systems",
+          "title": "Chapter 16",
+          "bulletPoints": [
+            "Page 16 from Computer System Architecture.",
+            "Read through illustrations, tables, and exercises.",
+            "Turn pages using Next / Previous or click the open book."
+          ],
+          "footerText": "Page 16 of 524 · Computer System Architecture"
+        },
+        {
+          "pageNumber": 17,
+          "header": "Computer System Architecture",
+          "subHeader": "M. Morris Mano · Computer Systems",
+          "title": "Chapter 17",
+          "bulletPoints": [
+            "Page 17 from Computer System Architecture.",
+            "Read through illustrations, tables, and exercises.",
+            "Turn pages using Next / Previous or click the open book."
+          ],
+          "footerText": "Page 17 of 524 · Computer System Architecture"
+        },
+        {
+          "pageNumber": 18,
+          "header": "Computer System Architecture",
+          "subHeader": "M. Morris Mano · Computer Systems",
+          "title": "Chapter 18",
+          "bulletPoints": [
+            "Page 18 from Computer System Architecture.",
+            "Read through illustrations, tables, and exercises.",
+            "Turn pages using Next / Previous or click the open book."
+          ],
+          "footerText": "Page 18 of 524 · Computer System Architecture"
+        },
+        {
+          "pageNumber": 19,
+          "header": "Computer System Architecture",
+          "subHeader": "M. Morris Mano · Computer Systems",
+          "title": "Chapter 19",
+          "bulletPoints": [
+            "Page 19 from Computer System Architecture.",
+            "Read through illustrations, tables, and exercises.",
+            "Turn pages using Next / Previous or click the open book."
+          ],
+          "footerText": "Page 19 of 524 · Computer System Architecture"
+        },
+        {
+          "pageNumber": 20,
+          "header": "Computer System Architecture",
+          "subHeader": "M. Morris Mano · Computer Systems",
+          "title": "Chapter 20",
+          "bulletPoints": [
+            "Page 20 from Computer System Architecture.",
+            "Read through illustrations, tables, and exercises.",
+            "Turn pages using Next / Previous or click the open book."
+          ],
+          "footerText": "Page 20 of 524 · Computer System Architecture"
+        },
+        {
+          "pageNumber": 21,
+          "header": "Computer System Architecture",
+          "subHeader": "M. Morris Mano · Computer Systems",
+          "title": "Chapter 21",
+          "bulletPoints": [
+            "Page 21 from Computer System Architecture.",
+            "Read through illustrations, tables, and exercises.",
+            "Turn pages using Next / Previous or click the open book."
+          ],
+          "footerText": "Page 21 of 524 · Computer System Architecture"
+        },
+        {
+          "pageNumber": 22,
+          "header": "Computer System Architecture",
+          "subHeader": "M. Morris Mano · Computer Systems",
+          "title": "Chapter 22",
+          "bulletPoints": [
+            "Page 22 from Computer System Architecture.",
+            "Read through illustrations, tables, and exercises.",
+            "Turn pages using Next / Previous or click the open book."
+          ],
+          "footerText": "Page 22 of 524 · Computer System Architecture"
+        },
+        {
+          "pageNumber": 23,
+          "header": "Computer System Architecture",
+          "subHeader": "M. Morris Mano · Computer Systems",
+          "title": "Chapter 23",
+          "bulletPoints": [
+            "Page 23 from Computer System Architecture.",
+            "Read through illustrations, tables, and exercises.",
+            "Turn pages using Next / Previous or click the open book."
+          ],
+          "footerText": "Page 23 of 524 · Computer System Architecture"
+        },
+        {
+          "pageNumber": 24,
+          "header": "Computer System Architecture",
+          "subHeader": "M. Morris Mano · Computer Systems",
+          "title": "Chapter 24",
+          "bulletPoints": [
+            "Page 24 from Computer System Architecture.",
+            "Read through illustrations, tables, and exercises.",
+            "Turn pages using Next / Previous or click the open book."
+          ],
+          "footerText": "Page 24 of 524 · Computer System Architecture"
+        },
+        {
+          "pageNumber": 25,
+          "header": "Computer System Architecture",
+          "subHeader": "M. Morris Mano · Computer Systems",
+          "title": "Chapter 25",
+          "bulletPoints": [
+            "Page 25 from Computer System Architecture.",
+            "Read through illustrations, tables, and exercises.",
+            "Turn pages using Next / Previous or click the open book."
+          ],
+          "footerText": "Page 25 of 524 · Computer System Architecture"
+        },
+        {
+          "pageNumber": 26,
+          "header": "Computer System Architecture",
+          "subHeader": "M. Morris Mano · Computer Systems",
+          "title": "Chapter 26",
+          "bulletPoints": [
+            "Page 26 from Computer System Architecture.",
+            "Read through illustrations, tables, and exercises.",
+            "Turn pages using Next / Previous or click the open book."
+          ],
+          "footerText": "Page 26 of 524 · Computer System Architecture"
+        },
+        {
+          "pageNumber": 27,
+          "header": "Computer System Architecture",
+          "subHeader": "M. Morris Mano · Computer Systems",
+          "title": "Chapter 27",
+          "bulletPoints": [
+            "Page 27 from Computer System Architecture.",
+            "Read through illustrations, tables, and exercises.",
+            "Turn pages using Next / Previous or click the open book."
+          ],
+          "footerText": "Page 27 of 524 · Computer System Architecture"
+        },
+        {
+          "pageNumber": 28,
+          "header": "Computer System Architecture",
+          "subHeader": "M. Morris Mano · Computer Systems",
+          "title": "Chapter 28",
+          "bulletPoints": [
+            "Page 28 from Computer System Architecture.",
+            "Read through illustrations, tables, and exercises.",
+            "Turn pages using Next / Previous or click the open book."
+          ],
+          "footerText": "Page 28 of 524 · Computer System Architecture"
+        },
+        {
+          "pageNumber": 29,
+          "header": "Computer System Architecture",
+          "subHeader": "M. Morris Mano · Computer Systems",
+          "title": "Chapter 29",
+          "bulletPoints": [
+            "Page 29 from Computer System Architecture.",
+            "Read through illustrations, tables, and exercises.",
+            "Turn pages using Next / Previous or click the open book."
+          ],
+          "footerText": "Page 29 of 524 · Computer System Architecture"
+        },
+        {
+          "pageNumber": 30,
+          "header": "Computer System Architecture",
+          "subHeader": "M. Morris Mano · Computer Systems",
+          "title": "Chapter 30",
+          "bulletPoints": [
+            "Page 30 from Computer System Architecture.",
+            "Read through illustrations, tables, and exercises.",
+            "Turn pages using Next / Previous or click the open book."
+          ],
+          "footerText": "Page 30 of 524 · Computer System Architecture"
+        },
+        {
+          "pageNumber": 31,
+          "header": "Computer System Architecture",
+          "subHeader": "M. Morris Mano · Computer Systems",
+          "title": "Chapter 31",
+          "bulletPoints": [
+            "Page 31 from Computer System Architecture.",
+            "Read through illustrations, tables, and exercises.",
+            "Turn pages using Next / Previous or click the open book."
+          ],
+          "footerText": "Page 31 of 524 · Computer System Architecture"
+        },
+        {
+          "pageNumber": 32,
+          "header": "Computer System Architecture",
+          "subHeader": "M. Morris Mano · Computer Systems",
+          "title": "Chapter 32",
+          "bulletPoints": [
+            "Page 32 from Computer System Architecture.",
+            "Read through illustrations, tables, and exercises.",
+            "Turn pages using Next / Previous or click the open book."
+          ],
+          "footerText": "Page 32 of 524 · Computer System Architecture"
+        },
+        {
+          "pageNumber": 33,
+          "header": "Computer System Architecture",
+          "subHeader": "M. Morris Mano · Computer Systems",
+          "title": "Chapter 33",
+          "bulletPoints": [
+            "Page 33 from Computer System Architecture.",
+            "Read through illustrations, tables, and exercises.",
+            "Turn pages using Next / Previous or click the open book."
+          ],
+          "footerText": "Page 33 of 524 · Computer System Architecture"
+        },
+        {
+          "pageNumber": 34,
+          "header": "Computer System Architecture",
+          "subHeader": "M. Morris Mano · Computer Systems",
+          "title": "Chapter 34",
+          "bulletPoints": [
+            "Page 34 from Computer System Architecture.",
+            "Read through illustrations, tables, and exercises.",
+            "Turn pages using Next / Previous or click the open book."
+          ],
+          "footerText": "Page 34 of 524 · Computer System Architecture"
+        },
+        {
+          "pageNumber": 35,
+          "header": "Computer System Architecture",
+          "subHeader": "M. Morris Mano · Computer Systems",
+          "title": "Chapter 35",
+          "bulletPoints": [
+            "Page 35 from Computer System Architecture.",
+            "Read through illustrations, tables, and exercises.",
+            "Turn pages using Next / Previous or click the open book."
+          ],
+          "footerText": "Page 35 of 524 · Computer System Architecture"
+        },
+        {
+          "pageNumber": 36,
+          "header": "Computer System Architecture",
+          "subHeader": "M. Morris Mano · Computer Systems",
+          "title": "Chapter 36",
+          "bulletPoints": [
+            "Page 36 from Computer System Architecture.",
+            "Read through illustrations, tables, and exercises.",
+            "Turn pages using Next / Previous or click the open book."
+          ],
+          "footerText": "Page 36 of 524 · Computer System Architecture"
+        },
+        {
+          "pageNumber": 37,
+          "header": "Computer System Architecture",
+          "subHeader": "M. Morris Mano · Computer Systems",
+          "title": "Chapter 37",
+          "bulletPoints": [
+            "Page 37 from Computer System Architecture.",
+            "Read through illustrations, tables, and exercises.",
+            "Turn pages using Next / Previous or click the open book."
+          ],
+          "footerText": "Page 37 of 524 · Computer System Architecture"
+        },
+        {
+          "pageNumber": 38,
+          "header": "Computer System Architecture",
+          "subHeader": "M. Morris Mano · Computer Systems",
+          "title": "Chapter 38",
+          "bulletPoints": [
+            "Page 38 from Computer System Architecture.",
+            "Read through illustrations, tables, and exercises.",
+            "Turn pages using Next / Previous or click the open book."
+          ],
+          "footerText": "Page 38 of 524 · Computer System Architecture"
+        },
+        {
+          "pageNumber": 39,
+          "header": "Computer System Architecture",
+          "subHeader": "M. Morris Mano · Computer Systems",
+          "title": "Chapter 39",
+          "bulletPoints": [
+            "Page 39 from Computer System Architecture.",
+            "Read through illustrations, tables, and exercises.",
+            "Turn pages using Next / Previous or click the open book."
+          ],
+          "footerText": "Page 39 of 524 · Computer System Architecture"
+        },
+        {
+          "pageNumber": 40,
+          "header": "Computer System Architecture",
+          "subHeader": "M. Morris Mano · Computer Systems",
+          "title": "Chapter 40",
+          "bulletPoints": [
+            "Page 40 from Computer System Architecture.",
+            "Read through illustrations, tables, and exercises.",
+            "Turn pages using Next / Previous or click the open book."
+          ],
+          "footerText": "Page 40 of 524 · Computer System Architecture"
+        },
+        {
+          "pageNumber": 41,
+          "header": "Computer System Architecture",
+          "subHeader": "M. Morris Mano · Computer Systems",
+          "title": "Chapter 41",
+          "bulletPoints": [
+            "Page 41 from Computer System Architecture.",
+            "Read through illustrations, tables, and exercises.",
+            "Turn pages using Next / Previous or click the open book."
+          ],
+          "footerText": "Page 41 of 524 · Computer System Architecture"
+        },
+        {
+          "pageNumber": 42,
+          "header": "Computer System Architecture",
+          "subHeader": "M. Morris Mano · Computer Systems",
+          "title": "Chapter 42",
+          "bulletPoints": [
+            "Page 42 from Computer System Architecture.",
+            "Read through illustrations, tables, and exercises.",
+            "Turn pages using Next / Previous or click the open book."
+          ],
+          "footerText": "Page 42 of 524 · Computer System Architecture"
+        },
+        {
+          "pageNumber": 43,
+          "header": "Computer System Architecture",
+          "subHeader": "M. Morris Mano · Computer Systems",
+          "title": "Chapter 43",
+          "bulletPoints": [
+            "Page 43 from Computer System Architecture.",
+            "Read through illustrations, tables, and exercises.",
+            "Turn pages using Next / Previous or click the open book."
+          ],
+          "footerText": "Page 43 of 524 · Computer System Architecture"
+        },
+        {
+          "pageNumber": 44,
+          "header": "Computer System Architecture",
+          "subHeader": "M. Morris Mano · Computer Systems",
+          "title": "Chapter 44",
+          "bulletPoints": [
+            "Page 44 from Computer System Architecture.",
+            "Read through illustrations, tables, and exercises.",
+            "Turn pages using Next / Previous or click the open book."
+          ],
+          "footerText": "Page 44 of 524 · Computer System Architecture"
+        },
+        {
+          "pageNumber": 45,
+          "header": "Computer System Architecture",
+          "subHeader": "M. Morris Mano · Computer Systems",
+          "title": "Chapter 45",
+          "bulletPoints": [
+            "Page 45 from Computer System Architecture.",
+            "Read through illustrations, tables, and exercises.",
+            "Turn pages using Next / Previous or click the open book."
+          ],
+          "footerText": "Page 45 of 524 · Computer System Architecture"
+        },
+        {
+          "pageNumber": 46,
+          "header": "Computer System Architecture",
+          "subHeader": "M. Morris Mano · Computer Systems",
+          "title": "Chapter 46",
+          "bulletPoints": [
+            "Page 46 from Computer System Architecture.",
+            "Read through illustrations, tables, and exercises.",
+            "Turn pages using Next / Previous or click the open book."
+          ],
+          "footerText": "Page 46 of 524 · Computer System Architecture"
+        },
+        {
+          "pageNumber": 47,
+          "header": "Computer System Architecture",
+          "subHeader": "M. Morris Mano · Computer Systems",
+          "title": "Chapter 47",
+          "bulletPoints": [
+            "Page 47 from Computer System Architecture.",
+            "Read through illustrations, tables, and exercises.",
+            "Turn pages using Next / Previous or click the open book."
+          ],
+          "footerText": "Page 47 of 524 · Computer System Architecture"
+        },
+        {
+          "pageNumber": 48,
+          "header": "Computer System Architecture",
+          "subHeader": "M. Morris Mano · Computer Systems",
+          "title": "Chapter 48",
+          "bulletPoints": [
+            "Page 48 from Computer System Architecture.",
+            "Read through illustrations, tables, and exercises.",
+            "Turn pages using Next / Previous or click the open book."
+          ],
+          "footerText": "Page 48 of 524 · Computer System Architecture"
+        },
+        {
+          "pageNumber": 49,
+          "header": "Computer System Architecture",
+          "subHeader": "M. Morris Mano · Computer Systems",
+          "title": "Chapter 49",
+          "bulletPoints": [
+            "Page 49 from Computer System Architecture.",
+            "Read through illustrations, tables, and exercises.",
+            "Turn pages using Next / Previous or click the open book."
+          ],
+          "footerText": "Page 49 of 524 · Computer System Architecture"
+        },
+        {
+          "pageNumber": 50,
+          "header": "Computer System Architecture",
+          "subHeader": "M. Morris Mano · Computer Systems",
+          "title": "Chapter 50",
+          "bulletPoints": [
+            "Page 50 from Computer System Architecture.",
+            "Read through illustrations, tables, and exercises.",
+            "Turn pages using Next / Previous or click the open book."
+          ],
+          "footerText": "Page 50 of 524 · Computer System Architecture"
+        }
+      ]
+    }
+  ]
+}

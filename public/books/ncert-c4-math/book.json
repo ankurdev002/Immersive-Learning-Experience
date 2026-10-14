@@ -1,0 +1,179 @@
+{
+  "id": "ncert-c4-math",
+  "classGrade": 4,
+  "classLevel": 4,
+  "subject": "Mathematics",
+  "title": "Math-Magic (Class 4)",
+  "subtitle": "NCERT Fractions, Building with Bricks & Division",
+  "author": "NCERT",
+  "coverColor": "#1d4ed8",
+  "accentColor": "#60a5fa",
+  "coverImage": "/books/ncert-c4-math/cover.png",
+  "sourcePdf": "/books/ncert-c4-math/ncert_class4_math_magic.pdf",
+  "icon": "🧮",
+  "isInteractive": true,
+  "totalPages": 12,
+  "chapters": [
+    {
+      "chapterNumber": 1,
+      "title": "Math-Magic (Class 4)",
+      "description": "NCERT Fractions, Building with Bricks & Division",
+      "pages": [
+        {
+          "pageNumber": 1,
+          "header": "Math-Magic (Class 4)",
+          "subHeader": "NCERT · Mathematics",
+          "title": "This building has a big floor with about two thousand beautiful",
+          "bulletPoints": [
+            "brick patterns. These were made by masons long back – about three hundred years ago.",
+            "Building with Bricks Brick Patterns for Jagriti School This is the true story",
+            "of Jagriti School in Murshidabad (West Bengal). When its building was being made, there was a plan to make brick patterns on the floor and walls. Jamaal, Kaalu and",
+            "Piyaar were the masons for the brick work. They wanted to get new ideas for the school building. So they took their other friends to see the old tomb of Murshid Kuli Khan. (See photos.)"
+          ],
+          "footerText": "Page 1 of 12 · Math-Magic (Class 4)"
+        },
+        {
+          "pageNumber": 2,
+          "header": "Math-Magic (Class 4)",
+          "subHeader": "NCERT · Mathematics",
+          "title": "2",
+          "bulletPoints": [
+            "forgotten these! Let us make some nice designs onthe floor of this school.",
+            "Each mason made a different brick pattern. The school is proud to have such a beautiful building! Children play",
+            "and sing on it and also make new patterns themselves. 3",
+            "Which floor pattern do you like the most? _____________ Have youseen such patterns anywhere?"
+          ],
+          "footerText": "Page 2 of 12 · Math-Magic (Class 4)"
+        },
+        {
+          "pageNumber": 3,
+          "header": "Math-Magic (Class 4)",
+          "subHeader": "NCERT · Mathematics",
+          "title": "2",
+          "bulletPoints": [
+            "Which pattern is made in a circle? In which pattern",
+            "can you show mirror halves? Draw a line. Now you draw some new floor patterns. 3",
+            "J K 2020-21"
+          ],
+          "footerText": "Page 3 of 12 · Math-Magic (Class 4)"
+        },
+        {
+          "pageNumber": 4,
+          "header": "Math-Magic (Class 4)",
+          "subHeader": "NCERT · Mathematics",
+          "title": "How to Draw a Brick?",
+          "bulletPoints": [
+            "These are two photos of the same brick. In one photo we can see only one face of the brick. In the other we can see three faces. Circle",
+            "the photo showing three faces. How many faces in all does a brick have? ____ Is any face a square?",
+            "Draw the smallest face of the brick. Which of these are the faces of a brick? Mark a ( ).ü Which of these is a drawing of a brick? Mark a ( ).ü",
+            "Make a drawing of this box to show 3 of its faces. Can you make a drawing of a brick which shows 4 of its faces? Photo"
+          ],
+          "footerText": "Page 4 of 12 · Math-Magic (Class 4)"
+        },
+        {
+          "pageNumber": 5,
+          "header": "Math-Magic (Class 4)",
+          "subHeader": "NCERT · Mathematics",
+          "title": "How to Draw a Brick?",
+          "bulletPoints": [
+            "/c63 /c63 4",
+            "A Wall that will not Fall One day Muniya and Zainab are playing with bricks and making",
+            "their walls. Each makes a different wall. Zainab says her wall will not fall easily. Masons too do not put bricks one on top of the other, as Muniya has done.",
+            "What do you think? Which wall will be stronger? Look for walls where you can see different brick patterns. Here are photos of three kinds of brick walls. Can you see the"
+          ],
+          "footerText": "Page 5 of 12 · Math-Magic (Class 4)"
+        },
+        {
+          "pageNumber": 6,
+          "header": "Math-Magic (Class 4)",
+          "subHeader": "NCERT · Mathematics",
+          "title": "Looking Through a Brick 'Jaali'",
+          "bulletPoints": [
+            "The masons who built Jagriti School had also made different patterns on the walls.'jaali'",
+            "How many different patterns can you see in these two photos? 'jaali'",
+            "6 7 2020-21"
+          ],
+          "footerText": "Page 6 of 12 · Math-Magic (Class 4)"
+        },
+        {
+          "pageNumber": 7,
+          "header": "Math-Magic (Class 4)",
+          "subHeader": "NCERT · Mathematics",
+          "title": "Looking Through a Brick 'Jaali'",
+          "bulletPoints": [
+            "6 This is a drawing of another beautiful .",
+            "Now colour some bricks red and make your own patterns",
+            "in the wall drawn below. 'jaali' 'jaali'",
+            "Can you see the window in this photo of the school"
+          ],
+          "footerText": "Page 7 of 12 · Math-Magic (Class 4)"
+        },
+        {
+          "pageNumber": 8,
+          "header": "Math-Magic (Class 4)",
+          "subHeader": "NCERT · Mathematics",
+          "title": "This from a library",
+          "bulletPoints": [
+            "building inKerala. See how the edge of the bricks",
+            "is used to make a in the wall. 'jaali' is",
+            "triangle Do you see the in this photo? This isfr",
+            "om a school in Faizabad. Look for other arches around you and draw them."
+          ],
+          "footerText": "Page 8 of 12 · Math-Magic (Class 4)"
+        },
+        {
+          "pageNumber": 9,
+          "header": "Math-Magic (Class 4)",
+          "subHeader": "NCERT · Mathematics",
+          "title": "8",
+          "bulletPoints": [
+            "Have you seen arches in a bridge? Where",
+            "else have you seen an arch? ___________________",
+            "A Special Arch In this photo fr om Orchha, see how the arch is made. It has a",
+            "nice name – the arch with a veil .Ghoonghat Waali Mehraab ( ) Isn't the of this window beautiful? It is made of thin bricks. Have youever"
+          ],
+          "footerText": "Page 9 of 12 · Math-Magic (Class 4)"
+        },
+        {
+          "pageNumber": 10,
+          "header": "Math-Magic (Class 4)",
+          "subHeader": "NCERT · Mathematics",
+          "title": "Jamaal and Kaalu, the masons of Jagriti School, said that their",
+          "bulletPoints": [
+            "grandfathers used many different kinds of bricks. Some of these are shown in this photo.",
+            "Which of these bricks have curved edges? How many faces do you see of",
+            "the longest brick? Is there any brick which has more than six faces?",
+            "Have you seen bricks of different sizes? Take one brick and measure it. a) How long is it? __________________"
+          ],
+          "footerText": "Page 10 of 12 · Math-Magic (Class 4)"
+        },
+        {
+          "pageNumber": 11,
+          "header": "Math-Magic (Class 4)",
+          "subHeader": "NCERT · Mathematics",
+          "title": "Find Out: The Size of a Brick",
+          "bulletPoints": [
+            "Bricks and Bricks — Hot and Fresh! 10",
+            "Ganesh and Sahiba love to look at the patter n of bricks in the long,",
+            "long lines kept out to dry. They also watch how bricks are made. How do you think a brick is made out of soil dug from the earth?",
+            "Look at the pictures and discuss in groups. Here are four pictures from the brick kiln. These pictures are jumbled up. Look at them carefully."
+          ],
+          "footerText": "Page 11 of 12 · Math-Magic (Class 4)"
+        },
+        {
+          "pageNumber": 12,
+          "header": "Math-Magic (Class 4)",
+          "subHeader": "NCERT · Mathematics",
+          "title": "Mental Math: Bhajan Buys Bricks",
+          "bulletPoints": [
+            "Bhajan wentto buy bricks. The price was given for one thousand bricks. The prices were also different for different types of bricks.",
+            "Bhajan decided to buy the new bricks from Brickabad. He bought three thousand bricks. How much did he pay? ______________ Guess what he will pay if he buys 500 old bricks.",
+            "Old bricks – Rs 1200 for one thousand bricks New bricks from Intapur – Rs 1800 for one thousand bricks New bricks from Brickabad – Rs 2000 for one thousand bricks",
+            "Have you seen a brick kiln? Did you try to guess the number of bricks kept there? Ther"
+          ],
+          "footerText": "Page 12 of 12 · Math-Magic (Class 4)"
+        }
+      ]
+    }
+  ]
+}

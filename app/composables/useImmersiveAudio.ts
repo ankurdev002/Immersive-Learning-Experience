@@ -351,11 +351,12 @@ function preloadReusableSounds() {
       volume: 0.26,
     })
 
-    const flipUrl = generatePageFlipWavUrl()
+    // Authentic Page Turn Audio (Pixabay Film Special Effects Page Turn 102978)
     pageFlipHowl = new Howl({
-      src: [flipUrl],
-      format: ['wav'],
-      volume: 0.24,
+      src: ['/sounds/pageturn-102978.mp3'],
+      format: ['mp3'],
+      volume: 0.42,
+      html5: false,
     })
 
     const hoverUrl = generateHoverChimeWavUrl()

@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue'
-import { BookCatalogService } from '~/services/BookCatalogService'
+import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
+import { BookCatalogService, SHELF_BOOKS_CONFIG } from '~/services/BookCatalogService'
 import { JapaneseRoomService, type InteractiveHoverData } from '~/services/JapaneseRoomService'
 import { useImmersiveAudio } from '~/composables/useImmersiveAudio'
+import type { ImmersiveBookData } from '~/types/learning-journey'
 
 const emit = defineEmits<{
   (e: 'exit'): void
@@ -40,7 +41,7 @@ watch(
   },
   { immediate: true }
 )
-const selectedBookId = ref('math-class-3')
+const selectedBookId = ref('ddia')
 const selectedBook = computed(() => {
   return BookCatalogService.getBookById(selectedBookId.value)
 })
@@ -63,10 +64,23 @@ const tooltipY = ref(0)
 const classTabs = [
   { id: 1, label: 'Class 1' },
   { id: 2, label: 'Class 2' },
-  { id: 3, label: 'Class 3 · Mathematics' },
+  { id: 3, label: 'Class 3 · Systems' },
   { id: 4, label: 'Class 4' },
-  { id: 5, label: 'Class 5' },
+  { id: 5, label: 'Class 5 · Architecture' },
 ]
+
+const handleSelectClass = (classLevel: number) => {
+  selectedClass.value = classLevel
+  const books = BookCatalogService.getBooksByClass(classLevel)
+  if (books.length > 0 && books[0]) {
+    const bookData =
+      BookCatalogService.getShelfBookById(books[0]!.id) ||
+      SHELF_BOOKS_CONFIG.find((b) => b.id === books[0]!.id)
+    if (bookData && roomService) {
+      roomService.selectBook(bookData)
+    }
+  }
+}
 
 const handleKeyDown = (e: KeyboardEvent) => {
   if (e.key === 'Escape') {
@@ -373,7 +387,7 @@ const handleExitRoom = () => {
           :key="c.id"
           class="shelf-pill"
           :class="{ 'is-active': selectedClass === c.id }"
-          @click="selectedClass = c.id; handleTriggerBookFlight()"
+          @click="handleSelectClass(c.id)"
         >
           {{ c.label }}
         </button>
@@ -435,8 +449,8 @@ const handleExitRoom = () => {
           <div class="action-info">
             <span class="card-icon">📚</span>
             <div>
-              <h4 class="action-heading">Class 3 · Mathematics</h4>
-              <p class="action-sub">Click book on shelf or explore below</p>
+              <h4 class="action-heading">{{ hoveredBookData ? hoveredBookData.title : (selectedBook ? selectedBook.title : 'Study Bookshelf') }}</h4>
+              <p class="action-sub">{{ hoveredBookData ? `${hoveredBookData.subject} · Class ${hoveredBookData.classLevel}` : 'Click any book on the shelf to read' }}</p>
             </div>
           </div>
           <div class="dock-btn-group">

@@ -1,0 +1,261 @@
+{
+  "id": "ncert-c1-math",
+  "classGrade": 1,
+  "classLevel": 1,
+  "subject": "Mathematics",
+  "title": "Math-Magic (Class 1)",
+  "subtitle": "NCERT Joyful Mathematics & Shapes",
+  "author": "NCERT",
+  "coverColor": "#0284c7",
+  "accentColor": "#38bdf8",
+  "coverImage": "/books/ncert-c1-math/cover.png",
+  "sourcePdf": "/books/ncert-c1-math/ncert_class1_math_magic.pdf",
+  "icon": "🔢",
+  "isInteractive": true,
+  "totalPages": 20,
+  "chapters": [
+    {
+      "chapterNumber": 1,
+      "title": "Math-Magic (Class 1)",
+      "description": "NCERT Joyful Mathematics & Shapes",
+      "pages": [
+        {
+          "pageNumber": 1,
+          "header": "Math-Magic (Class 1)",
+          "subHeader": "NCERT · Mathematics",
+          "title": "1",
+          "bulletPoints": [
+            "Inside - Outside 1 Shapes and Space The Arab        and his Camel.",
+            "It was a cold winter day. The          was travelling on the back. At night, the        pitched his tent and went it. The                 was .inside outside",
+            "May I put my neck ? It is too cold",
+            ". inside outside"
+          ],
+          "footerText": "Page 1 of 20 · Math-Magic (Class 1)"
+        },
+        {
+          "pageNumber": 2,
+          "header": "Math-Magic (Class 1)",
+          "subHeader": "NCERT · Mathematics",
+          "title": "2",
+          "bulletPoints": [
+            "May I put my front legs ?",
+            "It is too cold . inside",
+            "outside Okay! You  may put your front",
+            "legs .inside So I am coming"
+          ],
+          "footerText": "Page 2 of 20 · Math-Magic (Class 1)"
+        },
+        {
+          "pageNumber": 3,
+          "header": "Math-Magic (Class 1)",
+          "subHeader": "NCERT · Mathematics",
+          "title": "3",
+          "bulletPoints": [
+            "___________________ ___________________ Tick(   )the .bigger",
+            "Tick(   ) the .smaller Bigger - Smaller ______",
+            "Tick(   ) the tyre.smaller 2020-21"
+          ],
+          "footerText": "Page 3 of 20 · Math-Magic (Class 1)"
+        },
+        {
+          "pageNumber": 4,
+          "header": "Math-Magic (Class 1)",
+          "subHeader": "NCERT · Mathematics",
+          "title": "4",
+          "bulletPoints": [
+            "___________________ ___________________ ____________",
+            "Biggest-Smallest Tick(   ) the bubble.biggest",
+            "Tick (   ) the tree.smallest Tick (   ) the animal.biggest Tick(   ) the fruit.smallest",
+            "2020-21"
+          ],
+          "footerText": "Page 4 of 20 · Math-Magic (Class 1)"
+        },
+        {
+          "pageNumber": 5,
+          "header": "Math-Magic (Class 1)",
+          "subHeader": "NCERT · Mathematics",
+          "title": "5",
+          "bulletPoints": [
+            "Tick(   ) the pot on the .top ___________________",
+            "Tick(   ) the animal at the of the stairs.",
+            "bottom Top Top",
+            "Bottom Bottom Top-Bottom 2020-21"
+          ],
+          "footerText": "Page 5 of 20 · Math-Magic (Class 1)"
+        },
+        {
+          "pageNumber": 6,
+          "header": "Math-Magic (Class 1)",
+          "subHeader": "NCERT · Mathematics",
+          "title": "6",
+          "bulletPoints": [
+            "Nearer-Farther Tick(   ) the bir d to home.nearer",
+            "___________________ Tick(   ) the cat from the tree.farther 2020-21"
+          ],
+          "footerText": "Page 6 of 20 · Math-Magic (Class 1)"
+        },
+        {
+          "pageNumber": 7,
+          "header": "Math-Magic (Class 1)",
+          "subHeader": "NCERT · Mathematics",
+          "title": "7",
+          "bulletPoints": [
+            "Nearest-Farthest Nearest to the swing",
+            "F arthest from the swing",
+            "___________________ Tick(   ) the puppy from the tree.farthest ___________________",
+            "Tick(   ) the tree to the bird.nearest 2020-21"
+          ],
+          "footerText": "Page 7 of 20 · Math-Magic (Class 1)"
+        },
+        {
+          "pageNumber": 8,
+          "header": "Math-Magic (Class 1)",
+          "subHeader": "NCERT · Mathematics",
+          "title": "On-Under",
+          "bulletPoints": [
+            "Above-Below On the table",
+            "Under the table Below",
+            "the fan Above the table 8",
+            "Tick (   ) the children on the table and cross the children under the table. (   )"
+          ],
+          "footerText": "Page 8 of 20 · Math-Magic (Class 1)"
+        },
+        {
+          "pageNumber": 9,
+          "header": "Math-Magic (Class 1)",
+          "subHeader": "NCERT · Mathematics",
+          "title": "9",
+          "bulletPoints": [
+            "Discuss near-far, top-bottom. 2020-21"
+          ],
+          "footerText": "Page 9 of 20 · Math-Magic (Class 1)"
+        },
+        {
+          "pageNumber": 10,
+          "header": "Math-Magic (Class 1)",
+          "subHeader": "NCERT · Mathematics",
+          "title": "10",
+          "bulletPoints": [
+            "Shapes around us Put the shapes in the pink and yellow boxes by drawing a line.",
+            "Match the similar shapes by drawing a line.________ __________________ __________",
+            "2020-21"
+          ],
+          "footerText": "Page 10 of 20 · Math-Magic (Class 1)"
+        },
+        {
+          "pageNumber": 11,
+          "header": "Math-Magic (Class 1)",
+          "subHeader": "NCERT · Mathematics",
+          "title": "11",
+          "bulletPoints": [
+            "Sorting Make pairs of similar shapes. Sort shapes by joining with similar shapes.",
+            "________ __________________ __________",
+            "2020-21"
+          ],
+          "footerText": "Page 11 of 20 · Math-Magic (Class 1)"
+        },
+        {
+          "pageNumber": 12,
+          "header": "Math-Magic (Class 1)",
+          "subHeader": "NCERT · Mathematics",
+          "title": "12",
+          "bulletPoints": [
+            "Rolling - Sliding Tick(   ) the objects that will .roll Tick(   ) the objects that will .slide",
+            "___________________ ___________________ Butter",
+            "2020-21"
+          ],
+          "footerText": "Page 12 of 20 · Math-Magic (Class 1)"
+        },
+        {
+          "pageNumber": 13,
+          "header": "Math-Magic (Class 1)",
+          "subHeader": "NCERT · Mathematics",
+          "title": "13",
+          "bulletPoints": [
+            "___________________ Wise Grandmother Once there was a Lamb",
+            "going to see his grandmother .",
+            "On the way, through the jungle he met a wolf. I am going",
+            "to eat you. Please let me go! I am going to meet my grandmother."
+          ],
+          "footerText": "Page 13 of 20 · Math-Magic (Class 1)"
+        },
+        {
+          "pageNumber": 14,
+          "header": "Math-Magic (Class 1)",
+          "subHeader": "NCERT · Mathematics",
+          "title": "14",
+          "bulletPoints": [
+            "______ __ _ ___________________ The grandmother rolled the",
+            "dholak on the road. The dholak started r olling down.",
+            "The lamb saw the wolf waiting for him. Did you see",
+            "a lamb coming this way? No!"
+          ],
+          "footerText": "Page 14 of 20 · Math-Magic (Class 1)"
+        },
+        {
+          "pageNumber": 15,
+          "header": "Math-Magic (Class 1)",
+          "subHeader": "NCERT · Mathematics",
+          "title": "15",
+          "bulletPoints": [
+            "Match the shapes of same sizes. _______________________ Shapes",
+            "2020-21"
+          ],
+          "footerText": "Page 15 of 20 · Math-Magic (Class 1)"
+        },
+        {
+          "pageNumber": 16,
+          "header": "Math-Magic (Class 1)",
+          "subHeader": "NCERT · Mathematics",
+          "title": "16",
+          "bulletPoints": [
+            "Match the same shapes. _________________________ 2020-21"
+          ],
+          "footerText": "Page 16 of 20 · Math-Magic (Class 1)"
+        },
+        {
+          "pageNumber": 17,
+          "header": "Math-Magic (Class 1)",
+          "subHeader": "NCERT · Mathematics",
+          "title": "17___________________",
+          "bulletPoints": [
+            "___________________ Colour the smallest shape. ___________________",
+            "2020-21"
+          ],
+          "footerText": "Page 17 of 20 · Math-Magic (Class 1)"
+        },
+        {
+          "pageNumber": 18,
+          "header": "Math-Magic (Class 1)",
+          "subHeader": "NCERT · Mathematics",
+          "title": "18",
+          "bulletPoints": [
+            "Join the similar shapes. 2020-21"
+          ],
+          "footerText": "Page 18 of 20 · Math-Magic (Class 1)"
+        },
+        {
+          "pageNumber": 19,
+          "header": "Math-Magic (Class 1)",
+          "subHeader": "NCERT · Mathematics",
+          "title": "19",
+          "bulletPoints": [
+            "___________________ Colour       green,     red and        blue. Colour       green,     pink and        yellow.",
+            "2020-21"
+          ],
+          "footerText": "Page 19 of 20 · Math-Magic (Class 1)"
+        },
+        {
+          "pageNumber": 20,
+          "header": "Math-Magic (Class 1)",
+          "subHeader": "NCERT · Mathematics",
+          "title": "20",
+          "bulletPoints": [
+            "Make similar figures using the shape kit given at the back of this book. 2020-21"
+          ],
+          "footerText": "Page 20 of 20 · Math-Magic (Class 1)"
+        }
+      ]
+    }
+  ]
+}

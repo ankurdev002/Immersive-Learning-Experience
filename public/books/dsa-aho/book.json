@@ -1,0 +1,672 @@
+{
+  "id": "dsa-aho",
+  "classGrade": 5,
+  "classLevel": 5,
+  "subject": "Algorithms",
+  "title": "Data Structures and Algorithms",
+  "subtitle": "Design, Analysis & Complexity",
+  "author": "Alfred V. Aho, John E. Hopcroft, Jeffrey D. Ullman",
+  "coverColor": "#4338ca",
+  "accentColor": "#818cf8",
+  "coverImage": "/books/dsa-aho/cover.png",
+  "sourcePdf": "/books/dsa-aho/dsa_aho_hopcroft_ullman.pdf",
+  "icon": "🌲",
+  "isInteractive": true,
+  "totalPages": 620,
+  "chapters": [
+    {
+      "chapterNumber": 1,
+      "title": "Data Structures and Algorithms",
+      "description": "Design, Analysis & Complexity",
+      "pages": [
+        {
+          "pageNumber": 1,
+          "header": "Data Structures and Algorithms",
+          "subHeader": "Alfred V. Aho, John E. Hopcroft, Jeffrey D. Ullman · Algorithms",
+          "title": "Data Structures and Algorithms: Table of Contents",
+          "bulletPoints": [
+            "Data Structures and Algorithms Alfred V. Aho, Bell Laboratories, Murray Hill, New Jersey",
+            "John E. Hopcroft, Cornell University, Ithaca, New York Jeffrey D. Ullman, Stanford University, Stanford, California",
+            "PREFACE Chapter 1 Design and Analysis of Algorithms Chapter 2 Basic Data Types",
+            "Chapter 3 Trees Chapter 4 Basic Operations on Sets Chapter 5 Advanced Set Representation Methods"
+          ],
+          "footerText": "Page 1 of 620 · Data Structures and Algorithms"
+        },
+        {
+          "pageNumber": 2,
+          "header": "Data Structures and Algorithms",
+          "subHeader": "Alfred V. Aho, John E. Hopcroft, Jeffrey D. Ullman · Algorithms",
+          "title": "Preface",
+          "bulletPoints": [
+            "Preface This book presents the data structures and algorithms that underpin much of today's computer programming. The basis of this book is the material contained in the first",
+            "six chapters of our earlier work, The Design and Analysis of Computer Algorithms. We have expanded that coverage and have added material on algorithms for external storage and memory management. As a consequence, this book should be suitable as",
+            "a text for a first course on data structures and algorithms. The only prerequisite we assume is familiarity with some high-level programming language such as Pascal. We have attempted to cover data structures and algorithms in the broader context",
+            "of solving problems using computers. We use abstract data types informally in the description and implementation of algorithms. Although abstract data types are only starting to appear in widely available programming languages, we feel they are a"
+          ],
+          "footerText": "Page 2 of 620 · Data Structures and Algorithms"
+        },
+        {
+          "pageNumber": 3,
+          "header": "Data Structures and Algorithms",
+          "subHeader": "Alfred V. Aho, John E. Hopcroft, Jeffrey D. Ullman · Algorithms",
+          "title": "Preface",
+          "bulletPoints": [
+            "function. The third chapter introduces trees and the basic data structures that can be used to support various operations on trees efficiently. Chapters 4 and 5 introduce a number of important abstract data types that are",
+            "based on the mathematical model of a set. Dictionaries and priority queues are covered in depth. Standard implementations for these concepts, including hash tables, binary search trees, partially ordered trees, tries, and 2-3 trees are covered,",
+            "with the more advanced material clustered in Chapter 5. Chapters 6 and 7 cover graphs, with directed graphs in Chapter 6 and undirected graphs in 7. These chapters begin a section of the book devoted more to issues of",
+            "algorithms than data structures, although we do discuss the basics of data structures suitable for representing graphs. A number of important graph algorithms are presented, including depth-first search, finding minimal spanning trees, shortest"
+          ],
+          "footerText": "Page 3 of 620 · Data Structures and Algorithms"
+        },
+        {
+          "pageNumber": 4,
+          "header": "Data Structures and Algorithms",
+          "subHeader": "Alfred V. Aho, John E. Hopcroft, Jeffrey D. Ullman · Algorithms",
+          "title": "Preface",
+          "bulletPoints": [
+            "4, 9, 10, and 12, with parts of 5-7. Exercises A number of exercises of varying degrees of difficulty are found at the end of each",
+            "chapter. Many of these are fairly straightforward tests of the mastery of the material of the chapter. Some exercises require more thought, and these have been singly starred. Doubly starred exercises are harder still, and are suitable for more advanced",
+            "courses. The bibliographic notes at the end of each chapter provide references for additional reading. Acknowledgments",
+            "We wish to acknowledge Bell Laboratories for the use of its excellent UNIX™- based text preparation and data communication facilities that significantly eased the preparation of a manuscript by geographically separated authors. Many of our"
+          ],
+          "footerText": "Page 4 of 620 · Data Structures and Algorithms"
+        },
+        {
+          "pageNumber": 5,
+          "header": "Data Structures and Algorithms",
+          "subHeader": "Alfred V. Aho, John E. Hopcroft, Jeffrey D. Ullman · Algorithms",
+          "title": "Data Structures and Algorithms: CHAPTER 1: Design and Analysis of Algorithms",
+          "bulletPoints": [
+            "Design and Analysis of Algorithms There are many steps involved in writing a computer program to solve a given problem. The steps go from problem formulation and specification, to design of the solution, to",
+            "implementation, testing and documentation, and finally to evaluation of the solution. This chapter outlines our approach to these steps. Subsequent chapters discuss the algorithms and data structures that are the building blocks of most computer programs.",
+            "1.1 From Problems to Programs Half the battle is knowing what problem to solve. When initially approached, most problems have no simple, precise specification. In fact, certain problems, such as creating a",
+            "\"gourmet\" recipe or preserving world peace, may be impossible to formulate in terms that admit of a computer solution. Even if we suspect our problem can be solved on a computer, there is usually considerable latitude in several problem parameters. Often it is only by"
+          ],
+          "footerText": "Page 5 of 620 · Data Structures and Algorithms"
+        },
+        {
+          "pageNumber": 6,
+          "header": "Data Structures and Algorithms",
+          "subHeader": "Alfred V. Aho, John E. Hopcroft, Jeffrey D. Ullman · Algorithms",
+          "title": "Data Structures and Algorithms: CHAPTER 1: Design and Analysis of Algorithms",
+          "bulletPoints": [
+            "in a finite amount of effort. In an algorithm instructions can be executed any number of times, provided the instructions themselves indicate the repetition. However, we require that, no matter what the input values may be, an algorithm terminate after executing a finite",
+            "number of instructions. Thus, a program is an algorithm as long as it never enters an infinite loop on any input. There is one aspect of this definition of an algorithm that needs some clarification. We",
+            "said each instruction of an algorithm must have a \"clear meaning\" and must be executable with a \"finite amount of effort.\" Now what is clear to one person may not be clear to another, and it is often difficult to prove rigorously that an instruction can be carried out in",
+            "a finite amount of time. It is often difficult as well to prove that on any input, a sequence of instructions terminates, even if we understand clearly what each instruction means. By argument and counterargument, however, agreement can usually be reached as to whether a"
+          ],
+          "footerText": "Page 6 of 620 · Data Structures and Algorithms"
+        },
+        {
+          "pageNumber": 7,
+          "header": "Data Structures and Algorithms",
+          "subHeader": "Alfred V. Aho, John E. Hopcroft, Jeffrey D. Ullman · Algorithms",
+          "title": "Data Structures and Algorithms: CHAPTER 1: Design and Analysis of Algorithms",
+          "bulletPoints": [
+            "Fig. 1.1. An intersection. We can model this problem with a mathematical structure known as a graph. A graph consists of a set of points called vertices, and lines connecting the points, called edges. For",
+            "the traffic intersection problem we can draw a graph whose vertices represent turns and whose edges connect pairs of vertices whose turns cannot be performed simultaneously. For the intersection of Fig. 1.1, this graph is shown in Fig. 1.2, and in Fig. 1.3 we see",
+            "another representation of this graph as a table with a 1 in row i and column j whenever there is an edge between vertices i and j. The graph can aid us in solving the traffic light design problem. A coloring of a graph is",
+            "an assignment of a color to each vertex of the graph so that no two vertices connected by an edge have the same color. It is not hard to see that our problem is one of coloring the graph of incompatible turns using as few colors as possible."
+          ],
+          "footerText": "Page 7 of 620 · Data Structures and Algorithms"
+        },
+        {
+          "pageNumber": 8,
+          "header": "Data Structures and Algorithms",
+          "subHeader": "Alfred V. Aho, John E. Hopcroft, Jeffrey D. Ullman · Algorithms",
+          "title": "Data Structures and Algorithms: CHAPTER 1: Design and Analysis of Algorithms",
+          "bulletPoints": [
+            "Fig. 1.3. Table of incompatible turns. one of three approaches. If the graph is small, we might attempt to find an optimal solution exhaustively, trying all possibilities. This approach, however, becomes prohibitively",
+            "expensive for large graphs, no matter how efficient we try to make the program. A second approach would be to look for additional information about the problem at hand. It may turn out that the graph has some special properties, which make it unnecessary to try all",
+            "possibilities in finding an optimal solution. The third approach is to change the problem a little and look for a good but not necessarily optimal solution. We might be happy with a solution that gets close to the minimum number of colors on small graphs, and works",
+            "quickly, since most intersections are not even as complex as Fig. 1.1. An algorithm that quickly produces good but not necessarily optimal solutions is called a heuristic. One reasonable heuristic for graph coloring is the following \"greedy\" algorithm. Initially"
+          ],
+          "footerText": "Page 8 of 620 · Data Structures and Algorithms"
+        },
+        {
+          "pageNumber": 9,
+          "header": "Data Structures and Algorithms",
+          "subHeader": "Alfred V. Aho, John E. Hopcroft, Jeffrey D. Ullman · Algorithms",
+          "title": "Data Structures and Algorithms: CHAPTER 1: Design and Analysis of Algorithms",
+          "bulletPoints": [
+            "Similarly, we cannot color BD, DA, or DB blue because each of these vertices is connected by an edge to one or more vertices already colored blue. However, we can color DC blue. Then EA, EB, and EC cannot be colored blue, but ED can.",
+            "Now we start a second color, say by coloring BC red. BD can be colored red, but DA cannot, because of the edge between BD and DA. Similarly, DB cannot be colored red, and DC is already blue, but EA can be colored red. Each other uncolored vertex has an edge to a",
+            "red vertex, so no other vertex can be colored red. The remaining uncolored vertices are DA, DB, EB, and EC. If we color DA green, then DB can be colored green, but EB and EC cannot. These two may be colored with a fourth",
+            "color, say yellow. The colors are summarized in Fig. 1.5. The \"extra\" turns are determined by the greedy approach to be compatible with the turns already given that color, as well as with each other. When the traffic light allows turns of one color, it can also allow the extra"
+          ],
+          "footerText": "Page 9 of 620 · Data Structures and Algorithms"
+        },
+        {
+          "pageNumber": 10,
+          "header": "Data Structures and Algorithms",
+          "subHeader": "Alfred V. Aho, John E. Hopcroft, Jeffrey D. Ullman · Algorithms",
+          "title": "Data Structures and Algorithms: CHAPTER 1: Design and Analysis of Algorithms",
+          "bulletPoints": [
+            "the reader grasps our intent. To convert such an informal algorithm to a program, however, we must go through several stages of formalization (called stepwise refinement) until we arrive at a program the meaning of whose steps are formally defined by a language manual.",
+            "Example 1.2. Let us take the greedy algorithm for graph coloring part of the way towards a Pascal program. In what follows, we assume there is a graph G, some of whose vertices may be colored. The following program greedy determines a set of vertices called newclr,",
+            "all of which can be colored with a new color. The program is called repeatedly, until all vertices are colored. At a coarse level, we might specify greedy in pseudo-language as in Fig. 1.6.",
+            "procedure greedy ( var G: GRAPH; var newclr: SET ); { greedy assigns to newclr a set of vertices of G that may be given the same color }"
+          ],
+          "footerText": "Page 10 of 620 · Data Structures and Algorithms"
+        },
+        {
+          "pageNumber": 11,
+          "header": "Data Structures and Algorithms",
+          "subHeader": "Alfred V. Aho, John E. Hopcroft, Jeffrey D. Ullman · Algorithms",
+          "title": "Data Structures and Algorithms: CHAPTER 1: Design and Analysis of Algorithms",
+          "bulletPoints": [
+            "w of newclr and examine the graph G to see whether there is an edge between v and w. An organized way to make this test is to use found, a boolean variable to indicate whether an edge has been found. We can replace lines (3)-(5) of Fig. 1.6 by the code in Fig. 1.7.",
+            "procedure greedy ( var G: GRAPH; var newclr: SET ); begin (1)             newclr : = Ø;",
+            "(2)             for each uncolored vertex v of G do begin (3.1)                found := false; (3.2)                for each vertex w in newclr do",
+            "(3.3)                    if there is an edge between v and w in G then (3.4)                         found := true; (3.5)                if found = false then begin"
+          ],
+          "footerText": "Page 11 of 620 · Data Structures and Algorithms"
+        },
+        {
+          "pageNumber": 12,
+          "header": "Data Structures and Algorithms",
+          "subHeader": "Alfred V. Aho, John E. Hopcroft, Jeffrey D. Ullman · Algorithms",
+          "title": "Data Structures and Algorithms: CHAPTER 1: Design and Analysis of Algorithms",
+          "bulletPoints": [
+            "var found: boolean; v, w: integer;",
+            "begin newclr := Ø; v := first uncolored vertex in G;",
+            "while v < > null do begin found := false; w := first vertex in newclr;",
+            "while w < > null do begin if there is an edge between v and w in G then found := true;"
+          ],
+          "footerText": "Page 12 of 620 · Data Structures and Algorithms"
+        },
+        {
+          "pageNumber": 13,
+          "header": "Data Structures and Algorithms",
+          "subHeader": "Alfred V. Aho, John E. Hopcroft, Jeffrey D. Ullman · Algorithms",
+          "title": "Data Structures and Algorithms: CHAPTER 1: Design and Analysis of Algorithms",
+          "bulletPoints": [
+            "uses of each operation by an invocation of the corresponding procedure. In the third stage we choose an implementation for each abstract data type and write the procedures for the various operations on that type. We also replace any remaining informal",
+            "statements in the pseudo-language algorithm by Pascal code. The result is a running program. After debugging it will be a working program, and we hope that by using the stepwise development approach outlined in Fig. 1.9, little debugging will be necessary.",
+            "1.2 Abstract Data Types Most of the concepts introduced in the previous section should be familiar ideas from a beginning course in programming. The one possibly new notion is that of an abstract data",
+            "type, and before proceeding it would be useful to discuss the role of abstract data types in the overall program design process. To begin, it is useful to compare an abstract data type with the more familiar notion of a procedure."
+          ],
+          "footerText": "Page 13 of 620 · Data Structures and Algorithms"
+        },
+        {
+          "pageNumber": 14,
+          "header": "Data Structures and Algorithms",
+          "subHeader": "Alfred V. Aho, John E. Hopcroft, Jeffrey D. Ullman · Algorithms",
+          "title": "Data Structures and Algorithms: CHAPTER 1: Design and Analysis of Algorithms",
+          "bulletPoints": [
+            ", and so on). The ADT encapsulates a data type in the sense that the definition of the type and all operations on that type can be localized to one section of the program. If we wish to change the implementation of an ADT, we know where to look, and by revising one small",
+            "section we can be sure that there is no subtlety elsewhere in the program that will cause errors concerning this data type. Moreover, outside the section in which the ADT's operations are defined, we can treat the ADT as a primitive type; we have no concern with",
+            "the underlying implementation. One pitfall is that certain operations may involve more than one ADT, and references to these operations must appear in the sections for both ADT's. To illustrate the basic ideas, consider the procedure greedy of the previous section",
+            "which, in Fig. 1.8, was implemented using primitive operations on an abstract data type LIST (of integers). The operations performed on the LIST newclr were: 1.  make a list empty,"
+          ],
+          "footerText": "Page 14 of 620 · Data Structures and Algorithms"
+        },
+        {
+          "pageNumber": 15,
+          "header": "Data Structures and Algorithms",
+          "subHeader": "Alfred V. Aho, John E. Hopcroft, Jeffrey D. Ullman · Algorithms",
+          "title": "Data Structures and Algorithms: CHAPTER 1: Design and Analysis of Algorithms",
+          "bulletPoints": [
+            "There are clearly other operations needed outside the procedure greedy, such as inserting vertices and edges into the graph and making all vertices uncolored. There are many data structures that can be used to support graphs with these operations, and we shall study the",
+            "subject of graphs in Chapters 6 and 7. It should be emphasized that there is no limit to the number of operations that can be applied to instances of a given mathematical model. Each set of operations defines a",
+            "distinct ADT. Some examples of operations that might be defined on an abstract data type SET are: 1.  MAKENULL(A). This procedure makes the null set be the value for set A.",
+            "2.  UNION(A, B, C). This procedure takes two set-valued arguments A and B, and assigns the union of A and B to be the value of set C. 3.  SIZE(A). This function takes a set-valued argument A and returns an object of type"
+          ],
+          "footerText": "Page 15 of 620 · Data Structures and Algorithms"
+        },
+        {
+          "pageNumber": 16,
+          "header": "Data Structures and Algorithms",
+          "subHeader": "Alfred V. Aho, John E. Hopcroft, Jeffrey D. Ullman · Algorithms",
+          "title": "Data Structures and Algorithms: CHAPTER 1: Design and Analysis of Algorithms",
+          "bulletPoints": [
+            "sound alike, they have different meanings. In a programming language, the data type of a variable is the set of values that the variable may assume. For example, a variable of type boolean can assume either the value true or the value false, but no other value. The basic",
+            "data types vary from language to language; in Pascal they are integer, real, boolean, and character. The rules for constructing composite data types out of basic ones also vary from language to language; we shall mention how Pascal builds such types momentarily.",
+            "An abstract data type is a mathematical model, together with various operations defined on the model. As we have indicated, we shall design algorithms in terms of ADT's, but to implement an algorithm in a given programming language we must find some way of",
+            "representing the ADT's in terms of the data types and operators supported by the programming language itself. To represent the mathematical model underlying an ADT we use data structures, which are collections of variables, possibly of several different data"
+          ],
+          "footerText": "Page 16 of 620 · Data Structures and Algorithms"
+        },
+        {
+          "pageNumber": 17,
+          "header": "Data Structures and Algorithms",
+          "subHeader": "Alfred V. Aho, John E. Hopcroft, Jeffrey D. Ullman · Algorithms",
+          "title": "Data Structures and Algorithms: CHAPTER 1: Design and Analysis of Algorithms",
+          "bulletPoints": [
+            "var reclist: array[l..4] of record data: real;",
+            "next: integer end declares reclist to be a four-element array, whose cells are records with two fields, data and",
+            "next. A third grouping method found in Pascal and some other languages is the file. The file, like the one-dimensional array, is a sequence of values of some particular type. However, a",
+            "file has no index type; elements can be accessed only in the order of their appearance in the file. In contrast, both the array and the record are \"random-access\" structures, meaning that the time needed to access a component of an array or record is independent of the value of"
+          ],
+          "footerText": "Page 17 of 620 · Data Structures and Algorithms"
+        },
+        {
+          "pageNumber": 18,
+          "header": "Data Structures and Algorithms",
+          "subHeader": "Alfred V. Aho, John E. Hopcroft, Jeffrey D. Ullman · Algorithms",
+          "title": "Data Structures and Algorithms: CHAPTER 1: Design and Analysis of Algorithms",
+          "bulletPoints": [
+            "\"pointed to\" by cursors, never by true pointers. Other languages, like PL/I or C, allow components of arrays to be pointed to by either cursors or true pointers, while in Fortran or Algol, there being no pointer type, only cursors can be used.",
+            "Example 1.3. In Fig. 1.10 we see a two-part data structure that consists of a chain of cells containing cursors to the array reclist defined above. The purpose of the field next in reclist is to point to another record in the array. For example, reclist[4].next is 1, so record 4 is",
+            "followed by record 1. Assuming record 4 is first, the next field of reclist orders the records 4, 1, 3, 2. Note that the next field is 0 in record 2, indicating that there is no following record. It is a useful convention, one we shall adopt in this book, to use 0 as a \"NIL",
+            "pointer,\" when cursors are being used. This idea is sound only if we also make the convention that arrays to which cursors \"point\" must be indexed starting at 1, never at 0. Fig. 1.10. Example of a data structure."
+          ],
+          "footerText": "Page 18 of 620 · Data Structures and Algorithms"
+        },
+        {
+          "pageNumber": 19,
+          "header": "Data Structures and Algorithms",
+          "subHeader": "Alfred V. Aho, John E. Hopcroft, Jeffrey D. Ullman · Algorithms",
+          "title": "Data Structures and Algorithms: CHAPTER 1: Design and Analysis of Algorithms",
+          "bulletPoints": [
+            "When we are writing a program to be used once or a few times, goal (1) is most important. The cost of the programmer's time will most likely exceed by far the cost of running the program, so the cost to optimize is the cost of writing the program. When",
+            "presented with a problem whose solution is to be used many times, the cost of running the program may far exceed the cost of writing it, especially, if many of the program runs are given large amounts of input. Then it is financially sound to implement a fairly complicated",
+            "algorithm, provided that the resulting program will run significantly faster than a more obvious program. Even in these situations it may be wise first to implement a simple algorithm, to determine the actual benefit to be had by writing a more complicated",
+            "program. In building a complex system it is often desirable to implement a simple prototype on which measurements and simulations can be performed, before committing oneself to the final design. It follows that programmers must not only be aware of ways of"
+          ],
+          "footerText": "Page 19 of 620 · Data Structures and Algorithms"
+        },
+        {
+          "pageNumber": 20,
+          "header": "Data Structures and Algorithms",
+          "subHeader": "Alfred V. Aho, John E. Hopcroft, Jeffrey D. Ullman · Algorithms",
+          "title": "Data Structures and Algorithms: CHAPTER 1: Design and Analysis of Algorithms",
+          "bulletPoints": [
+            "just of the input size. In that case we define T(n) to be the worst case running time, that is, the maximum, over all inputs of size n, of the running time on that input. We also consider Tavg(n), the average, over all inputs of size n, of the running time on that input. While",
+            "Tavg(n) appears a fairer measure, it is often fallacious to assume that all inputs are equally likely. In practice, the average running time is often much harder to determine than the worst-case running time, both because the analysis becomes mathematically intractable and",
+            "because the notion of \"average\" input frequently has no obvious meaning. Thus, we shall use worst-case running time as the principal measure of time complexity, although we shall mention average-case complexity wherever we can do so meaningfully.",
+            "Now let us consider remarks (2) and (3) above: that the running time of a program depends on the compiler used to compile the program and the machine used to execute it. These facts imply that we cannot express the running time T(n) in standard time units such"
+          ],
+          "footerText": "Page 20 of 620 · Data Structures and Algorithms"
+        },
+        {
+          "pageNumber": 21,
+          "header": "Data Structures and Algorithms",
+          "subHeader": "Alfred V. Aho, John E. Hopcroft, Jeffrey D. Ullman · Algorithms",
+          "title": "Data Structures and Algorithms: CHAPTER 1: Design and Analysis of Algorithms",
+          "bulletPoints": [
+            "all n. When we say T(n) is O(f(n)), we know that f(n) is an upper bound on the growth rate of T(n). To specify a lower bound on the growth rate of T(n) we can use the notation T(n) is",
+            "Ω(g(n)), read \"big omega of g(n)\" or just \"omega of g(n),\" to mean that there exists a positive constant c such that T(n) ≥ cg(n) infinitely often (for an infinite number of values of n).†",
+            "Example 1.6. To verify that the function T(n)= n3 + 2n2 is Ω(n3), let c = 1. Then T(n) ≥ cn3 for n = 0, 1, . . .. For another example, let T(n) = n for odd n ≥ 1 and T(n) = n2/100 for even n ≥ 0. To",
+            "verify that T(n) is Ω (n2), let c = 1/100 and consider the infinite set of n's: n = 0, 2, 4, 6, . . .. The Tyranny of Growth Rate We shall assume that programs can be evaluated by comparing their running-time"
+          ],
+          "footerText": "Page 21 of 620 · Data Structures and Algorithms"
+        },
+        {
+          "pageNumber": 22,
+          "header": "Data Structures and Algorithms",
+          "subHeader": "Alfred V. Aho, John E. Hopcroft, Jeffrey D. Ullman · Algorithms",
+          "title": "Data Structures and Algorithms: CHAPTER 1: Design and Analysis of Algorithms",
+          "bulletPoints": [
+            "Suppose we can afford 1000 seconds, or about 17 minutes, to solve a given problem. How large a problem can we solve? In 103 seconds, each of the four algorithms can solve roughly the same size problem, as shown in the second column of Fig. 1.12.",
+            "Fig. 1.11. Running times of four programs. Suppose that we now buy a machine that runs ten times faster at no additional cost. Then for the same cost we can spend 104 seconds on a problem where we spent 103",
+            "seconds before. The maximum size problem we can now solve using each of the four programs is shown in the third column of Fig. 1.12, and the ratio of the third and second columns is shown in the fourth column. We observe that a 1000% improvement in",
+            "computer speed yields only a 30% increase in the size of problem we can solve if we use the O(2n) program. Additional factors of ten speedup in the computer yield an even smaller percentage increase in problem size. In effect, the O(2n) program can solve only small"
+          ],
+          "footerText": "Page 22 of 620 · Data Structures and Algorithms"
+        },
+        {
+          "pageNumber": 23,
+          "header": "Data Structures and Algorithms",
+          "subHeader": "Alfred V. Aho, John E. Hopcroft, Jeffrey D. Ullman · Algorithms",
+          "title": "Data Structures and Algorithms: CHAPTER 1: Design and Analysis of Algorithms",
+          "bulletPoints": [
+            "1.  If a program is to be used only a few times, then the cost of writing and debugging dominate the overall cost, so the actual running time rarely affects the total cost. In this case, choose the algorithm that is easiest to implement correctly.",
+            "2.  If a program is to be run only on \"small\" inputs, the growth rate of the running time may be less important than the constant factor in the formula for running time. What is a \"small\" input depends on the exact running times of the competing algorithms.",
+            "There are some algorithms, such as the integer multiplication algorithm due to Schonhage and Strassen [1971], that are asymptotically the most efficient known for their problem, but have never been used in practice even on the largest problems,",
+            "because the constant of proportionality is so large in comparison to other simpler, less \"efficient\" algorithms. 3.  A complicated but efficient algorithm may not be desirable because a person other"
+          ],
+          "footerText": "Page 23 of 620 · Data Structures and Algorithms"
+        },
+        {
+          "pageNumber": 24,
+          "header": "Data Structures and Algorithms",
+          "subHeader": "Alfred V. Aho, John E. Hopcroft, Jeffrey D. Ullman · Algorithms",
+          "title": "Data Structures and Algorithms: CHAPTER 1: Design and Analysis of Algorithms",
+          "bulletPoints": [
+            "Example 1.8. The rule for sums given above can be used to calculate the running time of a sequence of program steps, where each step may be an arbitrary program fragment with loops and branches. Suppose that we have three steps whose running times are,",
+            "respectively, O(n2), O(n3) and O(n log n). Then the running time of the first two steps executed sequentially is O(max(n2, n3)) which is O(n3). The running time of all three together is O(max(n3, n log n)) which is O(n3).",
+            "In general, the running time of a fixed sequence of steps is, to within a constant factor, the running time of the step with the largest running time. In rare circumstances there will be two or more steps whose running times are incommensurate (neither is larger than the",
+            "other, nor are they equal). For example, we could have steps of running times O(f (n)) and O(g (n)), where In such cases the sum rule must be applied directly; the running time is O(max(f(n), g(n))),"
+          ],
+          "footerText": "Page 24 of 620 · Data Structures and Algorithms"
+        },
+        {
+          "pageNumber": 25,
+          "header": "Data Structures and Algorithms",
+          "subHeader": "Alfred V. Aho, John E. Hopcroft, Jeffrey D. Ullman · Algorithms",
+          "title": "Data Structures and Algorithms: CHAPTER 1: Design and Analysis of Algorithms",
+          "bulletPoints": [
+            "i, j, temp: integer; begin (1)           for i := 1 to n-1 do",
+            "(2)               for j := n downto i+1 do (3)                    if A[j-1] > A[j] then begin { swap A[j - 1] and A[j] }",
+            "(4)                        temp := A[j-1]; (5)                        A[j-1] := A[j]; (6)                        AI> [j] := temp",
+            "end end; { bubble } Fig. 1.13. Bubble sort."
+          ],
+          "footerText": "Page 25 of 620 · Data Structures and Algorithms"
+        },
+        {
+          "pageNumber": 26,
+          "header": "Data Structures and Algorithms",
+          "subHeader": "Alfred V. Aho, John E. Hopcroft, Jeffrey D. Ullman · Algorithms",
+          "title": "Data Structures and Algorithms: CHAPTER 1: Design and Analysis of Algorithms",
+          "bulletPoints": [
+            "running time is O(nlogn), which is considerably smaller, since for large n, logn† is very much smaller than n. Before proceeding to some general analysis rules, let us remember that determining a",
+            "precise upper bound on the running time of programs is sometimes simple, but at other times it can be a deep intellectual challenge. There are no complete sets of rules for analyzing programs. We can only give the reader some hints and illustrate some of the",
+            "subtler points by examples throughout this book. Now let us enumerate some general rules for the analysis of programs. In general, the running time of a statement or group of statements may be parameterized by the input size",
+            "and/or by one or more variables. The only permissible parameter for the running time of the whole program is n, the input size. 1.  The running time of each assignment, read, and write statement can usually be taken"
+          ],
+          "footerText": "Page 26 of 620 · Data Structures and Algorithms"
+        },
+        {
+          "pageNumber": 27,
+          "header": "Data Structures and Algorithms",
+          "subHeader": "Alfred V. Aho, John E. Hopcroft, Jeffrey D. Ullman · Algorithms",
+          "title": "Data Structures and Algorithms: CHAPTER 1: Design and Analysis of Algorithms",
+          "bulletPoints": [
+            "then evaluate the running time of procedures that call only procedures that make no calls, using the already-evaluated running times of the called procedures. We continue this process, evaluating the running time of each procedure after the running times of all",
+            "procedures it calls have been evaluated. If there are recursive procedures, then we cannot find an ordering of all the procedures so that each calls only previously evaluated procedures. What we must now do is associate",
+            "with each recursive procedure an unknown time function T(n), where n measures the size of the arguments to the procedure. We can then get a recurrence for T(n), that is, an equation for T(n) in terms of T(k) for various values of k.",
+            "Techniques for solving many different kinds of recurrences exist; we shall present some of these in Chapter 9. Here we shall show how to analyze a simple recursive program. Example 1.10. Figure 1.14 gives a recursive program to compute n!, the product of all the"
+          ],
+          "footerText": "Page 27 of 620 · Data Structures and Algorithms"
+        },
+        {
+          "pageNumber": 28,
+          "header": "Data Structures and Algorithms",
+          "subHeader": "Alfred V. Aho, John E. Hopcroft, Jeffrey D. Ullman · Algorithms",
+          "title": "Data Structures and Algorithms: CHAPTER 1: Design and Analysis of Algorithms",
+          "bulletPoints": [
+            "T(n) = 3c + T(n-3) if n > 3 and so on. In general, T(n) = ic + T(n-i) if n > i",
+            "Finally, when i = n-1 we get T(n) = c(n-1) + T(1) = c(n-1) + d                (1.2) From (1.2) we can conclude that T(n) is O(n). We should note that in this analysis we have",
+            "assumed that the multiplication of two integers is an O(1) operation. In practice, however, we cannot use the program in Fig. 1.14 to compute n! for large values of n, because the size of the integers being computed will exceed the word length of the underlying machine.",
+            "The general method for solving recurrence equations, as typified by Example 1.10, is repeatedly to replace terms T(k) on the right side of the equation by the entire right side with k substituted for n, until we obtain a formula in which T does not appear on the right"
+          ],
+          "footerText": "Page 28 of 620 · Data Structures and Algorithms"
+        },
+        {
+          "pageNumber": 29,
+          "header": "Data Structures and Algorithms",
+          "subHeader": "Alfred V. Aho, John E. Hopcroft, Jeffrey D. Ullman · Algorithms",
+          "title": "Data Structures and Algorithms: CHAPTER 1: Design and Analysis of Algorithms",
+          "bulletPoints": [
+            "We should not leave the impression that the use of backwards goto's by themselves make running times unanalyzable. As long as the loops of a program have a reasonable structure, that is, each pair of loops are either disjoint or nested one within the other, then",
+            "the approach to running time analysis described in this section will work. (However, it becomes the responsibility of the analyzer to ascertain what the loop structure is.) Thus, we should not hesitate to apply these methods of program analysis to a language like Fortran,",
+            "where goto's are essential, but where programs written in the language tend to have a reasonable loop structure. Analyzing a Pseudo-Program",
+            "If we know the growth rate of the time needed to execute informal English statements, we can analyze pseudo-programs just as we do real ones. Often, however, we do not know the time to be spent on not-fully-implemented parts of a pseudo-program. For example, if we"
+          ],
+          "footerText": "Page 29 of 620 · Data Structures and Algorithms"
+        },
+        {
+          "pageNumber": 30,
+          "header": "Data Structures and Algorithms",
+          "subHeader": "Alfred V. Aho, John E. Hopcroft, Jeffrey D. Ullman · Algorithms",
+          "title": "Data Structures and Algorithms: CHAPTER 1: Design and Analysis of Algorithms",
+          "bulletPoints": [
+            "strategy of sketch-then-detail tends to produce a more organized final program that is easier to debug and maintain. 2.  Encapsulate. Use procedures and ADT's to place the code for each principal",
+            "operation and type of data in one place in the program listing. Then, if changes become necessary, the section of code requiring change will be localized. 3.  Use or modify an existing program. One of the chief inefficiencies in the",
+            "programming process is that usually a project is tackled as if it were the first program ever written. One should first look for an existing program that does all or a part of the task. Conversely, when writing a program, one should consider making it",
+            "available to others for possibly unanticipated uses. 4.  Be a toolsmith. In programming parlance, a tool is a program with a variety of uses. When writing a program, consider whether it could be written in a somewhat more"
+          ],
+          "footerText": "Page 30 of 620 · Data Structures and Algorithms"
+        },
+        {
+          "pageNumber": 31,
+          "header": "Data Structures and Algorithms",
+          "subHeader": "Alfred V. Aho, John E. Hopcroft, Jeffrey D. Ullman · Algorithms",
+          "title": "Data Structures and Algorithms: CHAPTER 1: Design and Analysis of Algorithms",
+          "bulletPoints": [
+            "other characters unchanged. The output of translate consists of a file f2 that has the words of f1, uncapitalized, one to a line. Next comes a command sort that sorts the lines of its input file into lexicographic (alphabetical) order. The output of sort is a file f3 that has all",
+            "the words of f2 in alphabetical order, with repetitions. Then a command unique removes duplicate lines from its input file, producing an output file f4 that has the words of the original file, without capitalization or duplicates, in alphabetical order. Finally, a command",
+            "diff, with a parameter indicating a second file f5 that holds the alphabetized list of words in the dictionary, one to a line, is applied to f4. The result is all words in f4 (and hence f1) but not in f5, i.e., all words in the original input that are not in the dictionary. The complete",
+            "program spell is just the following sequence of commands. spell :     translate [A-Z] → [a-z], blank → newline sort"
+          ],
+          "footerText": "Page 31 of 620 · Data Structures and Algorithms"
+        },
+        {
+          "pageNumber": 32,
+          "header": "Data Structures and Algorithms",
+          "subHeader": "Alfred V. Aho, John E. Hopcroft, Jeffrey D. Ullman · Algorithms",
+          "title": "Data Structures and Algorithms: CHAPTER 1: Design and Analysis of Algorithms",
+          "bulletPoints": [
+            "begin zap := x; goto 999",
+            "end In a procedure, the statement return, which can have no argument, is simply replaced by goto 999.",
+            "Example 1.12. Figure 1.15 shows the factorial program written using return statements. Figure 1.16 shows the resulting Pascal program if we apply this transformation systematically to Fig. 1.15.",
+            "function fact ( n: integer ): integer; begin if n <= l then"
+          ],
+          "footerText": "Page 32 of 620 · Data Structures and Algorithms"
+        },
+        {
+          "pageNumber": 33,
+          "header": "Data Structures and Algorithms",
+          "subHeader": "Alfred V. Aho, John E. Hopcroft, Jeffrey D. Ullman · Algorithms",
+          "title": "Data Structures and Algorithms: CHAPTER 1: Design and Analysis of Algorithms",
+          "bulletPoints": [
+            "Fig. 1.16. Resulting Pascal program. uniformly throughout a program. For example, an expression like ↑ celltype, while permissible everywhere else, is not permitted as the type of a parameter of a procedure or",
+            "the type of the value returned by a function. Technically, Pascal requires that we invent a name for the type expression, say ptrtocell. In this book, we shall allow such expressions, expecting that the reader could invent such a type name and mechanically replace type",
+            "expressions by the type name. Thus, we shall write statements like function zap ( A: array[1..10] of integer ) : ↑ celltype to stand for",
+            "function zap (A: arrayoftenints ) : ptrtocell Finally, a note on our typesetting conventions for programs. Pascal reserved words are in boldface, types are in roman, and procedure, function, and variable names are in italic."
+          ],
+          "footerText": "Page 33 of 620 · Data Structures and Algorithms"
+        },
+        {
+          "pageNumber": 34,
+          "header": "Data Structures and Algorithms",
+          "subHeader": "Alfred V. Aho, John E. Hopcroft, Jeffrey D. Ullman · Algorithms",
+          "title": "Data Structures and Algorithms: CHAPTER 1: Design and Analysis of Algorithms",
+          "bulletPoints": [
+            "*1.3 Suppose we wish to multiply four matrices of real numbers M1 × M2 × M3 × M4 where M1 is 10 by 20, M2 is 20 by 50, M3 is 50 by 1, and M4 is 1 by 100.",
+            "Assume that the multiplication of a p × q matrix by a q × r matrix requires pqr scalar operations, as it does in the usual matrix multiplication algorithm. Find the optimal order in which to multiply the matrices so as to minimize the total",
+            "number of scalar operations. How would you find this optimal ordering if there are an arbitrary number of matrices? **1.4",
+            "Suppose we wish to partition the square roots of the integers from 1 to 100 into two piles of fifty numbers each, such that the sum of the numbers in the first pile is as close as possible to the sum of the numbers in the second pile. If we"
+          ],
+          "footerText": "Page 34 of 620 · Data Structures and Algorithms"
+        },
+        {
+          "pageNumber": 35,
+          "header": "Data Structures and Algorithms",
+          "subHeader": "Alfred V. Aho, John E. Hopcroft, Jeffrey D. Ullman · Algorithms",
+          "title": "Data Structures and Algorithms: CHAPTER 1: Design and Analysis of Algorithms",
+          "bulletPoints": [
+            "1.8 We want to develop a program for a text formatter that will place words on lines that are both left and right justified. The program will have a word buffer",
+            "and a line buffer. Initially both are empty. A word is read into the word buffer. If there is sufficient room in the line buffer, the word is transferred to the line buffer. Otherwise, additional spaces are inserted between words in the line",
+            "buffer to fill out the line, and then the line buffer is emptied by printing the line. a.  Refine this algorithm into a pseudo-language program. b.  Convert your pseudo-language program to a Pascal",
+            "program. 1.9 Consider a set of n cities and a table of distances between pairs of cities. Write a"
+          ],
+          "footerText": "Page 35 of 620 · Data Structures and Algorithms"
+        },
+        {
+          "pageNumber": 36,
+          "header": "Data Structures and Algorithms",
+          "subHeader": "Alfred V. Aho, John E. Hopcroft, Jeffrey D. Ullman · Algorithms",
+          "title": "Data Structures and Algorithms: CHAPTER 1: Design and Analysis of Algorithms",
+          "bulletPoints": [
+            "1.11 Consider the following functions of n: Indicate for each distinct pair i and j whether gi(n) is O(gj(n)) and whether gi(n)",
+            "is Ω(gj(n)). 1.12 Give, using \"big oh\" notation, the worst case running times of the following",
+            "procedures as a function of n. a.      procedure matmpy ( n: integer); var",
+            "i, j, k: integer; begin for i := 1 to n do"
+          ],
+          "footerText": "Page 36 of 620 · Data Structures and Algorithms"
+        },
+        {
+          "pageNumber": 37,
+          "header": "Data Structures and Algorithms",
+          "subHeader": "Alfred V. Aho, John E. Hopcroft, Jeffrey D. Ullman · Algorithms",
+          "title": "Data Structures and Algorithms: CHAPTER 1: Design and Analysis of Algorithms",
+          "bulletPoints": [
+            "i, j, x, y: integer; begin for i := 1 to n do",
+            "if odd(i) then begin for j := i to n do x := x + 1;",
+            "for j := 1 to i do y := y + l end",
+            "end d.      function recursive (n: integer ) : integer; begin"
+          ],
+          "footerText": "Page 37 of 620 · Data Structures and Algorithms"
+        },
+        {
+          "pageNumber": 38,
+          "header": "Data Structures and Algorithms",
+          "subHeader": "Alfred V. Aho, John E. Hopcroft, Jeffrey D. Ullman · Algorithms",
+          "title": "Data Structures and Algorithms: CHAPTER 1: Design and Analysis of Algorithms",
+          "bulletPoints": [
+            "*1.14 Suppose T1(n) is Ω(f(n)) and T2(n) is Ω(g(n)). Which of the following statements are true?",
+            "a.  T1(n) + T2(n) is Ω(max(f(n), g(n))). b.  T1(n)T2(n) is Ω(f(n)g(n)). *1.15",
+            "Some authors define big omega by saying f(n) is Ω(g(n)) if there is some n0 and c > 0 such that for all n ≥ n0 we have f(n) ≥ cg(n). a.  Is it true for this definition that f(n) is Ω(g(n)) if and only",
+            "if g(n) is O(f(n))? b.  Is (a) true for the definition of big omega in Section 1.4? c.  Does Exercise 1.14(a) or (b) hold for this definition of big"
+          ],
+          "footerText": "Page 38 of 620 · Data Structures and Algorithms"
+        },
+        {
+          "pageNumber": 39,
+          "header": "Data Structures and Algorithms",
+          "subHeader": "Alfred V. Aho, John E. Hopcroft, Jeffrey D. Ullman · Algorithms",
+          "title": "Data Structures and Algorithms: CHAPTER 1: Design and Analysis of Algorithms",
+          "bulletPoints": [
+            "1.18 Here is a function max(i, n) that returns the largest element in positions i through i+n-1 of an integer array A. You may assume for convenience that n is",
+            "a power of 2. function max ( i, n: integer ): integer; var",
+            "m1, m2: integer; begin if n = 1 then",
+            "return (A[i]) else begin m1 := max(i, n div 2);"
+          ],
+          "footerText": "Page 39 of 620 · Data Structures and Algorithms"
+        },
+        {
+          "pageNumber": 40,
+          "header": "Data Structures and Algorithms",
+          "subHeader": "Alfred V. Aho, John E. Hopcroft, Jeffrey D. Ullman · Algorithms",
+          "title": "Data Structures and Algorithms: CHAPTER 1: Design and Analysis of Algorithms",
+          "bulletPoints": [
+            "Bibliographic Notes The concept of an abstract data type can be traced to the class type in the language SIMULA 67 (Birtwistle et al. [1973]). Since that time, a variety of other languages that",
+            "support abstract data types have been developed including Alphard (Shaw, Wulf, and London [1977]), C with classes (Stroustrup [1982]), CLU (Liskov, et al. [1977]), MESA (Geschke, Morris, and Satterthwaite [1977]), and Russell (Demers and Donahue [1979]).",
+            "The ADT concept is further discussed in works such as Gotlieb and Gotlieb [1978] and Wulf et al. [1981]. Knuth [1968] was the first major work to advocate the systematic study of the running",
+            "time of programs. Aho, Hopcroft, and Ullman [1974] relate the time and space complexity of algorithms to various models of computation, such as Turing machines and random- access machines. See also the bibliographic notes to Chapter 9 for more references to the"
+          ],
+          "footerText": "Page 40 of 620 · Data Structures and Algorithms"
+        },
+        {
+          "pageNumber": 41,
+          "header": "Data Structures and Algorithms",
+          "subHeader": "Alfred V. Aho, John E. Hopcroft, Jeffrey D. Ullman · Algorithms",
+          "title": "Data Structures and Algorithms: CHAPTER 1: Design and Analysis of Algorithms",
+          "bulletPoints": [
+            "Table of Contents     Go to Chapter 2 http://www.ourstillwaters.org/stillwaters/csteaching/DataStructuresAndAlgorithms/mf1201.htm (37 of 37) [1.7.2001 18:58:23]"
+          ],
+          "footerText": "Page 41 of 620 · Data Structures and Algorithms"
+        },
+        {
+          "pageNumber": 42,
+          "header": "Data Structures and Algorithms",
+          "subHeader": "Alfred V. Aho, John E. Hopcroft, Jeffrey D. Ullman · Algorithms",
+          "title": "Data Structures and Algorithms: CHAPTER 2: Basic Abstract DataTypes",
+          "bulletPoints": [
+            "Basic Abstract DataTypes In this chapter we shall study some of the most fundamental abstract data types. We consider lists, which are sequences of elements, and two special cases of lists: stacks,",
+            "where elements are inserted and deleted at one end only, and queues, where elements are inserted at one end and deleted at the other. We then briefly study the mapping or associative store, an ADT that behaves as a function. For each of these ADT's we",
+            "consider several implementations and compare their relative merits. 2.1 The Abstract Data Type \"List\" Lists are a particularly flexible structure because they can grow and shrink on",
+            "demand, and elements can be accessed, inserted, or deleted at any position within a list. Lists can also be concatenated together or split into sublists. Lists arise routinely in applications such as information retrieval, programming language translation, and"
+          ],
+          "footerText": "Page 42 of 620 · Data Structures and Algorithms"
+        },
+        {
+          "pageNumber": 43,
+          "header": "Data Structures and Algorithms",
+          "subHeader": "Alfred V. Aho, John E. Hopcroft, Jeffrey D. Ullman · Algorithms",
+          "title": "Data Structures and Algorithms: CHAPTER 2: Basic Abstract DataTypes",
+          "bulletPoints": [
+            "list that varies as the list grows or shrinks, while all other positions have a fixed distance from the beginning of the list. To form an abstract data type from the mathematical notion of a list we must",
+            "define a set of operations on objects of type LIST.† As with many other ADT's we discuss in this book, no one set of operations is suitable for all applications. Here, we shall give one representative set of operations. In the next section we shall offer",
+            "several data structures to represent lists and we shall write procedures for the typical list operations in terms of these data structures. To illustrate some common operations on lists, let us consider a typical",
+            "application in which we have a mailing list from which we wish to purge duplicate entries. Conceptually, this problem can be solved quite simply: for each item on the list, remove all equivalent following items. To present this algorithm, however, we"
+          ],
+          "footerText": "Page 43 of 620 · Data Structures and Algorithms"
+        },
+        {
+          "pageNumber": 44,
+          "header": "Data Structures and Algorithms",
+          "subHeader": "Alfred V. Aho, John E. Hopcroft, Jeffrey D. Ullman · Algorithms",
+          "title": "Data Structures and Algorithms: CHAPTER 2: Basic Abstract DataTypes",
+          "bulletPoints": [
+            "1. Both functions are undefined if L has no position p. 6.  MAKENULL(L). This function causes L to become an empty list and returns position END(L).",
+            "7.  FIRST(L). This function returns the first position on list L. If L is empty, the position returned is END(L). 8.  PRINTLIST(L). Print the elements of L in the order of occurrence.",
+            "Example 2.1. Let us write, using these operators, a procedure PURGE that takes a list as argument and eliminates duplicates from the list. The elements of the list are of type elementtype, and a list of such elements has type LIST, a convention we shall",
+            "follow throughout this chapter. There is a function same(x,y), where x and y are of elementtype, that is true if x and y are \"the same\" and false if not. The notion of sameness is purposely left vague. If elementtype is real, for example, we might want"
+          ],
+          "footerText": "Page 44 of 620 · Data Structures and Algorithms"
+        },
+        {
+          "pageNumber": 45,
+          "header": "Data Structures and Algorithms",
+          "subHeader": "Alfred V. Aho, John E. Hopcroft, Jeffrey D. Ullman · Algorithms",
+          "title": "Data Structures and Algorithms: CHAPTER 2: Basic Abstract DataTypes",
+          "bulletPoints": [
+            "begin (1)        p := FIRST(L); (2)        while p <> END(L) do begin",
+            "(3)            q := NEXT(p, L); (4)            while q <> END(L) do (5)                if same(RETRIEVE(p, L), RETRIEVE(q,",
+            "L)) then (6)                        DELETE(q, L) else",
+            "(7)                    q := NEXT(q, L); (8)            p := NEXT(p, L) end"
+          ],
+          "footerText": "Page 45 of 620 · Data Structures and Algorithms"
+        },
+        {
+          "pageNumber": 46,
+          "header": "Data Structures and Algorithms",
+          "subHeader": "Alfred V. Aho, John E. Hopcroft, Jeffrey D. Ullman · Algorithms",
+          "title": "Data Structures and Algorithms: CHAPTER 2: Basic Abstract DataTypes",
+          "bulletPoints": [
+            "Fig. 2.2. Array implementation of a list. In the array implementation we define the type LIST to be a record having two fields. The first field is an array of elements whose length is sufficient to hold the",
+            "maximum size list that will be encountered. The second field is an integer last indicating the position of the last list element in the array. The i th element of the list is in the ith cell of the array, for 1 ≤ i ≤ last, as shown in Fig. 2.2. Positions in the list",
+            "are represented by integers, the ith position by the integer i. The function END(L) has only to return last + 1. The important declarations are: const",
+            "maxlength = 100 { some suitable constant }; type LIST = record"
+          ],
+          "footerText": "Page 46 of 620 · Data Structures and Algorithms"
+        },
+        {
+          "pageNumber": 47,
+          "header": "Data Structures and Algorithms",
+          "subHeader": "Alfred V. Aho, John E. Hopcroft, Jeffrey D. Ullman · Algorithms",
+          "title": "Data Structures and Algorithms: CHAPTER 2: Basic Abstract DataTypes",
+          "bulletPoints": [
+            "If procedure PURGE of Fig. 2.1 is preceded by 1.  the definitions of elementtype and the function same, 2.  the definitions of LIST, position and END(L) as above,",
+            "3.  the definition of DELETE from Fig. 2.3, and 4.  suitable definitions for the trivial procedures FIRST, NEXT, and RETRIEVE, then a working procedure PURGE results.",
+            "At first, it may seem tedious writing procedures to govern all accesses to the underlying structures. However, if we discipline ourselves to writing programs in terms of the operations for manipulating abstract data types rather than making use",
+            "of particular implementation details, then we can modify programs more readily by reimplementing the operations rather than searching all programs for places where we have made accesses to the underlying data structures. This flexibility can be"
+          ],
+          "footerText": "Page 47 of 620 · Data Structures and Algorithms"
+        },
+        {
+          "pageNumber": 48,
+          "header": "Data Structures and Algorithms",
+          "subHeader": "Alfred V. Aho, John E. Hopcroft, Jeffrey D. Ullman · Algorithms",
+          "title": "Data Structures and Algorithms: CHAPTER 2: Basic Abstract DataTypes",
+          "bulletPoints": [
+            "for q := L.last downto p do { shift elements at p, p + 1,  . .  . down one position } L.elements[q + 1 ]: = L.elements[q];",
+            "L.last := L.last + 1; L.elements[p] := x end",
+            "end; { INSERT } procedure DELETE ( p: position; var L: LIST ); { DELETE removes the element at position p of list L }",
+            "var q: position; begin"
+          ],
+          "footerText": "Page 48 of 620 · Data Structures and Algorithms"
+        },
+        {
+          "pageNumber": 49,
+          "header": "Data Structures and Algorithms",
+          "subHeader": "Alfred V. Aho, John E. Hopcroft, Jeffrey D. Ullman · Algorithms",
+          "title": "Data Structures and Algorithms: CHAPTER 2: Basic Abstract DataTypes",
+          "bulletPoints": [
+            "Fig. 2.4. A linked list. For singly-linked lists, it is convenient to use a definition of position that is somewhat different than the definition of position in an array implementation. Here,",
+            "position i will be a pointer to the cell holding the pointer to ai for i = 2, 3 , . . . , n. Position 1 is a pointer to the header, and position END(L) is a pointer to the last cell of L.",
+            "The type of a list happens to be the same as that of a position -- it is a pointer to a cell, the header in particular. We can formally define the essential parts of a linked list data structure as follows.",
+            "type celltype = record element: elementtype;"
+          ],
+          "footerText": "Page 49 of 620 · Data Structures and Algorithms"
+        },
+        {
+          "pageNumber": 50,
+          "header": "Data Structures and Algorithms",
+          "subHeader": "Alfred V. Aho, John E. Hopcroft, Jeffrey D. Ullman · Algorithms",
+          "title": "Data Structures and Algorithms: CHAPTER 2: Basic Abstract DataTypes",
+          "bulletPoints": [
+            "(4)            return (q) end; { END } Fig. 2.5. The function END.",
+            "Figure 2.6 contains routines for the four operations INSERT, DELETE, LOCATE, and MAKENULL using this pointer implementation of lists. The other operations can be implemented as one-step routines, with the exception of",
+            "PREVIOUS, which requires a scan of the list from the beginning. We leave these other routines as exercises. Note that many of the commands do not use parameter L, the list, and we omit it from those that do not.",
+            "The mechanics of the pointer manipulations of the INSERT procedure in Fig. 2.6 are shown in Fig. 2.7. Figure 2.7(a) shows the situation before executing INSERT. We wish to insert a new element in front of the cell containing b, so p is a pointer to"
+          ],
+          "footerText": "Page 50 of 620 · Data Structures and Algorithms"
+        }
+      ]
+    }
+  ]
+}
