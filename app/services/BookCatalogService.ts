@@ -6,7 +6,7 @@ import {
   type ShelfBookConfig,
 } from './BookshelfConfig'
 
-export { SHELF_BOOKS_CONFIG, type ShelfBookConfig }
+export { SHELF_BOOKS_CONFIG, getShelfBookById, getShelfBooksByClass, type ShelfBookConfig }
 
 // Genuine Real Books JSON imports
 import ddiaBookJson from '../../public/books/ddia/book.json'
@@ -97,12 +97,12 @@ export const BookCatalogService = {
     return BOOK_CATALOG
   },
 
-  getShelfBooks(): ImmersiveBookData[] {
+  getShelfBooks(): ShelfBookConfig[] {
     return SHELF_BOOKS_CONFIG
   },
 
-  getShelfBookById(id: string): ImmersiveBookData | undefined {
-    return SHELF_BOOKS_CONFIG.find((b) => b.id === id)
+  getShelfBookById(id: string): ShelfBookConfig | undefined {
+    return getShelfBookById(id)
   },
 
   getBookById(id: string): BookItem {
@@ -112,7 +112,7 @@ export const BookCatalogService = {
     const found = BOOK_CATALOG.find((b) => b.id === id)
     if (found) return found
 
-    const shelfBook = SHELF_BOOKS_CONFIG.find((b) => b.id === id)
+    const shelfBook = getShelfBookById(id)
     if (shelfBook) {
       return {
         id: shelfBook.id,
@@ -196,7 +196,7 @@ export const BookCatalogService = {
   getBooksByClass(classGrade: number): BookItem[] {
     const direct = BOOK_CATALOG.filter((b) => b.classGrade === classGrade)
     if (direct.length > 0) return direct
-    return SHELF_BOOKS_CONFIG.filter((b) => b.classLevel === classGrade).map((b) => this.getBookById(b.id))
+    return getShelfBooksByClass(classGrade).map((b) => this.getBookById(b.id))
   },
 
   getDefaultBook(): BookItem {
