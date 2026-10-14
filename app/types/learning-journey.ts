@@ -13,6 +13,8 @@ export type ChamberPhase =
 
 export interface ImmersiveBookData {
   id: string
+  tier?: number
+  bay?: 'left' | 'right'
   classLevel: number
   subject: string
   title: string
@@ -26,6 +28,8 @@ export interface ImmersiveBookData {
   icon?: string
   slot?: number
   isInteractive?: boolean
+  thickness?: number
+  height?: number
 }
 
 export interface BookPageData {
