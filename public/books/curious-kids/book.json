@@ -12,24 +12,24 @@
   "sourcePdf": null,
   "icon": "\u2753",
   "isInteractive": true,
-  "author": "Distinguished Faculty & Academic Press",
+  "author": "Academic Faculty & Domain Curators",
   "totalPages": 20,
   "chapters": [
     {
       "chapterNumber": 1,
       "title": "Curious Questions for Kids",
-      "description": "Comprehensive master curriculum in General Knowledge",
+      "description": "Comprehensive curriculum in General Knowledge",
       "pages": [
         {
           "pageNumber": 1,
           "header": "Curious Questions for Kids",
           "subHeader": "General Knowledge \u00b7 Class 2 \u00b7 Section 1",
-          "title": "Curious Questions for Kids: Module 1",
+          "title": "Why Is the Sky Blue?",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of General Knowledge (Section 1).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Curious Questions for Kids.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 1: Conceptual review, synthesis, and practice problem sets."
+            "White sunlight is actually made of all the colors of the rainbow combined together.",
+            "Rayleigh Scattering: Earth's atmosphere is full of tiny nitrogen and oxygen gas molecules.",
+            "Short blue light waves bounce and scatter in every direction much more than longer red waves.",
+            "Sunset secret: When the sun is setting, sunlight travels through much thicker air, leaving fiery red and orange colors!"
           ],
           "footerText": "Page 1 of 20 \u00b7 Curious Questions for Kids"
         },
@@ -37,12 +37,12 @@
           "pageNumber": 2,
           "header": "Curious Questions for Kids",
           "subHeader": "General Knowledge \u00b7 Class 2 \u00b7 Section 2",
-          "title": "Curious Questions for Kids: Module 2",
+          "title": "How Do Birds Fly in the Air?",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of General Knowledge (Section 2).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Curious Questions for Kids.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 2: Conceptual review, synthesis, and practice problem sets."
+            "Airfoil wing shape: Bird wings are curved on top and flat underneath.",
+            "Bernoulli's principle: Air flows faster over the curved top, creating low pressure and lifting the bird upward (Lift).",
+            "Hollow bones: Bird bones have honeycombed air pockets inside, making their bodies incredibly light.",
+            "Powerful flight muscles: Strong breast muscles flap wings forward and down to generate forward thrust."
           ],
           "footerText": "Page 2 of 20 \u00b7 Curious Questions for Kids"
         },
@@ -50,12 +50,12 @@
           "pageNumber": 3,
           "header": "Curious Questions for Kids",
           "subHeader": "General Knowledge \u00b7 Class 2 \u00b7 Section 3",
-          "title": "Curious Questions for Kids: Module 3",
+          "title": "Why Do Stars Twinkle at Night?",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of General Knowledge (Section 3).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Curious Questions for Kids.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 3: Conceptual review, synthesis, and practice problem sets."
+            "Stars are giant, burning balls of gas located trillions of kilometers away in deep space.",
+            "Starlight travels through light-years of space as a steady, straight ray of light.",
+            "Atmospheric refraction: As the starlight enters Earth's atmosphere, layers of warm and cool swirling air bend the light.",
+            "Our eyes see this rapid shifting and bending as a magical, shimmering twinkle!"
           ],
           "footerText": "Page 3 of 20 \u00b7 Curious Questions for Kids"
         },
@@ -63,12 +63,12 @@
           "pageNumber": 4,
           "header": "Curious Questions for Kids",
           "subHeader": "General Knowledge \u00b7 Class 2 \u00b7 Section 4",
-          "title": "Curious Questions for Kids: Module 4",
+          "title": "How Do Volcanoes Erupt?",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of General Knowledge (Section 4).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Curious Questions for Kids.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 4: Conceptual review, synthesis, and practice problem sets."
+            "Magma chambers: Deep beneath Earth's crust, intense heat melts rock into red-hot glowing liquid magma.",
+            "Building pressure: Trapped gases (water vapor, sulfur dioxide) bubble inside the magma like a shaken soda bottle.",
+            "Cracking through vents: When pressure grows too immense, magma blasts up through volcanic vents as glowing lava.",
+            "Volcanic rock: As lava cools on the surface, it hardens into dark obsidian glass and pumice rock that floats on water!"
           ],
           "footerText": "Page 4 of 20 \u00b7 Curious Questions for Kids"
         },
@@ -76,12 +76,12 @@
           "pageNumber": 5,
           "header": "Curious Questions for Kids",
           "subHeader": "General Knowledge \u00b7 Class 2 \u00b7 Section 5",
-          "title": "Curious Questions for Kids: Module 5",
+          "title": "Why Do We Dream When We Sleep?",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of General Knowledge (Section 5).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Curious Questions for Kids.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 5: Conceptual review, synthesis, and practice problem sets."
+            "REM Sleep: Rapid Eye Movement sleep is the sleep phase where our brain is buzzing with active imagination.",
+            "Memory filing: While your body rests, your brain organizes today's memories, feelings, and exciting lessons.",
+            "Dream stories: The brain weaves random memories and thoughts into colorful, whimsical nighttime movies.",
+            "Health benefit: Dreaming helps solve problems, sparks creative ideas, and refreshes the brain for a brand new day."
           ],
           "footerText": "Page 5 of 20 \u00b7 Curious Questions for Kids"
         },
@@ -89,12 +89,12 @@
           "pageNumber": 6,
           "header": "Curious Questions for Kids",
           "subHeader": "General Knowledge \u00b7 Class 2 \u00b7 Section 6",
-          "title": "Curious Questions for Kids: Module 6",
+          "title": "How Do Fish Breathe Underwater?",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of General Knowledge (Section 6).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Curious Questions for Kids.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 6: Conceptual review, synthesis, and practice problem sets."
+            "Fish need oxygen just like land animals, but they extract it directly from water instead of air.",
+            "Gills: Delicate, feathery red gills located under protective flaps on either side of a fish's head.",
+            "Water in through mouth: The fish gulps water in through its mouth and pumps it over the thin gill membranes.",
+            "Counter-current exchange: Blood flowing through thousands of tiny capillaries absorbs oxygen and releases carbon dioxide."
           ],
           "footerText": "Page 6 of 20 \u00b7 Curious Questions for Kids"
         },
@@ -102,12 +102,12 @@
           "pageNumber": 7,
           "header": "Curious Questions for Kids",
           "subHeader": "General Knowledge \u00b7 Class 2 \u00b7 Section 7",
-          "title": "Curious Questions for Kids: Module 7",
+          "title": "Why Do Onions Make Us Cry?",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of General Knowledge (Section 7).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Curious Questions for Kids.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 7: Conceptual review, synthesis, and practice problem sets."
+            "Defense mechanism: Wild onion plants developed chemical defenses so burrowing animals wouldn't eat them.",
+            "Slicing the onion: Cutting breaks open plant cells, mixing special enzymes with amino acid sulfoxides.",
+            "Syn-propanethial-S-oxide: This volatile gas drifts up from the cutting board and tickles our sensitive eyes.",
+            "Teary rinse: Our tear glands instantly produce flushing tears to wash away the stinging sulfur compound!"
           ],
           "footerText": "Page 7 of 20 \u00b7 Curious Questions for Kids"
         },
@@ -115,12 +115,12 @@
           "pageNumber": 8,
           "header": "Curious Questions for Kids",
           "subHeader": "General Knowledge \u00b7 Class 2 \u00b7 Section 8",
-          "title": "Curious Questions for Kids: Module 8",
+          "title": "What Is Gravity and Why Don't We Fall Off Earth?",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of General Knowledge (Section 8).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Curious Questions for Kids.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 8: Conceptual review, synthesis, and practice problem sets."
+            "Gravity is the invisible pulling force that attracts all objects with mass toward each other.",
+            "Earth is massive: Its giant mass pulls everything\u2014you, your toys, oceans, and air\u2014straight toward its center.",
+            "Spherical Earth: No matter where you stand\u2014in London, Tokyo, or Australia\u2014'down' is always toward Earth's center!",
+            "Orbital dance: Gravity keeps the Moon orbiting peacefully around Earth and Earth orbiting around the Sun."
           ],
           "footerText": "Page 8 of 20 \u00b7 Curious Questions for Kids"
         },
@@ -128,12 +128,12 @@
           "pageNumber": 9,
           "header": "Curious Questions for Kids",
           "subHeader": "General Knowledge \u00b7 Class 2 \u00b7 Section 9",
-          "title": "Curious Questions for Kids: Module 9",
+          "title": "Why Do We Get Hiccups?",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of General Knowledge (Section 9).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Curious Questions for Kids.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 9: Conceptual review, synthesis, and practice problem sets."
+            "The diaphragm: A strong dome-shaped muscle located under your lungs that helps you inhale and exhale smoothly.",
+            "Irritated diaphragm: Eating too fast, drinking fizzy drinks, or laughing hard can make the diaphragm twitch suddenly.",
+            "The 'Hic' sound: When the diaphragm twitches, you suddenly gasp in air, and your vocal cords snap shut with a 'hic'!",
+            "Remedies: Slowly sipping a glass of cold water or taking five deep breaths helps the diaphragm relax."
           ],
           "footerText": "Page 9 of 20 \u00b7 Curious Questions for Kids"
         },
@@ -141,12 +141,12 @@
           "pageNumber": 10,
           "header": "Curious Questions for Kids",
           "subHeader": "General Knowledge \u00b7 Class 2 \u00b7 Section 10",
-          "title": "Curious Questions for Kids: Module 10",
+          "title": "How Do Spiders Spin Beautiful Webs?",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of General Knowledge (Section 10).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Curious Questions for Kids.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 10: Conceptual review, synthesis, and practice problem sets."
+            "Silk spinnerets: Spiders have tiny silk-spinning nozzle glands located at the tip of their abdomen.",
+            "Liquid protein silk: The liquid silk hardens instantly into strong, stretchy elastic threads as it is pulled out.",
+            "Spider silk is five times stronger than steel of the same thickness, yet flexible enough to catch flying insects.",
+            "Non-sticky spokes: Spiders walk carefully only on non-sticky structural lines, leaving glue only on spiral trap threads!"
           ],
           "footerText": "Page 10 of 20 \u00b7 Curious Questions for Kids"
         },
@@ -154,12 +154,12 @@
           "pageNumber": 11,
           "header": "Curious Questions for Kids",
           "subHeader": "General Knowledge \u00b7 Class 2 \u00b7 Section 11",
-          "title": "Curious Questions for Kids: Module 11",
+          "title": "Why Does the Moon Change Its Shape?",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of General Knowledge (Section 11).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Curious Questions for Kids.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 11: Conceptual review, synthesis, and practice problem sets."
+            "The Moon does not make its own light: It reflects warm yellow light from the Sun like a giant silver mirror.",
+            "Lunar orbit: The Moon revolves around Earth once every 27.3 days, constantly changing its angle to the Sun.",
+            "Moon phases: New Moon (dark), Crescent, First Quarter (half moon), Gibbous, and round glowing Full Moon.",
+            "The Moon isn't really shrinking: We are simply seeing different portions of its sunlit side as it circles our planet."
           ],
           "footerText": "Page 11 of 20 \u00b7 Curious Questions for Kids"
         },
@@ -167,12 +167,12 @@
           "pageNumber": 12,
           "header": "Curious Questions for Kids",
           "subHeader": "General Knowledge \u00b7 Class 2 \u00b7 Section 12",
-          "title": "Curious Questions for Kids: Module 12",
+          "title": "How Do Chameleons Change Their Colors?",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of General Knowledge (Section 12).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Curious Questions for Kids.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 12: Conceptual review, synthesis, and practice problem sets."
+            "Iridophore cells: Chameleon skin contains tiny microscopic crystals that reflect and bend light.",
+            "Stretching crystals: When calm or excited, chameleons tighten or relax their skin, shifting crystal spacing.",
+            "Communication & Mood: Color changes signal territory, anger, excitement, or attraction to other chameleons.",
+            "Temperature control: Dark colors absorb morning sunlight to warm up; light pale colors reflect scorching afternoon heat."
           ],
           "footerText": "Page 12 of 20 \u00b7 Curious Questions for Kids"
         },
@@ -180,12 +180,12 @@
           "pageNumber": 13,
           "header": "Curious Questions for Kids",
           "subHeader": "General Knowledge \u00b7 Class 2 \u00b7 Section 13",
-          "title": "Curious Questions for Kids: Module 13",
+          "title": "Why Do Leaves Change Color in the Fall?",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of General Knowledge (Section 13).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Curious Questions for Kids.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 13: Conceptual review, synthesis, and practice problem sets."
+            "Chlorophyll power: In spring and summer, abundant green chlorophyll masks all other colors inside plant leaves.",
+            "Cooler autumn days: Shorter daylight hours signal trees that freezing winter is approaching.",
+            "Nutrient saving: Trees stop making green chlorophyll and reabsorb precious minerals into the trunk.",
+            "Unveiling secret colors: Orange carotene, yellow xanthophyll, and vibrant red anthocyanins are finally revealed!"
           ],
           "footerText": "Page 13 of 20 \u00b7 Curious Questions for Kids"
         },
@@ -193,12 +193,12 @@
           "pageNumber": 14,
           "header": "Curious Questions for Kids",
           "subHeader": "General Knowledge \u00b7 Class 2 \u00b7 Section 14",
-          "title": "Curious Questions for Kids: Module 14",
+          "title": "How Do Airplanes Stay Up in the Sky?",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of General Knowledge (Section 14).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Curious Questions for Kids.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 14: Conceptual review, synthesis, and practice problem sets."
+            "Four aerodynamic forces: Lift (up), Gravity/Weight (down), Thrust (forward), and Drag (backward friction).",
+            "Jet engines produce massive forward thrust, pushing the airplane rapidly through the air.",
+            "Curved wings generate high pressure underneath and low pressure above, pushing the airplane skyward.",
+            "Rudders, ailerons, and elevators: Flaps on the wings and tail allow pilots to bank, roll, climb, and descend gently."
           ],
           "footerText": "Page 14 of 20 \u00b7 Curious Questions for Kids"
         },
@@ -206,12 +206,12 @@
           "pageNumber": 15,
           "header": "Curious Questions for Kids",
           "subHeader": "General Knowledge \u00b7 Class 2 \u00b7 Section 15",
-          "title": "Curious Questions for Kids: Module 15",
+          "title": "Why Does Ice Float on Water?",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of General Knowledge (Section 15).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Curious Questions for Kids.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 15: Conceptual review, synthesis, and practice problem sets."
+            "Unusual water density: Most liquids shrink and become denser as they freeze into solids, but water is unique!",
+            "Hydrogen bonds: As water cools below 4\u00b0C, water molecules lock into an open hexagonal crystalline framework.",
+            "Trapped space: Solid ice is about 9% less dense than liquid water, so ice cubes bob to the top of your glass.",
+            "Saving fish: Lakes freeze from the top down, leaving liquid water below so fish stay warm under an icy blanket!"
           ],
           "footerText": "Page 15 of 20 \u00b7 Curious Questions for Kids"
         },
@@ -219,12 +219,12 @@
           "pageNumber": 16,
           "header": "Curious Questions for Kids",
           "subHeader": "General Knowledge \u00b7 Class 2 \u00b7 Section 16",
-          "title": "Curious Questions for Kids: Module 16",
+          "title": "How Do Honeybees Make Golden Honey?",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of General Knowledge (Section 16).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Curious Questions for Kids.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 16: Conceptual review, synthesis, and practice problem sets."
+            "Nectar foraging: Worker bees visit hundreds of sweet flowers every day and drink sugary nectar with straw-like tongues.",
+            "Honey stomach: Bees carry nectar back to the wooden hive inside a special nectar storage stomach.",
+            "Enzyme magic: Bees add special enzymes that break complex nectar sugars into simple fructose and glucose.",
+            "Wing fanning: Bees flap their wings inside the hive to evaporate moisture until the nectar turns into thick golden honey!"
           ],
           "footerText": "Page 16 of 20 \u00b7 Curious Questions for Kids"
         },
@@ -232,12 +232,12 @@
           "pageNumber": 17,
           "header": "Curious Questions for Kids",
           "subHeader": "General Knowledge \u00b7 Class 2 \u00b7 Section 17",
-          "title": "Curious Questions for Kids: Module 17",
+          "title": "Why Do We Have Fingerprints?",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of General Knowledge (Section 17).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Curious Questions for Kids.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 17: Conceptual review, synthesis, and practice problem sets."
+            "Friction ridges: The tiny raised swirls, loops, and whorls on our fingertips give us grip when holding slippery objects.",
+            "Sensory enhancers: Fingerprint ridges vibrate as they brush across textures, helping fingertips feel microscopic bumps.",
+            "Completely unique: No two humans in history\u2014not even identical twins\u2014have ever had the exact same fingerprints!",
+            "Forensics: Scientists and detectives use fingerprint patterns to solve mysteries and verify identity."
           ],
           "footerText": "Page 17 of 20 \u00b7 Curious Questions for Kids"
         },
@@ -245,12 +245,12 @@
           "pageNumber": 18,
           "header": "Curious Questions for Kids",
           "subHeader": "General Knowledge \u00b7 Class 2 \u00b7 Section 18",
-          "title": "Curious Questions for Kids: Module 18",
+          "title": "How Do Bats Fly and Hunt in Total Darkness?",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of General Knowledge (Section 18).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Curious Questions for Kids.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 18: Conceptual review, synthesis, and practice problem sets."
+            "Echolocation: Bats emit high-frequency ultrasonic squeaks from their mouths or noses that humans cannot hear.",
+            "Sound wave travel: The sound waves travel through night air and bounce off tree branches, moths, and obstacles.",
+            "Echo reception: The bat's sensitive, dish-shaped ears catch the returning sound bounce in a fraction of a millisecond.",
+            "Mental 3D map: The bat's brain instantly calculates the exact distance, speed, size, and direction of moving prey!"
           ],
           "footerText": "Page 18 of 20 \u00b7 Curious Questions for Kids"
         },
@@ -258,12 +258,12 @@
           "pageNumber": 19,
           "header": "Curious Questions for Kids",
           "subHeader": "General Knowledge \u00b7 Class 2 \u00b7 Section 19",
-          "title": "Curious Questions for Kids: Module 19",
+          "title": "Why Do Mirrors Flip Things Left to Right?",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of General Knowledge (Section 19).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Curious Questions for Kids.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 19: Conceptual review, synthesis, and practice problem sets."
+            "Specular reflection: The smooth glass surface backed by reflective silver metal bounces light rays straight back at you.",
+            "Front-to-back flip: A mirror doesn't actually flip left and right\u2014it inverts depth (front to back)!",
+            "When you raise your right hand, the reflection raises the hand directly opposite your right hand.",
+            "T-shirt letters: If you hold a book to the mirror, you turned the book around to face the mirror, which reversed the words!"
           ],
           "footerText": "Page 19 of 20 \u00b7 Curious Questions for Kids"
         },
@@ -271,12 +271,12 @@
           "pageNumber": 20,
           "header": "Curious Questions for Kids",
           "subHeader": "General Knowledge \u00b7 Class 2 \u00b7 Section 20",
-          "title": "Curious Questions for Kids: Module 20",
+          "title": "Keep Asking Questions: The Joy of Science!",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of General Knowledge (Section 20).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Curious Questions for Kids.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 20: Conceptual review, synthesis, and practice problem sets."
+            "Every great invention\u2014from telescopes and airplanes to medicines and computers\u2014started with a curious question.",
+            "Science is not just a book of facts: It is a way of observing, wondering, testing, and discovering truth.",
+            "Never stop asking 'Why?', 'How?', and 'What if?': Curiosity is your greatest superpower.",
+            "Young scientist pledge: Explore your world, stay curious, experiment kindly, and keep learning every single day!"
           ],
           "footerText": "Page 20 of 20 \u00b7 Curious Questions for Kids"
         }

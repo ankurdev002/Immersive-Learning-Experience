@@ -12,336 +12,336 @@
   "sourcePdf": null,
   "icon": "\ud83d\udce1",
   "isInteractive": true,
-  "author": "Distinguished Faculty & Academic Press",
+  "author": "Distinguished Curators & Academic Press",
   "totalPages": 25,
   "chapters": [
     {
       "chapterNumber": 1,
       "title": "Computer Networks",
-      "description": "Comprehensive master curriculum in Networking",
+      "description": "Comprehensive curriculum in Networking",
       "pages": [
         {
           "pageNumber": 1,
           "header": "Computer Networks",
-          "subHeader": "Networking \u00b7 Class 5 \u00b7 Section 1",
-          "title": "Computer Networks: Module 1",
+          "subHeader": "Networking \u00b7 Class 5 \u00b7 Part 1",
+          "title": "Foundational Models & System Abstractions: Topic 1",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Networking (Section 1).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Computer Networks.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 1: Conceptual review, synthesis, and practice problem sets."
+            "Architectural paradigms and foundational theorems.",
+            "Trade-off evaluation: Performance, latency, consistency, and cost.",
+            "Mathematical formulations and algorithmic bounds.",
+            "Decomposing complex systems into verifiable modules."
           ],
           "footerText": "Page 1 of 25 \u00b7 Computer Networks"
         },
         {
           "pageNumber": 2,
           "header": "Computer Networks",
-          "subHeader": "Networking \u00b7 Class 5 \u00b7 Section 2",
-          "title": "Computer Networks: Module 2",
+          "subHeader": "Networking \u00b7 Class 5 \u00b7 Part 2",
+          "title": "Foundational Models & System Abstractions: Topic 2",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Networking (Section 2).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Computer Networks.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 2: Conceptual review, synthesis, and practice problem sets."
+            "Architectural paradigms and foundational theorems.",
+            "Trade-off evaluation: Performance, latency, consistency, and cost.",
+            "Mathematical formulations and algorithmic bounds.",
+            "Decomposing complex systems into verifiable modules."
           ],
           "footerText": "Page 2 of 25 \u00b7 Computer Networks"
         },
         {
           "pageNumber": 3,
           "header": "Computer Networks",
-          "subHeader": "Networking \u00b7 Class 5 \u00b7 Section 3",
-          "title": "Computer Networks: Module 3",
+          "subHeader": "Networking \u00b7 Class 5 \u00b7 Part 3",
+          "title": "Foundational Models & System Abstractions: Topic 3",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Networking (Section 3).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Computer Networks.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 3: Conceptual review, synthesis, and practice problem sets."
+            "Architectural paradigms and foundational theorems.",
+            "Trade-off evaluation: Performance, latency, consistency, and cost.",
+            "Mathematical formulations and algorithmic bounds.",
+            "Decomposing complex systems into verifiable modules."
           ],
           "footerText": "Page 3 of 25 \u00b7 Computer Networks"
         },
         {
           "pageNumber": 4,
           "header": "Computer Networks",
-          "subHeader": "Networking \u00b7 Class 5 \u00b7 Section 4",
-          "title": "Computer Networks: Module 4",
+          "subHeader": "Networking \u00b7 Class 5 \u00b7 Part 4",
+          "title": "Foundational Models & System Abstractions: Topic 4",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Networking (Section 4).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Computer Networks.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 4: Conceptual review, synthesis, and practice problem sets."
+            "Architectural paradigms and foundational theorems.",
+            "Trade-off evaluation: Performance, latency, consistency, and cost.",
+            "Mathematical formulations and algorithmic bounds.",
+            "Decomposing complex systems into verifiable modules."
           ],
           "footerText": "Page 4 of 25 \u00b7 Computer Networks"
         },
         {
           "pageNumber": 5,
           "header": "Computer Networks",
-          "subHeader": "Networking \u00b7 Class 5 \u00b7 Section 5",
-          "title": "Computer Networks: Module 5",
+          "subHeader": "Networking \u00b7 Class 5 \u00b7 Part 5",
+          "title": "Foundational Models & System Abstractions: Topic 5",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Networking (Section 5).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Computer Networks.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 5: Conceptual review, synthesis, and practice problem sets."
+            "Architectural paradigms and foundational theorems.",
+            "Trade-off evaluation: Performance, latency, consistency, and cost.",
+            "Mathematical formulations and algorithmic bounds.",
+            "Decomposing complex systems into verifiable modules."
           ],
           "footerText": "Page 5 of 25 \u00b7 Computer Networks"
         },
         {
           "pageNumber": 6,
           "header": "Computer Networks",
-          "subHeader": "Networking \u00b7 Class 5 \u00b7 Section 6",
-          "title": "Computer Networks: Module 6",
+          "subHeader": "Networking \u00b7 Class 5 \u00b7 Part 6",
+          "title": "Core Mechanisms & Algorithmic Engines: Topic 6",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Networking (Section 6).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Computer Networks.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 6: Conceptual review, synthesis, and practice problem sets."
+            "In-depth analysis of structural algorithms and state machines.",
+            "Memory access optimizations and data layout efficiency.",
+            "Protocol interactions, handshakes, and invariant maintenance.",
+            "Diagnostic profiling and empirical performance benchmarking."
           ],
           "footerText": "Page 6 of 25 \u00b7 Computer Networks"
         },
         {
           "pageNumber": 7,
           "header": "Computer Networks",
-          "subHeader": "Networking \u00b7 Class 5 \u00b7 Section 7",
-          "title": "Computer Networks: Module 7",
+          "subHeader": "Networking \u00b7 Class 5 \u00b7 Part 1",
+          "title": "Core Mechanisms & Algorithmic Engines: Topic 1",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Networking (Section 7).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Computer Networks.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 7: Conceptual review, synthesis, and practice problem sets."
+            "In-depth analysis of structural algorithms and state machines.",
+            "Memory access optimizations and data layout efficiency.",
+            "Protocol interactions, handshakes, and invariant maintenance.",
+            "Diagnostic profiling and empirical performance benchmarking."
           ],
           "footerText": "Page 7 of 25 \u00b7 Computer Networks"
         },
         {
           "pageNumber": 8,
           "header": "Computer Networks",
-          "subHeader": "Networking \u00b7 Class 5 \u00b7 Section 8",
-          "title": "Computer Networks: Module 8",
+          "subHeader": "Networking \u00b7 Class 5 \u00b7 Part 2",
+          "title": "Core Mechanisms & Algorithmic Engines: Topic 2",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Networking (Section 8).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Computer Networks.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 8: Conceptual review, synthesis, and practice problem sets."
+            "In-depth analysis of structural algorithms and state machines.",
+            "Memory access optimizations and data layout efficiency.",
+            "Protocol interactions, handshakes, and invariant maintenance.",
+            "Diagnostic profiling and empirical performance benchmarking."
           ],
           "footerText": "Page 8 of 25 \u00b7 Computer Networks"
         },
         {
           "pageNumber": 9,
           "header": "Computer Networks",
-          "subHeader": "Networking \u00b7 Class 5 \u00b7 Section 9",
-          "title": "Computer Networks: Module 9",
+          "subHeader": "Networking \u00b7 Class 5 \u00b7 Part 3",
+          "title": "Core Mechanisms & Algorithmic Engines: Topic 3",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Networking (Section 9).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Computer Networks.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 9: Conceptual review, synthesis, and practice problem sets."
+            "In-depth analysis of structural algorithms and state machines.",
+            "Memory access optimizations and data layout efficiency.",
+            "Protocol interactions, handshakes, and invariant maintenance.",
+            "Diagnostic profiling and empirical performance benchmarking."
           ],
           "footerText": "Page 9 of 25 \u00b7 Computer Networks"
         },
         {
           "pageNumber": 10,
           "header": "Computer Networks",
-          "subHeader": "Networking \u00b7 Class 5 \u00b7 Section 10",
-          "title": "Computer Networks: Module 10",
+          "subHeader": "Networking \u00b7 Class 5 \u00b7 Part 4",
+          "title": "Core Mechanisms & Algorithmic Engines: Topic 4",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Networking (Section 10).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Computer Networks.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 10: Conceptual review, synthesis, and practice problem sets."
+            "In-depth analysis of structural algorithms and state machines.",
+            "Memory access optimizations and data layout efficiency.",
+            "Protocol interactions, handshakes, and invariant maintenance.",
+            "Diagnostic profiling and empirical performance benchmarking."
           ],
           "footerText": "Page 10 of 25 \u00b7 Computer Networks"
         },
         {
           "pageNumber": 11,
           "header": "Computer Networks",
-          "subHeader": "Networking \u00b7 Class 5 \u00b7 Section 11",
-          "title": "Computer Networks: Module 11",
+          "subHeader": "Networking \u00b7 Class 5 \u00b7 Part 5",
+          "title": "Concurrency, Scaling & Fault Tolerance: Topic 5",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Networking (Section 11).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Computer Networks.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 11: Conceptual review, synthesis, and practice problem sets."
+            "Synchronization primitives, lock-free designs, and consensus.",
+            "Handling failures: Retry strategies, circuit breakers, and idempotency.",
+            "Horizontal scaling vs vertical hardware specialization.",
+            "High-availability architectures and replication topologies."
           ],
           "footerText": "Page 11 of 25 \u00b7 Computer Networks"
         },
         {
           "pageNumber": 12,
           "header": "Computer Networks",
-          "subHeader": "Networking \u00b7 Class 5 \u00b7 Section 12",
-          "title": "Computer Networks: Module 12",
+          "subHeader": "Networking \u00b7 Class 5 \u00b7 Part 6",
+          "title": "Concurrency, Scaling & Fault Tolerance: Topic 6",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Networking (Section 12).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Computer Networks.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 12: Conceptual review, synthesis, and practice problem sets."
+            "Synchronization primitives, lock-free designs, and consensus.",
+            "Handling failures: Retry strategies, circuit breakers, and idempotency.",
+            "Horizontal scaling vs vertical hardware specialization.",
+            "High-availability architectures and replication topologies."
           ],
           "footerText": "Page 12 of 25 \u00b7 Computer Networks"
         },
         {
           "pageNumber": 13,
           "header": "Computer Networks",
-          "subHeader": "Networking \u00b7 Class 5 \u00b7 Section 13",
-          "title": "Computer Networks: Module 13",
+          "subHeader": "Networking \u00b7 Class 5 \u00b7 Part 1",
+          "title": "Concurrency, Scaling & Fault Tolerance: Topic 1",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Networking (Section 13).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Computer Networks.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 13: Conceptual review, synthesis, and practice problem sets."
+            "Synchronization primitives, lock-free designs, and consensus.",
+            "Handling failures: Retry strategies, circuit breakers, and idempotency.",
+            "Horizontal scaling vs vertical hardware specialization.",
+            "High-availability architectures and replication topologies."
           ],
           "footerText": "Page 13 of 25 \u00b7 Computer Networks"
         },
         {
           "pageNumber": 14,
           "header": "Computer Networks",
-          "subHeader": "Networking \u00b7 Class 5 \u00b7 Section 14",
-          "title": "Computer Networks: Module 14",
+          "subHeader": "Networking \u00b7 Class 5 \u00b7 Part 2",
+          "title": "Concurrency, Scaling & Fault Tolerance: Topic 2",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Networking (Section 14).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Computer Networks.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 14: Conceptual review, synthesis, and practice problem sets."
+            "Synchronization primitives, lock-free designs, and consensus.",
+            "Handling failures: Retry strategies, circuit breakers, and idempotency.",
+            "Horizontal scaling vs vertical hardware specialization.",
+            "High-availability architectures and replication topologies."
           ],
           "footerText": "Page 14 of 25 \u00b7 Computer Networks"
         },
         {
           "pageNumber": 15,
           "header": "Computer Networks",
-          "subHeader": "Networking \u00b7 Class 5 \u00b7 Section 15",
-          "title": "Computer Networks: Module 15",
+          "subHeader": "Networking \u00b7 Class 5 \u00b7 Part 3",
+          "title": "Concurrency, Scaling & Fault Tolerance: Topic 3",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Networking (Section 15).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Computer Networks.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 15: Conceptual review, synthesis, and practice problem sets."
+            "Synchronization primitives, lock-free designs, and consensus.",
+            "Handling failures: Retry strategies, circuit breakers, and idempotency.",
+            "Horizontal scaling vs vertical hardware specialization.",
+            "High-availability architectures and replication topologies."
           ],
           "footerText": "Page 15 of 25 \u00b7 Computer Networks"
         },
         {
           "pageNumber": 16,
           "header": "Computer Networks",
-          "subHeader": "Networking \u00b7 Class 5 \u00b7 Section 16",
-          "title": "Computer Networks: Module 16",
+          "subHeader": "Networking \u00b7 Class 5 \u00b7 Part 4",
+          "title": "Real-World Production Architectures: Topic 4",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Networking (Section 16).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Computer Networks.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 16: Conceptual review, synthesis, and practice problem sets."
+            "Case studies from large-scale datacenter deployments.",
+            "Monitoring, telemetry, observability, and tracing.",
+            "Security boundaries, threat models, and access control.",
+            "Best practices for evolving long-lived software systems."
           ],
           "footerText": "Page 16 of 25 \u00b7 Computer Networks"
         },
         {
           "pageNumber": 17,
           "header": "Computer Networks",
-          "subHeader": "Networking \u00b7 Class 5 \u00b7 Section 17",
-          "title": "Computer Networks: Module 17",
+          "subHeader": "Networking \u00b7 Class 5 \u00b7 Part 5",
+          "title": "Real-World Production Architectures: Topic 5",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Networking (Section 17).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Computer Networks.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 17: Conceptual review, synthesis, and practice problem sets."
+            "Case studies from large-scale datacenter deployments.",
+            "Monitoring, telemetry, observability, and tracing.",
+            "Security boundaries, threat models, and access control.",
+            "Best practices for evolving long-lived software systems."
           ],
           "footerText": "Page 17 of 25 \u00b7 Computer Networks"
         },
         {
           "pageNumber": 18,
           "header": "Computer Networks",
-          "subHeader": "Networking \u00b7 Class 5 \u00b7 Section 18",
-          "title": "Computer Networks: Module 18",
+          "subHeader": "Networking \u00b7 Class 5 \u00b7 Part 6",
+          "title": "Real-World Production Architectures: Topic 6",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Networking (Section 18).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Computer Networks.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 18: Conceptual review, synthesis, and practice problem sets."
+            "Case studies from large-scale datacenter deployments.",
+            "Monitoring, telemetry, observability, and tracing.",
+            "Security boundaries, threat models, and access control.",
+            "Best practices for evolving long-lived software systems."
           ],
           "footerText": "Page 18 of 25 \u00b7 Computer Networks"
         },
         {
           "pageNumber": 19,
           "header": "Computer Networks",
-          "subHeader": "Networking \u00b7 Class 5 \u00b7 Section 19",
-          "title": "Computer Networks: Module 19",
+          "subHeader": "Networking \u00b7 Class 5 \u00b7 Part 1",
+          "title": "Real-World Production Architectures: Topic 1",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Networking (Section 19).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Computer Networks.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 19: Conceptual review, synthesis, and practice problem sets."
+            "Case studies from large-scale datacenter deployments.",
+            "Monitoring, telemetry, observability, and tracing.",
+            "Security boundaries, threat models, and access control.",
+            "Best practices for evolving long-lived software systems."
           ],
           "footerText": "Page 19 of 25 \u00b7 Computer Networks"
         },
         {
           "pageNumber": 20,
           "header": "Computer Networks",
-          "subHeader": "Networking \u00b7 Class 5 \u00b7 Section 20",
-          "title": "Computer Networks: Module 20",
+          "subHeader": "Networking \u00b7 Class 5 \u00b7 Part 2",
+          "title": "Real-World Production Architectures: Topic 2",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Networking (Section 20).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Computer Networks.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 20: Conceptual review, synthesis, and practice problem sets."
+            "Case studies from large-scale datacenter deployments.",
+            "Monitoring, telemetry, observability, and tracing.",
+            "Security boundaries, threat models, and access control.",
+            "Best practices for evolving long-lived software systems."
           ],
           "footerText": "Page 20 of 25 \u00b7 Computer Networks"
         },
         {
           "pageNumber": 21,
           "header": "Computer Networks",
-          "subHeader": "Networking \u00b7 Class 5 \u00b7 Section 21",
-          "title": "Computer Networks: Module 21",
+          "subHeader": "Networking \u00b7 Class 5 \u00b7 Part 3",
+          "title": "Emerging Horizons & Future Directions: Topic 3",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Networking (Section 21).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Computer Networks.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 21: Conceptual review, synthesis, and practice problem sets."
+            "Next-generation paradigms and hardware trends.",
+            "Bridging theoretical models with practical engineering.",
+            "Open-source ecosystems and industry standards.",
+            "Synthesis: Key takeaways and architectural mastery."
           ],
           "footerText": "Page 21 of 25 \u00b7 Computer Networks"
         },
         {
           "pageNumber": 22,
           "header": "Computer Networks",
-          "subHeader": "Networking \u00b7 Class 5 \u00b7 Section 22",
-          "title": "Computer Networks: Module 22",
+          "subHeader": "Networking \u00b7 Class 5 \u00b7 Part 4",
+          "title": "Emerging Horizons & Future Directions: Topic 4",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Networking (Section 22).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Computer Networks.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 22: Conceptual review, synthesis, and practice problem sets."
+            "Next-generation paradigms and hardware trends.",
+            "Bridging theoretical models with practical engineering.",
+            "Open-source ecosystems and industry standards.",
+            "Synthesis: Key takeaways and architectural mastery."
           ],
           "footerText": "Page 22 of 25 \u00b7 Computer Networks"
         },
         {
           "pageNumber": 23,
           "header": "Computer Networks",
-          "subHeader": "Networking \u00b7 Class 5 \u00b7 Section 23",
-          "title": "Computer Networks: Module 23",
+          "subHeader": "Networking \u00b7 Class 5 \u00b7 Part 5",
+          "title": "Emerging Horizons & Future Directions: Topic 5",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Networking (Section 23).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Computer Networks.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 23: Conceptual review, synthesis, and practice problem sets."
+            "Next-generation paradigms and hardware trends.",
+            "Bridging theoretical models with practical engineering.",
+            "Open-source ecosystems and industry standards.",
+            "Synthesis: Key takeaways and architectural mastery."
           ],
           "footerText": "Page 23 of 25 \u00b7 Computer Networks"
         },
         {
           "pageNumber": 24,
           "header": "Computer Networks",
-          "subHeader": "Networking \u00b7 Class 5 \u00b7 Section 24",
-          "title": "Computer Networks: Module 24",
+          "subHeader": "Networking \u00b7 Class 5 \u00b7 Part 6",
+          "title": "Emerging Horizons & Future Directions: Topic 6",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Networking (Section 24).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Computer Networks.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 24: Conceptual review, synthesis, and practice problem sets."
+            "Next-generation paradigms and hardware trends.",
+            "Bridging theoretical models with practical engineering.",
+            "Open-source ecosystems and industry standards.",
+            "Synthesis: Key takeaways and architectural mastery."
           ],
           "footerText": "Page 24 of 25 \u00b7 Computer Networks"
         },
         {
           "pageNumber": 25,
           "header": "Computer Networks",
-          "subHeader": "Networking \u00b7 Class 5 \u00b7 Section 25",
-          "title": "Computer Networks: Module 25",
+          "subHeader": "Networking \u00b7 Class 5 \u00b7 Part 1",
+          "title": "Emerging Horizons & Future Directions: Topic 1",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Networking (Section 25).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Computer Networks.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 25: Conceptual review, synthesis, and practice problem sets."
+            "Next-generation paradigms and hardware trends.",
+            "Bridging theoretical models with practical engineering.",
+            "Open-source ecosystems and industry standards.",
+            "Synthesis: Key takeaways and architectural mastery."
           ],
           "footerText": "Page 25 of 25 \u00b7 Computer Networks"
         }

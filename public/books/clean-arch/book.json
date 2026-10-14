@@ -12,24 +12,24 @@
   "sourcePdf": null,
   "icon": "\ud83d\udcd0",
   "isInteractive": true,
-  "author": "Distinguished Faculty & Academic Press",
+  "author": "Academic Faculty & Domain Curators",
   "totalPages": 25,
   "chapters": [
     {
       "chapterNumber": 1,
       "title": "Clean Architecture",
-      "description": "Comprehensive master curriculum in Software Craft",
+      "description": "Comprehensive curriculum in Software Craft",
       "pages": [
         {
           "pageNumber": 1,
           "header": "Clean Architecture",
           "subHeader": "Software Craft \u00b7 Class 3 \u00b7 Section 1",
-          "title": "Clean Architecture: Module 1",
+          "title": "What Is Software Architecture?",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Software Craft (Section 1).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Clean Architecture.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 1: Conceptual review, synthesis, and practice problem sets."
+            "Architecture is the shape given to a software system by those who build it.",
+            "The primary purpose of architecture is to minimize the human resources required to build and maintain the required system.",
+            "Behavior vs Structure: Delivering features is secondary to maintaining a flexible, changeable software structure.",
+            "The cost of poor design: When systems rot, the cost per line of code increases exponentially toward infinity."
           ],
           "footerText": "Page 1 of 25 \u00b7 Clean Architecture"
         },
@@ -37,12 +37,12 @@
           "pageNumber": 2,
           "header": "Clean Architecture",
           "subHeader": "Software Craft \u00b7 Class 3 \u00b7 Section 2",
-          "title": "Clean Architecture: Module 2",
+          "title": "Paradigms: Structured, Object-Oriented, and Functional",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Software Craft (Section 2).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Clean Architecture.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 2: Conceptual review, synthesis, and practice problem sets."
+            "Structured Programming: Imposes discipline on direct transfer of control (replacing goto with sequence, selection, iteration).",
+            "Object-Oriented Programming: Imposes discipline on indirect transfer of control through polymorphic dispatch.",
+            "Functional Programming: Imposes discipline on assignment and variable mutation through referential transparency.",
+            "Architectural takeaway: Paradigms tell us what NOT to do rather than adding new capabilities."
           ],
           "footerText": "Page 2 of 25 \u00b7 Clean Architecture"
         },
@@ -50,12 +50,12 @@
           "pageNumber": 3,
           "header": "Clean Architecture",
           "subHeader": "Software Craft \u00b7 Class 3 \u00b7 Section 3",
-          "title": "Clean Architecture: Module 3",
+          "title": "Design Principles: The SOLID Overview",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Software Craft (Section 3).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Clean Architecture.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 3: Conceptual review, synthesis, and practice problem sets."
+            "SOLID principles guide the arrangement of functions and data structures into classes and module boundaries.",
+            "Goal: Create software modules that tolerate change, are easy to understand, and serve as components in diverse systems.",
+            "SRP (Single Responsibility), OCP (Open-Closed), LSP (Liskov Substitution), ISP (Interface Segregation), DIP (Dependency Inversion).",
+            "SOLID applies equally to class design, microservice architectures, and high-level component packaging."
           ],
           "footerText": "Page 3 of 25 \u00b7 Clean Architecture"
         },
@@ -63,12 +63,12 @@
           "pageNumber": 4,
           "header": "Clean Architecture",
           "subHeader": "Software Craft \u00b7 Class 3 \u00b7 Section 4",
-          "title": "Clean Architecture: Module 4",
+          "title": "Single Responsibility Principle (SRP)",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Software Craft (Section 4).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Clean Architecture.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 4: Conceptual review, synthesis, and practice problem sets."
+            "True definition: A module should be responsible to one, and only one, actor (user or stakeholder group).",
+            "Common misconception: A module should do only one thing (which is the definition of a refactored function, not SRP!).",
+            "Symptoms of violation: Divergent changes, merge conflicts between disparate business departments, and accidental coupling.",
+            "Solution: Separate business logic (Payroll, Accounting, HR) into distinct classes with clear domain boundaries."
           ],
           "footerText": "Page 4 of 25 \u00b7 Clean Architecture"
         },
@@ -76,12 +76,12 @@
           "pageNumber": 5,
           "header": "Clean Architecture",
           "subHeader": "Software Craft \u00b7 Class 3 \u00b7 Section 5",
-          "title": "Clean Architecture: Module 5",
+          "title": "Open-Closed Principle (OCP)",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Software Craft (Section 5).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Clean Architecture.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 5: Conceptual review, synthesis, and practice problem sets."
+            "Definition: A software artifact should be open for extension but closed for modification.",
+            "Goal: Make the system easy to extend without incurring high impact of change across existing stable modules.",
+            "Architectural mechanism: Partitioning systems into components based on why, when, and how frequently they change.",
+            "Inverting dependencies: Higher-level policy components must be completely protected from changes in lower-level detail components."
           ],
           "footerText": "Page 5 of 25 \u00b7 Clean Architecture"
         },
@@ -89,12 +89,12 @@
           "pageNumber": 6,
           "header": "Clean Architecture",
           "subHeader": "Software Craft \u00b7 Class 3 \u00b7 Section 6",
-          "title": "Clean Architecture: Module 6",
+          "title": "Liskov Substitution Principle (LSP)",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Software Craft (Section 6).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Clean Architecture.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 6: Conceptual review, synthesis, and practice problem sets."
+            "Definition: Subtypes must be substitutable for their base types without altering system correctness.",
+            "The classic Square-Rectangle problem: Square inheriting from Rectangle breaks area calculations when width and height are mutated.",
+            "Behavioral subtyping: Subclasses must fulfill the contracts, pre-conditions, and post-conditions of their parent abstractions.",
+            "Architectural impact: Restricting inheritance to true behavioral equivalence prevents fragile conditional cascades."
           ],
           "footerText": "Page 6 of 25 \u00b7 Clean Architecture"
         },
@@ -102,12 +102,12 @@
           "pageNumber": 7,
           "header": "Clean Architecture",
           "subHeader": "Software Craft \u00b7 Class 3 \u00b7 Section 7",
-          "title": "Clean Architecture: Module 7",
+          "title": "Interface Segregation Principle (ISP)",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Software Craft (Section 7).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Clean Architecture.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 7: Conceptual review, synthesis, and practice problem sets."
+            "Definition: Clients should not be forced to depend on methods that they do not use.",
+            "Fat interfaces: Monolithic interfaces bundle unrelated behaviors, causing downstream re-compilation and re-testing.",
+            "Decoupling through role interfaces: Decomposing bloated interfaces into fine-grained, client-specific contracts.",
+            "Language impacts: Dynamic languages vs statically typed compiled binaries and source-level code dependencies."
           ],
           "footerText": "Page 7 of 25 \u00b7 Clean Architecture"
         },
@@ -115,12 +115,12 @@
           "pageNumber": 8,
           "header": "Clean Architecture",
           "subHeader": "Software Craft \u00b7 Class 3 \u00b7 Section 8",
-          "title": "Clean Architecture: Module 8",
+          "title": "Dependency Inversion Principle (DIP)",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Software Craft (Section 8).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Clean Architecture.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 8: Conceptual review, synthesis, and practice problem sets."
+            "Definition 1: High-level modules should not depend on low-level modules; both should depend on abstractions.",
+            "Definition 2: Abstractions should not depend on details; details should depend on abstractions.",
+            "Stable software abstractions: Interfaces and abstract classes are far less volatile than concrete implementations.",
+            "Abstract Factories: Using factory design patterns to instantiate volatile concrete classes across architectural boundaries."
           ],
           "footerText": "Page 8 of 25 \u00b7 Clean Architecture"
         },
@@ -128,12 +128,12 @@
           "pageNumber": 9,
           "header": "Clean Architecture",
           "subHeader": "Software Craft \u00b7 Class 3 \u00b7 Section 9",
-          "title": "Clean Architecture: Module 9",
+          "title": "Component Cohesion: REP, CCP, and CRP",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Software Craft (Section 9).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Clean Architecture.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 9: Conceptual review, synthesis, and practice problem sets."
+            "REP (Reuse/Release Equivalence Principle): The granule of reuse is the granule of release.",
+            "CCP (Common Closure Principle): Gather together those things that change for the same reasons and at the same times.",
+            "CRP (Common Reuse Principle): Don't force users of a component to depend on things they don't need.",
+            "The Tension Triangle: Balancing the trade-offs between reusability, maintainability, and release frequency."
           ],
           "footerText": "Page 9 of 25 \u00b7 Clean Architecture"
         },
@@ -141,12 +141,12 @@
           "pageNumber": 10,
           "header": "Clean Architecture",
           "subHeader": "Software Craft \u00b7 Class 3 \u00b7 Section 10",
-          "title": "Clean Architecture: Module 10",
+          "title": "Component Coupling: ADP, SDP, and SAP",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Software Craft (Section 10).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Clean Architecture.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 10: Conceptual review, synthesis, and practice problem sets."
+            "ADP (Acyclic Dependencies Principle): Allow no cycles in the component dependency graph.",
+            "Eliminating cycles: Inverting dependencies using interfaces or extracting new shared foundation components.",
+            "SDP (Stable Dependencies Principle): Depend in the direction of stability (stability = difficulty of change).",
+            "SAP (Stable Abstractions Principle): A component should be as abstract as it is stable."
           ],
           "footerText": "Page 10 of 25 \u00b7 Clean Architecture"
         },
@@ -154,12 +154,12 @@
           "pageNumber": 11,
           "header": "Clean Architecture",
           "subHeader": "Software Craft \u00b7 Class 3 \u00b7 Section 11",
-          "title": "Clean Architecture: Module 11",
+          "title": "Measuring Component Stability & Abstraction",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Software Craft (Section 11).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Clean Architecture.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 11: Conceptual review, synthesis, and practice problem sets."
+            "Afferent Couplings (Ca): Number of external classes that depend on classes within this component.",
+            "Efferent Couplings (Ce): Number of classes outside this component that classes within this component depend upon.",
+            "Instability metric: I = Ce / (Ca + Ce) (0 = maximally stable, 1 = maximally unstable).",
+            "The Main Sequence: Plotting Abstractness (A) vs Instability (I); minimizing Distance D from the Main Sequence."
           ],
           "footerText": "Page 11 of 25 \u00b7 Clean Architecture"
         },
@@ -167,12 +167,12 @@
           "pageNumber": 12,
           "header": "Clean Architecture",
           "subHeader": "Software Craft \u00b7 Class 3 \u00b7 Section 12",
-          "title": "Clean Architecture: Module 12",
+          "title": "What Is Software Architecture? (Deep Dive)",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Software Craft (Section 12).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Clean Architecture.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 12: Conceptual review, synthesis, and practice problem sets."
+            "Architecture is the strategy that isolates high-level policies from low-level operational details.",
+            "The primary purpose of architecture is to facilitate development, deployment, operation, and ongoing maintenance.",
+            "Leaving options open: A good architect maximizes the number of decisions that can be deferred or postponed.",
+            "Deferring decisions: Delaying choices of database engines, web frameworks, and communication protocols."
           ],
           "footerText": "Page 12 of 25 \u00b7 Clean Architecture"
         },
@@ -180,12 +180,12 @@
           "pageNumber": 13,
           "header": "Clean Architecture",
           "subHeader": "Software Craft \u00b7 Class 3 \u00b7 Section 13",
-          "title": "Clean Architecture: Module 13",
+          "title": "Independence: Decoupling Policies from Mechanisms",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Software Craft (Section 13).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Clean Architecture.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 13: Conceptual review, synthesis, and practice problem sets."
+            "Use Case Decoupling: Systems should be structured around business use cases rather than frameworks or databases.",
+            "Horizontal layering: UI layer, Application business rules, Enterprise business rules, Database access.",
+            "Vertical slicing: Slicing across layers by use case (e.g. OrderPlacement, InventoryCheck, InvoiceGeneration).",
+            "Decoupled deployment: Independent deployment units (JARs, DLLs, Docker containers, microservices)."
           ],
           "footerText": "Page 13 of 25 \u00b7 Clean Architecture"
         },
@@ -193,12 +193,12 @@
           "pageNumber": 14,
           "header": "Clean Architecture",
           "subHeader": "Software Craft \u00b7 Class 3 \u00b7 Section 14",
-          "title": "Clean Architecture: Module 14",
+          "title": "Drawing Boundaries: The Clean Architecture Core",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Software Craft (Section 14).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Clean Architecture.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 14: Conceptual review, synthesis, and practice problem sets."
+            "Software architecture is the art of drawing lines called architectural boundaries between software elements.",
+            "Coupling across boundaries: Crossing lines requires dependency inversion interfaces to prevent pollution.",
+            "Plugin architecture: Treating business rules as core engines and UI/Databases as pluggable extensions.",
+            "Case study: Why FitNesse ran entirely from in-memory wiki mocks before selecting MySQL storage."
           ],
           "footerText": "Page 14 of 25 \u00b7 Clean Architecture"
         },
@@ -206,12 +206,12 @@
           "pageNumber": 15,
           "header": "Clean Architecture",
           "subHeader": "Software Craft \u00b7 Class 3 \u00b7 Section 15",
-          "title": "Clean Architecture: Module 15",
+          "title": "Policy and Level: The Hierarchy of Abstraction",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Software Craft (Section 15).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Clean Architecture.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 15: Conceptual review, synthesis, and practice problem sets."
+            "The Level of a component: The distance from physical inputs and outputs.",
+            "High-level policies: Business rules, encryption policies, domain calculations that dictate company value.",
+            "Low-level mechanisms: Reading mouse events, writing SQL queries, rendering HTML DOM elements.",
+            "The Golden Rule: Source code dependencies must always point in the direction of higher level policy!"
           ],
           "footerText": "Page 15 of 25 \u00b7 Clean Architecture"
         },
@@ -219,12 +219,12 @@
           "pageNumber": 16,
           "header": "Clean Architecture",
           "subHeader": "Software Craft \u00b7 Class 3 \u00b7 Section 16",
-          "title": "Clean Architecture: Module 16",
+          "title": "Business Rules: Entities & Use Cases",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Software Craft (Section 16).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Clean Architecture.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 16: Conceptual review, synthesis, and practice problem sets."
+            "Critical Business Rules: Rules that make or save money for the business, even if no computer system existed.",
+            "Entities: Business objects encapsulating Critical Business Rules (pure domain data structures and methods).",
+            "Use Cases: Application-specific business rules that orchestrate data flow to and from Entities.",
+            "Request and Response models: Use cases receive input data structures and return output data structures without UI knowledge."
           ],
           "footerText": "Page 16 of 25 \u00b7 Clean Architecture"
         },
@@ -232,12 +232,12 @@
           "pageNumber": 17,
           "header": "Clean Architecture",
           "subHeader": "Software Craft \u00b7 Class 3 \u00b7 Section 17",
-          "title": "Clean Architecture: Module 17",
+          "title": "The Clean Architecture Diagram",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Software Craft (Section 17).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Clean Architecture.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 17: Conceptual review, synthesis, and practice problem sets."
+            "Concentric rings: Enterprise Business Rules (Entities) -> Application Rules (Use Cases) -> Interface Adapters -> Frameworks.",
+            "The Dependency Rule: Source code dependencies must only point inward toward higher-level policies.",
+            "Nothing in an inner circle can know anything at all about something in an outer circle.",
+            "Data formats across boundaries: Simple, isolated DTOs (Data Transfer Objects) instead of database entity rows or web forms."
           ],
           "footerText": "Page 17 of 25 \u00b7 Clean Architecture"
         },
@@ -245,12 +245,12 @@
           "pageNumber": 18,
           "header": "Clean Architecture",
           "subHeader": "Software Craft \u00b7 Class 3 \u00b7 Section 18",
-          "title": "Clean Architecture: Module 18",
+          "title": "Presenters, Views & Humble Objects",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Software Craft (Section 18).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Clean Architecture.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 18: Conceptual review, synthesis, and practice problem sets."
+            "The Humble Object Pattern: Separating hard-to-test behaviors from easy-to-test behaviors.",
+            "View is humble: Contains no logic, simply displays pre-formatted strings received from a Presenter.",
+            "Presenter is testable: Formats raw data (dates, currency, booleans) into user-ready display models without touching UI widgets.",
+            "Database Gateways: Interactors call gateway interfaces; SQL/ORM implementations are humble persistence details."
           ],
           "footerText": "Page 18 of 25 \u00b7 Clean Architecture"
         },
@@ -258,12 +258,12 @@
           "pageNumber": 19,
           "header": "Clean Architecture",
           "subHeader": "Software Craft \u00b7 Class 3 \u00b7 Section 19",
-          "title": "Clean Architecture: Module 19",
+          "title": "Partial Boundaries & Facades",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Software Craft (Section 19).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Clean Architecture.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 19: Conceptual review, synthesis, and practice problem sets."
+            "The cost of full architectural boundaries: Reciprocal boundary interfaces, DTO marshallers, independent deployments.",
+            "Skipping full boundaries: When full boundaries are overkill, one-dimensional boundaries preserve future options.",
+            "Strategy pattern: Encapsulating swappable algorithms behind interfaces within a single compilation unit.",
+            "Facade pattern: Using a simple structural facade to hide complexity while keeping components in one deployment."
           ],
           "footerText": "Page 19 of 25 \u00b7 Clean Architecture"
         },
@@ -271,12 +271,12 @@
           "pageNumber": 20,
           "header": "Clean Architecture",
           "subHeader": "Software Craft \u00b7 Class 3 \u00b7 Section 20",
-          "title": "Clean Architecture: Module 20",
+          "title": "The Database Is a Detail",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Software Craft (Section 20).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Clean Architecture.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 20: Conceptual review, synthesis, and practice problem sets."
+            "The database is not the architecture: It is a low-level mechanism for persisting and querying data blocks.",
+            "Data models vs Entity models: Storing data in relational tables or JSON documents does not dictate application structure.",
+            "Inverting database calls: Business logic interacts with repository interfaces, never raw SQL connections.",
+            "Swappable storage: The freedom to switch from relational MySQL to document Mongo or in-memory caches without touching business rules."
           ],
           "footerText": "Page 20 of 25 \u00b7 Clean Architecture"
         },
@@ -284,12 +284,12 @@
           "pageNumber": 21,
           "header": "Clean Architecture",
           "subHeader": "Software Craft \u00b7 Class 3 \u00b7 Section 21",
-          "title": "Clean Architecture: Module 21",
+          "title": "The Web Is a Detail",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Software Craft (Section 21).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Clean Architecture.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 21: Conceptual review, synthesis, and practice problem sets."
+            "The Web is an I/O device: An HTTP delivery mechanism delivering UI strings to browser windows.",
+            "Decoupling from web frameworks: Spring, Express, Rails, and Nuxt are implementation details, not the application.",
+            "Testing without the web: Complete business use case test suites running in milliseconds without launching web servers.",
+            "Command-line and GUI parity: A clean architecture allows invoking the same business use case from CLI, REST API, or GUI."
           ],
           "footerText": "Page 21 of 25 \u00b7 Clean Architecture"
         },
@@ -297,12 +297,12 @@
           "pageNumber": 22,
           "header": "Clean Architecture",
           "subHeader": "Software Craft \u00b7 Class 3 \u00b7 Section 22",
-          "title": "Clean Architecture: Module 22",
+          "title": "Frameworks Are Details",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Software Craft (Section 22).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Clean Architecture.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 22: Conceptual review, synthesis, and practice problem sets."
+            "Framework asymmetry: Framework authors love you, but they don't know you; their goals diverge from yours.",
+            "The risk of marriage: Tying your domain model directly to framework base classes creates deep vendor lock-in.",
+            "Keep frameworks at arm's length: Use frameworks as outer-ring tools, never letting them invade core Entities.",
+            "Plugin approach: Treat frameworks as external plugins to your system rather than the foundation of your codebase."
           ],
           "footerText": "Page 22 of 25 \u00b7 Clean Architecture"
         },
@@ -310,12 +310,12 @@
           "pageNumber": 23,
           "header": "Clean Architecture",
           "subHeader": "Software Craft \u00b7 Class 3 \u00b7 Section 23",
-          "title": "Clean Architecture: Module 23",
+          "title": "Testing Architecture & Test Doubles",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Software Craft (Section 23).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Clean Architecture.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 23: Conceptual review, synthesis, and practice problem sets."
+            "Tests are part of the architecture: They participate in system stability and refactoring confidence.",
+            "Fragile Test Problem: Tests that know too much about implementation details break whenever internal code changes.",
+            "Testing API: Developing an expressive testing API that invokes use cases directly without touching UI or DB layers.",
+            "Mocks, stubs, and fakes: Decoupling test execution from slow network dependencies and disk I/O."
           ],
           "footerText": "Page 23 of 25 \u00b7 Clean Architecture"
         },
@@ -323,12 +323,12 @@
           "pageNumber": 24,
           "header": "Clean Architecture",
           "subHeader": "Software Craft \u00b7 Class 3 \u00b7 Section 24",
-          "title": "Clean Architecture: Module 24",
+          "title": "Package by Feature vs Package by Component",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Software Craft (Section 24).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Clean Architecture.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 24: Conceptual review, synthesis, and practice problem sets."
+            "Package by Layer: Horizontal organization (controllers, services, repositories) creates weak architectural boundaries.",
+            "Package by Feature: Vertical grouping around use cases improves cohesion but can blur boundary encapsulation.",
+            "Package by Component: Bundle all use-case logic behind a clean public interface, making implementation details package-private.",
+            "Compiler enforcement: Using language access modifiers (internal/package-private) to physically prevent architectural leaks."
           ],
           "footerText": "Page 24 of 25 \u00b7 Clean Architecture"
         },
@@ -336,12 +336,12 @@
           "pageNumber": 25,
           "header": "Clean Architecture",
           "subHeader": "Software Craft \u00b7 Class 3 \u00b7 Section 25",
-          "title": "Clean Architecture: Module 25",
+          "title": "The Architect's Manifesto: Simplicity & Mastery",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Software Craft (Section 25).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Clean Architecture.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 25: Conceptual review, synthesis, and practice problem sets."
+            "Architecture is an ongoing conversation between business priorities and long-term software health.",
+            "Technical debt: The silent killer of software development velocity and developer morale.",
+            "Discipline over cleverness: Clean code, clear boundaries, and decoupled dependencies ensure software longevity.",
+            "The ultimate test of architecture: The ease with which the system can be evolved, refactored, and maintained over decades."
           ],
           "footerText": "Page 25 of 25 \u00b7 Clean Architecture"
         }

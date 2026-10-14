@@ -12,24 +12,24 @@
   "sourcePdf": null,
   "icon": "\ud83e\udd81",
   "isInteractive": true,
-  "author": "Distinguished Faculty & Academic Press",
+  "author": "Academic Faculty & Domain Curators",
   "totalPages": 20,
   "chapters": [
     {
       "chapterNumber": 1,
       "title": "Animals & Wildlife Safari",
-      "description": "Comprehensive master curriculum in Zoology",
+      "description": "Comprehensive curriculum in Zoology",
       "pages": [
         {
           "pageNumber": 1,
           "header": "Animals & Wildlife Safari",
           "subHeader": "Zoology \u00b7 Class 2 \u00b7 Section 1",
-          "title": "Animals & Wildlife Safari: Module 1",
+          "title": "Welcome to the Animal Kingdom",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Zoology (Section 1).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Animals & Wildlife Safari.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 1: Conceptual review, synthesis, and practice problem sets."
+            "Earth is home to millions of amazing animals living on land, in deep blue oceans, and high in the sky.",
+            "Scientists divide animals into two big groups: Vertebrates (with backbones) and Invertebrates (without backbones).",
+            "From giant blue whales singing in the Pacific to tiny ladybugs in our garden, every creature has a special role.",
+            "Field prompt: Look outside your window and count how many different animals and birds you can spot today!"
           ],
           "footerText": "Page 1 of 20 \u00b7 Animals & Wildlife Safari"
         },
@@ -37,12 +37,12 @@
           "pageNumber": 2,
           "header": "Animals & Wildlife Safari",
           "subHeader": "Zoology \u00b7 Class 2 \u00b7 Section 2",
-          "title": "Animals & Wildlife Safari: Module 2",
+          "title": "Marvelous Mammals: Fur & Warm Hearts",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Zoology (Section 2).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Animals & Wildlife Safari.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 2: Conceptual review, synthesis, and practice problem sets."
+            "Warm-blooded wonders: Mammals can regulate their own body temperature whether in freezing snow or hot deserts.",
+            "Soft fur and hair: Shields mammal skin from thorns, keeps them warm, and provides camouflage.",
+            "Mothers nurse their babies with nutritious milk, teaching them how to find food and stay safe.",
+            "Examples: Friendly dogs, playful kittens, wild tigers, giant African elephants, and ocean dolphins!"
           ],
           "footerText": "Page 2 of 20 \u00b7 Animals & Wildlife Safari"
         },
@@ -50,12 +50,12 @@
           "pageNumber": 3,
           "header": "Animals & Wildlife Safari",
           "subHeader": "Zoology \u00b7 Class 2 \u00b7 Section 3",
-          "title": "Animals & Wildlife Safari: Module 3",
+          "title": "Birds: Masters of the Blue Sky",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Zoology (Section 3).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Animals & Wildlife Safari.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 3: Conceptual review, synthesis, and practice problem sets."
+            "Feathers for flight: Lightweight contour feathers create smooth aerodynamic wings.",
+            "Down feathers: Fluffy, soft feathers close to the skin trap warmth during cold nights.",
+            "Hollow bones: Bird skeletons are filled with tiny air pockets, making them light enough to soar effortlessly.",
+            "Beaks and claws: Eagles have curved talons for catching fish; hummingbirds have long straw-like beaks for sweet nectar."
           ],
           "footerText": "Page 3 of 20 \u00b7 Animals & Wildlife Safari"
         },
@@ -63,12 +63,12 @@
           "pageNumber": 4,
           "header": "Animals & Wildlife Safari",
           "subHeader": "Zoology \u00b7 Class 2 \u00b7 Section 4",
-          "title": "Animals & Wildlife Safari: Module 4",
+          "title": "Underwater Wonders: The World of Fish",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Zoology (Section 4).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Animals & Wildlife Safari.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 4: Conceptual review, synthesis, and practice problem sets."
+            "Breathing with gills: Fish absorb life-giving dissolved oxygen directly from water currents.",
+            "Fins and tails: Pectoral fins help fish steer and balance; powerful caudal tails propel them forward.",
+            "Shimmering scales: Smooth, slippery overlapping scales protect fish bodies and reduce water drag.",
+            "Freshwater vs Saltwater: Goldfish and trout swim in cool rivers; clownfish and manta rays explore coral reefs."
           ],
           "footerText": "Page 4 of 20 \u00b7 Animals & Wildlife Safari"
         },
@@ -76,12 +76,12 @@
           "pageNumber": 5,
           "header": "Animals & Wildlife Safari",
           "subHeader": "Zoology \u00b7 Class 2 \u00b7 Section 5",
-          "title": "Animals & Wildlife Safari: Module 5",
+          "title": "Reptiles: Cold-Blooded Sun Lovers",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Zoology (Section 5).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Animals & Wildlife Safari.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 5: Conceptual review, synthesis, and practice problem sets."
+            "Tough scaly skin: Waterproof scales stop reptiles from drying out in hot, sunbaked environments.",
+            "Cold-blooded nature: Reptiles cannot make their own body heat; they bask on warm rocks to gain energy.",
+            "Leathery shelled eggs: Turtles and crocodiles lay protective leathery eggs on warm sandy riverbanks.",
+            "Meet the reptiles: Gentle green sea turtles, colorful chameleons with 360-degree eyes, and desert geckos."
           ],
           "footerText": "Page 5 of 20 \u00b7 Animals & Wildlife Safari"
         },
@@ -89,12 +89,12 @@
           "pageNumber": 6,
           "header": "Animals & Wildlife Safari",
           "subHeader": "Zoology \u00b7 Class 2 \u00b7 Section 6",
-          "title": "Animals & Wildlife Safari: Module 6",
+          "title": "Amphibians: The Double-Life Water Explorers",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Zoology (Section 6).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Animals & Wildlife Safari.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 6: Conceptual review, synthesis, and practice problem sets."
+            "Double life: Amphibians hatch in clean freshwater and transform into land-dwelling creatures as they grow.",
+            "Breathing through skin: Frogs can drink water and breathe air directly through their smooth, moist skin.",
+            "Tadpole metamorphosis: Swimming tadpoles with tails grow strong jumping legs and lose their tails to become frogs.",
+            "Examples: Spotted green tree frogs, woodland salamanders, and gentle garden toads catching insects."
           ],
           "footerText": "Page 6 of 20 \u00b7 Animals & Wildlife Safari"
         },
@@ -102,12 +102,12 @@
           "pageNumber": 7,
           "header": "Animals & Wildlife Safari",
           "subHeader": "Zoology \u00b7 Class 2 \u00b7 Section 7",
-          "title": "Animals & Wildlife Safari: Module 7",
+          "title": "Creepy Crawlies: The Invertebrate Superstars",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Zoology (Section 7).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Animals & Wildlife Safari.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 7: Conceptual review, synthesis, and practice problem sets."
+            "Invertebrates have no backbone: They make up over 95 percent of all animal species on planet Earth!",
+            "Exoskeletons: Crabs, beetles, and lobsters wear hard protective suits of armor on the outside of their bodies.",
+            "Soft-bodied wonders: Earthworms enrich garden soil; ocean octopuses use suction cups and squirt dark ink to escape.",
+            "Jellyfish and sea anemones: Graceful floating ocean bells that drift with rhythmic ocean tides."
           ],
           "footerText": "Page 7 of 20 \u00b7 Animals & Wildlife Safari"
         },
@@ -115,12 +115,12 @@
           "pageNumber": 8,
           "header": "Animals & Wildlife Safari",
           "subHeader": "Zoology \u00b7 Class 2 \u00b7 Section 8",
-          "title": "Animals & Wildlife Safari: Module 8",
+          "title": "Insects: Six-Legged Garden Wonders",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Zoology (Section 8).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Animals & Wildlife Safari.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 8: Conceptual review, synthesis, and practice problem sets."
+            "Three body parts: Head, thorax, and abdomen with two sensitive antennae for smelling flowers.",
+            "Six walking legs: Grasshoppers jump high with springy hind legs; honeybees carry pollen baskets on their knees.",
+            "Metamorphosis: A caterpillar hatches from an egg, wraps itself into a cozy chrysalis, and emerges as a butterfly!",
+            "Super strength: Ants can lift pebbles and leaves weighing fifty times their own tiny body weight."
           ],
           "footerText": "Page 8 of 20 \u00b7 Animals & Wildlife Safari"
         },
@@ -128,12 +128,12 @@
           "pageNumber": 9,
           "header": "Animals & Wildlife Safari",
           "subHeader": "Zoology \u00b7 Class 2 \u00b7 Section 9",
-          "title": "Animals & Wildlife Safari: Module 9",
+          "title": "Animal Homes & Cozy Shelters",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Zoology (Section 9).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Animals & Wildlife Safari.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 9: Conceptual review, synthesis, and practice problem sets."
+            "Birds weave intricate nests from dried grass, twigs, and spider silk high in tall leafy branches.",
+            "Beavers build incredible wooden lodges in rushing streams with secret underwater entrance tunnels.",
+            "Prairie dogs dig vast underground tunnel cities called towns, complete with guard posts and nursery rooms.",
+            "Honeybees engineer perfect six-sided hexagonal wax combs to store golden honey and nurture baby bee larvae."
           ],
           "footerText": "Page 9 of 20 \u00b7 Animals & Wildlife Safari"
         },
@@ -141,12 +141,12 @@
           "pageNumber": 10,
           "header": "Animals & Wildlife Safari",
           "subHeader": "Zoology \u00b7 Class 2 \u00b7 Section 10",
-          "title": "Animals & Wildlife Safari: Module 10",
+          "title": "Herbivores: The Gentle Plant Munchers",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Zoology (Section 10).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Animals & Wildlife Safari.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 10: Conceptual review, synthesis, and practice problem sets."
+            "Herbivores eat only plants, sweet fruits, green leaves, tree bark, and tender field grass.",
+            "Flat grinding teeth: Cows, sheep, and horses have broad molars to chew tough plant fibers into smooth paste.",
+            "Long necks: Tall giraffes reach high into thorny acacia treetops to pluck the sweetest young leaves.",
+            "Gentle giants: Giant pandas spend twelve hours every day happily crunching on crisp green bamboo stalks."
           ],
           "footerText": "Page 10 of 20 \u00b7 Animals & Wildlife Safari"
         },
@@ -154,12 +154,12 @@
           "pageNumber": 11,
           "header": "Animals & Wildlife Safari",
           "subHeader": "Zoology \u00b7 Class 2 \u00b7 Section 11",
-          "title": "Animals & Wildlife Safari: Module 11",
+          "title": "Carnivores: The Skilled Hunters",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Zoology (Section 11).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Animals & Wildlife Safari.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 11: Conceptual review, synthesis, and practice problem sets."
+            "Carnivores eat meat and hunt for their nourishment in wild savannahs, arctic ice, and dark forests.",
+            "Sharp canine teeth: Lions and wolves have pointed fangs designed to grasp food firmly.",
+            "Binocular vision: Forward-facing eyes allow hunters to judge distances and leap with pinpoint accuracy.",
+            "Keen senses: Owls fly completely silently through the night air and hear a mouse scurrying under fallen leaves."
           ],
           "footerText": "Page 11 of 20 \u00b7 Animals & Wildlife Safari"
         },
@@ -167,12 +167,12 @@
           "pageNumber": 12,
           "header": "Animals & Wildlife Safari",
           "subHeader": "Zoology \u00b7 Class 2 \u00b7 Section 12",
-          "title": "Animals & Wildlife Safari: Module 12",
+          "title": "Omnivores: Eating Both Plants & Meat",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Zoology (Section 12).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Animals & Wildlife Safari.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 12: Conceptual review, synthesis, and practice problem sets."
+            "Omnivores enjoy the best of both worlds: Eating berries, nuts, roots, fish, and insects.",
+            "Versatile teeth: Combining sharp front teeth for slicing with flat back molars for crushing seeds.",
+            "Bears feast on summer blackberries, dig up wild roots, and splash into rivers to catch leaping salmon.",
+            "Raccoons, crows, and garden badgers are famous for their clever problem-solving curiosity."
           ],
           "footerText": "Page 12 of 20 \u00b7 Animals & Wildlife Safari"
         },
@@ -180,12 +180,12 @@
           "pageNumber": 13,
           "header": "Animals & Wildlife Safari",
           "subHeader": "Zoology \u00b7 Class 2 \u00b7 Section 13",
-          "title": "Animals & Wildlife Safari: Module 13",
+          "title": "Masters of Camouflage: The Art of Hiding",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Zoology (Section 13).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Animals & Wildlife Safari.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 13: Conceptual review, synthesis, and practice problem sets."
+            "Stick insects look exactly like brown twigs and sway gently in the breeze to trick hungry birds.",
+            "Arctic foxes turn snowy white in freezing winter and earthy brown in summer to blend with gravel.",
+            "Cuttlefish can change their skin color, pattern, and bumpy texture in a split second to vanish into reef rock.",
+            "Striped tigers blend seamlessly into tall dry golden grasslands under dappled forest sunlight."
           ],
           "footerText": "Page 13 of 20 \u00b7 Animals & Wildlife Safari"
         },
@@ -193,12 +193,12 @@
           "pageNumber": 14,
           "header": "Animals & Wildlife Safari",
           "subHeader": "Zoology \u00b7 Class 2 \u00b7 Section 14",
-          "title": "Animals & Wildlife Safari: Module 14",
+          "title": "Animal Super Senses",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Zoology (Section 14).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Animals & Wildlife Safari.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 14: Conceptual review, synthesis, and practice problem sets."
+            "Eagle eyes: An eagle can spot a tiny scampering field mouse from over three kilometers up in the clouds.",
+            "Bat echolocation: Bats emit high-pitched clicking sounds and listen to the bouncing echoes to map the dark.",
+            "Elephant low rumble: Elephants communicate with secret seismic infrasound vibrations that travel miles through the earth.",
+            "Dog super snout: A bloodhound's sense of smell is up to 100,000 times more sensitive than human noses!"
           ],
           "footerText": "Page 14 of 20 \u00b7 Animals & Wildlife Safari"
         },
@@ -206,12 +206,12 @@
           "pageNumber": 15,
           "header": "Animals & Wildlife Safari",
           "subHeader": "Zoology \u00b7 Class 2 \u00b7 Section 15",
-          "title": "Animals & Wildlife Safari: Module 15",
+          "title": "The Great Migration: Epic Journeys",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Zoology (Section 15).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Animals & Wildlife Safari.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 15: Conceptual review, synthesis, and practice problem sets."
+            "Monarch butterflies flutter over 4,000 kilometers from cool Canadian forests all the way to warm Mexican fir groves.",
+            "Arctic Terns fly from the North Pole to the South Pole and back every single year, chasing endless sunshine.",
+            "Millions of wildebeest and zebras march across African plains crossing the Mara River following seasonal rains.",
+            "Humpback whales travel from icy polar feeding grounds to warm tropical bays to nurse newborn whale calves."
           ],
           "footerText": "Page 15 of 20 \u00b7 Animals & Wildlife Safari"
         },
@@ -219,12 +219,12 @@
           "pageNumber": 16,
           "header": "Animals & Wildlife Safari",
           "subHeader": "Zoology \u00b7 Class 2 \u00b7 Section 16",
-          "title": "Animals & Wildlife Safari: Module 16",
+          "title": "Cold Polar Life: Penguins & Polar Bears",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Zoology (Section 16).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Animals & Wildlife Safari.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 16: Conceptual review, synthesis, and practice problem sets."
+            "Emperor Penguins huddle tightly together against Antarctic blizzards, taking turns standing in the warm center.",
+            "Blubber: A thick layer of insulating fat under the skin keeps seals and walruses toasty in freezing seawater.",
+            "Polar bears have black skin under their translucent fur to absorb every bit of warm solar heat.",
+            "Padded snowshoe paws: Wide furry paws stop polar bears from slipping on slick arctic pack ice."
           ],
           "footerText": "Page 16 of 20 \u00b7 Animals & Wildlife Safari"
         },
@@ -232,12 +232,12 @@
           "pageNumber": 17,
           "header": "Animals & Wildlife Safari",
           "subHeader": "Zoology \u00b7 Class 2 \u00b7 Section 17",
-          "title": "Animals & Wildlife Safari: Module 17",
+          "title": "Hot Desert Survivors",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Zoology (Section 17).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Animals & Wildlife Safari.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 17: Conceptual review, synthesis, and practice problem sets."
+            "Camels store energy-rich fat in their humps and can walk for days across dry sandy dunes without water.",
+            "Long eyelashes and closing nostrils keep blowing desert sand out of camel eyes and noses.",
+            "Fennec foxes have giant radar-dish ears that radiate excess body heat away into the cool evening breeze.",
+            "Kangaroo rats never need to drink water: They get all the moisture they need from dry desert seeds!"
           ],
           "footerText": "Page 17 of 20 \u00b7 Animals & Wildlife Safari"
         },
@@ -245,12 +245,12 @@
           "pageNumber": 18,
           "header": "Animals & Wildlife Safari",
           "subHeader": "Zoology \u00b7 Class 2 \u00b7 Section 18",
-          "title": "Animals & Wildlife Safari: Module 18",
+          "title": "Nocturnal Animals: Life After Sunset",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Zoology (Section 18).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Animals & Wildlife Safari.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 18: Conceptual review, synthesis, and practice problem sets."
+            "Owls have giant round eyes packed with light-sensitive rod cells to see clearly under the silver moon.",
+            "Fireflies flash rhythmic yellow-green light pulses from their glowing abdomens to signal friendly firefly mates.",
+            "Hedgehogs snuffle through nighttime garden hedges hunting for crunchy slugs and earthworms.",
+            "Night active benefits: Avoiding the scorching daytime heat and finding food when predators are fast asleep."
           ],
           "footerText": "Page 18 of 20 \u00b7 Animals & Wildlife Safari"
         },
@@ -258,12 +258,12 @@
           "pageNumber": 19,
           "header": "Animals & Wildlife Safari",
           "subHeader": "Zoology \u00b7 Class 2 \u00b7 Section 19",
-          "title": "Animals & Wildlife Safari: Module 19",
+          "title": "The Web of Life: Nature's Balance",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Zoology (Section 19).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Animals & Wildlife Safari.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 19: Conceptual review, synthesis, and practice problem sets."
+            "Ecosystem: A vibrant community where every plant, herbivore, predator, and decomposer depends on each other.",
+            "Producers: Green plants make food using warm golden sunlight.",
+            "Primary and secondary consumers: Energy flows from grass to zebra to lion in a harmonious circle of life.",
+            "Decomposers: Earthworms, mushrooms, and soil beetles recycle fallen autumn leaves into rich, fertile earth."
           ],
           "footerText": "Page 19 of 20 \u00b7 Animals & Wildlife Safari"
         },
@@ -271,12 +271,12 @@
           "pageNumber": 20,
           "header": "Animals & Wildlife Safari",
           "subHeader": "Zoology \u00b7 Class 2 \u00b7 Section 20",
-          "title": "Animals & Wildlife Safari: Module 20",
+          "title": "Protecting Our Animal Friends",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Zoology (Section 20).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Animals & Wildlife Safari.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 20: Conceptual review, synthesis, and practice problem sets."
+            "Endangered species: Animals like snow leopards, rhinos, and sea turtles need our love and protection.",
+            "Wildlife sanctuaries and national parks create safe natural forests where animals roam wild and free.",
+            "Small kindnesses: Putting out clean water bowls for birds in summer and keeping plastic out of oceans.",
+            "Earth promise: Respect all living creatures, preserve their wild habitats, and celebrate wildlife diversity!"
           ],
           "footerText": "Page 20 of 20 \u00b7 Animals & Wildlife Safari"
         }

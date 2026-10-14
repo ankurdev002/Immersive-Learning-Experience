@@ -12,336 +12,336 @@
   "sourcePdf": null,
   "icon": "\ud83d\udda5\ufe0f",
   "isInteractive": true,
-  "author": "Distinguished Faculty & Academic Press",
+  "author": "Distinguished Curators & Academic Press",
   "totalPages": 25,
   "chapters": [
     {
       "chapterNumber": 1,
       "title": "Operating System Concepts",
-      "description": "Comprehensive master curriculum in Computer Systems",
+      "description": "Comprehensive curriculum in Computer Systems",
       "pages": [
         {
           "pageNumber": 1,
           "header": "Operating System Concepts",
-          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Section 1",
-          "title": "Operating System Concepts: Module 1",
+          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Part 1",
+          "title": "Foundational Models & System Abstractions: Topic 1",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Computer Systems (Section 1).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Operating System Concepts.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 1: Conceptual review, synthesis, and practice problem sets."
+            "Architectural paradigms and foundational theorems.",
+            "Trade-off evaluation: Performance, latency, consistency, and cost.",
+            "Mathematical formulations and algorithmic bounds.",
+            "Decomposing complex systems into verifiable modules."
           ],
           "footerText": "Page 1 of 25 \u00b7 Operating System Concepts"
         },
         {
           "pageNumber": 2,
           "header": "Operating System Concepts",
-          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Section 2",
-          "title": "Operating System Concepts: Module 2",
+          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Part 2",
+          "title": "Foundational Models & System Abstractions: Topic 2",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Computer Systems (Section 2).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Operating System Concepts.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 2: Conceptual review, synthesis, and practice problem sets."
+            "Architectural paradigms and foundational theorems.",
+            "Trade-off evaluation: Performance, latency, consistency, and cost.",
+            "Mathematical formulations and algorithmic bounds.",
+            "Decomposing complex systems into verifiable modules."
           ],
           "footerText": "Page 2 of 25 \u00b7 Operating System Concepts"
         },
         {
           "pageNumber": 3,
           "header": "Operating System Concepts",
-          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Section 3",
-          "title": "Operating System Concepts: Module 3",
+          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Part 3",
+          "title": "Foundational Models & System Abstractions: Topic 3",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Computer Systems (Section 3).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Operating System Concepts.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 3: Conceptual review, synthesis, and practice problem sets."
+            "Architectural paradigms and foundational theorems.",
+            "Trade-off evaluation: Performance, latency, consistency, and cost.",
+            "Mathematical formulations and algorithmic bounds.",
+            "Decomposing complex systems into verifiable modules."
           ],
           "footerText": "Page 3 of 25 \u00b7 Operating System Concepts"
         },
         {
           "pageNumber": 4,
           "header": "Operating System Concepts",
-          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Section 4",
-          "title": "Operating System Concepts: Module 4",
+          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Part 4",
+          "title": "Foundational Models & System Abstractions: Topic 4",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Computer Systems (Section 4).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Operating System Concepts.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 4: Conceptual review, synthesis, and practice problem sets."
+            "Architectural paradigms and foundational theorems.",
+            "Trade-off evaluation: Performance, latency, consistency, and cost.",
+            "Mathematical formulations and algorithmic bounds.",
+            "Decomposing complex systems into verifiable modules."
           ],
           "footerText": "Page 4 of 25 \u00b7 Operating System Concepts"
         },
         {
           "pageNumber": 5,
           "header": "Operating System Concepts",
-          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Section 5",
-          "title": "Operating System Concepts: Module 5",
+          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Part 5",
+          "title": "Foundational Models & System Abstractions: Topic 5",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Computer Systems (Section 5).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Operating System Concepts.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 5: Conceptual review, synthesis, and practice problem sets."
+            "Architectural paradigms and foundational theorems.",
+            "Trade-off evaluation: Performance, latency, consistency, and cost.",
+            "Mathematical formulations and algorithmic bounds.",
+            "Decomposing complex systems into verifiable modules."
           ],
           "footerText": "Page 5 of 25 \u00b7 Operating System Concepts"
         },
         {
           "pageNumber": 6,
           "header": "Operating System Concepts",
-          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Section 6",
-          "title": "Operating System Concepts: Module 6",
+          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Part 6",
+          "title": "Core Mechanisms & Algorithmic Engines: Topic 6",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Computer Systems (Section 6).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Operating System Concepts.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 6: Conceptual review, synthesis, and practice problem sets."
+            "In-depth analysis of structural algorithms and state machines.",
+            "Memory access optimizations and data layout efficiency.",
+            "Protocol interactions, handshakes, and invariant maintenance.",
+            "Diagnostic profiling and empirical performance benchmarking."
           ],
           "footerText": "Page 6 of 25 \u00b7 Operating System Concepts"
         },
         {
           "pageNumber": 7,
           "header": "Operating System Concepts",
-          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Section 7",
-          "title": "Operating System Concepts: Module 7",
+          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Part 1",
+          "title": "Core Mechanisms & Algorithmic Engines: Topic 1",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Computer Systems (Section 7).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Operating System Concepts.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 7: Conceptual review, synthesis, and practice problem sets."
+            "In-depth analysis of structural algorithms and state machines.",
+            "Memory access optimizations and data layout efficiency.",
+            "Protocol interactions, handshakes, and invariant maintenance.",
+            "Diagnostic profiling and empirical performance benchmarking."
           ],
           "footerText": "Page 7 of 25 \u00b7 Operating System Concepts"
         },
         {
           "pageNumber": 8,
           "header": "Operating System Concepts",
-          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Section 8",
-          "title": "Operating System Concepts: Module 8",
+          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Part 2",
+          "title": "Core Mechanisms & Algorithmic Engines: Topic 2",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Computer Systems (Section 8).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Operating System Concepts.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 8: Conceptual review, synthesis, and practice problem sets."
+            "In-depth analysis of structural algorithms and state machines.",
+            "Memory access optimizations and data layout efficiency.",
+            "Protocol interactions, handshakes, and invariant maintenance.",
+            "Diagnostic profiling and empirical performance benchmarking."
           ],
           "footerText": "Page 8 of 25 \u00b7 Operating System Concepts"
         },
         {
           "pageNumber": 9,
           "header": "Operating System Concepts",
-          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Section 9",
-          "title": "Operating System Concepts: Module 9",
+          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Part 3",
+          "title": "Core Mechanisms & Algorithmic Engines: Topic 3",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Computer Systems (Section 9).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Operating System Concepts.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 9: Conceptual review, synthesis, and practice problem sets."
+            "In-depth analysis of structural algorithms and state machines.",
+            "Memory access optimizations and data layout efficiency.",
+            "Protocol interactions, handshakes, and invariant maintenance.",
+            "Diagnostic profiling and empirical performance benchmarking."
           ],
           "footerText": "Page 9 of 25 \u00b7 Operating System Concepts"
         },
         {
           "pageNumber": 10,
           "header": "Operating System Concepts",
-          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Section 10",
-          "title": "Operating System Concepts: Module 10",
+          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Part 4",
+          "title": "Core Mechanisms & Algorithmic Engines: Topic 4",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Computer Systems (Section 10).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Operating System Concepts.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 10: Conceptual review, synthesis, and practice problem sets."
+            "In-depth analysis of structural algorithms and state machines.",
+            "Memory access optimizations and data layout efficiency.",
+            "Protocol interactions, handshakes, and invariant maintenance.",
+            "Diagnostic profiling and empirical performance benchmarking."
           ],
           "footerText": "Page 10 of 25 \u00b7 Operating System Concepts"
         },
         {
           "pageNumber": 11,
           "header": "Operating System Concepts",
-          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Section 11",
-          "title": "Operating System Concepts: Module 11",
+          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Part 5",
+          "title": "Concurrency, Scaling & Fault Tolerance: Topic 5",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Computer Systems (Section 11).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Operating System Concepts.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 11: Conceptual review, synthesis, and practice problem sets."
+            "Synchronization primitives, lock-free designs, and consensus.",
+            "Handling failures: Retry strategies, circuit breakers, and idempotency.",
+            "Horizontal scaling vs vertical hardware specialization.",
+            "High-availability architectures and replication topologies."
           ],
           "footerText": "Page 11 of 25 \u00b7 Operating System Concepts"
         },
         {
           "pageNumber": 12,
           "header": "Operating System Concepts",
-          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Section 12",
-          "title": "Operating System Concepts: Module 12",
+          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Part 6",
+          "title": "Concurrency, Scaling & Fault Tolerance: Topic 6",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Computer Systems (Section 12).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Operating System Concepts.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 12: Conceptual review, synthesis, and practice problem sets."
+            "Synchronization primitives, lock-free designs, and consensus.",
+            "Handling failures: Retry strategies, circuit breakers, and idempotency.",
+            "Horizontal scaling vs vertical hardware specialization.",
+            "High-availability architectures and replication topologies."
           ],
           "footerText": "Page 12 of 25 \u00b7 Operating System Concepts"
         },
         {
           "pageNumber": 13,
           "header": "Operating System Concepts",
-          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Section 13",
-          "title": "Operating System Concepts: Module 13",
+          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Part 1",
+          "title": "Concurrency, Scaling & Fault Tolerance: Topic 1",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Computer Systems (Section 13).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Operating System Concepts.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 13: Conceptual review, synthesis, and practice problem sets."
+            "Synchronization primitives, lock-free designs, and consensus.",
+            "Handling failures: Retry strategies, circuit breakers, and idempotency.",
+            "Horizontal scaling vs vertical hardware specialization.",
+            "High-availability architectures and replication topologies."
           ],
           "footerText": "Page 13 of 25 \u00b7 Operating System Concepts"
         },
         {
           "pageNumber": 14,
           "header": "Operating System Concepts",
-          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Section 14",
-          "title": "Operating System Concepts: Module 14",
+          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Part 2",
+          "title": "Concurrency, Scaling & Fault Tolerance: Topic 2",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Computer Systems (Section 14).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Operating System Concepts.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 14: Conceptual review, synthesis, and practice problem sets."
+            "Synchronization primitives, lock-free designs, and consensus.",
+            "Handling failures: Retry strategies, circuit breakers, and idempotency.",
+            "Horizontal scaling vs vertical hardware specialization.",
+            "High-availability architectures and replication topologies."
           ],
           "footerText": "Page 14 of 25 \u00b7 Operating System Concepts"
         },
         {
           "pageNumber": 15,
           "header": "Operating System Concepts",
-          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Section 15",
-          "title": "Operating System Concepts: Module 15",
+          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Part 3",
+          "title": "Concurrency, Scaling & Fault Tolerance: Topic 3",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Computer Systems (Section 15).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Operating System Concepts.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 15: Conceptual review, synthesis, and practice problem sets."
+            "Synchronization primitives, lock-free designs, and consensus.",
+            "Handling failures: Retry strategies, circuit breakers, and idempotency.",
+            "Horizontal scaling vs vertical hardware specialization.",
+            "High-availability architectures and replication topologies."
           ],
           "footerText": "Page 15 of 25 \u00b7 Operating System Concepts"
         },
         {
           "pageNumber": 16,
           "header": "Operating System Concepts",
-          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Section 16",
-          "title": "Operating System Concepts: Module 16",
+          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Part 4",
+          "title": "Real-World Production Architectures: Topic 4",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Computer Systems (Section 16).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Operating System Concepts.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 16: Conceptual review, synthesis, and practice problem sets."
+            "Case studies from large-scale datacenter deployments.",
+            "Monitoring, telemetry, observability, and tracing.",
+            "Security boundaries, threat models, and access control.",
+            "Best practices for evolving long-lived software systems."
           ],
           "footerText": "Page 16 of 25 \u00b7 Operating System Concepts"
         },
         {
           "pageNumber": 17,
           "header": "Operating System Concepts",
-          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Section 17",
-          "title": "Operating System Concepts: Module 17",
+          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Part 5",
+          "title": "Real-World Production Architectures: Topic 5",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Computer Systems (Section 17).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Operating System Concepts.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 17: Conceptual review, synthesis, and practice problem sets."
+            "Case studies from large-scale datacenter deployments.",
+            "Monitoring, telemetry, observability, and tracing.",
+            "Security boundaries, threat models, and access control.",
+            "Best practices for evolving long-lived software systems."
           ],
           "footerText": "Page 17 of 25 \u00b7 Operating System Concepts"
         },
         {
           "pageNumber": 18,
           "header": "Operating System Concepts",
-          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Section 18",
-          "title": "Operating System Concepts: Module 18",
+          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Part 6",
+          "title": "Real-World Production Architectures: Topic 6",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Computer Systems (Section 18).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Operating System Concepts.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 18: Conceptual review, synthesis, and practice problem sets."
+            "Case studies from large-scale datacenter deployments.",
+            "Monitoring, telemetry, observability, and tracing.",
+            "Security boundaries, threat models, and access control.",
+            "Best practices for evolving long-lived software systems."
           ],
           "footerText": "Page 18 of 25 \u00b7 Operating System Concepts"
         },
         {
           "pageNumber": 19,
           "header": "Operating System Concepts",
-          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Section 19",
-          "title": "Operating System Concepts: Module 19",
+          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Part 1",
+          "title": "Real-World Production Architectures: Topic 1",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Computer Systems (Section 19).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Operating System Concepts.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 19: Conceptual review, synthesis, and practice problem sets."
+            "Case studies from large-scale datacenter deployments.",
+            "Monitoring, telemetry, observability, and tracing.",
+            "Security boundaries, threat models, and access control.",
+            "Best practices for evolving long-lived software systems."
           ],
           "footerText": "Page 19 of 25 \u00b7 Operating System Concepts"
         },
         {
           "pageNumber": 20,
           "header": "Operating System Concepts",
-          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Section 20",
-          "title": "Operating System Concepts: Module 20",
+          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Part 2",
+          "title": "Real-World Production Architectures: Topic 2",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Computer Systems (Section 20).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Operating System Concepts.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 20: Conceptual review, synthesis, and practice problem sets."
+            "Case studies from large-scale datacenter deployments.",
+            "Monitoring, telemetry, observability, and tracing.",
+            "Security boundaries, threat models, and access control.",
+            "Best practices for evolving long-lived software systems."
           ],
           "footerText": "Page 20 of 25 \u00b7 Operating System Concepts"
         },
         {
           "pageNumber": 21,
           "header": "Operating System Concepts",
-          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Section 21",
-          "title": "Operating System Concepts: Module 21",
+          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Part 3",
+          "title": "Emerging Horizons & Future Directions: Topic 3",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Computer Systems (Section 21).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Operating System Concepts.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 21: Conceptual review, synthesis, and practice problem sets."
+            "Next-generation paradigms and hardware trends.",
+            "Bridging theoretical models with practical engineering.",
+            "Open-source ecosystems and industry standards.",
+            "Synthesis: Key takeaways and architectural mastery."
           ],
           "footerText": "Page 21 of 25 \u00b7 Operating System Concepts"
         },
         {
           "pageNumber": 22,
           "header": "Operating System Concepts",
-          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Section 22",
-          "title": "Operating System Concepts: Module 22",
+          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Part 4",
+          "title": "Emerging Horizons & Future Directions: Topic 4",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Computer Systems (Section 22).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Operating System Concepts.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 22: Conceptual review, synthesis, and practice problem sets."
+            "Next-generation paradigms and hardware trends.",
+            "Bridging theoretical models with practical engineering.",
+            "Open-source ecosystems and industry standards.",
+            "Synthesis: Key takeaways and architectural mastery."
           ],
           "footerText": "Page 22 of 25 \u00b7 Operating System Concepts"
         },
         {
           "pageNumber": 23,
           "header": "Operating System Concepts",
-          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Section 23",
-          "title": "Operating System Concepts: Module 23",
+          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Part 5",
+          "title": "Emerging Horizons & Future Directions: Topic 5",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Computer Systems (Section 23).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Operating System Concepts.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 23: Conceptual review, synthesis, and practice problem sets."
+            "Next-generation paradigms and hardware trends.",
+            "Bridging theoretical models with practical engineering.",
+            "Open-source ecosystems and industry standards.",
+            "Synthesis: Key takeaways and architectural mastery."
           ],
           "footerText": "Page 23 of 25 \u00b7 Operating System Concepts"
         },
         {
           "pageNumber": 24,
           "header": "Operating System Concepts",
-          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Section 24",
-          "title": "Operating System Concepts: Module 24",
+          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Part 6",
+          "title": "Emerging Horizons & Future Directions: Topic 6",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Computer Systems (Section 24).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Operating System Concepts.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 24: Conceptual review, synthesis, and practice problem sets."
+            "Next-generation paradigms and hardware trends.",
+            "Bridging theoretical models with practical engineering.",
+            "Open-source ecosystems and industry standards.",
+            "Synthesis: Key takeaways and architectural mastery."
           ],
           "footerText": "Page 24 of 25 \u00b7 Operating System Concepts"
         },
         {
           "pageNumber": 25,
           "header": "Operating System Concepts",
-          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Section 25",
-          "title": "Operating System Concepts: Module 25",
+          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Part 1",
+          "title": "Emerging Horizons & Future Directions: Topic 1",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Computer Systems (Section 25).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Operating System Concepts.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 25: Conceptual review, synthesis, and practice problem sets."
+            "Next-generation paradigms and hardware trends.",
+            "Bridging theoretical models with practical engineering.",
+            "Open-source ecosystems and industry standards.",
+            "Synthesis: Key takeaways and architectural mastery."
           ],
           "footerText": "Page 25 of 25 \u00b7 Operating System Concepts"
         }

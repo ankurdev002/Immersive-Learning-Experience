@@ -12,24 +12,24 @@
   "sourcePdf": null,
   "icon": "\u26c5",
   "isInteractive": true,
-  "author": "Distinguished Faculty & Academic Press",
+  "author": "Academic Faculty & Domain Curators",
   "totalPages": 20,
   "chapters": [
     {
       "chapterNumber": 1,
       "title": "Weather, Rain & Seasons",
-      "description": "Comprehensive master curriculum in Earth Science",
+      "description": "Comprehensive curriculum in Earth Science",
       "pages": [
         {
           "pageNumber": 1,
           "header": "Weather, Rain & Seasons",
           "subHeader": "Earth Science \u00b7 Class 2 \u00b7 Section 1",
-          "title": "Weather, Rain & Seasons: Module 1",
+          "title": "The Blanket of Air: Earth's Atmosphere",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Earth Science (Section 1).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Weather, Rain & Seasons.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 1: Conceptual review, synthesis, and practice problem sets."
+            "Earth is wrapped in a protective cocoon of air called the atmosphere that gives us the weather we experience.",
+            "The troposphere: The lowest layer of air where clouds float, raindrops form, and gentle winds blow.",
+            "The Sun is the giant engine powering all weather by heating our land, oceans, and air unevenly.",
+            "Observation: Look at the sky right now\u2014are the clouds moving fast or drifting lazily in the breeze?"
           ],
           "footerText": "Page 1 of 20 \u00b7 Weather, Rain & Seasons"
         },
@@ -37,12 +37,12 @@
           "pageNumber": 2,
           "header": "Weather, Rain & Seasons",
           "subHeader": "Earth Science \u00b7 Class 2 \u00b7 Section 2",
-          "title": "Weather, Rain & Seasons: Module 2",
+          "title": "Temperature: Hot, Warm, Cool, and Cold",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Earth Science (Section 2).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Weather, Rain & Seasons.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 2: Conceptual review, synthesis, and practice problem sets."
+            "Thermometers measure temperature in degrees Celsius (\u00b0C) and Fahrenheit (\u00b0F).",
+            "When the sun is high at noon, sunlight shines straight down and heats the ground quickly.",
+            "When the sun is low in early morning or evening, its rays are spread out, feeling cool and pleasant.",
+            "Warm air is lighter and floats upward, while cool air is dense and sinks gently toward the ground."
           ],
           "footerText": "Page 2 of 20 \u00b7 Weather, Rain & Seasons"
         },
@@ -50,12 +50,12 @@
           "pageNumber": 3,
           "header": "Weather, Rain & Seasons",
           "subHeader": "Earth Science \u00b7 Class 2 \u00b7 Section 3",
-          "title": "Weather, Rain & Seasons: Module 3",
+          "title": "Winds & Breezes: Air on the Move",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Earth Science (Section 3).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Weather, Rain & Seasons.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 3: Conceptual review, synthesis, and practice problem sets."
+            "Wind is simply air moving from high pressure cool areas toward warm, low pressure areas.",
+            "Sea breeze: During the sunny day, cool air blows off the ocean onto warm beach sand.",
+            "Land breeze: At night, the ocean stays warmer than land, so air blows gently back out to sea.",
+            "Anemometers spin around to measure wind speed, while wind vanes point out wind directions (North, South, East, West)."
           ],
           "footerText": "Page 3 of 20 \u00b7 Weather, Rain & Seasons"
         },
@@ -63,12 +63,12 @@
           "pageNumber": 4,
           "header": "Weather, Rain & Seasons",
           "subHeader": "Earth Science \u00b7 Class 2 \u00b7 Section 4",
-          "title": "Weather, Rain & Seasons: Module 4",
+          "title": "The Magical Water Cycle: Evaporation",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Earth Science (Section 4).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Weather, Rain & Seasons.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 4: Conceptual review, synthesis, and practice problem sets."
+            "Evaporation: Warm yellow sunshine heats puddles, lakes, and oceans, turning liquid water into invisible water vapor.",
+            "Transpiration: Green trees and plant leaves release tiny water droplets into the air through microscopic stomata.",
+            "Invisible rise: Warm, moist air rises high up into the cooler upper sky.",
+            "Experiment: Put a shallow dish of water in the sun and watch it slowly evaporate over the afternoon!"
           ],
           "footerText": "Page 4 of 20 \u00b7 Weather, Rain & Seasons"
         },
@@ -76,12 +76,12 @@
           "pageNumber": 5,
           "header": "Weather, Rain & Seasons",
           "subHeader": "Earth Science \u00b7 Class 2 \u00b7 Section 5",
-          "title": "Weather, Rain & Seasons: Module 5",
+          "title": "Condensation & Cloud Formation",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Earth Science (Section 5).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Weather, Rain & Seasons.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 5: Conceptual review, synthesis, and practice problem sets."
+            "Condensation: As warm water vapor rises into the cold sky, it cools down and turns back into tiny water droplets.",
+            "Cloud condensation nuclei: Water droplets cling to microscopic bits of airborne sea salt and dust.",
+            "Billions of these floating droplets gather together to form fluffy white clouds in the blue sky.",
+            "Fog: A cloud that forms right down on the ground on cold autumn mornings!"
           ],
           "footerText": "Page 5 of 20 \u00b7 Weather, Rain & Seasons"
         },
@@ -89,12 +89,12 @@
           "pageNumber": 6,
           "header": "Weather, Rain & Seasons",
           "subHeader": "Earth Science \u00b7 Class 2 \u00b7 Section 6",
-          "title": "Weather, Rain & Seasons: Module 6",
+          "title": "Meet the Clouds: Cirrus, Cumulus, and Stratus",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Earth Science (Section 6).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Weather, Rain & Seasons.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 6: Conceptual review, synthesis, and practice problem sets."
+            "Cirrus clouds: High, feathery wisps of ice crystals looking like horse tails high in the blue sky.",
+            "Cumulus clouds: Big, bright white, fluffy cotton-ball clouds that signal sunny pleasant weather.",
+            "Stratus clouds: Low, flat, grey blankets covering the entire sky like a giant bedsheet, bringing light drizzle.",
+            "Cumulonimbus: Towering dark thunderstorm anvils reaching miles into the sky with lightning inside!"
           ],
           "footerText": "Page 6 of 20 \u00b7 Weather, Rain & Seasons"
         },
@@ -102,12 +102,12 @@
           "pageNumber": 7,
           "header": "Weather, Rain & Seasons",
           "subHeader": "Earth Science \u00b7 Class 2 \u00b7 Section 7",
-          "title": "Weather, Rain & Seasons: Module 7",
+          "title": "Precipitation: Raindrops Falling Down",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Earth Science (Section 7).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Weather, Rain & Seasons.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 7: Conceptual review, synthesis, and practice problem sets."
+            "When cloud droplets collide and grow too heavy to float in the air, gravity pulls them down as rain.",
+            "Rain gauges catch rainwater in clear measuring cylinders to track how many millimeters of rain fell.",
+            "The smell of fresh rain: Petrichor is the delightful earthy perfume released when raindrops hit dry soil.",
+            "Rain fills bubbling mountain streams, waters farmers' green crops, and fills our drinking water reservoirs."
           ],
           "footerText": "Page 7 of 20 \u00b7 Weather, Rain & Seasons"
         },
@@ -115,12 +115,12 @@
           "pageNumber": 8,
           "header": "Weather, Rain & Seasons",
           "subHeader": "Earth Science \u00b7 Class 2 \u00b7 Section 8",
-          "title": "Weather, Rain & Seasons: Module 8",
+          "title": "Thunder & Lightning: Nature's Fireworks",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Earth Science (Section 8).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Weather, Rain & Seasons.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 8: Conceptual review, synthesis, and practice problem sets."
+            "Static electricity: Ice crystals and water droplets bounce inside storm clouds, building up electric charges.",
+            "Lightning: A super-hot giant electric spark leaping between clouds or striking down toward the ground.",
+            "Lightning is hotter than the surface of the sun: It instantly heats the surrounding air, making it expand explosively.",
+            "Thunder: That explosive expansion of air creates the rolling, booming acoustic sound wave we call thunder!"
           ],
           "footerText": "Page 8 of 20 \u00b7 Weather, Rain & Seasons"
         },
@@ -128,12 +128,12 @@
           "pageNumber": 9,
           "header": "Weather, Rain & Seasons",
           "subHeader": "Earth Science \u00b7 Class 2 \u00b7 Section 9",
-          "title": "Weather, Rain & Seasons: Module 9",
+          "title": "Rainbows: Sunlight & Prisms in the Sky",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Earth Science (Section 9).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Weather, Rain & Seasons.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 9: Conceptual review, synthesis, and practice problem sets."
+            "White sunlight looks clear, but it is actually a blend of seven vibrant colors (VIBGYOR).",
+            "Refraction: When sunlight enters a curved round raindrop, the water bends and separates the light rays.",
+            "Internal reflection: The light bounces off the back of the raindrop and shines back toward our eyes.",
+            "The magic rainbow arc: Violet, Indigo, Blue, Green, Yellow, Orange, and Red painted across the sky!"
           ],
           "footerText": "Page 9 of 20 \u00b7 Weather, Rain & Seasons"
         },
@@ -141,12 +141,12 @@
           "pageNumber": 10,
           "header": "Weather, Rain & Seasons",
           "subHeader": "Earth Science \u00b7 Class 2 \u00b7 Section 10",
-          "title": "Weather, Rain & Seasons: Module 10",
+          "title": "Snowflakes: Winter's Hexagonal Crystals",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Earth Science (Section 10).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Weather, Rain & Seasons.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 10: Conceptual review, synthesis, and practice problem sets."
+            "When cloud temperatures drop below freezing (0\u00b0C / 32\u00b0F), water vapor freezes directly into ice crystals.",
+            "Hexagonal geometry: Every water molecule forms six-sided symmetric crystal arms as it grows.",
+            "No two snowflakes are alike: Each crystal experiences a unique journey through cloud moisture and wind.",
+            "Snow blanket: A thick layer of fluffy white snow acts like insulation, keeping hibernating animals warm underneath."
           ],
           "footerText": "Page 10 of 20 \u00b7 Weather, Rain & Seasons"
         },
@@ -154,12 +154,12 @@
           "pageNumber": 11,
           "header": "Weather, Rain & Seasons",
           "subHeader": "Earth Science \u00b7 Class 2 \u00b7 Section 11",
-          "title": "Weather, Rain & Seasons: Module 11",
+          "title": "Hail & Sleet: Frozen Sky Pellets",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Earth Science (Section 11).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Weather, Rain & Seasons.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 11: Conceptual review, synthesis, and practice problem sets."
+            "Sleet: Raindrops that freeze into small clear ice pellets as they fall through a layer of freezing air near the ground.",
+            "Hailstones: Thunderstorm updrafts toss water droplets high into freezing cloud tops over and over again.",
+            "Layer upon layer of ice freezes around the hailstone like an onion until it becomes too heavy and falls.",
+            "Hailstones can range from the size of small garden peas to large icy golf balls!"
           ],
           "footerText": "Page 11 of 20 \u00b7 Weather, Rain & Seasons"
         },
@@ -167,12 +167,12 @@
           "pageNumber": 12,
           "header": "Weather, Rain & Seasons",
           "subHeader": "Earth Science \u00b7 Class 2 \u00b7 Section 12",
-          "title": "Weather, Rain & Seasons: Module 12",
+          "title": "The Dance of the Earth: Why We Have Seasons",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Earth Science (Section 12).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Weather, Rain & Seasons.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 12: Conceptual review, synthesis, and practice problem sets."
+            "Earth revolves around the sun once every 365 days while spinning on its tilted axis (23.5 degrees).",
+            "Tilted toward the Sun: When the Northern Hemisphere tilts toward the sun, it enjoys long sunny days of Summer.",
+            "Tilted away from the Sun: The hemisphere tilted away receives indirect sunlight and experiences Winter.",
+            "The Equator: Regions near the middle of Earth receive direct sunshine all year round, staying warm and tropical."
           ],
           "footerText": "Page 12 of 20 \u00b7 Weather, Rain & Seasons"
         },
@@ -180,12 +180,12 @@
           "pageNumber": 13,
           "header": "Weather, Rain & Seasons",
           "subHeader": "Earth Science \u00b7 Class 2 \u00b7 Section 13",
-          "title": "Weather, Rain & Seasons: Module 13",
+          "title": "Spring: Awakening & Blossoms",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Earth Science (Section 13).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Weather, Rain & Seasons.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 13: Conceptual review, synthesis, and practice problem sets."
+            "Spring brings longer days, warmer afternoon sunshine, and refreshing gentle rains.",
+            "Dormant brown seeds wake up in the soil and push tiny green shoots toward the light.",
+            "Fruit orchards burst into sweet pink and white blossoms as honeybees buzz happily from petal to petal.",
+            "Baby animals: Woolly lambs frolic in green meadows, ducklings hatch, and birds sing joyous morning songs."
           ],
           "footerText": "Page 13 of 20 \u00b7 Weather, Rain & Seasons"
         },
@@ -193,12 +193,12 @@
           "pageNumber": 14,
           "header": "Weather, Rain & Seasons",
           "subHeader": "Earth Science \u00b7 Class 2 \u00b7 Section 14",
-          "title": "Weather, Rain & Seasons: Module 14",
+          "title": "Summer: Sunshine & Long Golden Days",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Earth Science (Section 14).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Weather, Rain & Seasons.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 14: Conceptual review, synthesis, and practice problem sets."
+            "Summer features the longest days and shortest nights of the entire year.",
+            "Summer Solstice: The longest day of the year (around June 21 in the Northern Hemisphere).",
+            "Sun protection: Wearing wide-brimmed sun hats, drinking cool water, and resting under shady leafy banyan trees.",
+            "Sweet summer treats: Juicy watermelons, ripe golden mangoes, ice pops, and splashing in cool swimming pools."
           ],
           "footerText": "Page 14 of 20 \u00b7 Weather, Rain & Seasons"
         },
@@ -206,12 +206,12 @@
           "pageNumber": 15,
           "header": "Weather, Rain & Seasons",
           "subHeader": "Earth Science \u00b7 Class 2 \u00b7 Section 15",
-          "title": "Weather, Rain & Seasons: Module 15",
+          "title": "The Monsoon: The Great Rain Festival",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Earth Science (Section 15).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Weather, Rain & Seasons.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 15: Conceptual review, synthesis, and practice problem sets."
+            "Monsoon winds: Giant seasonal winds blow off the warm Indian Ocean carrying heavy moisture-laden clouds.",
+            "The parched brown earth drinks up rainwater and turns into a lush, emerald green paradise in days.",
+            "Farmers rejoice as rainwater fills irrigation canals for rice paddies and sugar cane fields.",
+            "Splashing in puddles: Floating colorful paper boats down bubbling curbside streams under big umbrellas."
           ],
           "footerText": "Page 15 of 20 \u00b7 Weather, Rain & Seasons"
         },
@@ -219,12 +219,12 @@
           "pageNumber": 16,
           "header": "Weather, Rain & Seasons",
           "subHeader": "Earth Science \u00b7 Class 2 \u00b7 Section 16",
-          "title": "Weather, Rain & Seasons: Module 16",
+          "title": "Autumn: Crisp Breezes & Falling Leaves",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Earth Science (Section 16).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Weather, Rain & Seasons.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 16: Conceptual review, synthesis, and practice problem sets."
+            "Autumn Equinox: Day and night are of equal twelve-hour length as sunlight gently softens.",
+            "Deciduous trees stop making chlorophyll and reveal brilliant golden-yellow, amber, and crimson leaves.",
+            "Harvest festival: Farmers harvest golden wheat, pumpkins, sweet corn, and crisp juicy apples.",
+            "Animals prepare for winter: Squirrels collect and bury acorns; geese fly south in elegant V-formations."
           ],
           "footerText": "Page 16 of 20 \u00b7 Weather, Rain & Seasons"
         },
@@ -232,12 +232,12 @@
           "pageNumber": 17,
           "header": "Weather, Rain & Seasons",
           "subHeader": "Earth Science \u00b7 Class 2 \u00b7 Section 17",
-          "title": "Weather, Rain & Seasons: Module 17",
+          "title": "Winter: Frost, Blankets & Cozy Fireplaces",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Earth Science (Section 17).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Weather, Rain & Seasons.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 17: Conceptual review, synthesis, and practice problem sets."
+            "Winter brings the shortest days, longest starry nights, and frosty morning grass.",
+            "Winter Solstice: The shortest day of the year (around December 21 in the Northern Hemisphere).",
+            "Cozy comfort: Warm woolen sweaters, fluffy mittens, steaming mugs of hot cocoa, and fuzzy socks.",
+            "Winter sleep: Groundhogs, bears, and chipmunks curl up in underground burrows to hibernate until spring."
           ],
           "footerText": "Page 17 of 20 \u00b7 Weather, Rain & Seasons"
         },
@@ -245,12 +245,12 @@
           "pageNumber": 18,
           "header": "Weather, Rain & Seasons",
           "subHeader": "Earth Science \u00b7 Class 2 \u00b7 Section 18",
-          "title": "Weather, Rain & Seasons: Module 18",
+          "title": "Extreme Weather: Hurricanes & Tornadoes",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Earth Science (Section 18).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Weather, Rain & Seasons.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 18: Conceptual review, synthesis, and practice problem sets."
+            "Hurricanes: Giant spinning ocean storms fueled by warm tropical seawater with winds over 120 km/h.",
+            "The Eye of the Storm: The very center of a hurricane is surprisingly calm, sunny, and peaceful.",
+            "Tornadoes: Fast spinning funnels of wind that drop down from violent supercell thunderstorm clouds.",
+            "Early warning systems: Weather radar satellites and meteorologists track storms to keep families safe."
           ],
           "footerText": "Page 18 of 20 \u00b7 Weather, Rain & Seasons"
         },
@@ -258,12 +258,12 @@
           "pageNumber": 19,
           "header": "Weather, Rain & Seasons",
           "subHeader": "Earth Science \u00b7 Class 2 \u00b7 Section 19",
-          "title": "Weather, Rain & Seasons: Module 19",
+          "title": "How Meteorologists Predict the Weather",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Earth Science (Section 19).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Weather, Rain & Seasons.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 19: Conceptual review, synthesis, and practice problem sets."
+            "Weather satellites orbit hundreds of kilometers above Earth taking continuous photographs of spinning cloud banks.",
+            "Weather balloons carry sensor boxes (radiosondes) high into the sky to measure temperature, humidity, and wind.",
+            "Supercomputers run complex physical fluid dynamics equations to simulate tomorrow's weather forecast.",
+            "Five-day forecast: Helping farmers plan harvests, pilots fly safe flight routes, and families pack umbrellas."
           ],
           "footerText": "Page 19 of 20 \u00b7 Weather, Rain & Seasons"
         },
@@ -271,12 +271,12 @@
           "pageNumber": 20,
           "header": "Weather, Rain & Seasons",
           "subHeader": "Earth Science \u00b7 Class 2 \u00b7 Section 20",
-          "title": "Weather, Rain & Seasons: Module 20",
+          "title": "Climate Care: Loving Our Weather & Earth",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Earth Science (Section 20).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Weather, Rain & Seasons.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 20: Conceptual review, synthesis, and practice problem sets."
+            "Weather is what happens today; climate is the long-term pattern of weather over thirty years or more.",
+            "Greenhouse effect: Carbon dioxide and greenhouse gases act like a blanket trapping solar warmth.",
+            "Caring for our climate: Planting trees, riding bicycles, turning off unused lights, and recycling paper.",
+            "Earth celebration: Every season brings its own special wonder, from fresh spring blooms to quiet winter snow!"
           ],
           "footerText": "Page 20 of 20 \u00b7 Weather, Rain & Seasons"
         }

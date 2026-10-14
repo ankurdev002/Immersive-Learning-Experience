@@ -12,338 +12,234 @@
   "sourcePdf": null,
   "icon": "\ud83d\udcbe",
   "isInteractive": true,
-  "author": "Distinguished Faculty & Academic Press",
-  "totalPages": 25,
+  "author": "Academic Faculty & Domain Curators",
+  "totalPages": 17,
   "chapters": [
     {
       "chapterNumber": 1,
       "title": "Database Internals",
-      "description": "Comprehensive master curriculum in Databases",
+      "description": "Comprehensive curriculum in Databases",
       "pages": [
         {
           "pageNumber": 1,
           "header": "Database Internals",
           "subHeader": "Databases \u00b7 Class 3 \u00b7 Section 1",
-          "title": "Database Internals: Module 1",
+          "title": "Storage Engine Architecture",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Databases (Section 1).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Database Internals.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 1: Conceptual review, synthesis, and practice problem sets."
+            "Storage engines are the core components responsible for managing how data is stored on disk and in memory.",
+            "Primary categories: In-Memory engines vs Disk-Based engines; Mutable in-place engines vs Append-only log engines.",
+            "Components: Buffer pool manager, Lock/Latch manager, Write-Ahead Log (WAL), and On-disk indexing tree.",
+            "Trade-offs: Read amplification, Write amplification, and Space amplification (RUM conjecture)."
           ],
-          "footerText": "Page 1 of 25 \u00b7 Database Internals"
+          "footerText": "Page 1 of 17 \u00b7 Database Internals"
         },
         {
           "pageNumber": 2,
           "header": "Database Internals",
           "subHeader": "Databases \u00b7 Class 3 \u00b7 Section 2",
-          "title": "Database Internals: Module 2",
+          "title": "B-Tree Anatomy & Node Layout",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Databases (Section 2).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Database Internals.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 2: Conceptual review, synthesis, and practice problem sets."
+            "B-Trees: Balanced search trees optimized for block storage devices like SSDs and HDDs.",
+            "Node layout: Slotted-page architecture with cell pointers growing forward and cell data growing backward.",
+            "Fan-out: A high branching factor (typically 100 to 1,000 keys per node) minimizes tree depth to 3 or 4 levels.",
+            "Search complexity: O(log_B N) disk accesses, making B-Trees ideal for read-heavy transactional workloads."
           ],
-          "footerText": "Page 2 of 25 \u00b7 Database Internals"
+          "footerText": "Page 2 of 17 \u00b7 Database Internals"
         },
         {
           "pageNumber": 3,
           "header": "Database Internals",
           "subHeader": "Databases \u00b7 Class 3 \u00b7 Section 3",
-          "title": "Database Internals: Module 3",
+          "title": "B-Tree Node Splitting & Balancing",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Databases (Section 3).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Database Internals.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 3: Conceptual review, synthesis, and practice problem sets."
+            "Insertion: Traversing down to target leaf node; if node overflows (capacity > 2B), the node splits into two halves.",
+            "Median key promotion: The middle key moves up to the parent node, potentially causing a cascade of parent splits.",
+            "Deletion: Removing key from leaf; if node underflows, borrowing keys from siblings or merging with neighbor nodes.",
+            "Right-leaning bulk loading: Constructing B-Trees sequentially from sorted data to achieve 100% space utilization."
           ],
-          "footerText": "Page 3 of 25 \u00b7 Database Internals"
+          "footerText": "Page 3 of 17 \u00b7 Database Internals"
         },
         {
           "pageNumber": 4,
           "header": "Database Internals",
           "subHeader": "Databases \u00b7 Class 3 \u00b7 Section 4",
-          "title": "Database Internals: Module 4",
+          "title": "B-Tree Concurrency & Latching",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Databases (Section 4).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Database Internals.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 4: Conceptual review, synthesis, and practice problem sets."
+            "Locks vs Latches: Locks protect logical database transactions; Latches protect physical in-memory data structures.",
+            "Latch crabbing / coupling: Acquiring a child node latch before releasing the parent node latch.",
+            "Optimistic latching: Reading node versions without acquiring exclusive write latches to maximize concurrency.",
+            "B-link trees: Lehman-Yao algorithm adding sibling pointers to allow concurrent read traversals during ongoing node splits."
           ],
-          "footerText": "Page 4 of 25 \u00b7 Database Internals"
+          "footerText": "Page 4 of 17 \u00b7 Database Internals"
         },
         {
           "pageNumber": 5,
           "header": "Database Internals",
           "subHeader": "Databases \u00b7 Class 3 \u00b7 Section 5",
-          "title": "Database Internals: Module 5",
+          "title": "LSM-Tree Architecture Overview",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Databases (Section 5).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Database Internals.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 5: Conceptual review, synthesis, and practice problem sets."
+            "Log-Structured Merge-Tree: Optimized for write-heavy workloads by sequentializing all disk writes.",
+            "Memtable: An in-memory sorted structure (typically SkipList or Red-Black Tree) accepting concurrent writes.",
+            "Commit Log / WAL: Sequential append-only disk log guaranteeing durability in case of server crashes.",
+            "SSTables (Sorted String Tables): Immutable on-disk sorted files flushed periodically from frozen Memtables."
           ],
-          "footerText": "Page 5 of 25 \u00b7 Database Internals"
+          "footerText": "Page 5 of 17 \u00b7 Database Internals"
         },
         {
           "pageNumber": 6,
           "header": "Database Internals",
           "subHeader": "Databases \u00b7 Class 3 \u00b7 Section 6",
-          "title": "Database Internals: Module 6",
+          "title": "SSTable Anatomy & Block Indexing",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Databases (Section 6).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Database Internals.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 6: Conceptual review, synthesis, and practice problem sets."
+            "SSTable layout: Sequence of fixed-size compressed data blocks followed by an index block and footer.",
+            "Index block: Sparse primary key index mapping keys to file byte offsets for fast seeking.",
+            "Two-pass binary search: Searching the index block to find target data block, then searching inside the decompressed block.",
+            "Immutability advantage: No locks or latches required for read queries against historical SSTable files."
           ],
-          "footerText": "Page 6 of 25 \u00b7 Database Internals"
+          "footerText": "Page 6 of 17 \u00b7 Database Internals"
         },
         {
           "pageNumber": 7,
           "header": "Database Internals",
           "subHeader": "Databases \u00b7 Class 3 \u00b7 Section 7",
-          "title": "Database Internals: Module 7",
+          "title": "Bloom Filters in LSM-Trees",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Databases (Section 7).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Database Internals.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 7: Conceptual review, synthesis, and practice problem sets."
+            "The read penalty of LSM-Trees: Looking for non-existent keys requires checking multiple SSTables on disk.",
+            "Bloom filter: Space-efficient probabilistic data structure answering whether a key is 'possibly in set' or 'definitely not in set'.",
+            "Hashing mechanics: k independent hash functions setting bits in an m-bit bitset array.",
+            "False positive rate: Configured to ~1% with just 10 bits per key, eliminating 99% of unnecessary disk I/O on lookups."
           ],
-          "footerText": "Page 7 of 25 \u00b7 Database Internals"
+          "footerText": "Page 7 of 17 \u00b7 Database Internals"
         },
         {
           "pageNumber": 8,
           "header": "Database Internals",
           "subHeader": "Databases \u00b7 Class 3 \u00b7 Section 8",
-          "title": "Database Internals: Module 8",
+          "title": "Compaction Strategies: Size-Tiered vs Leveled",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Databases (Section 8).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Database Internals.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 8: Conceptual review, synthesis, and practice problem sets."
+            "Why compaction is mandatory: Reclaiming space from deleted/updated keys and bounding read latency.",
+            "Size-Tiered Compaction (STCS): Merging SSTables of similar sizes; great for write-heavy bursts, higher temporary space overhead.",
+            "Leveled Compaction (LCS): Partitioning disk into exponential levels (L0, L1, L2); each level has strictly non-overlapping keys.",
+            "Trade-off analysis: Leveled compaction yields predictable low read latency and minimal space amplification at cost of higher write amplification."
           ],
-          "footerText": "Page 8 of 25 \u00b7 Database Internals"
+          "footerText": "Page 8 of 17 \u00b7 Database Internals"
         },
         {
           "pageNumber": 9,
           "header": "Database Internals",
           "subHeader": "Databases \u00b7 Class 3 \u00b7 Section 9",
-          "title": "Database Internals: Module 9",
+          "title": "Write-Ahead Logging (WAL) & Recovery",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Databases (Section 9).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Database Internals.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 9: Conceptual review, synthesis, and practice problem sets."
+            "The ARIES recovery algorithm: Analysis, Redo, and Undo phases for robust database recovery.",
+            "Write-Ahead Log rule: Dirty data pages in memory must never be written to disk until the corresponding log records are flushed.",
+            "Group commit: Batched fsync calls combining multiple concurrent client transactions into a single disk I/O.",
+            "Checkpoints: Periodic snapshots writing dirty pages to disk, allowing truncation of historical WAL segments."
           ],
-          "footerText": "Page 9 of 25 \u00b7 Database Internals"
+          "footerText": "Page 9 of 17 \u00b7 Database Internals"
         },
         {
           "pageNumber": 10,
           "header": "Database Internals",
           "subHeader": "Databases \u00b7 Class 3 \u00b7 Section 10",
-          "title": "Database Internals: Module 10",
+          "title": "Buffer Pool Management & Page Eviction",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Databases (Section 10).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Database Internals.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 10: Conceptual review, synthesis, and practice problem sets."
+            "Buffer pool: In-memory frame cache holding 4KB/8KB disk pages to minimize slow storage I/O.",
+            "Page table: Hash map translating disk page IDs to memory buffer frame pointers.",
+            "Eviction algorithms: LRU (Least Recently Used), Clock-sweep, 2Q, and adaptive replacement caches (ARC).",
+            "Dirty page management: Background flusher threads writing modified pages to disk before evicting."
           ],
-          "footerText": "Page 10 of 25 \u00b7 Database Internals"
+          "footerText": "Page 10 of 17 \u00b7 Database Internals"
         },
         {
           "pageNumber": 11,
           "header": "Database Internals",
           "subHeader": "Databases \u00b7 Class 3 \u00b7 Section 11",
-          "title": "Database Internals: Module 11",
+          "title": "Columnar Storage & Analytics Engines",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Databases (Section 11).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Database Internals.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 11: Conceptual review, synthesis, and practice problem sets."
+            "Row-oriented (OLTP) vs Column-oriented (OLAP): Storing tuples together vs storing attributes together.",
+            "Vectorized execution: Processing arrays of columnar values in CPU L1 cache with SIMD instructions.",
+            "Compression algorithms: Run-length encoding (RLE), Bit-packing, Delta encoding, and Dictionary compression.",
+            "Projection pushdown: Reading only the specific columns referenced in the query, cutting disk I/O by 90%."
           ],
-          "footerText": "Page 11 of 25 \u00b7 Database Internals"
+          "footerText": "Page 11 of 17 \u00b7 Database Internals"
         },
         {
           "pageNumber": 12,
           "header": "Database Internals",
           "subHeader": "Databases \u00b7 Class 3 \u00b7 Section 12",
-          "title": "Database Internals: Module 12",
+          "title": "MVCC: Multi-Version Concurrency Control",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Databases (Section 12).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Database Internals.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 12: Conceptual review, synthesis, and practice problem sets."
+            "Core principle: Readers never block writers, and writers never block readers.",
+            "Tuple headers: Storing created-by (xmin) and deleted-by (xmax) transaction IDs with each row version.",
+            "Read views / Snapshots: Determining row visibility based on the calling transaction's active snapshot.",
+            "Vacuuming & Garbage Collection: Identifying and purging dead tuple versions that are no longer visible to any active transaction."
           ],
-          "footerText": "Page 12 of 25 \u00b7 Database Internals"
+          "footerText": "Page 12 of 17 \u00b7 Database Internals"
         },
         {
           "pageNumber": 13,
           "header": "Database Internals",
           "subHeader": "Databases \u00b7 Class 3 \u00b7 Section 13",
-          "title": "Database Internals: Module 13",
+          "title": "Distributed Storage Partitioning",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Databases (Section 13).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Database Internals.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 13: Conceptual review, synthesis, and practice problem sets."
+            "Horizontal sharding: Splitting large tables across multiple database nodes.",
+            "Range partitioning: Partitioning by key ranges (e.g. A-E, F-M, N-Z); prone to hot spot writes on monotonic keys.",
+            "Hash partitioning: Applying cryptographic hash functions (e.g. Murmur3) to distribute keys uniformly.",
+            "Consistent Hashing: Virtual nodes on a hash ring minimizing data rebalancing when nodes join or leave the cluster."
           ],
-          "footerText": "Page 13 of 25 \u00b7 Database Internals"
+          "footerText": "Page 13 of 17 \u00b7 Database Internals"
         },
         {
           "pageNumber": 14,
           "header": "Database Internals",
           "subHeader": "Databases \u00b7 Class 3 \u00b7 Section 14",
-          "title": "Database Internals: Module 14",
+          "title": "Consensus Protocols in Storage: Raft & Paxos",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Databases (Section 14).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Database Internals.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 14: Conceptual review, synthesis, and practice problem sets."
+            "State machine replication: Replicating an identical append-only log across independent storage nodes.",
+            "Leader election: Heartbeats, election timeouts, and randomized split-vote prevention in Raft.",
+            "Log replication: Majority quorum acknowledgement before committing entries to disk state machines.",
+            "Safety invariant: A committed entry is guaranteed to be present in all future leader terms."
           ],
-          "footerText": "Page 14 of 25 \u00b7 Database Internals"
+          "footerText": "Page 14 of 17 \u00b7 Database Internals"
         },
         {
           "pageNumber": 15,
           "header": "Database Internals",
           "subHeader": "Databases \u00b7 Class 3 \u00b7 Section 15",
-          "title": "Database Internals: Module 15",
+          "title": "Distributed Transactions & Two-Phase Commit",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Databases (Section 15).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Database Internals.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 15: Conceptual review, synthesis, and practice problem sets."
+            "Atomic commit across shards: Either all participating nodes commit the transaction or all abort.",
+            "Phase 1 (Prepare): Coordinator sends prepare requests; participants write undo/redo logs and vote YES or NO.",
+            "Phase 2 (Commit): If all vote YES, coordinator broadcasts COMMIT; otherwise coordinator broadcasts ABORT.",
+            "Failure modes: Blocking coordinator problem when coordinator crashes during the critical commit window."
           ],
-          "footerText": "Page 15 of 25 \u00b7 Database Internals"
+          "footerText": "Page 15 of 17 \u00b7 Database Internals"
         },
         {
           "pageNumber": 16,
           "header": "Database Internals",
           "subHeader": "Databases \u00b7 Class 3 \u00b7 Section 16",
-          "title": "Database Internals: Module 16",
+          "title": "Modern Trends: NVMe, Optane & Memory Tiering",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Databases (Section 16).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Database Internals.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 16: Conceptual review, synthesis, and practice problem sets."
+            "Ultra-fast NVMe storage: Millions of IOPS and single-digit microsecond latencies changing engine assumptions.",
+            "Kernel bypass & io_uring: Asynchronous Linux I/O eliminating costly syscall context switches.",
+            "Persistent Memory (PMEM): Byte-addressable non-volatile RAM bridging the latency gap between DRAM and SSDs.",
+            "Vector databases: Approximate Nearest Neighbor (ANN) indexes like HNSW storing high-dimensional embedding vectors."
           ],
-          "footerText": "Page 16 of 25 \u00b7 Database Internals"
+          "footerText": "Page 16 of 17 \u00b7 Database Internals"
         },
         {
           "pageNumber": 17,
           "header": "Database Internals",
           "subHeader": "Databases \u00b7 Class 3 \u00b7 Section 17",
-          "title": "Database Internals: Module 17",
+          "title": "Database Architecture Synthesis",
           "bulletPoints": [
-            "Core theoretical foundations and structural principles of Databases (Section 17).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Database Internals.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 17: Conceptual review, synthesis, and practice problem sets."
+            "Selecting the right storage engine: B-Tree for relational OLTP, LSM-Tree for ingestion logs, Parquet for analytics.",
+            "Balance of trade-offs: Memory bandwidth, disk write amplification, CPU cache locality, and recovery time.",
+            "Hardware alignment: Designing data structures that respect hardware page sizes and CPU cache line boundaries.",
+            "Future outlook: Cloud-native disaggregated architectures separating serverless compute from scalable object storage."
           ],
-          "footerText": "Page 17 of 25 \u00b7 Database Internals"
-        },
-        {
-          "pageNumber": 18,
-          "header": "Database Internals",
-          "subHeader": "Databases \u00b7 Class 3 \u00b7 Section 18",
-          "title": "Database Internals: Module 18",
-          "bulletPoints": [
-            "Core theoretical foundations and structural principles of Databases (Section 18).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Database Internals.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 18: Conceptual review, synthesis, and practice problem sets."
-          ],
-          "footerText": "Page 18 of 25 \u00b7 Database Internals"
-        },
-        {
-          "pageNumber": 19,
-          "header": "Database Internals",
-          "subHeader": "Databases \u00b7 Class 3 \u00b7 Section 19",
-          "title": "Database Internals: Module 19",
-          "bulletPoints": [
-            "Core theoretical foundations and structural principles of Databases (Section 19).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Database Internals.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 19: Conceptual review, synthesis, and practice problem sets."
-          ],
-          "footerText": "Page 19 of 25 \u00b7 Database Internals"
-        },
-        {
-          "pageNumber": 20,
-          "header": "Database Internals",
-          "subHeader": "Databases \u00b7 Class 3 \u00b7 Section 20",
-          "title": "Database Internals: Module 20",
-          "bulletPoints": [
-            "Core theoretical foundations and structural principles of Databases (Section 20).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Database Internals.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 20: Conceptual review, synthesis, and practice problem sets."
-          ],
-          "footerText": "Page 20 of 25 \u00b7 Database Internals"
-        },
-        {
-          "pageNumber": 21,
-          "header": "Database Internals",
-          "subHeader": "Databases \u00b7 Class 3 \u00b7 Section 21",
-          "title": "Database Internals: Module 21",
-          "bulletPoints": [
-            "Core theoretical foundations and structural principles of Databases (Section 21).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Database Internals.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 21: Conceptual review, synthesis, and practice problem sets."
-          ],
-          "footerText": "Page 21 of 25 \u00b7 Database Internals"
-        },
-        {
-          "pageNumber": 22,
-          "header": "Database Internals",
-          "subHeader": "Databases \u00b7 Class 3 \u00b7 Section 22",
-          "title": "Database Internals: Module 22",
-          "bulletPoints": [
-            "Core theoretical foundations and structural principles of Databases (Section 22).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Database Internals.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 22: Conceptual review, synthesis, and practice problem sets."
-          ],
-          "footerText": "Page 22 of 25 \u00b7 Database Internals"
-        },
-        {
-          "pageNumber": 23,
-          "header": "Database Internals",
-          "subHeader": "Databases \u00b7 Class 3 \u00b7 Section 23",
-          "title": "Database Internals: Module 23",
-          "bulletPoints": [
-            "Core theoretical foundations and structural principles of Databases (Section 23).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Database Internals.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 23: Conceptual review, synthesis, and practice problem sets."
-          ],
-          "footerText": "Page 23 of 25 \u00b7 Database Internals"
-        },
-        {
-          "pageNumber": 24,
-          "header": "Database Internals",
-          "subHeader": "Databases \u00b7 Class 3 \u00b7 Section 24",
-          "title": "Database Internals: Module 24",
-          "bulletPoints": [
-            "Core theoretical foundations and structural principles of Databases (Section 24).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Database Internals.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 24: Conceptual review, synthesis, and practice problem sets."
-          ],
-          "footerText": "Page 24 of 25 \u00b7 Database Internals"
-        },
-        {
-          "pageNumber": 25,
-          "header": "Database Internals",
-          "subHeader": "Databases \u00b7 Class 3 \u00b7 Section 25",
-          "title": "Database Internals: Module 25",
-          "bulletPoints": [
-            "Core theoretical foundations and structural principles of Databases (Section 25).",
-            "In-depth analysis of methodologies, core formulas, and systemic patterns in Database Internals.",
-            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
-            "Mastery checkpoint 25: Conceptual review, synthesis, and practice problem sets."
-          ],
-          "footerText": "Page 25 of 25 \u00b7 Database Internals"
+          "footerText": "Page 17 of 17 \u00b7 Database Internals"
         }
       ]
     }
