@@ -10,7 +10,7 @@
   "accentColor": "#34d399",
   "coverImage": "/books/green-garden/cover.png",
   "sourcePdf": null,
-  "icon": "\ud83c\udf3b",
+  "icon": "🌻",
   "isInteractive": true,
   "author": "Distinguished Curators & Academic Press",
   "totalPages": 20,
@@ -18,267 +18,328 @@
     {
       "chapterNumber": 1,
       "title": "Our Green Little Garden",
-      "description": "Comprehensive curriculum in Nature Studies",
+      "description": "Delightful early reading and discovery in Nature Studies",
       "pages": [
         {
           "pageNumber": 1,
           "header": "Our Green Little Garden",
-          "subHeader": "Nature Studies \u00b7 Class 1 \u00b7 Part 1",
-          "title": "Core Foundations & Introductory Concepts: Topic 1",
+          "subHeader": "Nature Studies · Chapter 1 · Page 1",
+          "title": "Welcome to the Green Garden",
           "bulletPoints": [
-            "Fundamental lessons and central principles of the domain.",
-            "Key definitions, terminology, and historical context.",
-            "Observing phenomena and recognizing patterns.",
-            "Building foundational mental models."
+            "The garden is a living paradise where soil, rain, warm sun, and fresh air work together.",
+            "Every towering oak and sweet juicy tomato began as a tiny, humble seed.",
+            "Gardening teaches patience, gentle care, and gratitude for the earth.",
+            "Put on your garden gloves, grab your watering can, and let's explore!"
           ],
-          "footerText": "Page 1 of 20 \u00b7 Our Green Little Garden"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 1 of 20 · Our Green Little Garden"
         },
         {
           "pageNumber": 2,
           "header": "Our Green Little Garden",
-          "subHeader": "Nature Studies \u00b7 Class 1 \u00b7 Part 2",
-          "title": "Core Foundations & Introductory Concepts: Topic 2",
+          "subHeader": "Nature Studies · Chapter 1 · Page 2",
+          "title": "Tiny Magic Seeds: Life in a Shell",
           "bulletPoints": [
-            "Fundamental lessons and central principles of the domain.",
-            "Key definitions, terminology, and historical context.",
-            "Observing phenomena and recognizing patterns.",
-            "Building foundational mental models."
+            "A seed looks like a dry, sleeping pebble, but inside lies an embryo plant waiting for water.",
+            "Seed coat: A tough protective armor keeping the baby plant safe from frost and heat.",
+            "Food store (Endosperm): Packed with starch and nutrients to feed the baby plant until leaves grow.",
+            "Variety: Tiny poppy seeds, smooth melon seeds, and large furrowed peach stones."
           ],
-          "footerText": "Page 2 of 20 \u00b7 Our Green Little Garden"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 2 of 20 · Our Green Little Garden"
         },
         {
           "pageNumber": 3,
           "header": "Our Green Little Garden",
-          "subHeader": "Nature Studies \u00b7 Class 1 \u00b7 Part 3",
-          "title": "Core Foundations & Introductory Concepts: Topic 3",
+          "subHeader": "Nature Studies · Chapter 1 · Page 3",
+          "title": "Preparing the Soil: The Earth’s Bed",
           "bulletPoints": [
-            "Fundamental lessons and central principles of the domain.",
-            "Key definitions, terminology, and historical context.",
-            "Observing phenomena and recognizing patterns.",
-            "Building foundational mental models."
+            "Healthy soil is alive! It contains minerals, decaying organic compost, air, and moisture.",
+            "Loosening the ground: Use a small trowel to break up hard clods so tender roots can spread.",
+            "Compost magic: Dark rich compost made from dry leaves and vegetable peels feeds soil microbes.",
+            "Earthworms at work: Friendly worms burrow channels through soil, bringing oxygen to deep roots."
           ],
-          "footerText": "Page 3 of 20 \u00b7 Our Green Little Garden"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 3 of 20 · Our Green Little Garden"
         },
         {
           "pageNumber": 4,
           "header": "Our Green Little Garden",
-          "subHeader": "Nature Studies \u00b7 Class 1 \u00b7 Part 4",
-          "title": "Core Foundations & Introductory Concepts: Topic 4",
+          "subHeader": "Nature Studies · Chapter 1 · Page 4",
+          "title": "Planting the Seed: Tucking It to Sleep",
           "bulletPoints": [
-            "Fundamental lessons and central principles of the domain.",
-            "Key definitions, terminology, and historical context.",
-            "Observing phenomena and recognizing patterns.",
-            "Building foundational mental models."
+            "The Golden Rule of Planting: Plant seeds at a depth equal to two or three times their thickness.",
+            "Tiny carrot seeds need only a light dusting of soil; large bean seeds sleep two inches deep.",
+            "Spacing rows: Leave enough room between seeds so growing plants will not crowd each other.",
+            "Gentle pat: Pat the soil down lightly so moisture can touch the seed coat on all sides."
           ],
-          "footerText": "Page 4 of 20 \u00b7 Our Green Little Garden"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 4 of 20 · Our Green Little Garden"
         },
         {
           "pageNumber": 5,
           "header": "Our Green Little Garden",
-          "subHeader": "Nature Studies \u00b7 Class 1 \u00b7 Part 5",
-          "title": "Core Foundations & Introductory Concepts: Topic 5",
+          "subHeader": "Nature Studies · Chapter 1 · Page 5",
+          "title": "A Gentle Drink: Watering the Garden",
           "bulletPoints": [
-            "Fundamental lessons and central principles of the domain.",
-            "Key definitions, terminology, and historical context.",
-            "Observing phenomena and recognizing patterns.",
-            "Building foundational mental models."
+            "Seeds need moisture to soften their hard coats and signal that spring has arrived.",
+            "Gentle rose nozzle: Use a showerhead nozzle so heavy water drops don't wash tiny seeds away.",
+            "Watering at sunrise: Morning is best because the soil stays moist before the hot midday sun.",
+            "Deep watering: It is better to water deeply twice a week than shallowly every day."
           ],
-          "footerText": "Page 5 of 20 \u00b7 Our Green Little Garden"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 5 of 20 · Our Green Little Garden"
         },
         {
           "pageNumber": 6,
           "header": "Our Green Little Garden",
-          "subHeader": "Nature Studies \u00b7 Class 1 \u00b7 Part 6",
-          "title": "Mechanisms, Methods & Step-by-Step Analysis: Topic 6",
+          "subHeader": "Nature Studies · Chapter 1 · Page 6",
+          "title": "Germination: The Awakening Root",
           "bulletPoints": [
-            "Detailed methodologies and structural frameworks.",
-            "Hands-on examples and guided practice exercises.",
-            "Component interactions and process workflows.",
-            "Common mistakes, diagnostics, and problem solving."
+            "As the seed drinks water, it swells and the hard coat cracks open.",
+            "The Radicle: The very first part to emerge is a tender white root pointing straight down.",
+            "Geotropism: Gravity guides roots downward into the earth to find water and anchor the plant.",
+            "Microscopic root hairs: Thousands of tiny hairs absorb water and dissolved soil minerals."
           ],
-          "footerText": "Page 6 of 20 \u00b7 Our Green Little Garden"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 6 of 20 · Our Green Little Garden"
         },
         {
           "pageNumber": 7,
           "header": "Our Green Little Garden",
-          "subHeader": "Nature Studies \u00b7 Class 1 \u00b7 Part 1",
-          "title": "Mechanisms, Methods & Step-by-Step Analysis: Topic 1",
+          "subHeader": "Nature Studies · Chapter 1 · Page 7",
+          "title": "The First Green Sprout: Pushing to the Light",
           "bulletPoints": [
-            "Detailed methodologies and structural frameworks.",
-            "Hands-on examples and guided practice exercises.",
-            "Component interactions and process workflows.",
-            "Common mistakes, diagnostics, and problem solving."
+            "Phototropism: Stems naturally bend and grow upward toward bright sunlight.",
+            "Arching loop: The young stem forms a protective hook to push through heavy soil without damaging leaves.",
+            "Breaking through: A delicate green loop pokes through the brown dirt into the warm sunshine!",
+            "First sight: The pale sprout turns vivid emerald green within hours as chlorophyll forms."
           ],
-          "footerText": "Page 7 of 20 \u00b7 Our Green Little Garden"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 7 of 20 · Our Green Little Garden"
         },
         {
           "pageNumber": 8,
           "header": "Our Green Little Garden",
-          "subHeader": "Nature Studies \u00b7 Class 1 \u00b7 Part 2",
-          "title": "Mechanisms, Methods & Step-by-Step Analysis: Topic 2",
+          "subHeader": "Nature Studies · Chapter 1 · Page 8",
+          "title": "Cotyledons: The Seed Leaves",
           "bulletPoints": [
-            "Detailed methodologies and structural frameworks.",
-            "Hands-on examples and guided practice exercises.",
-            "Component interactions and process workflows.",
-            "Common mistakes, diagnostics, and problem solving."
+            "The very first leaves that open are called cotyledons (seed leaves).",
+            "They look smooth and rounded, unlike the mature leaves that will follow later.",
+            "Food providers: They feed the baby plant using stored seed food until true leaves grow.",
+            "Once true leaves appear, cotyledons wither and fall off naturally, having completed their duty."
           ],
-          "footerText": "Page 8 of 20 \u00b7 Our Green Little Garden"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 8 of 20 · Our Green Little Garden"
         },
         {
           "pageNumber": 9,
           "header": "Our Green Little Garden",
-          "subHeader": "Nature Studies \u00b7 Class 1 \u00b7 Part 3",
-          "title": "Mechanisms, Methods & Step-by-Step Analysis: Topic 3",
+          "subHeader": "Nature Studies · Chapter 1 · Page 9",
+          "title": "True Leaves & Photosynthesis",
           "bulletPoints": [
-            "Detailed methodologies and structural frameworks.",
-            "Hands-on examples and guided practice exercises.",
-            "Component interactions and process workflows.",
-            "Common mistakes, diagnostics, and problem solving."
+            "True leaves emerge above the cotyledons with the characteristic shape of the adult plant.",
+            "Photosynthesis: Leaves are solar-powered sugar factories inside plant cells.",
+            "Ingredients: Green chlorophyll traps sunlight; roots provide water; leaves breathe carbon dioxide.",
+            "The gift: Plants create glucose food for themselves and release pure oxygen for us to breathe!"
           ],
-          "footerText": "Page 9 of 20 \u00b7 Our Green Little Garden"
+          "formulaOrSummary": "Sunlight + Water + CO2 -> Glucose (Food) + Oxygen",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 9 of 20 · Our Green Little Garden"
         },
         {
           "pageNumber": 10,
           "header": "Our Green Little Garden",
-          "subHeader": "Nature Studies \u00b7 Class 1 \u00b7 Part 4",
-          "title": "Mechanisms, Methods & Step-by-Step Analysis: Topic 4",
+          "subHeader": "Nature Studies · Chapter 1 · Page 10",
+          "title": "Stems: The Highway of Sap",
           "bulletPoints": [
-            "Detailed methodologies and structural frameworks.",
-            "Hands-on examples and guided practice exercises.",
-            "Component interactions and process workflows.",
-            "Common mistakes, diagnostics, and problem solving."
+            "The stem holds leaves high to catch maximum sunlight and supports heavy flowers and fruit.",
+            "Xylem tubes: One-way microscopic pipes carrying water and minerals up from the roots.",
+            "Phloem tubes: Two-way pipes carrying sugary sap from leaves to growing roots and shoots.",
+            "Herbaceous vs woody stems: Soft green daisy stems vs sturdy brown oak tree trunks."
           ],
-          "footerText": "Page 10 of 20 \u00b7 Our Green Little Garden"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 10 of 20 · Our Green Little Garden"
         },
         {
           "pageNumber": 11,
           "header": "Our Green Little Garden",
-          "subHeader": "Nature Studies \u00b7 Class 1 \u00b7 Part 5",
-          "title": "Applied Problem Solving & Real-World Context: Topic 5",
+          "subHeader": "Nature Studies · Chapter 1 · Page 11",
+          "title": "Deep Roots: Anchors in the Storm",
           "bulletPoints": [
-            "Practical applications across daily life and industry.",
-            "Case studies, stories, and investigative highlights.",
-            "Connecting concepts across multidisciplinary domains.",
-            "Creative exploration and independent project work."
+            "Taproots: A thick, deep main root reaching far underground (like carrots and dandelions).",
+            "Fibrous roots: A web of thin, branching roots spreading wide like a net (like grass and wheat).",
+            "Soil protectors: Dense roots hold soil tight, preventing heavy rains from washing soil into rivers.",
+            "Underground storage: Carrots, beets, and radishes store sugary food in roots for next year."
           ],
-          "footerText": "Page 11 of 20 \u00b7 Our Green Little Garden"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 11 of 20 · Our Green Little Garden"
         },
         {
           "pageNumber": 12,
           "header": "Our Green Little Garden",
-          "subHeader": "Nature Studies \u00b7 Class 1 \u00b7 Part 6",
-          "title": "Applied Problem Solving & Real-World Context: Topic 6",
+          "subHeader": "Nature Studies · Chapter 1 · Page 12",
+          "title": "Flower Buds: Nature's Wrapped Gifts",
           "bulletPoints": [
-            "Practical applications across daily life and industry.",
-            "Case studies, stories, and investigative highlights.",
-            "Connecting concepts across multidisciplinary domains.",
-            "Creative exploration and independent project work."
+            "When the plant reaches adulthood, it prepares to reproduce by forming tight flower buds.",
+            "Sepals: Small green leaflike shields that wrap the bud tight and protect delicate petals.",
+            "Swelling colors: As petals develop inside, glimpses of red, yellow, pink, and purple peek through.",
+            "Sunbeam trigger: Warm morning warmth encourages the sepals to peel back and bloom open!"
           ],
-          "footerText": "Page 12 of 20 \u00b7 Our Green Little Garden"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 12 of 20 · Our Green Little Garden"
         },
         {
           "pageNumber": 13,
           "header": "Our Green Little Garden",
-          "subHeader": "Nature Studies \u00b7 Class 1 \u00b7 Part 1",
-          "title": "Applied Problem Solving & Real-World Context: Topic 1",
+          "subHeader": "Nature Studies · Chapter 1 · Page 13",
+          "title": "Blossoms Open: Color, Perfume & Nectar",
           "bulletPoints": [
-            "Practical applications across daily life and industry.",
-            "Case studies, stories, and investigative highlights.",
-            "Connecting concepts across multidisciplinary domains.",
-            "Creative exploration and independent project work."
+            "Petals: Colorful billboards designed to catch the attention of passing flying insects.",
+            "Sweet nectar: A sugary, fragrant syrup hidden deep inside the flower base as an insect treat.",
+            "Stamens & Pistils: The male stamens produce powdery yellow pollen; the female pistil receives it.",
+            "Fragrance in the breeze: Rose, jasmine, and honeysuckle perfume fills the summer garden air."
           ],
-          "footerText": "Page 13 of 20 \u00b7 Our Green Little Garden"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 13 of 20 · Our Green Little Garden"
         },
         {
           "pageNumber": 14,
           "header": "Our Green Little Garden",
-          "subHeader": "Nature Studies \u00b7 Class 1 \u00b7 Part 2",
-          "title": "Applied Problem Solving & Real-World Context: Topic 2",
+          "subHeader": "Nature Studies · Chapter 1 · Page 14",
+          "title": "The Pollinators: Bees, Butterflies & Birds",
           "bulletPoints": [
-            "Practical applications across daily life and industry.",
-            "Case studies, stories, and investigative highlights.",
-            "Connecting concepts across multidisciplinary domains.",
-            "Creative exploration and independent project work."
+            "Honeybees fly from blossom to blossom, gathering nectar to make sweet golden honey in hives.",
+            "Pollen baskets: Bees brush against stamens; yellow pollen dusts their hairy legs and bodies.",
+            "Pollination: When the bee visits the next flower, pollen rubs off onto the sticky pistil.",
+            "Without bees and butterflies pollinating flowers, apples, berries, and pumpkins could never grow!"
           ],
-          "footerText": "Page 14 of 20 \u00b7 Our Green Little Garden"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 14 of 20 · Our Green Little Garden"
         },
         {
           "pageNumber": 15,
           "header": "Our Green Little Garden",
-          "subHeader": "Nature Studies \u00b7 Class 1 \u00b7 Part 3",
-          "title": "Applied Problem Solving & Real-World Context: Topic 3",
+          "subHeader": "Nature Studies · Chapter 1 · Page 15",
+          "title": "From Flower to Fruit: The Growing Pod",
           "bulletPoints": [
-            "Practical applications across daily life and industry.",
-            "Case studies, stories, and investigative highlights.",
-            "Connecting concepts across multidisciplinary domains.",
-            "Creative exploration and independent project work."
+            "Once a flower is pollinated, the colorful petals have completed their job and fall to the ground.",
+            "The ovary swells: The base of the flower begins to expand into a green fruit or seed pod.",
+            "Protective cradle: The fruit grows around the new developing seeds to shelter them from frost.",
+            "Ripening colors: As sunshine warms the fruit, it turns from sour hard green to sweet juicy red or yellow."
           ],
-          "footerText": "Page 15 of 20 \u00b7 Our Green Little Garden"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 15 of 20 · Our Green Little Garden"
         },
         {
           "pageNumber": 16,
           "header": "Our Green Little Garden",
-          "subHeader": "Nature Studies \u00b7 Class 1 \u00b7 Part 4",
-          "title": "Review, Synthesis & Key Takeaways: Topic 4",
+          "subHeader": "Nature Studies · Chapter 1 · Page 16",
+          "title": "Underground Treasures: Root Vegetables",
           "bulletPoints": [
-            "Comprehensive summary of essential insights.",
-            "Key formulas, checklists, and mental checkpoints.",
-            "Self-assessment quizzes and reflection prompts.",
-            "Continuing the learning journey with curiosity."
+            "Pulling carrots: Grab the feathery green tops near the soil and pull straight up with a gentle tug.",
+            "Surprise: A crisp, bright orange carrot emerges fresh from the dark soil!",
+            "Radishes: Round ruby globes that grow in just 25 days from seed to harvest.",
+            "Potatoes: Digging with a garden fork unearths a treasure chest of golden potatoes under one vine."
           ],
-          "footerText": "Page 16 of 20 \u00b7 Our Green Little Garden"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 16 of 20 · Our Green Little Garden"
         },
         {
           "pageNumber": 17,
           "header": "Our Green Little Garden",
-          "subHeader": "Nature Studies \u00b7 Class 1 \u00b7 Part 5",
-          "title": "Review, Synthesis & Key Takeaways: Topic 5",
+          "subHeader": "Nature Studies · Chapter 1 · Page 17",
+          "title": "Climbing Vines: Tendrils Reaching High",
           "bulletPoints": [
-            "Comprehensive summary of essential insights.",
-            "Key formulas, checklists, and mental checkpoints.",
-            "Self-assessment quizzes and reflection prompts.",
-            "Continuing the learning journey with curiosity."
+            "Peas and runner beans are climbing vines that love to reach high toward the blue sky.",
+            "Tendrils: Specialized curling threads that lash around bamboo canes and garden trellises.",
+            "Touch sensitive: When a tendril touches a pole, it rapidly curls into a tight spring coil to pull the stem up.",
+            "Sweet peas: Dainty fragrant purple blossoms cascading down the garden fence."
           ],
-          "footerText": "Page 17 of 20 \u00b7 Our Green Little Garden"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 17 of 20 · Our Green Little Garden"
         },
         {
           "pageNumber": 18,
           "header": "Our Green Little Garden",
-          "subHeader": "Nature Studies \u00b7 Class 1 \u00b7 Part 6",
-          "title": "Review, Synthesis & Key Takeaways: Topic 6",
+          "subHeader": "Nature Studies · Chapter 1 · Page 18",
+          "title": "Aromatic Herbs: Kitchen Scents",
           "bulletPoints": [
-            "Comprehensive summary of essential insights.",
-            "Key formulas, checklists, and mental checkpoints.",
-            "Self-assessment quizzes and reflection prompts.",
-            "Continuing the learning journey with curiosity."
+            "Brush your hands through the herb bed to release essential oils into the air.",
+            "Mint: Cool, refreshing leaves that make invigorating summer iced teas.",
+            "Basil: Sweet, spicy green leaves that pair wonderfully with ripe garden tomatoes.",
+            "Rosemary: Needle-like evergreen leaves that smell like a pine forest and flavor roasted potatoes.",
+            "Lavender: Soft purple spikes with a calming scent that helps everyone relax and sleep."
           ],
-          "footerText": "Page 18 of 20 \u00b7 Our Green Little Garden"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 18 of 20 · Our Green Little Garden"
         },
         {
           "pageNumber": 19,
           "header": "Our Green Little Garden",
-          "subHeader": "Nature Studies \u00b7 Class 1 \u00b7 Part 1",
-          "title": "Review, Synthesis & Key Takeaways: Topic 1",
+          "subHeader": "Nature Studies · Chapter 1 · Page 19",
+          "title": "Autumn Seed Saving: The Circle of Life",
           "bulletPoints": [
-            "Comprehensive summary of essential insights.",
-            "Key formulas, checklists, and mental checkpoints.",
-            "Self-assessment quizzes and reflection prompts.",
-            "Continuing the learning journey with curiosity."
+            "In autumn, sunflower heads droop heavy with hundreds of striped black-and-white seeds.",
+            "Drying seeds: Cut mature sunflower heads and hang them in a dry shed to cure.",
+            "Harvesting: Rub seed heads over a bowl; seeds tumble out by the hundreds!",
+            "Saving for spring: Store dry seeds in labeled paper envelopes to plant next year's garden."
           ],
-          "footerText": "Page 19 of 20 \u00b7 Our Green Little Garden"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 19 of 20 · Our Green Little Garden"
         },
         {
           "pageNumber": 20,
           "header": "Our Green Little Garden",
-          "subHeader": "Nature Studies \u00b7 Class 1 \u00b7 Part 2",
-          "title": "Review, Synthesis & Key Takeaways: Topic 2",
+          "subHeader": "Nature Studies · Chapter 1 · Page 20",
+          "title": "The Garden Feast: Gratitude for Nature",
           "bulletPoints": [
-            "Comprehensive summary of essential insights.",
-            "Key formulas, checklists, and mental checkpoints.",
-            "Self-assessment quizzes and reflection prompts.",
-            "Continuing the learning journey with curiosity."
+            "Gathering the harvest: A wicker basket filled with tomatoes, cucumbers, carrots, and sweet peas.",
+            "Garden salads: Nothing tastes as delicious as vegetables harvested five minutes before dinner.",
+            "Lessons of the soil: Kindness, regular care, patience, and love bring abundant beauty to life.",
+            "Thank you, Earth: May our green garden bloom with joy, color, and life for seasons to come!"
           ],
-          "footerText": "Page 20 of 20 \u00b7 Our Green Little Garden"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 20 of 20 · Our Green Little Garden"
         }
       ]
     }

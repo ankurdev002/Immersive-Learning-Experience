@@ -10,7 +10,7 @@
   "accentColor": "#fde047",
   "coverImage": "/books/counting-friends/cover.png",
   "sourcePdf": null,
-  "icon": "\ud83d\udc31",
+  "icon": "🐱",
   "isInteractive": true,
   "author": "Distinguished Curators & Academic Press",
   "totalPages": 20,
@@ -18,267 +18,327 @@
     {
       "chapterNumber": 1,
       "title": "Counting with Animal Friends",
-      "description": "Comprehensive curriculum in Numbers",
+      "description": "Delightful early reading and discovery in Numbers",
       "pages": [
         {
           "pageNumber": 1,
           "header": "Counting with Animal Friends",
-          "subHeader": "Numbers \u00b7 Class 1 \u00b7 Part 1",
-          "title": "Core Foundations & Introductory Concepts: Topic 1",
+          "subHeader": "Numbers · Chapter 1 · Page 1",
+          "title": "1 Majestic Lion King",
           "bulletPoints": [
-            "Fundamental lessons and central principles of the domain.",
-            "Key definitions, terminology, and historical context.",
-            "Observing phenomena and recognizing patterns.",
-            "Building foundational mental models."
+            "Number 1: One golden lion with a regal flowing mane resting under the acacia tree.",
+            "He looks across the savanna with wise, calm eyes as the sun rises.",
+            "Trace the number 1: Straight line down, and that is all!",
+            "One crown, one roar, and one brave heart."
           ],
-          "footerText": "Page 1 of 20 \u00b7 Counting with Animal Friends"
+          "formulaOrSummary": "Count: 1 Lion",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 1 of 20 · Counting with Animal Friends"
         },
         {
           "pageNumber": 2,
           "header": "Counting with Animal Friends",
-          "subHeader": "Numbers \u00b7 Class 1 \u00b7 Part 2",
-          "title": "Core Foundations & Introductory Concepts: Topic 2",
+          "subHeader": "Numbers · Chapter 1 · Page 2",
+          "title": "2 Playful Dolphins",
           "bulletPoints": [
-            "Fundamental lessons and central principles of the domain.",
-            "Key definitions, terminology, and historical context.",
-            "Observing phenomena and recognizing patterns.",
-            "Building foundational mental models."
+            "Number 2: Two silvery dolphins leaping together over ocean waves.",
+            "They dive deep and splash high into the warm afternoon sea spray.",
+            "Trace the number 2: Half a heart and a line straight back!",
+            "Two fins, two smiles, and two best ocean buddies."
           ],
-          "footerText": "Page 2 of 20 \u00b7 Counting with Animal Friends"
+          "formulaOrSummary": "Count: 2 Dolphins",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 2 of 20 · Counting with Animal Friends"
         },
         {
           "pageNumber": 3,
           "header": "Counting with Animal Friends",
-          "subHeader": "Numbers \u00b7 Class 1 \u00b7 Part 3",
-          "title": "Core Foundations & Introductory Concepts: Topic 3",
+          "subHeader": "Numbers · Chapter 1 · Page 3",
+          "title": "3 Gentle Pandas",
           "bulletPoints": [
-            "Fundamental lessons and central principles of the domain.",
-            "Key definitions, terminology, and historical context.",
-            "Observing phenomena and recognizing patterns.",
-            "Building foundational mental models."
+            "Number 3: Three black-and-white pandas sitting in the misty bamboo forest.",
+            "Crunch, crunch: They munch on fresh green bamboo shoots together.",
+            "Trace the number 3: Around a tree and around a tree, that makes a 3!",
+            "Three furry tummies, three happy faces."
           ],
-          "footerText": "Page 3 of 20 \u00b7 Counting with Animal Friends"
+          "formulaOrSummary": "Count: 3 Pandas",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 3 of 20 · Counting with Animal Friends"
         },
         {
           "pageNumber": 4,
           "header": "Counting with Animal Friends",
-          "subHeader": "Numbers \u00b7 Class 1 \u00b7 Part 4",
-          "title": "Core Foundations & Introductory Concepts: Topic 4",
+          "subHeader": "Numbers · Chapter 1 · Page 4",
+          "title": "4 Fluffy Bunnies",
           "bulletPoints": [
-            "Fundamental lessons and central principles of the domain.",
-            "Key definitions, terminology, and historical context.",
-            "Observing phenomena and recognizing patterns.",
-            "Building foundational mental models."
+            "Number 4: Four little cotton-tailed bunnies hopping through clover patches.",
+            "Twitch, twitch: Their pink noses sniff sweet purple blossoms.",
+            "Trace the number 4: Down and across, then down some more!",
+            "Four twitching ears, four hopping paws."
           ],
-          "footerText": "Page 4 of 20 \u00b7 Counting with Animal Friends"
+          "formulaOrSummary": "Count: 4 Bunnies",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 4 of 20 · Counting with Animal Friends"
         },
         {
           "pageNumber": 5,
           "header": "Counting with Animal Friends",
-          "subHeader": "Numbers \u00b7 Class 1 \u00b7 Part 5",
-          "title": "Core Foundations & Introductory Concepts: Topic 5",
+          "subHeader": "Numbers · Chapter 1 · Page 5",
+          "title": "5 Chattering Squirrels",
           "bulletPoints": [
-            "Fundamental lessons and central principles of the domain.",
-            "Key definitions, terminology, and historical context.",
-            "Observing phenomena and recognizing patterns.",
-            "Building foundational mental models."
+            "Number 5: Five bushy-tailed squirrels scampering up the grandfather oak tree.",
+            "They hide acorns in secret mossy pockets under the roots.",
+            "Trace the number 5: Straight line down, round belly fat, give him a hat!",
+            "Five bushy tails, five sweet brown acorns."
           ],
-          "footerText": "Page 5 of 20 \u00b7 Counting with Animal Friends"
+          "formulaOrSummary": "Count: 5 Squirrels",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 5 of 20 · Counting with Animal Friends"
         },
         {
           "pageNumber": 6,
           "header": "Counting with Animal Friends",
-          "subHeader": "Numbers \u00b7 Class 1 \u00b7 Part 6",
-          "title": "Mechanisms, Methods & Step-by-Step Analysis: Topic 6",
+          "subHeader": "Numbers · Chapter 1 · Page 6",
+          "title": "6 Busy Honeybees",
           "bulletPoints": [
-            "Detailed methodologies and structural frameworks.",
-            "Hands-on examples and guided practice exercises.",
-            "Component interactions and process workflows.",
-            "Common mistakes, diagnostics, and problem solving."
+            "Number 6: Six yellow-and-black striped honeybees buzzing around sunflower petals.",
+            "Buzzzz: Gathering golden pollen to make sweet honey in their hive.",
+            "Trace the number 6: Curve on down into a loop!",
+            "Six fluttering wings, six tiny legs."
           ],
-          "footerText": "Page 6 of 20 \u00b7 Counting with Animal Friends"
+          "formulaOrSummary": "Count: 6 Honeybees",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 6 of 20 · Counting with Animal Friends"
         },
         {
           "pageNumber": 7,
           "header": "Counting with Animal Friends",
-          "subHeader": "Numbers \u00b7 Class 1 \u00b7 Part 1",
-          "title": "Mechanisms, Methods & Step-by-Step Analysis: Topic 1",
+          "subHeader": "Numbers · Chapter 1 · Page 7",
+          "title": "7 Colorful Parrots",
           "bulletPoints": [
-            "Detailed methodologies and structural frameworks.",
-            "Hands-on examples and guided practice exercises.",
-            "Component interactions and process workflows.",
-            "Common mistakes, diagnostics, and problem solving."
+            "Number 7: Seven rainbow parrots perched on tropical rainforest branches.",
+            "Bright scarlet, turquoise, emerald, and yellow feathers glistening in the sun.",
+            "Trace the number 7: Across the sky and down from heaven, that makes a 7!",
+            "Seven curved beaks whistling cheerful tunes."
           ],
-          "footerText": "Page 7 of 20 \u00b7 Counting with Animal Friends"
+          "formulaOrSummary": "Count: 7 Parrots",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 7 of 20 · Counting with Animal Friends"
         },
         {
           "pageNumber": 8,
           "header": "Counting with Animal Friends",
-          "subHeader": "Numbers \u00b7 Class 1 \u00b7 Part 2",
-          "title": "Mechanisms, Methods & Step-by-Step Analysis: Topic 2",
+          "subHeader": "Numbers · Chapter 1 · Page 8",
+          "title": "8 Waddling Ducklings",
           "bulletPoints": [
-            "Detailed methodologies and structural frameworks.",
-            "Hands-on examples and guided practice exercises.",
-            "Component interactions and process workflows.",
-            "Common mistakes, diagnostics, and problem solving."
+            "Number 8: Eight fluffy yellow ducklings paddling in a row behind mother duck.",
+            "Quack, quack: Splashing webbed feet in the cool lily pond.",
+            "Trace the number 8: Make an S and do not wait, climb back up to make an 8!",
+            "Eight webbed feet paddling together."
           ],
-          "footerText": "Page 8 of 20 \u00b7 Counting with Animal Friends"
+          "formulaOrSummary": "Count: 8 Ducklings",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 8 of 20 · Counting with Animal Friends"
         },
         {
           "pageNumber": 9,
           "header": "Counting with Animal Friends",
-          "subHeader": "Numbers \u00b7 Class 1 \u00b7 Part 3",
-          "title": "Mechanisms, Methods & Step-by-Step Analysis: Topic 3",
+          "subHeader": "Numbers · Chapter 1 · Page 9",
+          "title": "9 Shiny Goldfish",
           "bulletPoints": [
-            "Detailed methodologies and structural frameworks.",
-            "Hands-on examples and guided practice exercises.",
-            "Component interactions and process workflows.",
-            "Common mistakes, diagnostics, and problem solving."
+            "Number 9: Nine sparkling goldfish gliding through crystal clear garden water.",
+            "Their shimmering orange scales catch the midday sunlight like floating lanterns.",
+            "Trace the number 9: A loop and a line make a 9 so fine!",
+            "Nine waving fins dancing in the water."
           ],
-          "footerText": "Page 9 of 20 \u00b7 Counting with Animal Friends"
+          "formulaOrSummary": "Count: 9 Goldfish",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 9 of 20 · Counting with Animal Friends"
         },
         {
           "pageNumber": 10,
           "header": "Counting with Animal Friends",
-          "subHeader": "Numbers \u00b7 Class 1 \u00b7 Part 4",
-          "title": "Mechanisms, Methods & Step-by-Step Analysis: Topic 4",
+          "subHeader": "Numbers · Chapter 1 · Page 10",
+          "title": "10 Playful Kittens",
           "bulletPoints": [
-            "Detailed methodologies and structural frameworks.",
-            "Hands-on examples and guided practice exercises.",
-            "Component interactions and process workflows.",
-            "Common mistakes, diagnostics, and problem solving."
+            "Number 10: Ten curious kittens batting colorful balls of soft wool yarn.",
+            "Purr, purr: Rolling on their backs and pouncing with tiny paws.",
+            "Trace the number 10: Put 1 and 0 side by side for a complete decade!",
+            "Ten soft paws, ten twitching whiskers."
           ],
-          "footerText": "Page 10 of 20 \u00b7 Counting with Animal Friends"
+          "formulaOrSummary": "Count: 10 Kittens",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 10 of 20 · Counting with Animal Friends"
         },
         {
           "pageNumber": 11,
           "header": "Counting with Animal Friends",
-          "subHeader": "Numbers \u00b7 Class 1 \u00b7 Part 5",
-          "title": "Applied Problem Solving & Real-World Context: Topic 5",
+          "subHeader": "Numbers · Chapter 1 · Page 11",
+          "title": "11 Chirping Sparrows",
           "bulletPoints": [
-            "Practical applications across daily life and industry.",
-            "Case studies, stories, and investigative highlights.",
-            "Connecting concepts across multidisciplinary domains.",
-            "Creative exploration and independent project work."
+            "Number 11: Eleven little brown sparrows greeting the sunrise from telephone wires.",
+            "Chirp, chirp: Singing a morning chorus to awaken the sleeping neighborhood.",
+            "Place value: 1 ten + 1 one = 11.",
+            "Eleven songs floating on the fresh morning breeze."
           ],
-          "footerText": "Page 11 of 20 \u00b7 Counting with Animal Friends"
+          "formulaOrSummary": "Count: 11 Sparrows",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 11 of 20 · Counting with Animal Friends"
         },
         {
           "pageNumber": 12,
           "header": "Counting with Animal Friends",
-          "subHeader": "Numbers \u00b7 Class 1 \u00b7 Part 6",
-          "title": "Applied Problem Solving & Real-World Context: Topic 6",
+          "subHeader": "Numbers · Chapter 1 · Page 12",
+          "title": "12 Galloping Zebras",
           "bulletPoints": [
-            "Practical applications across daily life and industry.",
-            "Case studies, stories, and investigative highlights.",
-            "Connecting concepts across multidisciplinary domains.",
-            "Creative exploration and independent project work."
+            "Number 12: Twelve zebras with striking black-and-white stripes racing across plains.",
+            "Their hooves drum a rhythmic beat on the dry grassy earth: clip-clop, clip-clop.",
+            "Twelve represents a full dozen! 10 + 2 = 12.",
+            "Twelve striped coats dazzling in the midday heat."
           ],
-          "footerText": "Page 12 of 20 \u00b7 Counting with Animal Friends"
+          "formulaOrSummary": "Count: 12 Zebras",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 12 of 20 · Counting with Animal Friends"
         },
         {
           "pageNumber": 13,
           "header": "Counting with Animal Friends",
-          "subHeader": "Numbers \u00b7 Class 1 \u00b7 Part 1",
-          "title": "Applied Problem Solving & Real-World Context: Topic 1",
+          "subHeader": "Numbers · Chapter 1 · Page 13",
+          "title": "13 Curious Meerkats",
           "bulletPoints": [
-            "Practical applications across daily life and industry.",
-            "Case studies, stories, and investigative highlights.",
-            "Connecting concepts across multidisciplinary domains.",
-            "Creative exploration and independent project work."
+            "Number 13: Thirteen meerkats standing tall on tiptoes outside their desert burrow.",
+            "They scan the blue sky for eagles, standing on guard for their family.",
+            "Place value: 1 ten + 3 ones = 13.",
+            "Thirteen sharp eyes watching over the desert sand."
           ],
-          "footerText": "Page 13 of 20 \u00b7 Counting with Animal Friends"
+          "formulaOrSummary": "Count: 13 Meerkats",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 13 of 20 · Counting with Animal Friends"
         },
         {
           "pageNumber": 14,
           "header": "Counting with Animal Friends",
-          "subHeader": "Numbers \u00b7 Class 1 \u00b7 Part 2",
-          "title": "Applied Problem Solving & Real-World Context: Topic 2",
+          "subHeader": "Numbers · Chapter 1 · Page 14",
+          "title": "14 Spotted Ladybugs",
           "bulletPoints": [
-            "Practical applications across daily life and industry.",
-            "Case studies, stories, and investigative highlights.",
-            "Connecting concepts across multidisciplinary domains.",
-            "Creative exploration and independent project work."
+            "Number 14: Fourteen red ladybugs with polished black spots crawling on green leaves.",
+            "They protect rose bushes and gently fold their wings under shiny red shells.",
+            "Place value: 1 ten + 4 ones = 14.",
+            "Fourteen tiny garden guardians."
           ],
-          "footerText": "Page 14 of 20 \u00b7 Counting with Animal Friends"
+          "formulaOrSummary": "Count: 14 Ladybugs",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 14 of 20 · Counting with Animal Friends"
         },
         {
           "pageNumber": 15,
           "header": "Counting with Animal Friends",
-          "subHeader": "Numbers \u00b7 Class 1 \u00b7 Part 3",
-          "title": "Applied Problem Solving & Real-World Context: Topic 3",
+          "subHeader": "Numbers · Chapter 1 · Page 15",
+          "title": "15 Woolly Sheep",
           "bulletPoints": [
-            "Practical applications across daily life and industry.",
-            "Case studies, stories, and investigative highlights.",
-            "Connecting concepts across multidisciplinary domains.",
-            "Creative exploration and independent project work."
+            "Number 15: Fifteen fluffy white sheep grazing peacefully on green mountain pastures.",
+            "Baa, baa: Chewing sweet meadow grasses under the watch of a loyal sheepdog.",
+            "Place value: 1 ten + 5 ones = 15.",
+            "Fifteen warm woolen coats soft as morning clouds."
           ],
-          "footerText": "Page 15 of 20 \u00b7 Counting with Animal Friends"
+          "formulaOrSummary": "Count: 15 Sheep",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 15 of 20 · Counting with Animal Friends"
         },
         {
           "pageNumber": 16,
           "header": "Counting with Animal Friends",
-          "subHeader": "Numbers \u00b7 Class 1 \u00b7 Part 4",
-          "title": "Review, Synthesis & Key Takeaways: Topic 4",
+          "subHeader": "Numbers · Chapter 1 · Page 16",
+          "title": "16 Leaping Tree Frogs",
           "bulletPoints": [
-            "Comprehensive summary of essential insights.",
-            "Key formulas, checklists, and mental checkpoints.",
-            "Self-assessment quizzes and reflection prompts.",
-            "Continuing the learning journey with curiosity."
+            "Number 16: Sixteen bright emerald tree frogs leaping between floating lily pads.",
+            "Ribbit, ribbit: Suction cup toes gripping wet leaves without slipping.",
+            "Place value: 1 ten + 6 ones = 16.",
+            "Sixteen green acrobats leaping over the pond."
           ],
-          "footerText": "Page 16 of 20 \u00b7 Counting with Animal Friends"
+          "formulaOrSummary": "Count: 16 Tree Frogs",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 16 of 20 · Counting with Animal Friends"
         },
         {
           "pageNumber": 17,
           "header": "Counting with Animal Friends",
-          "subHeader": "Numbers \u00b7 Class 1 \u00b7 Part 5",
-          "title": "Review, Synthesis & Key Takeaways: Topic 5",
+          "subHeader": "Numbers · Chapter 1 · Page 17",
+          "title": "17 Fluttering Butterflies",
           "bulletPoints": [
-            "Comprehensive summary of essential insights.",
-            "Key formulas, checklists, and mental checkpoints.",
-            "Self-assessment quizzes and reflection prompts.",
-            "Continuing the learning journey with curiosity."
+            "Number 17: Seventeen monarch and swallowtail butterflies dancing in the flower garden.",
+            "Wings of gold, turquoise, violet, and orange sipping sweet flower nectar.",
+            "Place value: 1 ten + 7 ones = 17.",
+            "Seventeen living flower petals floating in the breeze."
           ],
-          "footerText": "Page 17 of 20 \u00b7 Counting with Animal Friends"
+          "formulaOrSummary": "Count: 17 Butterflies",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 17 of 20 · Counting with Animal Friends"
         },
         {
           "pageNumber": 18,
           "header": "Counting with Animal Friends",
-          "subHeader": "Numbers \u00b7 Class 1 \u00b7 Part 6",
-          "title": "Review, Synthesis & Key Takeaways: Topic 6",
+          "subHeader": "Numbers · Chapter 1 · Page 18",
+          "title": "18 Little Field Mice",
           "bulletPoints": [
-            "Comprehensive summary of essential insights.",
-            "Key formulas, checklists, and mental checkpoints.",
-            "Self-assessment quizzes and reflection prompts.",
-            "Continuing the learning journey with curiosity."
+            "Number 18: Eighteen tiny field mice peeking curiously from golden bundles of hay.",
+            "Squeak, squeak: Gathering tiny grass seeds to store for winter in their cozy nest.",
+            "Place value: 1 ten + 8 ones = 18.",
+            "Eighteen pink noses twitching in the hay."
           ],
-          "footerText": "Page 18 of 20 \u00b7 Counting with Animal Friends"
+          "formulaOrSummary": "Count: 18 Field Mice",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 18 of 20 · Counting with Animal Friends"
         },
         {
           "pageNumber": 19,
           "header": "Counting with Animal Friends",
-          "subHeader": "Numbers \u00b7 Class 1 \u00b7 Part 1",
-          "title": "Review, Synthesis & Key Takeaways: Topic 1",
+          "subHeader": "Numbers · Chapter 1 · Page 19",
+          "title": "19 Glowing Fireflies",
           "bulletPoints": [
-            "Comprehensive summary of essential insights.",
-            "Key formulas, checklists, and mental checkpoints.",
-            "Self-assessment quizzes and reflection prompts.",
-            "Continuing the learning journey with curiosity."
+            "Number 19: Nineteen warm fireflies blinking like floating fairy lights in twilight.",
+            "Flash, glow: Illuminating the velvet dusk over the sleeping meadow grass.",
+            "Place value: 1 ten + 9 ones = 19.",
+            "Nineteen magical lanterns shining in the dark."
           ],
-          "footerText": "Page 19 of 20 \u00b7 Counting with Animal Friends"
+          "formulaOrSummary": "Count: 19 Fireflies",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 19 of 20 · Counting with Animal Friends"
         },
         {
           "pageNumber": 20,
           "header": "Counting with Animal Friends",
-          "subHeader": "Numbers \u00b7 Class 1 \u00b7 Part 2",
-          "title": "Review, Synthesis & Key Takeaways: Topic 2",
+          "subHeader": "Numbers · Chapter 1 · Page 20",
+          "title": "20 Animal Friends Celebration!",
           "bulletPoints": [
-            "Comprehensive summary of essential insights.",
-            "Key formulas, checklists, and mental checkpoints.",
-            "Self-assessment quizzes and reflection prompts.",
-            "Continuing the learning journey with curiosity."
+            "Number 20: Twenty animal friends gather in the meadow for a grand counting party!",
+            "Lions, pandas, dolphins, ducklings, and fireflies celebrate together.",
+            "Two full tens: 10 + 10 = 20!",
+            "You are a champion counter: From 1 to 20, you know every single number by heart!"
           ],
-          "footerText": "Page 20 of 20 \u00b7 Counting with Animal Friends"
+          "formulaOrSummary": "Count: 20 Animal Friends",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 20 of 20 · Counting with Animal Friends"
         }
       ]
     }

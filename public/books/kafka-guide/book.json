@@ -10,7 +10,7 @@
   "accentColor": "#818cf8",
   "coverImage": "/books/kafka-guide/cover.png",
   "sourcePdf": null,
-  "icon": "\ud83d\udce8",
+  "icon": "📨",
   "isInteractive": true,
   "author": "Distinguished Curators & Academic Press",
   "totalPages": 25,
@@ -18,332 +18,407 @@
     {
       "chapterNumber": 1,
       "title": "Kafka: The Definitive Guide",
-      "description": "Comprehensive curriculum in Distributed Logs",
+      "description": "Authoritative curriculum in Distributed Logs",
       "pages": [
         {
           "pageNumber": 1,
           "header": "Kafka: The Definitive Guide",
-          "subHeader": "Distributed Logs \u00b7 Class 3 \u00b7 Part 1",
-          "title": "Core Foundations & Introductory Concepts: Topic 1",
+          "subHeader": "Distributed Logs · Chapter 1 · Section 1",
+          "title": "Meet Apache Kafka: The Event Streaming Backbone",
           "bulletPoints": [
-            "Fundamental lessons and central principles of the domain.",
-            "Key definitions, terminology, and historical context.",
-            "Observing phenomena and recognizing patterns.",
-            "Building foundational mental models."
+            "Kafka is a distributed, horizontally scalable, fault-tolerant, commit-log based event streaming platform.",
+            "Evolution: Created at LinkedIn to replace brittle point-to-point data pipelines with a unified publish/subscribe log.",
+            "High-throughput architecture: Capable of handling millions of messages per second with constant time O(1) performance.",
+            "Persistence by design: Messages are written durably to disk and replicated across cluster nodes before acknowledgment."
           ],
-          "footerText": "Page 1 of 25 \u00b7 Kafka: The Definitive Guide"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 1 of 25 · Kafka: The Definitive Guide"
         },
         {
           "pageNumber": 2,
           "header": "Kafka: The Definitive Guide",
-          "subHeader": "Distributed Logs \u00b7 Class 3 \u00b7 Part 2",
-          "title": "Core Foundations & Introductory Concepts: Topic 2",
+          "subHeader": "Distributed Logs · Chapter 1 · Section 2",
+          "title": "Core Primitives: Messages, Keys, and Schemas",
           "bulletPoints": [
-            "Fundamental lessons and central principles of the domain.",
-            "Key definitions, terminology, and historical context.",
-            "Observing phenomena and recognizing patterns.",
-            "Building foundational mental models."
+            "Message structure: An immutable payload consisting of an optional key, value, timestamp, and optional headers.",
+            "Message keys: Used for partitioning; records with identical keys are guaranteed to route to the same partition in order.",
+            "Schema evolution: Enforcing data contracts with Schema Registry (Avro, Protobuf, JSON Schema) prevents producer regressions.",
+            "Batched compression: Producers compress batches of records (Snappy, zstd, lz4, gzip) for optimal network efficiency."
           ],
-          "footerText": "Page 2 of 25 \u00b7 Kafka: The Definitive Guide"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 2 of 25 · Kafka: The Definitive Guide"
         },
         {
           "pageNumber": 3,
           "header": "Kafka: The Definitive Guide",
-          "subHeader": "Distributed Logs \u00b7 Class 3 \u00b7 Part 3",
-          "title": "Core Foundations & Introductory Concepts: Topic 3",
+          "subHeader": "Distributed Logs · Chapter 1 · Section 3",
+          "title": "Topics, Partitions, and the Append-Only Commit Log",
           "bulletPoints": [
-            "Fundamental lessons and central principles of the domain.",
-            "Key definitions, terminology, and historical context.",
-            "Observing phenomena and recognizing patterns.",
-            "Building foundational mental models."
+            "A Topic is a logical category of feeds to which records are published (e.g. `order-placed` or `user-signups`).",
+            "Partitions are the fundamental unit of parallelism: A topic is divided into one or more ordered, immutable partition logs.",
+            "Strict ordering guarantee: Records are totally ordered within a single partition, assigned a sequential offset number.",
+            "Horizontal scale: Partitions are distributed across multiple brokers, allowing read and write throughput to scale linearly."
           ],
-          "footerText": "Page 3 of 25 \u00b7 Kafka: The Definitive Guide"
+          "formulaOrSummary": "Topic = Collection of Partitions [P0, P1, P2...]",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 3 of 25 · Kafka: The Definitive Guide"
         },
         {
           "pageNumber": 4,
           "header": "Kafka: The Definitive Guide",
-          "subHeader": "Distributed Logs \u00b7 Class 3 \u00b7 Part 4",
-          "title": "Core Foundations & Introductory Concepts: Topic 4",
+          "subHeader": "Distributed Logs · Chapter 1 · Section 4",
+          "title": "Producer Architecture: Internals of send()",
           "bulletPoints": [
-            "Fundamental lessons and central principles of the domain.",
-            "Key definitions, terminology, and historical context.",
-            "Observing phenomena and recognizing patterns.",
-            "Building foundational mental models."
+            "The producer send() call does not immediately transmit over the network; it serializes and enqueues to RecordAccumulator.",
+            "RecordAccumulator organizes memory buffers by partition, grouping individual messages into batches.",
+            "Sender thread: A dedicated background I/O thread drains batches and transmits batched socket requests to broker leaders.",
+            "Batching parameters: `batch.size` (max bytes per batch) and `linger.ms` (wait time to allow fuller batch formation)."
           ],
-          "footerText": "Page 4 of 25 \u00b7 Kafka: The Definitive Guide"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 4 of 25 · Kafka: The Definitive Guide"
         },
         {
           "pageNumber": 5,
           "header": "Kafka: The Definitive Guide",
-          "subHeader": "Distributed Logs \u00b7 Class 3 \u00b7 Part 5",
-          "title": "Core Foundations & Introductory Concepts: Topic 5",
+          "subHeader": "Distributed Logs · Chapter 1 · Section 5",
+          "title": "Producer Configuration: acks, retries, and Idempotence",
           "bulletPoints": [
-            "Fundamental lessons and central principles of the domain.",
-            "Key definitions, terminology, and historical context.",
-            "Observing phenomena and recognizing patterns.",
-            "Building foundational mental models."
+            "`acks=0`: Producer does not wait for broker response; maximum throughput, but highest risk of data loss.",
+            "`acks=1`: Producer waits for partition leader to write locally; balances latency and durability.",
+            "`acks=all` (or -1): Producer waits for all In-Sync Replicas (ISR) to acknowledge; maximum durability guarantee.",
+            "`enable.idempotence=true`: Assigns a Producer ID (PID) and sequence numbers to eliminate duplicate writes upon retries."
           ],
-          "footerText": "Page 5 of 25 \u00b7 Kafka: The Definitive Guide"
+          "formulaOrSummary": "acks=all + min.insync.replicas=2 => Enterprise Durability",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 5 of 25 · Kafka: The Definitive Guide"
         },
         {
           "pageNumber": 6,
           "header": "Kafka: The Definitive Guide",
-          "subHeader": "Distributed Logs \u00b7 Class 3 \u00b7 Part 6",
-          "title": "Core Foundations & Introductory Concepts: Topic 6",
+          "subHeader": "Distributed Logs · Chapter 1 · Section 6",
+          "title": "Custom Partitioners: Traffic Distribution",
           "bulletPoints": [
-            "Fundamental lessons and central principles of the domain.",
-            "Key definitions, terminology, and historical context.",
-            "Observing phenomena and recognizing patterns.",
-            "Building foundational mental models."
+            "Default partitioner: Hashes the record key using MurmurHash2 to deterministically select the partition.",
+            "Round-robin partitioner: Evenly spreads keyless records across all partitions to prevent hotspotting.",
+            "Sticky partitioner: Fills one partition batch completely before switching to the next, optimizing compression on keyless records.",
+            "Custom partitioner: Implement custom routing logic (e.g. route VIP tenant traffic to dedicated high-performance partitions)."
           ],
-          "footerText": "Page 6 of 25 \u00b7 Kafka: The Definitive Guide"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 6 of 25 · Kafka: The Definitive Guide"
         },
         {
           "pageNumber": 7,
           "header": "Kafka: The Definitive Guide",
-          "subHeader": "Distributed Logs \u00b7 Class 3 \u00b7 Part 7",
-          "title": "Core Foundations & Introductory Concepts: Topic 7",
+          "subHeader": "Distributed Logs · Chapter 1 · Section 7",
+          "title": "Consumer Architecture & Consumer Groups",
           "bulletPoints": [
-            "Fundamental lessons and central principles of the domain.",
-            "Key definitions, terminology, and historical context.",
-            "Observing phenomena and recognizing patterns.",
-            "Building foundational mental models."
+            "Consumer Groups: Enable scalable, parallel consumption of topic partitions across multiple consumer instances.",
+            "Partition assignment rule: Each partition within a topic is consumed by exactly one consumer within a given consumer group.",
+            "Scaling limit: Having more consumers than topic partitions means idle consumers; partition count caps consumer concurrency.",
+            "Multiple groups: Distinct consumer groups read independently at their own pace without affecting each other."
           ],
-          "footerText": "Page 7 of 25 \u00b7 Kafka: The Definitive Guide"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 7 of 25 · Kafka: The Definitive Guide"
         },
         {
           "pageNumber": 8,
           "header": "Kafka: The Definitive Guide",
-          "subHeader": "Distributed Logs \u00b7 Class 3 \u00b7 Part 1",
-          "title": "Mechanisms, Methods & Step-by-Step Analysis: Topic 1",
+          "subHeader": "Distributed Logs · Chapter 1 · Section 8",
+          "title": "Consumer Rebalance Protocol & Sticky Rebalancing",
           "bulletPoints": [
-            "Detailed methodologies and structural frameworks.",
-            "Hands-on examples and guided practice exercises.",
-            "Component interactions and process workflows.",
-            "Common mistakes, diagnostics, and problem solving."
+            "Rebalance trigger: Consumers joining, leaving, crashing, or topic partition counts changing triggers a partition rebalance.",
+            "Group Coordinator: One Kafka broker acts as coordinator managing heartbeats and group membership.",
+            "Eager rebalance: All consumers revoke their partitions and pause consumption while assignments are recalculated.",
+            "Cooperative Sticky Rebalance: Consumers retain non-conflicting partitions and only transfer migrating partitions seamlessly."
           ],
-          "footerText": "Page 8 of 25 \u00b7 Kafka: The Definitive Guide"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 8 of 25 · Kafka: The Definitive Guide"
         },
         {
           "pageNumber": 9,
           "header": "Kafka: The Definitive Guide",
-          "subHeader": "Distributed Logs \u00b7 Class 3 \u00b7 Part 2",
-          "title": "Mechanisms, Methods & Step-by-Step Analysis: Topic 2",
+          "subHeader": "Distributed Logs · Chapter 1 · Section 9",
+          "title": "Offsets and Commits: Guaranteeing Delivery",
           "bulletPoints": [
-            "Detailed methodologies and structural frameworks.",
-            "Hands-on examples and guided practice exercises.",
-            "Component interactions and process workflows.",
-            "Common mistakes, diagnostics, and problem solving."
+            "Consumer offset: An integer pointing to the next record the consumer expects to read from that partition.",
+            "Auto-commit (`enable.auto.commit=true`): Periodically commits offsets; simple, but risks data loss or duplication on crash.",
+            "Manual commit (`commitSync` / `commitAsync`): Commit offsets only after downstream business logic successfully executes.",
+            "Storage: Committed offsets are stored in an internal, compacted system topic named `__consumer_offsets`."
           ],
-          "footerText": "Page 9 of 25 \u00b7 Kafka: The Definitive Guide"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 9 of 25 · Kafka: The Definitive Guide"
         },
         {
           "pageNumber": 10,
           "header": "Kafka: The Definitive Guide",
-          "subHeader": "Distributed Logs \u00b7 Class 3 \u00b7 Part 3",
-          "title": "Mechanisms, Methods & Step-by-Step Analysis: Topic 3",
+          "subHeader": "Distributed Logs · Chapter 1 · Section 10",
+          "title": "The Broker Architecture & Metadata Management",
           "bulletPoints": [
-            "Detailed methodologies and structural frameworks.",
-            "Hands-on examples and guided practice exercises.",
-            "Component interactions and process workflows.",
-            "Common mistakes, diagnostics, and problem solving."
+            "A Kafka Cluster is composed of multiple broker nodes communicating over TCP.",
+            "Leader and followers: For every partition, one broker is the designated leader handling all reads and writes.",
+            "Followers act as replicas: Continuously fetching messages from the leader to keep their copy in sync.",
+            "Metadata propagation: Brokers share partition metadata so any client can discover the leader for any partition."
           ],
-          "footerText": "Page 10 of 25 \u00b7 Kafka: The Definitive Guide"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 10 of 25 · Kafka: The Definitive Guide"
         },
         {
           "pageNumber": 11,
           "header": "Kafka: The Definitive Guide",
-          "subHeader": "Distributed Logs \u00b7 Class 3 \u00b7 Part 4",
-          "title": "Mechanisms, Methods & Step-by-Step Analysis: Topic 4",
+          "subHeader": "Distributed Logs · Chapter 1 · Section 11",
+          "title": "KRaft: Eliminating ZooKeeper with Raft Consensus",
           "bulletPoints": [
-            "Detailed methodologies and structural frameworks.",
-            "Hands-on examples and guided practice exercises.",
-            "Component interactions and process workflows.",
-            "Common mistakes, diagnostics, and problem solving."
+            "Historical ZooKeeper: Managed cluster metadata externally, leading to split-brain risks and metadata sync bottlenecks.",
+            "KRaft (Kafka Raft Metadata Mode): Replaces ZooKeeper by embedding metadata directly into an event-driven Raft quorum.",
+            "Instant cluster recovery: KRaft metadata is stored as an internal Kafka topic, enabling near-instantaneous controller failover.",
+            "Scalability boost: Supports millions of partitions per cluster with sub-second controller switchovers."
           ],
-          "footerText": "Page 11 of 25 \u00b7 Kafka: The Definitive Guide"
+          "formulaOrSummary": "Legacy: Kafka + ZooKeeper ====> Modern: KRaft Unified Consensus",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 11 of 25 · Kafka: The Definitive Guide"
         },
         {
           "pageNumber": 12,
           "header": "Kafka: The Definitive Guide",
-          "subHeader": "Distributed Logs \u00b7 Class 3 \u00b7 Part 5",
-          "title": "Mechanisms, Methods & Step-by-Step Analysis: Topic 5",
+          "subHeader": "Distributed Logs · Chapter 1 · Section 12",
+          "title": "Replication: Leaders, Followers & In-Sync Replicas (ISR)",
           "bulletPoints": [
-            "Detailed methodologies and structural frameworks.",
-            "Hands-on examples and guided practice exercises.",
-            "Component interactions and process workflows.",
-            "Common mistakes, diagnostics, and problem solving."
+            "Replication factor (RF): Specifies how many copies of each partition exist across distinct brokers (RF=3 is standard).",
+            "In-Sync Replicas (ISR): The subset of replicas that are actively caught up with the leader’s log.",
+            "`replica.lag.time.max.ms`: If a follower falls behind for longer than this duration, it is dropped from the ISR.",
+            "Clean leader election: By default, only members of the ISR can be elected as the new leader if the current leader dies."
           ],
-          "footerText": "Page 12 of 25 \u00b7 Kafka: The Definitive Guide"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 12 of 25 · Kafka: The Definitive Guide"
         },
         {
           "pageNumber": 13,
           "header": "Kafka: The Definitive Guide",
-          "subHeader": "Distributed Logs \u00b7 Class 3 \u00b7 Part 6",
-          "title": "Mechanisms, Methods & Step-by-Step Analysis: Topic 6",
+          "subHeader": "Distributed Logs · Chapter 1 · Section 13",
+          "title": "High Watermark & Log End Offset (LEO)",
           "bulletPoints": [
-            "Detailed methodologies and structural frameworks.",
-            "Hands-on examples and guided practice exercises.",
-            "Component interactions and process workflows.",
-            "Common mistakes, diagnostics, and problem solving."
+            "Log End Offset (LEO): The offset of the very next record that will be written to the local partition log.",
+            "High Watermark (HW): The highest offset that has been successfully replicated to all In-Sync Replicas.",
+            "Consumer visibility: Consumers can only read messages up to the High Watermark to prevent reading uncommitted data.",
+            "Truncation on recovery: Replicas recovering from an outage truncate their uncommitted logs back to the High Watermark."
           ],
-          "footerText": "Page 13 of 25 \u00b7 Kafka: The Definitive Guide"
+          "formulaOrSummary": "High Watermark (HW) <= Log End Offset (LEO)",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 13 of 25 · Kafka: The Definitive Guide"
         },
         {
           "pageNumber": 14,
           "header": "Kafka: The Definitive Guide",
-          "subHeader": "Distributed Logs \u00b7 Class 3 \u00b7 Part 7",
-          "title": "Applied Problem Solving & Real-World Context: Topic 7",
+          "subHeader": "Distributed Logs · Chapter 1 · Section 14",
+          "title": "Physical Storage: Log Segments & Zero-Copy I/O",
           "bulletPoints": [
-            "Practical applications across daily life and industry.",
-            "Case studies, stories, and investigative highlights.",
-            "Connecting concepts across multidisciplinary domains.",
-            "Creative exploration and independent project work."
+            "Partition logs are split physically into Log Segments (e.g. 1GB files: `000000.log`, `000000.index`, `000000.timeindex`).",
+            "Memory-mapped indexes: Sparse index files map offsets to physical file positions for lightning-fast binary searches.",
+            "Sequential disk I/O: Append-only disk writes bypass random head seeks, achieving sustained drive saturation speeds.",
+            "Zero-Copy optimization: Uses the `sendfile()` OS system call to transfer bytes from page cache directly to network socket."
           ],
-          "footerText": "Page 14 of 25 \u00b7 Kafka: The Definitive Guide"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 14 of 25 · Kafka: The Definitive Guide"
         },
         {
           "pageNumber": 15,
           "header": "Kafka: The Definitive Guide",
-          "subHeader": "Distributed Logs \u00b7 Class 3 \u00b7 Part 1",
-          "title": "Applied Problem Solving & Real-World Context: Topic 1",
+          "subHeader": "Distributed Logs · Chapter 1 · Section 15",
+          "title": "Log Compaction: Key-Value Snapshots & Tombstones",
           "bulletPoints": [
-            "Practical applications across daily life and industry.",
-            "Case studies, stories, and investigative highlights.",
-            "Connecting concepts across multidisciplinary domains.",
-            "Creative exploration and independent project work."
+            "Log compaction retains at least the latest value for each message key within a topic indefinitely.",
+            "Log Cleaner: Background cleaner threads scan older segments and purge obsolete records that have newer updates.",
+            "Tombstones: Writing a record with a key and a `null` value acts as a tombstone, signaling permanent deletion after a grace period.",
+            "Use cases: Replicating database change data capture (CDC) tables, caching user account balances, and application config."
           ],
-          "footerText": "Page 15 of 25 \u00b7 Kafka: The Definitive Guide"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 15 of 25 · Kafka: The Definitive Guide"
         },
         {
           "pageNumber": 16,
           "header": "Kafka: The Definitive Guide",
-          "subHeader": "Distributed Logs \u00b7 Class 3 \u00b7 Part 2",
-          "title": "Applied Problem Solving & Real-World Context: Topic 2",
+          "subHeader": "Distributed Logs · Chapter 1 · Section 16",
+          "title": "Reliable Message Delivery Guarantees",
           "bulletPoints": [
-            "Practical applications across daily life and industry.",
-            "Case studies, stories, and investigative highlights.",
-            "Connecting concepts across multidisciplinary domains.",
-            "Creative exploration and independent project work."
+            "Broker reliability recipe: Replication factor >= 3, `min.insync.replicas=2`, and `unclean.leader.election.enable=false`.",
+            "Producer reliability recipe: `acks=all`, `retries=MAX_INT`, and `enable.idempotence=true`.",
+            "Consumer reliability recipe: Manual offset commits after business logic completion, or idempotent consumer data sinks.",
+            "Result: Complete end-to-end guarantee that zero data is dropped or duplicated during hardware and network crashes."
           ],
-          "footerText": "Page 16 of 25 \u00b7 Kafka: The Definitive Guide"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 16 of 25 · Kafka: The Definitive Guide"
         },
         {
           "pageNumber": 17,
           "header": "Kafka: The Definitive Guide",
-          "subHeader": "Distributed Logs \u00b7 Class 3 \u00b7 Part 3",
-          "title": "Applied Problem Solving & Real-World Context: Topic 3",
+          "subHeader": "Distributed Logs · Chapter 1 · Section 17",
+          "title": "Transactional Messaging: Multi-Partition Atomicity",
           "bulletPoints": [
-            "Practical applications across daily life and industry.",
-            "Case studies, stories, and investigative highlights.",
-            "Connecting concepts across multidisciplinary domains.",
-            "Creative exploration and independent project work."
+            "Transactional API: Enables atomic writes across multiple topics and partitions within a single `beginTransaction()` block.",
+            "Read-Process-Write cycle: Read an event from an input topic, transform it, write to output, and commit input offset atomically.",
+            "Transaction Coordinator: A designated broker managing two-phase commit logs and writing marker messages to partitions.",
+            "Consumer isolation level: Set `isolation.level=read_committed` so consumers only see successfully committed transactions."
           ],
-          "footerText": "Page 17 of 25 \u00b7 Kafka: The Definitive Guide"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 17 of 25 · Kafka: The Definitive Guide"
         },
         {
           "pageNumber": 18,
           "header": "Kafka: The Definitive Guide",
-          "subHeader": "Distributed Logs \u00b7 Class 3 \u00b7 Part 4",
-          "title": "Applied Problem Solving & Real-World Context: Topic 4",
+          "subHeader": "Distributed Logs · Chapter 1 · Section 18",
+          "title": "Kafka Connect: Source and Sink Ecosystem",
           "bulletPoints": [
-            "Practical applications across daily life and industry.",
-            "Case studies, stories, and investigative highlights.",
-            "Connecting concepts across multidisciplinary domains.",
-            "Creative exploration and independent project work."
+            "Kafka Connect is a scalable, fault-tolerant framework for integrating external datastores with Kafka without custom code.",
+            "Source Connectors: Continuously stream data from databases (Debezium CDC, PostgreSQL, MySQL) into Kafka topics.",
+            "Sink Connectors: Stream records from Kafka topics into downstream analytics sinks (Elasticsearch, Snowflake, S3, BigQuery).",
+            "Declarative configuration: Connectors are deployed and scaled via simple JSON REST API configurations."
           ],
-          "footerText": "Page 18 of 25 \u00b7 Kafka: The Definitive Guide"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 18 of 25 · Kafka: The Definitive Guide"
         },
         {
           "pageNumber": 19,
           "header": "Kafka: The Definitive Guide",
-          "subHeader": "Distributed Logs \u00b7 Class 3 \u00b7 Part 5",
-          "title": "Applied Problem Solving & Real-World Context: Topic 5",
+          "subHeader": "Distributed Logs · Chapter 1 · Section 19",
+          "title": "Schema Registry: Data Governance & Compatibility",
           "bulletPoints": [
-            "Practical applications across daily life and industry.",
-            "Case studies, stories, and investigative highlights.",
-            "Connecting concepts across multidisciplinary domains.",
-            "Creative exploration and independent project work."
+            "Schema Registry stores versioned schemas (Avro, JSON Schema, Protobuf) independently from the payload messages.",
+            "Payload efficiency: Messages only carry a 4-byte Schema ID in their header rather than the complete schema schema string.",
+            "Compatibility enforcement: Backward, forward, and full compatibility validation blocks breaking schema changes at runtime.",
+            "Decoupled teams: Upstream producer teams can safely evolve schemas without crashing downstream consumer pipelines."
           ],
-          "footerText": "Page 19 of 25 \u00b7 Kafka: The Definitive Guide"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 19 of 25 · Kafka: The Definitive Guide"
         },
         {
           "pageNumber": 20,
           "header": "Kafka: The Definitive Guide",
-          "subHeader": "Distributed Logs \u00b7 Class 3 \u00b7 Part 6",
-          "title": "Review, Synthesis & Key Takeaways: Topic 6",
+          "subHeader": "Distributed Logs · Chapter 1 · Section 20",
+          "title": "Kafka Streams: Embedded Stream Processing DSL",
           "bulletPoints": [
-            "Comprehensive summary of essential insights.",
-            "Key formulas, checklists, and mental checkpoints.",
-            "Self-assessment quizzes and reflection prompts.",
-            "Continuing the learning journey with curiosity."
+            "Client library, not a cluster: Kafka Streams is an embedded Java library running directly inside standard microservices.",
+            "Core abstractions: KStream (record stream), KTable (changelog table), and GlobalKTable (broadcast lookup cache).",
+            "State stores: Uses local RocksDB instances to maintain state for stateful joins, aggregations, and windowing.",
+            "Interactive queries: Microservices can query local RocksDB state stores directly via REST without hitting external databases."
           ],
-          "footerText": "Page 20 of 25 \u00b7 Kafka: The Definitive Guide"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 20 of 25 · Kafka: The Definitive Guide"
         },
         {
           "pageNumber": 21,
           "header": "Kafka: The Definitive Guide",
-          "subHeader": "Distributed Logs \u00b7 Class 3 \u00b7 Part 7",
-          "title": "Review, Synthesis & Key Takeaways: Topic 7",
+          "subHeader": "Distributed Logs · Chapter 1 · Section 21",
+          "title": "MirrorMaker 2 & Multi-Cluster Replication",
           "bulletPoints": [
-            "Comprehensive summary of essential insights.",
-            "Key formulas, checklists, and mental checkpoints.",
-            "Self-assessment quizzes and reflection prompts.",
-            "Continuing the learning journey with curiosity."
+            "MirrorMaker 2 (MM2): Built on Kafka Connect to replicate topics across geographical regions and disaster recovery clusters.",
+            "Active-Passive replication: Production writes to primary cluster; secondary DR cluster mirrors topics in real time.",
+            "Active-Active architectures: Bi-directional replication with topic prefixing (e.g. `us-east.orders`, `eu-west.orders`).",
+            "Offset translation: MM2 translates consumer group offsets between clusters to enable seamless consumer failover."
           ],
-          "footerText": "Page 21 of 25 \u00b7 Kafka: The Definitive Guide"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 21 of 25 · Kafka: The Definitive Guide"
         },
         {
           "pageNumber": 22,
           "header": "Kafka: The Definitive Guide",
-          "subHeader": "Distributed Logs \u00b7 Class 3 \u00b7 Part 1",
-          "title": "Review, Synthesis & Key Takeaways: Topic 1",
+          "subHeader": "Distributed Logs · Chapter 1 · Section 22",
+          "title": "Security: Encryption, Authentication, and ACLs",
           "bulletPoints": [
-            "Comprehensive summary of essential insights.",
-            "Key formulas, checklists, and mental checkpoints.",
-            "Self-assessment quizzes and reflection prompts.",
-            "Continuing the learning journey with curiosity."
+            "Encryption in transit: SSL/TLS encryption for all client-broker and inter-broker communication.",
+            "Authentication: Mutual TLS (mTLS), SASL/PLAIN, SASL/SCRAM, and SASL/Kerberos (GSSAPI) identify client principals.",
+            "Authorization: Access Control Lists (ACLs) grant read, write, or describe permissions on specific topics and groups.",
+            "Audit logging: Track every access attempt and unauthorized connection to meet enterprise security compliance standards."
           ],
-          "footerText": "Page 22 of 25 \u00b7 Kafka: The Definitive Guide"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 22 of 25 · Kafka: The Definitive Guide"
         },
         {
           "pageNumber": 23,
           "header": "Kafka: The Definitive Guide",
-          "subHeader": "Distributed Logs \u00b7 Class 3 \u00b7 Part 2",
-          "title": "Review, Synthesis & Key Takeaways: Topic 2",
+          "subHeader": "Distributed Logs · Chapter 1 · Section 23",
+          "title": "Monitoring Kafka: Critical Cluster Metrics",
           "bulletPoints": [
-            "Comprehensive summary of essential insights.",
-            "Key formulas, checklists, and mental checkpoints.",
-            "Self-assessment quizzes and reflection prompts.",
-            "Continuing the learning journey with curiosity."
+            "Under-Replicated Partitions (URP): The most critical broker metric; indicates partitions where replicas have fallen behind.",
+            "Consumer Lag: The difference between latest partition offset and consumer current offset; indicates processing delays.",
+            "Offline Partitions: Partitions with no active leader; requires immediate human intervention.",
+            "JVM & OS metrics: Page cache hit ratio, disk I/O utilization, garbage collection pauses, and network socket buffer drops."
           ],
-          "footerText": "Page 23 of 25 \u00b7 Kafka: The Definitive Guide"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 23 of 25 · Kafka: The Definitive Guide"
         },
         {
           "pageNumber": 24,
           "header": "Kafka: The Definitive Guide",
-          "subHeader": "Distributed Logs \u00b7 Class 3 \u00b7 Part 3",
-          "title": "Review, Synthesis & Key Takeaways: Topic 3",
+          "subHeader": "Distributed Logs · Chapter 1 · Section 24",
+          "title": "Performance Tuning: OS, Page Cache & Network",
           "bulletPoints": [
-            "Comprehensive summary of essential insights.",
-            "Key formulas, checklists, and mental checkpoints.",
-            "Self-assessment quizzes and reflection prompts.",
-            "Continuing the learning journey with curiosity."
+            "Linux Page Cache: Kafka relies on the OS page cache for lightning caching; never set JVM heap larger than 32GB.",
+            "Disk subsystem: Use SSDs or NVMe drives configured with RAID 10 or JBOD; avoid RAID 5 due to parity write penalties.",
+            "Network threads: Tune `num.network.threads` and `num.io.threads` to match the CPU core count on the broker.",
+            "Socket buffer sizing: Increase `send.buffer.bytes` and `receive.buffer.bytes` for high-throughput 10GbE network interfaces."
           ],
-          "footerText": "Page 24 of 25 \u00b7 Kafka: The Definitive Guide"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 24 of 25 · Kafka: The Definitive Guide"
         },
         {
           "pageNumber": 25,
           "header": "Kafka: The Definitive Guide",
-          "subHeader": "Distributed Logs \u00b7 Class 3 \u00b7 Part 4",
-          "title": "Review, Synthesis & Key Takeaways: Topic 4",
+          "subHeader": "Distributed Logs · Chapter 1 · Section 25",
+          "title": "Production Checklist & Disaster Recovery Best Practices",
           "bulletPoints": [
-            "Comprehensive summary of essential insights.",
-            "Key formulas, checklists, and mental checkpoints.",
-            "Self-assessment quizzes and reflection prompts.",
-            "Continuing the learning journey with curiosity."
+            "Hardware sizing: Minimum 3 brokers across 3 availability zones for high availability quorum survivability.",
+            "Topic partition hygiene: Aim for no more than 4,000 partitions per broker to avoid file descriptor and memory overhead.",
+            "Graceful shutdown: Enable `controlled.shutdown.enable=true` to migrate partition leaders cleanly before node reboots.",
+            "Disaster drills: Regularly practice broker failure, disk replacement, and controller failover in staging environments."
           ],
-          "footerText": "Page 25 of 25 \u00b7 Kafka: The Definitive Guide"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 25 of 25 · Kafka: The Definitive Guide"
         }
       ]
     }

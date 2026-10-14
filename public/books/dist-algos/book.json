@@ -12,7 +12,7 @@
   "sourcePdf": null,
   "icon": "\ud83c\udf10",
   "isInteractive": true,
-  "author": "Distinguished Curators & Academic Press",
+  "author": "Academic Faculty & Domain Curators",
   "totalPages": 25,
   "chapters": [
     {
@@ -23,325 +23,325 @@
         {
           "pageNumber": 1,
           "header": "Distributed Algorithms",
-          "subHeader": "Distributed Systems \u00b7 Class 5 \u00b7 Part 1",
-          "title": "Foundational Models & System Abstractions: Topic 1",
+          "subHeader": "Distributed Systems \u00b7 Class 5 \u00b7 Section 1",
+          "title": "Synchronous vs Asynchronous Network Models",
           "bulletPoints": [
-            "Architectural paradigms and foundational theorems.",
-            "Trade-off evaluation: Performance, latency, consistency, and cost.",
-            "Mathematical formulations and algorithmic bounds.",
-            "Decomposing complex systems into verifiable modules."
+            "Formal distributed models: Graph G = (V, E) of independent automata communicating via message passing.",
+            "Synchronous networks: Global clock rounds; messages sent at round r arrive before round r+1.",
+            "Asynchronous networks: Arbitrary non-zero message delays; no global clock; relative event ordering via causality.",
+            "Complexity measures: Time complexity (rounds or time units) vs Message complexity (total network messages exchanged)."
           ],
           "footerText": "Page 1 of 25 \u00b7 Distributed Algorithms"
         },
         {
           "pageNumber": 2,
           "header": "Distributed Algorithms",
-          "subHeader": "Distributed Systems \u00b7 Class 5 \u00b7 Part 2",
-          "title": "Foundational Models & System Abstractions: Topic 2",
+          "subHeader": "Distributed Systems \u00b7 Class 5 \u00b7 Section 2",
+          "title": "Leader Election in Rings",
           "bulletPoints": [
-            "Architectural paradigms and foundational theorems.",
-            "Trade-off evaluation: Performance, latency, consistency, and cost.",
-            "Mathematical formulations and algorithmic bounds.",
-            "Decomposing complex systems into verifiable modules."
+            "The Leader Election problem: Exactly one process enters the LEADER state; all others enter NON-LEADER state.",
+            "LeLann-Chang-Roberts (LCR) algorithm: Unidirectional ring; processes forward higher IDs; O(n^2) message complexity.",
+            "Hirschberg-Sinclair (HS) algorithm: Bidirectional ring; doubling search neighborhoods yielding O(n log n) messages.",
+            "Lower bounds: Omega(n log n) messages required for comparison-based election in anonymous and general rings."
           ],
           "footerText": "Page 2 of 25 \u00b7 Distributed Algorithms"
         },
         {
           "pageNumber": 3,
           "header": "Distributed Algorithms",
-          "subHeader": "Distributed Systems \u00b7 Class 5 \u00b7 Part 3",
-          "title": "Foundational Models & System Abstractions: Topic 3",
+          "subHeader": "Distributed Systems \u00b7 Class 5 \u00b7 Section 3",
+          "title": "Breadth-First Search (BFS) & Shortest Path Trees",
           "bulletPoints": [
-            "Architectural paradigms and foundational theorems.",
-            "Trade-off evaluation: Performance, latency, consistency, and cost.",
-            "Mathematical formulations and algorithmic bounds.",
-            "Decomposing complex systems into verifiable modules."
+            "BFS tree construction in synchronous networks: Layer-by-layer exploration in O(diam) rounds.",
+            "Asynchronous BFS: Managing synchronization barriers and token propagation over arbitrary latency edges.",
+            "Shortest path tree algorithms: Bellman-Ford distributed shortest paths with message complexity O(n * m).",
+            "Applications of distributed BFS trees: Broadcasting, message routing, network diameter estimation."
           ],
           "footerText": "Page 3 of 25 \u00b7 Distributed Algorithms"
         },
         {
           "pageNumber": 4,
           "header": "Distributed Algorithms",
-          "subHeader": "Distributed Systems \u00b7 Class 5 \u00b7 Part 4",
-          "title": "Foundational Models & System Abstractions: Topic 4",
+          "subHeader": "Distributed Systems \u00b7 Class 5 \u00b7 Section 4",
+          "title": "Minimum Spanning Trees: Gallager-Humblet-Spira (GHS)",
           "bulletPoints": [
-            "Architectural paradigms and foundational theorems.",
-            "Trade-off evaluation: Performance, latency, consistency, and cost.",
-            "Mathematical formulations and algorithmic bounds.",
-            "Decomposing complex systems into verifiable modules."
+            "Distributed MST problem: Constructing minimum weight spanning tree without centralized coordinator.",
+            "Fragment concept: Disjoint tree fragments finding minimum-weight outgoing edges (MWOE) concurrently.",
+            "GHS algorithm execution: Merging fragments of equal level or absorbing lower-level fragments.",
+            "Complexity guarantees: Optimal O(n log n + m) messages and O(n log n) time across general asynchronous networks."
           ],
           "footerText": "Page 4 of 25 \u00b7 Distributed Algorithms"
         },
         {
           "pageNumber": 5,
           "header": "Distributed Algorithms",
-          "subHeader": "Distributed Systems \u00b7 Class 5 \u00b7 Part 5",
-          "title": "Foundational Models & System Abstractions: Topic 5",
+          "subHeader": "Distributed Systems \u00b7 Class 5 \u00b7 Section 5",
+          "title": "Logical Time & Lamport Clocks",
           "bulletPoints": [
-            "Architectural paradigms and foundational theorems.",
-            "Trade-off evaluation: Performance, latency, consistency, and cost.",
-            "Mathematical formulations and algorithmic bounds.",
-            "Decomposing complex systems into verifiable modules."
+            "The limitations of physical clocks: Clock drift, skew, and relativistic latency in distributed systems.",
+            "Lamport's Happened-Before Relation (->): Defining causal ordering of internal events and message send/receive pairs.",
+            "Lamport Scalar Logical Clocks: Monotonically increasing counters C(a) < C(b) if a -> b.",
+            "Total ordering: Breaking ties with unique process IDs to achieve consistent distributed event sequencing."
           ],
           "footerText": "Page 5 of 25 \u00b7 Distributed Algorithms"
         },
         {
           "pageNumber": 6,
           "header": "Distributed Algorithms",
-          "subHeader": "Distributed Systems \u00b7 Class 5 \u00b7 Part 6",
-          "title": "Core Mechanisms & Algorithmic Engines: Topic 6",
+          "subHeader": "Distributed Systems \u00b7 Class 5 \u00b7 Section 6",
+          "title": "Vector Clocks & Causal Consistency",
           "bulletPoints": [
-            "In-depth analysis of structural algorithms and state machines.",
-            "Memory access optimizations and data layout efficiency.",
-            "Protocol interactions, handshakes, and invariant maintenance.",
-            "Diagnostic profiling and empirical performance benchmarking."
+            "Limitation of scalar clocks: C(a) < C(b) does NOT imply a caused b (cannot detect concurrent independent events).",
+            "Vector Clock representation: Vector V_i where V_i[j] represents process i's knowledge of process j's clock.",
+            "Vector clock update rules: Increment local index upon local event; take component-wise maximum upon message receipt.",
+            "Causal ordering: Event a -> b if and only if V(a) <= V(b) and V(a) != V(b); detecting concurrent conflicts in replicas."
           ],
           "footerText": "Page 6 of 25 \u00b7 Distributed Algorithms"
         },
         {
           "pageNumber": 7,
           "header": "Distributed Algorithms",
-          "subHeader": "Distributed Systems \u00b7 Class 5 \u00b7 Part 1",
-          "title": "Core Mechanisms & Algorithmic Engines: Topic 1",
+          "subHeader": "Distributed Systems \u00b7 Class 5 \u00b7 Section 7",
+          "title": "Distributed Mutual Exclusion: Lamport & Ricart-Agrawala",
           "bulletPoints": [
-            "In-depth analysis of structural algorithms and state machines.",
-            "Memory access optimizations and data layout efficiency.",
-            "Protocol interactions, handshakes, and invariant maintenance.",
-            "Diagnostic profiling and empirical performance benchmarking."
+            "Mutual exclusion requirement: Safety (at most one process in CS), Liveness (no starvation), Fairness.",
+            "Lamport's Mutual Exclusion Algorithm: Request queues ordered by Lamport timestamps; requires 3(n - 1) messages.",
+            "Ricart-Agrawala optimization: Eliminating explicit RELEASE messages; deferred OK replies yielding 2(n - 1) messages.",
+            "Token-based algorithms: Suzuki-Kasami token-passing protocol requiring at most n messages per critical section entry."
           ],
           "footerText": "Page 7 of 25 \u00b7 Distributed Algorithms"
         },
         {
           "pageNumber": 8,
           "header": "Distributed Algorithms",
-          "subHeader": "Distributed Systems \u00b7 Class 5 \u00b7 Part 2",
-          "title": "Core Mechanisms & Algorithmic Engines: Topic 2",
+          "subHeader": "Distributed Systems \u00b7 Class 5 \u00b7 Section 8",
+          "title": "Global State & The Chandy-Lamport Snapshot",
           "bulletPoints": [
-            "In-depth analysis of structural algorithms and state machines.",
-            "Memory access optimizations and data layout efficiency.",
-            "Protocol interactions, handshakes, and invariant maintenance.",
-            "Diagnostic profiling and empirical performance benchmarking."
+            "Consistent Global Snapshot: A cut where for every event e in the cut, all causal predecessors of e are also in the cut.",
+            "The Chandy-Lamport snapshot algorithm: Recording local process states and in-flight channel messages.",
+            "Marker sending and receiving rules: Incoming markers delineate channel recording boundaries.",
+            "Applications: Checkpointing for disaster recovery, distributed deadlock detection, and termination detection."
           ],
           "footerText": "Page 8 of 25 \u00b7 Distributed Algorithms"
         },
         {
           "pageNumber": 9,
           "header": "Distributed Algorithms",
-          "subHeader": "Distributed Systems \u00b7 Class 5 \u00b7 Part 3",
-          "title": "Core Mechanisms & Algorithmic Engines: Topic 3",
+          "subHeader": "Distributed Systems \u00b7 Class 5 \u00b7 Section 9",
+          "title": "Consensus in Synchronous Systems",
           "bulletPoints": [
-            "In-depth analysis of structural algorithms and state machines.",
-            "Memory access optimizations and data layout efficiency.",
-            "Protocol interactions, handshakes, and invariant maintenance.",
-            "Diagnostic profiling and empirical performance benchmarking."
+            "The Consensus Problem: Agreement (all non-faulty decide same value), Validity (value decided was proposed), Termination.",
+            "Crash failures vs Byzantine (arbitrary/malicious) failures.",
+            "Crash failure consensus: Flooding algorithm reaching consensus in f + 1 rounds where f is max crash failures.",
+            "Lower bound proof: Any consensus algorithm tolerating f crash failures requires at least f + 1 synchronous rounds."
           ],
           "footerText": "Page 9 of 25 \u00b7 Distributed Algorithms"
         },
         {
           "pageNumber": 10,
           "header": "Distributed Algorithms",
-          "subHeader": "Distributed Systems \u00b7 Class 5 \u00b7 Part 4",
-          "title": "Core Mechanisms & Algorithmic Engines: Topic 4",
+          "subHeader": "Distributed Systems \u00b7 Class 5 \u00b7 Section 10",
+          "title": "Byzantine Agreement in Synchronous Systems",
           "bulletPoints": [
-            "In-depth analysis of structural algorithms and state machines.",
-            "Memory access optimizations and data layout efficiency.",
-            "Protocol interactions, handshakes, and invariant maintenance.",
-            "Diagnostic profiling and empirical performance benchmarking."
+            "Byzantine Generals Problem: Traitors sending conflicting messages to different loyal generals.",
+            "The 3m + 1 requirement: Proving consensus is impossible with 3 generals and 1 traitor (need at least 4 generals).",
+            "Oral Message algorithm OM(m): Recursive algorithm reaching agreement with 3m + 1 nodes and m Byzantine traitors.",
+            "Signed messages (SM(m)): Using unforgeable digital signatures to reduce node requirement to 2m + 1."
           ],
           "footerText": "Page 10 of 25 \u00b7 Distributed Algorithms"
         },
         {
           "pageNumber": 11,
           "header": "Distributed Algorithms",
-          "subHeader": "Distributed Systems \u00b7 Class 5 \u00b7 Part 5",
-          "title": "Concurrency, Scaling & Fault Tolerance: Topic 5",
+          "subHeader": "Distributed Systems \u00b7 Class 5 \u00b7 Section 11",
+          "title": "The FLP Impossibility Theorem",
           "bulletPoints": [
-            "Synchronization primitives, lock-free designs, and consensus.",
-            "Handling failures: Retry strategies, circuit breakers, and idempotency.",
-            "Horizontal scaling vs vertical hardware specialization.",
-            "High-availability architectures and replication topologies."
+            "Fischer, Lynch, and Paterson (1985) landmark theorem in theoretical computer science.",
+            "Theorem statement: In an asynchronous network, no deterministic consensus protocol can guarantee termination even with a single crash failure.",
+            "Bivalent vs Univalent configurations: Proving the existence of an infinite non-terminating execution path.",
+            "Circumventing FLP: Partial synchrony (timing assumptions), randomized algorithms, and failure detectors."
           ],
           "footerText": "Page 11 of 25 \u00b7 Distributed Algorithms"
         },
         {
           "pageNumber": 12,
           "header": "Distributed Algorithms",
-          "subHeader": "Distributed Systems \u00b7 Class 5 \u00b7 Part 6",
-          "title": "Concurrency, Scaling & Fault Tolerance: Topic 6",
+          "subHeader": "Distributed Systems \u00b7 Class 5 \u00b7 Section 12",
+          "title": "Failure Detectors: Chandra and Toueg",
           "bulletPoints": [
-            "Synchronization primitives, lock-free designs, and consensus.",
-            "Handling failures: Retry strategies, circuit breakers, and idempotency.",
-            "Horizontal scaling vs vertical hardware specialization.",
-            "High-availability architectures and replication topologies."
+            "Abstracting time: Decoupling consensus logic from network timeout heuristics via Failure Detectors.",
+            "Completeness: Eventually every crashed process is permanently suspected by every non-faulty process.",
+            "Accuracy: Strong accuracy (no correct process is ever suspected) vs Weak accuracy.",
+            "The Eventually Strong Detector (Diamond-S): The weakest failure detector needed to solve consensus in asynchronous networks."
           ],
           "footerText": "Page 12 of 25 \u00b7 Distributed Algorithms"
         },
         {
           "pageNumber": 13,
           "header": "Distributed Algorithms",
-          "subHeader": "Distributed Systems \u00b7 Class 5 \u00b7 Part 1",
-          "title": "Concurrency, Scaling & Fault Tolerance: Topic 1",
+          "subHeader": "Distributed Systems \u00b7 Class 5 \u00b7 Section 13",
+          "title": "The Paxos Consensus Protocol: Synod",
           "bulletPoints": [
-            "Synchronization primitives, lock-free designs, and consensus.",
-            "Handling failures: Retry strategies, circuit breakers, and idempotency.",
-            "Horizontal scaling vs vertical hardware specialization.",
-            "High-availability architectures and replication topologies."
+            "Leslie Lamport's Paxos: The foundation of fault-tolerant distributed databases and consensus engines.",
+            "Roles: Proposers (advocating values), Acceptors (voting consensus memory), Learners (discovering decided values).",
+            "Phase 1 (Prepare / Promise): Proposer broadcasts Prepare(n); Acceptors promise not to accept proposals < n and return highest accepted.",
+            "Phase 2 (Accept / Accepted): Proposer sends Accept(n, v); Acceptors accept proposal if no promise broken; consensus committed."
           ],
           "footerText": "Page 13 of 25 \u00b7 Distributed Algorithms"
         },
         {
           "pageNumber": 14,
           "header": "Distributed Algorithms",
-          "subHeader": "Distributed Systems \u00b7 Class 5 \u00b7 Part 2",
-          "title": "Concurrency, Scaling & Fault Tolerance: Topic 2",
+          "subHeader": "Distributed Systems \u00b7 Class 5 \u00b7 Section 14",
+          "title": "Multi-Paxos: High-Throughput Log Replication",
           "bulletPoints": [
-            "Synchronization primitives, lock-free designs, and consensus.",
-            "Handling failures: Retry strategies, circuit breakers, and idempotency.",
-            "Horizontal scaling vs vertical hardware specialization.",
-            "High-availability architectures and replication topologies."
+            "The cost of Basic Paxos: 2 network round-trips for every single committed value.",
+            "Multi-Paxos optimization: Electing a stable leader to execute Phase 1 once for an infinite stream of log slots.",
+            "Steady-state operation: Phase 2 only (1 RTT commit) streaming log entries to majority acceptor quorums.",
+            "Leader changeover: Executing Phase 1 over uncommitted log slots to reconcile conflicting state."
           ],
           "footerText": "Page 14 of 25 \u00b7 Distributed Algorithms"
         },
         {
           "pageNumber": 15,
           "header": "Distributed Algorithms",
-          "subHeader": "Distributed Systems \u00b7 Class 5 \u00b7 Part 3",
-          "title": "Concurrency, Scaling & Fault Tolerance: Topic 3",
+          "subHeader": "Distributed Systems \u00b7 Class 5 \u00b7 Section 15",
+          "title": "The Raft Consensus Algorithm",
           "bulletPoints": [
-            "Synchronization primitives, lock-free designs, and consensus.",
-            "Handling failures: Retry strategies, circuit breakers, and idempotency.",
-            "Horizontal scaling vs vertical hardware specialization.",
-            "High-availability architectures and replication topologies."
+            "Designed for understandability: Decomposing consensus into Leader Election, Log Replication, and Safety.",
+            "Leader election: Randomized election timeouts, RequestVote RPCs, and majority quorum terms.",
+            "Log replication: AppendEntries RPCs with consistency checks (prevLogIndex, prevLogTerm); heartbeats enforce leader authority.",
+            "Log Matching Invariant: If two logs contain an entry with same index and term, they are identical up to that index."
           ],
           "footerText": "Page 15 of 25 \u00b7 Distributed Algorithms"
         },
         {
           "pageNumber": 16,
           "header": "Distributed Algorithms",
-          "subHeader": "Distributed Systems \u00b7 Class 5 \u00b7 Part 4",
-          "title": "Real-World Production Architectures: Topic 4",
+          "subHeader": "Distributed Systems \u00b7 Class 5 \u00b7 Section 16",
+          "title": "Byzantine Fault Tolerance: PBFT",
           "bulletPoints": [
-            "Case studies from large-scale datacenter deployments.",
-            "Monitoring, telemetry, observability, and tracing.",
-            "Security boundaries, threat models, and access control.",
-            "Best practices for evolving long-lived software systems."
+            "Practical Byzantine Fault Tolerance (Castro & Liskov 1999): High-performance BFT in asynchronous networks.",
+            "System requirement: 3f + 1 total replicas to tolerate f arbitrary Byzantine faulty nodes.",
+            "Three-phase protocol: Pre-Prepare (leader assigns sequence number), Prepare (2f matching votes), Commit (2f+1 commit votes).",
+            "View Change protocol: Replacing malicious or dead leaders through signed cryptographic state certificates."
           ],
           "footerText": "Page 16 of 25 \u00b7 Distributed Algorithms"
         },
         {
           "pageNumber": 17,
           "header": "Distributed Algorithms",
-          "subHeader": "Distributed Systems \u00b7 Class 5 \u00b7 Part 5",
-          "title": "Real-World Production Architectures: Topic 5",
+          "subHeader": "Distributed Systems \u00b7 Class 5 \u00b7 Section 17",
+          "title": "Gossip Protocols & Epidemic Algorithms",
           "bulletPoints": [
-            "Case studies from large-scale datacenter deployments.",
-            "Monitoring, telemetry, observability, and tracing.",
-            "Security boundaries, threat models, and access control.",
-            "Best practices for evolving long-lived software systems."
+            "Decentralized peer-to-peer dissemination modeled after biological epidemic disease propagation.",
+            "Anti-entropy vs Rumor mongering: Comparing complete state digests vs pushing hot updates to random peers.",
+            "Mathematical scaling: Information reaches N nodes in O(log N) rounds with high probability.",
+            "Use cases: Cluster membership in Cassandra, failure detection in Consul, and gossip networks in Ethereum."
           ],
           "footerText": "Page 17 of 25 \u00b7 Distributed Algorithms"
         },
         {
           "pageNumber": 18,
           "header": "Distributed Algorithms",
-          "subHeader": "Distributed Systems \u00b7 Class 5 \u00b7 Part 6",
-          "title": "Real-World Production Architectures: Topic 6",
+          "subHeader": "Distributed Systems \u00b7 Class 5 \u00b7 Section 18",
+          "title": "Distributed Hash Tables (DHT): Chord",
           "bulletPoints": [
-            "Case studies from large-scale datacenter deployments.",
-            "Monitoring, telemetry, observability, and tracing.",
-            "Security boundaries, threat models, and access control.",
-            "Best practices for evolving long-lived software systems."
+            "Peer-to-peer lookup service: Mapping keys to nodes on an identifier circle modulo 2^m.",
+            "Consistent hashing: Key k is assigned to first node whose identifier is >= k (successor(k)).",
+            "Finger tables: Routing tables with m entries storing successor(n + 2^(i-1)) for O(log N) lookup hops.",
+            "Node join and stabilization: Concurrent maintenance of predecessor and successor pointers under high churn."
           ],
           "footerText": "Page 18 of 25 \u00b7 Distributed Algorithms"
         },
         {
           "pageNumber": 19,
           "header": "Distributed Algorithms",
-          "subHeader": "Distributed Systems \u00b7 Class 5 \u00b7 Part 1",
-          "title": "Real-World Production Architectures: Topic 1",
+          "subHeader": "Distributed Systems \u00b7 Class 5 \u00b7 Section 19",
+          "title": "Kademlia & XOR Metric Routing",
           "bulletPoints": [
-            "Case studies from large-scale datacenter deployments.",
-            "Monitoring, telemetry, observability, and tracing.",
-            "Security boundaries, threat models, and access control.",
-            "Best practices for evolving long-lived software systems."
+            "XOR metric: Distance d(x, y) = x XOR y satisfying all mathematical metric space properties (triangle inequality).",
+            "k-buckets: Routing tables partitioned into logarithmic distance ranges tracking live peer contact info.",
+            "Lookup algorithm: Iteratively querying alpha closest nodes to target key, converging in O(log N) steps.",
+            "Real-world deployments: The backbone of BitTorrent Mainline DHT and Ethereum node discovery (discv5)."
           ],
           "footerText": "Page 19 of 25 \u00b7 Distributed Algorithms"
         },
         {
           "pageNumber": 20,
           "header": "Distributed Algorithms",
-          "subHeader": "Distributed Systems \u00b7 Class 5 \u00b7 Part 2",
-          "title": "Real-World Production Architectures: Topic 2",
+          "subHeader": "Distributed Systems \u00b7 Class 5 \u00b7 Section 20",
+          "title": "Self-Stabilizing Distributed Systems",
           "bulletPoints": [
-            "Case studies from large-scale datacenter deployments.",
-            "Monitoring, telemetry, observability, and tracing.",
-            "Security boundaries, threat models, and access control.",
-            "Best practices for evolving long-lived software systems."
+            "Edsger Dijkstra's self-stabilization concept: A system that converges to a legitimate state from any arbitrary initial state.",
+            "Transient fault tolerance: Recovering automatically from memory corruption, power glitches, and illegal states.",
+            "Self-stabilizing token ring: Dijkstra's K-state machine algorithm guaranteeing single-token circulation.",
+            "Convergence and Closure: Proving execution paths enter legitimate states and remain within legitimate states."
           ],
           "footerText": "Page 20 of 25 \u00b7 Distributed Algorithms"
         },
         {
           "pageNumber": 21,
           "header": "Distributed Algorithms",
-          "subHeader": "Distributed Systems \u00b7 Class 5 \u00b7 Part 3",
-          "title": "Emerging Horizons & Future Directions: Topic 3",
+          "subHeader": "Distributed Systems \u00b7 Class 5 \u00b7 Section 21",
+          "title": "Distributed Commit: 2PC vs 3PC",
           "bulletPoints": [
-            "Next-generation paradigms and hardware trends.",
-            "Bridging theoretical models with practical engineering.",
-            "Open-source ecosystems and industry standards.",
-            "Synthesis: Key takeaways and architectural mastery."
+            "Atomic commit: Guaranteeing all participating database shards commit or abort a transaction together.",
+            "Two-Phase Commit (2PC): Blocking coordinator vulnerability when coordinator crashes during commit phase.",
+            "Three-Phase Commit (3PC): Introducing Pre-Commit state to enable non-blocking recovery in crash-stop networks.",
+            "Why 3PC fails in partitions: Network partitions can cause split-brain commits, which is why Paxos/Raft are preferred."
           ],
           "footerText": "Page 21 of 25 \u00b7 Distributed Algorithms"
         },
         {
           "pageNumber": 22,
           "header": "Distributed Algorithms",
-          "subHeader": "Distributed Systems \u00b7 Class 5 \u00b7 Part 4",
-          "title": "Emerging Horizons & Future Directions: Topic 4",
+          "subHeader": "Distributed Systems \u00b7 Class 5 \u00b7 Section 22",
+          "title": "Distributed Shared Memory & Consistency Models",
           "bulletPoints": [
-            "Next-generation paradigms and hardware trends.",
-            "Bridging theoretical models with practical engineering.",
-            "Open-source ecosystems and industry standards.",
-            "Synthesis: Key takeaways and architectural mastery."
+            "Strict Consistency: All writes are instantaneously visible to all readers across the universe (physically impossible).",
+            "Sequential Consistency (Lamport): Results of execution are equivalent to some serial order respecting each process's program order.",
+            "Linearizability (Herlihy & Wing): Strongest practical consistency; operations take effect atomically at a linearization point between invocation and response.",
+            "Eventual Consistency: If no new updates are made, all replicas will eventually converge to identical values."
           ],
           "footerText": "Page 22 of 25 \u00b7 Distributed Algorithms"
         },
         {
           "pageNumber": 23,
           "header": "Distributed Algorithms",
-          "subHeader": "Distributed Systems \u00b7 Class 5 \u00b7 Part 5",
-          "title": "Emerging Horizons & Future Directions: Topic 5",
+          "subHeader": "Distributed Systems \u00b7 Class 5 \u00b7 Section 23",
+          "title": "CRDTs: Conflict-Free Replicated Data Types",
           "bulletPoints": [
-            "Next-generation paradigms and hardware trends.",
-            "Bridging theoretical models with practical engineering.",
-            "Open-source ecosystems and industry standards.",
-            "Synthesis: Key takeaways and architectural mastery."
+            "Optimistic replication without consensus: Replicas accept local concurrent writes without network coordination.",
+            "State-based CRDTs (CvRDTs): Replicas exchange entire states and merge using mathematical join-semilattices (commutative, associative, idempotent).",
+            "Operation-based CRDTs (CmRDTs): Replicas broadcast update operations over reliable causal channels.",
+            "Types of CRDTs: PN-Counters, LWW-Element-Set, OR-Set (Observed-Remove Set), and Sequence CRDTs (RGA/Automerge) for collaborative text."
           ],
           "footerText": "Page 23 of 25 \u00b7 Distributed Algorithms"
         },
         {
           "pageNumber": 24,
           "header": "Distributed Algorithms",
-          "subHeader": "Distributed Systems \u00b7 Class 5 \u00b7 Part 6",
-          "title": "Emerging Horizons & Future Directions: Topic 6",
+          "subHeader": "Distributed Systems \u00b7 Class 5 \u00b7 Section 24",
+          "title": "Distributed Deadlock Detection Algorithms",
           "bulletPoints": [
-            "Next-generation paradigms and hardware trends.",
-            "Bridging theoretical models with practical engineering.",
-            "Open-source ecosystems and industry standards.",
-            "Synthesis: Key takeaways and architectural mastery."
+            "Wait-for graphs across distributed nodes: Identifying distributed resource dependency cycles.",
+            "Chandy-Misra-Haas edge-chasing algorithm: Circulating probe messages (initiator, sender, receiver) along wait-for edges.",
+            "Priority-based optimization: Only higher-priority processes launch probes to prevent message flooding.",
+            "False deadlocks: Phantom deadlocks detected because of asynchronous message delays reporting obsolete wait conditions."
           ],
           "footerText": "Page 24 of 25 \u00b7 Distributed Algorithms"
         },
         {
           "pageNumber": 25,
           "header": "Distributed Algorithms",
-          "subHeader": "Distributed Systems \u00b7 Class 5 \u00b7 Part 1",
-          "title": "Emerging Horizons & Future Directions: Topic 1",
+          "subHeader": "Distributed Systems \u00b7 Class 5 \u00b7 Section 25",
+          "title": "Synthesis of Distributed Algorithmic Foundations",
           "bulletPoints": [
-            "Next-generation paradigms and hardware trends.",
-            "Bridging theoretical models with practical engineering.",
-            "Open-source ecosystems and industry standards.",
-            "Synthesis: Key takeaways and architectural mastery."
+            "The unifying themes: Time, causality, fault models, agreement, and state machine replication.",
+            "The trade-off frontier: CAP theorem, PACELC theorem, latency vs consistency, and message complexity.",
+            "From theory to practice: How theoretical bounds govern modern cloud datacenters, blockchains, and global databases.",
+            "Mastery checkpoint: Designing resilient, provably correct distributed protocols for the next century of computing."
           ],
           "footerText": "Page 25 of 25 \u00b7 Distributed Algorithms"
         }

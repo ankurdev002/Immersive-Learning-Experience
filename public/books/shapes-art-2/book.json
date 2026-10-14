@@ -10,7 +10,7 @@
   "accentColor": "#818cf8",
   "coverImage": "/books/shapes-art-2/cover.png",
   "sourcePdf": null,
-  "icon": "\ud83c\udfa8",
+  "icon": "🎨",
   "isInteractive": true,
   "author": "Distinguished Curators & Academic Press",
   "totalPages": 20,
@@ -23,262 +23,322 @@
         {
           "pageNumber": 1,
           "header": "Shapes, Geometry & Art",
-          "subHeader": "Art & Geometry \u00b7 Class 2 \u00b7 Part 1",
-          "title": "Foundations of Art & Creative Expression: Topic 1",
+          "subHeader": "Art & Geometry · Chapter 1 · Section 1",
+          "title": "The World of 2D Shapes: Flat Geometry",
           "bulletPoints": [
-            "The elements of art: Line, shape, color, texture, space.",
-            "Primary colors, secondary colors, and color mixing.",
-            "Warm colors (red, orange, yellow) vs cool colors (blue, green, purple).",
-            "Expressing emotions and ideas through visual design."
+            "A 2D shape is completely flat; it has length and width, but zero depth or thickness.",
+            "Vertices and edges: Straight lines are called edges or sides; points where edges meet are called vertices (corners).",
+            "The four primary flat shapes: Circles, Squares, Triangles, and Rectangles.",
+            "Nature's shapes: Orange slices are circles, honeycomb cells are hexagons, and pine needles form sharp lines."
           ],
-          "footerText": "Page 1 of 20 \u00b7 Shapes, Geometry & Art"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 1 of 20 · Shapes, Geometry & Art"
         },
         {
           "pageNumber": 2,
           "header": "Shapes, Geometry & Art",
-          "subHeader": "Art & Geometry \u00b7 Class 2 \u00b7 Part 2",
-          "title": "Foundations of Art & Creative Expression: Topic 2",
+          "subHeader": "Art & Geometry · Chapter 1 · Section 2",
+          "title": "The Circle: The Infinite Curve",
           "bulletPoints": [
-            "The elements of art: Line, shape, color, texture, space.",
-            "Primary colors, secondary colors, and color mixing.",
-            "Warm colors (red, orange, yellow) vs cool colors (blue, green, purple).",
-            "Expressing emotions and ideas through visual design."
+            "A circle is perfectly round with zero straight edges and zero corners.",
+            "Center point: Every single point on the outer curved boundary is the exact same distance from the center point.",
+            "Radius and diameter: The distance from center to edge is the radius; all the way across through the center is diameter.",
+            "Artistic circles: Draw coins, wheel spokes, dinner plates, the full moon, and ripples in a pond."
           ],
-          "footerText": "Page 2 of 20 \u00b7 Shapes, Geometry & Art"
+          "formulaOrSummary": "Diameter = 2 x Radius (d = 2r)",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 2 of 20 · Shapes, Geometry & Art"
         },
         {
           "pageNumber": 3,
           "header": "Shapes, Geometry & Art",
-          "subHeader": "Art & Geometry \u00b7 Class 2 \u00b7 Part 3",
-          "title": "Foundations of Art & Creative Expression: Topic 3",
+          "subHeader": "Art & Geometry · Chapter 1 · Section 3",
+          "title": "The Square: Perfect Four-Sided Balance",
           "bulletPoints": [
-            "The elements of art: Line, shape, color, texture, space.",
-            "Primary colors, secondary colors, and color mixing.",
-            "Warm colors (red, orange, yellow) vs cool colors (blue, green, purple).",
-            "Expressing emotions and ideas through visual design."
+            "A square has 4 straight sides of exactly equal length and 4 square corners (right angles, 90°).",
+            "Symmetry: A square has 4 lines of symmetry: vertical, horizontal, and both diagonal mirror lines.",
+            "Everyday squares: Chessboard tiles, window panes, sticky notes, and square picture frames.",
+            "Drawing tip: Use a ruler to make sure all 4 sides measure the exact same number of centimeters."
           ],
-          "footerText": "Page 3 of 20 \u00b7 Shapes, Geometry & Art"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 3 of 20 · Shapes, Geometry & Art"
         },
         {
           "pageNumber": 4,
           "header": "Shapes, Geometry & Art",
-          "subHeader": "Art & Geometry \u00b7 Class 2 \u00b7 Part 4",
-          "title": "Foundations of Art & Creative Expression: Topic 4",
+          "subHeader": "Art & Geometry · Chapter 1 · Section 4",
+          "title": "Triangles: Three Corners & Infinite Variety",
           "bulletPoints": [
-            "The elements of art: Line, shape, color, texture, space.",
-            "Primary colors, secondary colors, and color mixing.",
-            "Warm colors (red, orange, yellow) vs cool colors (blue, green, purple).",
-            "Expressing emotions and ideas through visual design."
+            "A triangle is any closed shape with exactly 3 straight sides and 3 vertices (angles).",
+            "Equilateral triangle: All 3 sides are equal length and all 3 angles are identical (60°).",
+            "Isosceles triangle: 2 sides are equal, like a tall pine tree or a slice of birthday cake.",
+            "Right-angled triangle: Contains one sharp square corner (90°), like a carpenter's set square."
           ],
-          "footerText": "Page 4 of 20 \u00b7 Shapes, Geometry & Art"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 4 of 20 · Shapes, Geometry & Art"
         },
         {
           "pageNumber": 5,
           "header": "Shapes, Geometry & Art",
-          "subHeader": "Art & Geometry \u00b7 Class 2 \u00b7 Part 5",
-          "title": "Rhythm, Beat & Melodic Harmony: Topic 5",
+          "subHeader": "Art & Geometry · Chapter 1 · Section 5",
+          "title": "Rectangles: Two Long and Two Short",
           "bulletPoints": [
-            "Understanding the steady pulse of a musical beat.",
-            "Rhythm patterns: Quarter notes, eighth notes, and rests.",
-            "Pitch: High sounds like birds vs low sounds like thunder.",
-            "Singing melodies and listening to musical intervals."
+            "A rectangle has 4 straight sides and 4 right-angle square corners.",
+            "Opposite sides are parallel and exactly equal in length (2 long sides and 2 short sides).",
+            "A square is actually a special rectangle where all four sides happen to be equal!",
+            "Architecture all around: Doors, books, smartphones, bricks, and chalkboard screens are rectangles."
           ],
-          "footerText": "Page 5 of 20 \u00b7 Shapes, Geometry & Art"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 5 of 20 · Shapes, Geometry & Art"
         },
         {
           "pageNumber": 6,
           "header": "Shapes, Geometry & Art",
-          "subHeader": "Art & Geometry \u00b7 Class 2 \u00b7 Part 1",
-          "title": "Rhythm, Beat & Melodic Harmony: Topic 1",
+          "subHeader": "Art & Geometry · Chapter 1 · Section 6",
+          "title": "Pentagons & Hexagons: Nature's Polygons",
           "bulletPoints": [
-            "Understanding the steady pulse of a musical beat.",
-            "Rhythm patterns: Quarter notes, eighth notes, and rests.",
-            "Pitch: High sounds like birds vs low sounds like thunder.",
-            "Singing melodies and listening to musical intervals."
+            "Pentagon: A polygon with 5 straight sides and 5 vertices (like a classic house outline or star center).",
+            "Hexagon: A polygon with 6 straight sides and 6 vertices.",
+            "The bee's secret: Honeybee hives build hexagonal wax cells because hexagons enclose maximum honey with minimum wax!",
+            "Snowflakes: Every natural ice crystal snowflake has 6-fold hexagonal symmetry."
           ],
-          "footerText": "Page 6 of 20 \u00b7 Shapes, Geometry & Art"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 6 of 20 · Shapes, Geometry & Art"
         },
         {
           "pageNumber": 7,
           "header": "Shapes, Geometry & Art",
-          "subHeader": "Art & Geometry \u00b7 Class 2 \u00b7 Part 2",
-          "title": "Rhythm, Beat & Melodic Harmony: Topic 2",
+          "subHeader": "Art & Geometry · Chapter 1 · Section 7",
+          "title": "Ovals & Diamonds: Squashed Circles & Tilted Squares",
           "bulletPoints": [
-            "Understanding the steady pulse of a musical beat.",
-            "Rhythm patterns: Quarter notes, eighth notes, and rests.",
-            "Pitch: High sounds like birds vs low sounds like thunder.",
-            "Singing melodies and listening to musical intervals."
+            "Oval (Ellipse): A smooth, curved shape with no corners that looks like a gently stretched circle or an egg.",
+            "Diamond (Rhombus): A quadrilateral where all 4 sides are equal length, but corners are slanted rather than square.",
+            "Kite shape: Two pairs of equal-length adjacent sides flying up in the windy sky.",
+            "Art practice: Draw an oval bird body and add triangular beak and diamond tail feathers!"
           ],
-          "footerText": "Page 7 of 20 \u00b7 Shapes, Geometry & Art"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 7 of 20 · Shapes, Geometry & Art"
         },
         {
           "pageNumber": 8,
           "header": "Shapes, Geometry & Art",
-          "subHeader": "Art & Geometry \u00b7 Class 2 \u00b7 Part 3",
-          "title": "Rhythm, Beat & Melodic Harmony: Topic 3",
+          "subHeader": "Art & Geometry · Chapter 1 · Section 8",
+          "title": "3D Solid Shapes: Length, Width & Depth",
           "bulletPoints": [
-            "Understanding the steady pulse of a musical beat.",
-            "Rhythm patterns: Quarter notes, eighth notes, and rests.",
-            "Pitch: High sounds like birds vs low sounds like thunder.",
-            "Singing melodies and listening to musical intervals."
+            "Unlike flat 2D drawings, 3D solids occupy physical space: you can hold them in your hands!",
+            "Faces: The flat or curved surfaces of a 3D solid.",
+            "Edges: The straight lines where two faces meet.",
+            "Vertices: The sharp corner points where three or more edges intersect."
           ],
-          "footerText": "Page 8 of 20 \u00b7 Shapes, Geometry & Art"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 8 of 20 · Shapes, Geometry & Art"
         },
         {
           "pageNumber": 9,
           "header": "Shapes, Geometry & Art",
-          "subHeader": "Art & Geometry \u00b7 Class 2 \u00b7 Part 4",
-          "title": "Instruments of the World: Topic 4",
+          "subHeader": "Art & Geometry · Chapter 1 · Section 9",
+          "title": "The Sphere: Perfectly Smooth in All Directions",
           "bulletPoints": [
-            "Strings: Violins, guitars, harps, and cellos.",
-            "Woodwinds: Flutes, clarinets, and oboes.",
-            "Brass: Trumpets, French horns, and trombones.",
-            "Percussion: Drums, xylophones, maracas, and cymbals."
+            "A sphere is a completely round 3D solid with 1 continuous curved surface, 0 flat faces, 0 edges, and 0 vertices.",
+            "Rolling champion: Spheres roll smoothly in any direction because every surface point is equidistant from the center.",
+            "Spheres in the cosmos: Planets, moons, bubbles, marbles, and basketballs are all natural spheres.",
+            "Shadow play: In bright sunlight, a 3D sphere casts a flat 2D circular shadow on the ground."
           ],
-          "footerText": "Page 9 of 20 \u00b7 Shapes, Geometry & Art"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 9 of 20 · Shapes, Geometry & Art"
         },
         {
           "pageNumber": 10,
           "header": "Shapes, Geometry & Art",
-          "subHeader": "Art & Geometry \u00b7 Class 2 \u00b7 Part 5",
-          "title": "Instruments of the World: Topic 5",
+          "subHeader": "Art & Geometry · Chapter 1 · Section 10",
+          "title": "The Cube: Six Identical Square Faces",
           "bulletPoints": [
-            "Strings: Violins, guitars, harps, and cellos.",
-            "Woodwinds: Flutes, clarinets, and oboes.",
-            "Brass: Trumpets, French horns, and trombones.",
-            "Percussion: Drums, xylophones, maracas, and cymbals."
+            "A cube has 6 flat square faces, 12 straight edges of equal length, and 8 sharp corner vertices.",
+            "Stacking blocks: Cubes stack neatly on top of each other without rolling away.",
+            "Rolling dice: A game die is a cube; opposing faces always add up to 7 (1+6, 2+5, 3+4).",
+            "Sugar cubes and ice blocks: Perfect geometric solids found right inside kitchen pantries."
           ],
-          "footerText": "Page 10 of 20 \u00b7 Shapes, Geometry & Art"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 10 of 20 · Shapes, Geometry & Art"
         },
         {
           "pageNumber": 11,
           "header": "Shapes, Geometry & Art",
-          "subHeader": "Art & Geometry \u00b7 Class 2 \u00b7 Part 1",
-          "title": "Instruments of the World: Topic 1",
+          "subHeader": "Art & Geometry · Chapter 1 · Section 11",
+          "title": "The Cylinder: The Rolling Can",
           "bulletPoints": [
-            "Strings: Violins, guitars, harps, and cellos.",
-            "Woodwinds: Flutes, clarinets, and oboes.",
-            "Brass: Trumpets, French horns, and trombones.",
-            "Percussion: Drums, xylophones, maracas, and cymbals."
+            "A cylinder has 2 flat circular faces (top and bottom) and 1 smooth curved surface connecting them.",
+            "It has 2 curved edges and 0 sharp vertices.",
+            "Dual action: A cylinder can slide on its flat circular base or roll along its curved surface.",
+            "Cylinders everywhere: Soup cans, tree trunks, drinking glasses, pencil bodies, and batteries."
           ],
-          "footerText": "Page 11 of 20 \u00b7 Shapes, Geometry & Art"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 11 of 20 · Shapes, Geometry & Art"
         },
         {
           "pageNumber": 12,
           "header": "Shapes, Geometry & Art",
-          "subHeader": "Art & Geometry \u00b7 Class 2 \u00b7 Part 2",
-          "title": "Instruments of the World: Topic 2",
+          "subHeader": "Art & Geometry · Chapter 1 · Section 12",
+          "title": "The Cone: The Party Hat and Ice Cream Treat",
           "bulletPoints": [
-            "Strings: Violins, guitars, harps, and cellos.",
-            "Woodwinds: Flutes, clarinets, and oboes.",
-            "Brass: Trumpets, French horns, and trombones.",
-            "Percussion: Drums, xylophones, maracas, and cymbals."
+            "A cone has 1 flat circular base, 1 curved surface tapering smoothly to 1 sharp point (apex).",
+            "It has 1 circular edge and 1 apex vertex.",
+            "Volcanoes and mountains: Tectonic eruptions create natural cone-shaped volcanic peaks.",
+            "Everyday cones: Orange traffic safety cones, waffle ice cream cones, and festive birthday party hats."
           ],
-          "footerText": "Page 12 of 20 \u00b7 Shapes, Geometry & Art"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 12 of 20 · Shapes, Geometry & Art"
         },
         {
           "pageNumber": 13,
           "header": "Shapes, Geometry & Art",
-          "subHeader": "Art & Geometry \u00b7 Class 2 \u00b7 Part 3",
-          "title": "Textures, Patterns & Masterpieces: Topic 3",
+          "subHeader": "Art & Geometry · Chapter 1 · Section 13",
+          "title": "Symmetry: The Magic Mirror Line",
           "bulletPoints": [
-            "Visual textures: Smooth, rough, bumpy, and waxy.",
-            "Creating symmetrical patterns and geometric mosaics.",
-            "Appreciating famous artworks and artistic styles.",
-            "Creating your own original masterpiece."
+            "A shape has reflectional symmetry if a line can divide it into two identical halves that mirror each other.",
+            "Butterfly wings: The left wing has the exact same spots and colors as the right wing.",
+            "Human body: Draw an imaginary vertical line down the face: one eye, ear, and nostril on each side.",
+            "Fold test: If you fold a paper shape along its symmetry line, both halves align with zero overlap!"
           ],
-          "footerText": "Page 13 of 20 \u00b7 Shapes, Geometry & Art"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 13 of 20 · Shapes, Geometry & Art"
         },
         {
           "pageNumber": 14,
           "header": "Shapes, Geometry & Art",
-          "subHeader": "Art & Geometry \u00b7 Class 2 \u00b7 Part 4",
-          "title": "Textures, Patterns & Masterpieces: Topic 4",
+          "subHeader": "Art & Geometry · Chapter 1 · Section 14",
+          "title": "Tessellations: Tiling Without Any Gaps",
           "bulletPoints": [
-            "Visual textures: Smooth, rough, bumpy, and waxy.",
-            "Creating symmetrical patterns and geometric mosaics.",
-            "Appreciating famous artworks and artistic styles.",
-            "Creating your own original masterpiece."
+            "A tessellation is a pattern of repeating shapes that fit together seamlessly with no gaps and no overlaps.",
+            "Regular tessellations: Only equilateral triangles, squares, and regular hexagons can tile a flat plane by themselves.",
+            "M.C. Escher: The famous artist created mind-bending tessellations of flying birds and swimming fish.",
+            "Bathroom tile design: Notice how hexagonal or square tiles cover the entire floor without leaving holes."
           ],
-          "footerText": "Page 14 of 20 \u00b7 Shapes, Geometry & Art"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 14 of 20 · Shapes, Geometry & Art"
         },
         {
           "pageNumber": 15,
           "header": "Shapes, Geometry & Art",
-          "subHeader": "Art & Geometry \u00b7 Class 2 \u00b7 Part 5",
-          "title": "Textures, Patterns & Masterpieces: Topic 5",
+          "subHeader": "Art & Geometry · Chapter 1 · Section 15",
+          "title": "Tangram Puzzles: The Ancient Seven Pieces",
           "bulletPoints": [
-            "Visual textures: Smooth, rough, bumpy, and waxy.",
-            "Creating symmetrical patterns and geometric mosaics.",
-            "Appreciating famous artworks and artistic styles.",
-            "Creating your own original masterpiece."
+            "The Tangram is a 1,000-year-old Chinese dissection puzzle made from a single square cut into 7 pieces (tans).",
+            "The 7 pieces: 2 large triangles, 1 medium triangle, 2 small triangles, 1 square, and 1 parallelogram.",
+            "Creativity rule: Use all 7 pieces without overlapping to create silhouettes of animals, ships, and running people.",
+            "Spatial thinking: Discovering how two small triangles join together to form a square or a larger triangle."
           ],
-          "footerText": "Page 15 of 20 \u00b7 Shapes, Geometry & Art"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 15 of 20 · Shapes, Geometry & Art"
         },
         {
           "pageNumber": 16,
           "header": "Shapes, Geometry & Art",
-          "subHeader": "Art & Geometry \u00b7 Class 2 \u00b7 Part 1",
-          "title": "Textures, Patterns & Masterpieces: Topic 1",
+          "subHeader": "Art & Geometry · Chapter 1 · Section 16",
+          "title": "Geometric Modern Art: Mondrian and Kandinsky",
           "bulletPoints": [
-            "Visual textures: Smooth, rough, bumpy, and waxy.",
-            "Creating symmetrical patterns and geometric mosaics.",
-            "Appreciating famous artworks and artistic styles.",
-            "Creating your own original masterpiece."
+            "Piet Mondrian: Dutch painter famous for grid paintings using thick black lines and primary color squares (red, yellow, blue).",
+            "Wassily Kandinsky: Russian master who used concentric colorful circles, sharp triangles, and dynamic lines to express music.",
+            "Abstract art: Instead of painting realistic trees, artists use geometry to evoke emotions and harmony.",
+            "Try it yourself: Use black markers to draw intersecting lines, then fill geometric pockets with contrasting watercolors."
           ],
-          "footerText": "Page 16 of 20 \u00b7 Shapes, Geometry & Art"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 16 of 20 · Shapes, Geometry & Art"
         },
         {
           "pageNumber": 17,
           "header": "Shapes, Geometry & Art",
-          "subHeader": "Art & Geometry \u00b7 Class 2 \u00b7 Part 2",
-          "title": "The Joy of Performance & Celebration: Topic 2",
+          "subHeader": "Art & Geometry · Chapter 1 · Section 17",
+          "title": "Origami: The Japanese Art of Paper Folding",
           "bulletPoints": [
-            "Singing together in harmony and choral unity.",
-            "Movement, dance, and physical expression to music.",
-            "Storytelling through folk songs and theatrical art.",
-            "Sharing creative joy with friends and family."
+            "Origami transforms a simple flat square sheet of colored paper into a 3D sculpture through folding alone.",
+            "No scissors or glue: Traditional origami relies purely on geometric valley folds, mountain folds, and symmetry.",
+            "The Peace Crane (Orizuru): Folding paper triangles repeatedly creates wings, neck, and tail of a graceful flying bird.",
+            "Geometry in action: Unfolding an origami crane reveals a complex, beautiful crease pattern of symmetric geometric tessellations."
           ],
-          "footerText": "Page 17 of 20 \u00b7 Shapes, Geometry & Art"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 17 of 20 · Shapes, Geometry & Art"
         },
         {
           "pageNumber": 18,
           "header": "Shapes, Geometry & Art",
-          "subHeader": "Art & Geometry \u00b7 Class 2 \u00b7 Part 3",
-          "title": "The Joy of Performance & Celebration: Topic 3",
+          "subHeader": "Art & Geometry · Chapter 1 · Section 18",
+          "title": "Shapes in Architecture: Arches, Domes & Pyramids",
           "bulletPoints": [
-            "Singing together in harmony and choral unity.",
-            "Movement, dance, and physical expression to music.",
-            "Storytelling through folk songs and theatrical art.",
-            "Sharing creative joy with friends and family."
+            "Roman Arches: Semicircular arches distribute heavy stone weight outward and downward, creating strong bridges.",
+            "The Great Pyramids: Broad square bases tapering to a top apex make pyramids one of the most stable structures on Earth.",
+            "Geodesic Domes: Buckminster Fuller designed spherical domes made entirely of interlocking triangles for lightweight strength.",
+            "Skyline silhouettes: City skyscrapers combine rectangles, cylinders, and spires reaching into the clouds."
           ],
-          "footerText": "Page 18 of 20 \u00b7 Shapes, Geometry & Art"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 18 of 20 · Shapes, Geometry & Art"
         },
         {
           "pageNumber": 19,
           "header": "Shapes, Geometry & Art",
-          "subHeader": "Art & Geometry \u00b7 Class 2 \u00b7 Part 4",
-          "title": "The Joy of Performance & Celebration: Topic 4",
+          "subHeader": "Art & Geometry · Chapter 1 · Section 19",
+          "title": "Shadow Shapes: How 3D Objects Cast 2D Shadows",
           "bulletPoints": [
-            "Singing together in harmony and choral unity.",
-            "Movement, dance, and physical expression to music.",
-            "Storytelling through folk songs and theatrical art.",
-            "Sharing creative joy with friends and family."
+            "When an opaque 3D object blocks rays of light, it casts a flat 2D shadow onto the surface behind it.",
+            "Cube shadows: Depending on angle, a cube can cast a square, rectangle, or even a 6-sided hexagonal shadow!",
+            "Cylinder shadows: Shining light from the top casts a circle; shining light from the side casts a rectangle.",
+            "Hand shadow puppetry: Shape your fingers into geometric profiles to cast barking dogs, flying geese, and hopping bunnies."
           ],
-          "footerText": "Page 19 of 20 \u00b7 Shapes, Geometry & Art"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 19 of 20 · Shapes, Geometry & Art"
         },
         {
           "pageNumber": 20,
           "header": "Shapes, Geometry & Art",
-          "subHeader": "Art & Geometry \u00b7 Class 2 \u00b7 Part 5",
-          "title": "The Joy of Performance & Celebration: Topic 5",
+          "subHeader": "Art & Geometry · Chapter 1 · Section 20",
+          "title": "The Grand Gallery Exhibition: Dream Geometric Castle",
           "bulletPoints": [
-            "Singing together in harmony and choral unity.",
-            "Movement, dance, and physical expression to music.",
-            "Storytelling through folk songs and theatrical art.",
-            "Sharing creative joy with friends and family."
+            "Project challenge: Create your ultimate fantasy castle using at least 5 different 2D and 3D geometric shapes.",
+            "Tower cylinders topped with sharp cone roofs; square brick walls pierced with rectangular archway gates.",
+            "Triangular flags fluttering from towers; circular stained glass windows glowing with rainbow colors.",
+            "Celebrate your artwork: Sign your name in the corner of your masterpiece—you are a true Shape and Geometry Artist!"
           ],
-          "footerText": "Page 20 of 20 \u00b7 Shapes, Geometry & Art"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 20 of 20 · Shapes, Geometry & Art"
         }
       ]
     }

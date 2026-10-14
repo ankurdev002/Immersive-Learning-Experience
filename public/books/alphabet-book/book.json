@@ -10,7 +10,7 @@
   "accentColor": "#22d3ee",
   "coverImage": "/books/alphabet-book/cover.png",
   "sourcePdf": null,
-  "icon": "\ud83d\udd24",
+  "icon": "🔤",
   "isInteractive": true,
   "author": "Distinguished Curators & Academic Press",
   "totalPages": 20,
@@ -18,267 +18,327 @@
     {
       "chapterNumber": 1,
       "title": "Alphabet & First Phonics",
-      "description": "Comprehensive curriculum in Language",
+      "description": "Delightful illustrated reading in Language",
       "pages": [
         {
           "pageNumber": 1,
           "header": "Alphabet & First Phonics",
-          "subHeader": "Language \u00b7 Class 1 \u00b7 Part 1",
-          "title": "Sounds, Phonics & Letters: Topic 1",
+          "subHeader": "Language · Page 1",
+          "title": "Letter A: The Great Explorer",
           "bulletPoints": [
-            "Phonemic awareness: Listening to letter sounds.",
-            "Consonants and vowel sounds (short and long).",
-            "Blending letter sounds into simple words.",
-            "Sight word recognition and reading practice."
+            "Capital A stands tall with two walking legs and a belt across: A.",
+            "Phonics sound: /æ/ like in Apple, Astronaut, and Alligator.",
+            "Action words: Act, Add, Ask, and Aim high into the blue sky.",
+            "Rhyme: An Apple A day keeps the doctor Away!"
           ],
-          "footerText": "Page 1 of 20 \u00b7 Alphabet & First Phonics"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 1 of 20 · Alphabet & First Phonics"
         },
         {
           "pageNumber": 2,
           "header": "Alphabet & First Phonics",
-          "subHeader": "Language \u00b7 Class 1 \u00b7 Part 2",
-          "title": "Sounds, Phonics & Letters: Topic 2",
+          "subHeader": "Language · Page 2",
+          "title": "Letter B: The Bouncing Bear",
           "bulletPoints": [
-            "Phonemic awareness: Listening to letter sounds.",
-            "Consonants and vowel sounds (short and long).",
-            "Blending letter sounds into simple words.",
-            "Sight word recognition and reading practice."
+            "Capital B has a tall straight spine and two round bellies: B.",
+            "Phonics sound: /b/ like in Butterfly, Banana, Ball, and Boat.",
+            "Action words: Bounce, Build, Breathe, and Bake delicious bread.",
+            "Rhyme: Busy Brown Bears picking Blue Berries in the forest."
           ],
-          "footerText": "Page 2 of 20 \u00b7 Alphabet & First Phonics"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 2 of 20 · Alphabet & First Phonics"
         },
         {
           "pageNumber": 3,
           "header": "Alphabet & First Phonics",
-          "subHeader": "Language \u00b7 Class 1 \u00b7 Part 3",
-          "title": "Sounds, Phonics & Letters: Topic 3",
+          "subHeader": "Language · Page 3",
+          "title": "Letter C: The Curved Cat",
           "bulletPoints": [
-            "Phonemic awareness: Listening to letter sounds.",
-            "Consonants and vowel sounds (short and long).",
-            "Blending letter sounds into simple words.",
-            "Sight word recognition and reading practice."
+            "Capital C is a wide, welcoming open curve: C.",
+            "Hard /k/ sound: Cat, Castle, Carrot, Cup, and Candle.",
+            "Soft /s/ sound: City, Circle, and Ceiling when followed by E or I.",
+            "Rhyme: Clever Cats Climb Curious Castle walls calmly."
           ],
-          "footerText": "Page 3 of 20 \u00b7 Alphabet & First Phonics"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 3 of 20 · Alphabet & First Phonics"
         },
         {
           "pageNumber": 4,
           "header": "Alphabet & First Phonics",
-          "subHeader": "Language \u00b7 Class 1 \u00b7 Part 4",
-          "title": "Sounds, Phonics & Letters: Topic 4",
+          "subHeader": "Language · Page 4",
+          "title": "Letter D: The Dancing Dolphin",
           "bulletPoints": [
-            "Phonemic awareness: Listening to letter sounds.",
-            "Consonants and vowel sounds (short and long).",
-            "Blending letter sounds into simple words.",
-            "Sight word recognition and reading practice."
+            "Capital D has one straight back and one giant round stomach: D.",
+            "Phonics sound: /d/ like in Dolphin, Drum, Duck, and Diamond.",
+            "Action words: Dance, Dive, Discover, and Dream colorful dreams.",
+            "Rhyme: Delightful Ducks Dabble Down Deep in the pond."
           ],
-          "footerText": "Page 4 of 20 \u00b7 Alphabet & First Phonics"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 4 of 20 · Alphabet & First Phonics"
         },
         {
           "pageNumber": 5,
           "header": "Alphabet & First Phonics",
-          "subHeader": "Language \u00b7 Class 1 \u00b7 Part 5",
-          "title": "Building Rich Vocabulary: Topic 5",
+          "subHeader": "Language · Page 5",
+          "title": "Letter E: The Energetic Elephant",
           "bulletPoints": [
-            "Action verbs, descriptive adjectives, and naming nouns.",
-            "Synonyms, antonyms, and word categories.",
-            "Context clues for discovering new word meanings.",
-            "Using expressive words in daily conversation."
+            "Capital E has one tall backbone and three reach-out arms: E.",
+            "Short /e/ sound: Elephant, Egg, Engine, and Echo.",
+            "Long /iː/ sound: Eagle, Eat, and Easy reading.",
+            "Rhyme: Eager Elephants Exercise Every single Evening."
           ],
-          "footerText": "Page 5 of 20 \u00b7 Alphabet & First Phonics"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 5 of 20 · Alphabet & First Phonics"
         },
         {
           "pageNumber": 6,
           "header": "Alphabet & First Phonics",
-          "subHeader": "Language \u00b7 Class 1 \u00b7 Part 1",
-          "title": "Building Rich Vocabulary: Topic 1",
+          "subHeader": "Language · Page 6",
+          "title": "Letter F: The Flying Fox",
           "bulletPoints": [
-            "Action verbs, descriptive adjectives, and naming nouns.",
-            "Synonyms, antonyms, and word categories.",
-            "Context clues for discovering new word meanings.",
-            "Using expressive words in daily conversation."
+            "Capital F has one tall line and two floating shelves: F.",
+            "Phonics sound: /f/ like in Fox, Flower, Feather, and Firefly.",
+            "Action words: Fly, Float, Find, and Foster loving friendships.",
+            "Rhyme: Four Fast Frogs Frolic in Fresh Forest Ferns."
           ],
-          "footerText": "Page 6 of 20 \u00b7 Alphabet & First Phonics"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 6 of 20 · Alphabet & First Phonics"
         },
         {
           "pageNumber": 7,
           "header": "Alphabet & First Phonics",
-          "subHeader": "Language \u00b7 Class 1 \u00b7 Part 2",
-          "title": "Building Rich Vocabulary: Topic 2",
+          "subHeader": "Language · Page 7",
+          "title": "Letter G: The Gentle Giraffe",
           "bulletPoints": [
-            "Action verbs, descriptive adjectives, and naming nouns.",
-            "Synonyms, antonyms, and word categories.",
-            "Context clues for discovering new word meanings.",
-            "Using expressive words in daily conversation."
+            "Capital G curves like a C with a friendly inward bench: G.",
+            "Hard /g/ sound: Garden, Guitar, Goose, and Golden sunshine.",
+            "Soft /dʒ/ sound: Giant, Gem, and Giraffe reaching high treetops.",
+            "Rhyme: Green Grass Grows Gently in Grandma’s Garden."
           ],
-          "footerText": "Page 7 of 20 \u00b7 Alphabet & First Phonics"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 7 of 20 · Alphabet & First Phonics"
         },
         {
           "pageNumber": 8,
           "header": "Alphabet & First Phonics",
-          "subHeader": "Language \u00b7 Class 1 \u00b7 Part 3",
-          "title": "Building Rich Vocabulary: Topic 3",
+          "subHeader": "Language · Page 8",
+          "title": "Letter H: The Happy Horse",
           "bulletPoints": [
-            "Action verbs, descriptive adjectives, and naming nouns.",
-            "Synonyms, antonyms, and word categories.",
-            "Context clues for discovering new word meanings.",
-            "Using expressive words in daily conversation."
+            "Capital H has two tall pillars holding hands with a bridge: H.",
+            "Phonics sound: /h/ like in Horse, House, Heart, and Honey.",
+            "Action words: Hop, Hug, Help, and Hear the morning birds.",
+            "Rhyme: Happy Horses Hop High over Helpful wooden Hurdles."
           ],
-          "footerText": "Page 8 of 20 \u00b7 Alphabet & First Phonics"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 8 of 20 · Alphabet & First Phonics"
         },
         {
           "pageNumber": 9,
           "header": "Alphabet & First Phonics",
-          "subHeader": "Language \u00b7 Class 1 \u00b7 Part 4",
-          "title": "Sentence Structure & Punctuation: Topic 4",
+          "subHeader": "Language · Page 9",
+          "title": "Letters I & J: Iguana & Jellyfish",
           "bulletPoints": [
-            "Capital letters at the start of sentences.",
-            "Periods, question marks, and exclamation points.",
-            "Connecting thoughts with conjunctions (and, but, because).",
-            "Crafting clear, expressive sentences."
+            "Letter I: Ice cream, Island, Iguana, and Ink bottle.",
+            "Letter J: Jumping Jellyfish, Joyful Juggler, and Juicy Jam.",
+            "Action words: Imagine, Illustrate, Jump, and Join hands.",
+            "Phonics fun: /ɪ/ in Igloo and /dʒ/ in Jungle safari."
           ],
-          "footerText": "Page 9 of 20 \u00b7 Alphabet & First Phonics"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 9 of 20 · Alphabet & First Phonics"
         },
         {
           "pageNumber": 10,
           "header": "Alphabet & First Phonics",
-          "subHeader": "Language \u00b7 Class 1 \u00b7 Part 5",
-          "title": "Sentence Structure & Punctuation: Topic 5",
+          "subHeader": "Language · Page 10",
+          "title": "Letters K & L: Kangaroo & Lion",
           "bulletPoints": [
-            "Capital letters at the start of sentences.",
-            "Periods, question marks, and exclamation points.",
-            "Connecting thoughts with conjunctions (and, but, because).",
-            "Crafting clear, expressive sentences."
+            "Letter K: Kangaroo, Kite, King, and Koala in eucalyptus trees.",
+            "Letter L: Lion, Lemon, Lantern, and Lovely Lily flower.",
+            "Phonics contrast: Crisp /k/ in Kitten and flowing /l/ in Lotus.",
+            "Rhyme: Little Kangaroos Kick and Lovely Lions Laugh softly."
           ],
-          "footerText": "Page 10 of 20 \u00b7 Alphabet & First Phonics"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 10 of 20 · Alphabet & First Phonics"
         },
         {
           "pageNumber": 11,
           "header": "Alphabet & First Phonics",
-          "subHeader": "Language \u00b7 Class 1 \u00b7 Part 1",
-          "title": "Sentence Structure & Punctuation: Topic 1",
+          "subHeader": "Language · Page 11",
+          "title": "Letters M & N: Monkey & Nest",
           "bulletPoints": [
-            "Capital letters at the start of sentences.",
-            "Periods, question marks, and exclamation points.",
-            "Connecting thoughts with conjunctions (and, but, because).",
-            "Crafting clear, expressive sentences."
+            "Letter M: Mountain peaks, Monkey, Moon, and Mother’s love.",
+            "Letter N: Nature, Nest, Needle, and Nighttime stars.",
+            "Nasal sounds: Gentle humming /m/ and ringing /n/.",
+            "Rhyme: Many Monkeys Marvel at Nine New bird Nests."
           ],
-          "footerText": "Page 11 of 20 \u00b7 Alphabet & First Phonics"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 11 of 20 · Alphabet & First Phonics"
         },
         {
           "pageNumber": 12,
           "header": "Alphabet & First Phonics",
-          "subHeader": "Language \u00b7 Class 1 \u00b7 Part 2",
-          "title": "Sentence Structure & Punctuation: Topic 2",
+          "subHeader": "Language · Page 12",
+          "title": "Letters O & P: Owl & Penguin",
           "bulletPoints": [
-            "Capital letters at the start of sentences.",
-            "Periods, question marks, and exclamation points.",
-            "Connecting thoughts with conjunctions (and, but, because).",
-            "Crafting clear, expressive sentences."
+            "Letter O: Ocean, Octopus, Orange, and Wise Old Owl.",
+            "Letter P: Penguin, Peacock, Peach, and Purple Paint.",
+            "Round vowel /ɒ/ and popping consonant /p/.",
+            "Rhyme: Polite Penguins Paint Pretty Purple Pictures patiently."
           ],
-          "footerText": "Page 12 of 20 \u00b7 Alphabet & First Phonics"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 12 of 20 · Alphabet & First Phonics"
         },
         {
           "pageNumber": 13,
           "header": "Alphabet & First Phonics",
-          "subHeader": "Language \u00b7 Class 1 \u00b7 Part 3",
-          "title": "Story Elements & Reading Comprehension: Topic 3",
+          "subHeader": "Language · Page 13",
+          "title": "Letters Q & R: Queen & Rainbow",
           "bulletPoints": [
-            "Characters: Who is the story about?",
-            "Setting: Where and when does the story take place?",
-            "Plot: Beginning, middle, problem, and resolution.",
-            "Identifying the central theme and moral lesson."
+            "Letter Q: Always travels with best friend U! Queen, Quilt, and Quick.",
+            "Letter R: Radiant Rainbow, Rabbit, River, and Rose.",
+            "Sounds: /kw/ in Quiet and rolling /r/ in River running.",
+            "Rhyme: Quiet Queens Read Rhymes under Radiant Rainbows."
           ],
-          "footerText": "Page 13 of 20 \u00b7 Alphabet & First Phonics"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 13 of 20 · Alphabet & First Phonics"
         },
         {
           "pageNumber": 14,
           "header": "Alphabet & First Phonics",
-          "subHeader": "Language \u00b7 Class 1 \u00b7 Part 4",
-          "title": "Story Elements & Reading Comprehension: Topic 4",
+          "subHeader": "Language · Page 14",
+          "title": "Letters S & T: Sun & Tiger",
           "bulletPoints": [
-            "Characters: Who is the story about?",
-            "Setting: Where and when does the story take place?",
-            "Plot: Beginning, middle, problem, and resolution.",
-            "Identifying the central theme and moral lesson."
+            "Letter S: Sinuous Snake, Smiling Sun, and Sparkling Star.",
+            "Letter T: Tall Tree, Tiger, Teapot, and Train tracks.",
+            "Sounds: Hissing /s/ and tapping dental /t/.",
+            "Rhyme: Seven Shining Stars Smile down on Tiny Tigers."
           ],
-          "footerText": "Page 14 of 20 \u00b7 Alphabet & First Phonics"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 14 of 20 · Alphabet & First Phonics"
         },
         {
           "pageNumber": 15,
           "header": "Alphabet & First Phonics",
-          "subHeader": "Language \u00b7 Class 1 \u00b7 Part 5",
-          "title": "Story Elements & Reading Comprehension: Topic 5",
+          "subHeader": "Language · Page 15",
+          "title": "Letters U & V: Umbrella & Violin",
           "bulletPoints": [
-            "Characters: Who is the story about?",
-            "Setting: Where and when does the story take place?",
-            "Plot: Beginning, middle, problem, and resolution.",
-            "Identifying the central theme and moral lesson."
+            "Letter U: Umbrella, Unicorn, Uniform, and Upward swing.",
+            "Letter V: Violin, Velvet, Volcano, and Vegetable garden.",
+            "Sounds: Upbeat short /ʌ/ and buzzing vibrant /v/.",
+            "Rhyme: Violet Violins Vibrate Under Velvet Umbrellas."
           ],
-          "footerText": "Page 15 of 20 \u00b7 Alphabet & First Phonics"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 15 of 20 · Alphabet & First Phonics"
         },
         {
           "pageNumber": 16,
           "header": "Alphabet & First Phonics",
-          "subHeader": "Language \u00b7 Class 1 \u00b7 Part 1",
-          "title": "Story Elements & Reading Comprehension: Topic 1",
+          "subHeader": "Language · Page 16",
+          "title": "Letters W & X: Whale & Xylophone",
           "bulletPoints": [
-            "Characters: Who is the story about?",
-            "Setting: Where and when does the story take place?",
-            "Plot: Beginning, middle, problem, and resolution.",
-            "Identifying the central theme and moral lesson."
+            "Letter W: Blue Whale, Windmill, Watermelon, and Winter breeze.",
+            "Letter X: Xylophone music, X-ray fish, and Box / Fox endings.",
+            "Sounds: Rounded /w/ and crisp ending /ks/.",
+            "Rhyme: Wonderful Whales Wave through Water without worry."
           ],
-          "footerText": "Page 16 of 20 \u00b7 Alphabet & First Phonics"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 16 of 20 · Alphabet & First Phonics"
         },
         {
           "pageNumber": 17,
           "header": "Alphabet & First Phonics",
-          "subHeader": "Language \u00b7 Class 1 \u00b7 Part 2",
-          "title": "Creative Writing & Expression: Topic 2",
+          "subHeader": "Language · Page 17",
+          "title": "Letters Y & Z: Yak & Zebra",
           "bulletPoints": [
-            "Describing a favorite memory or imaginary adventure.",
-            "Using sensory details: Sight, sound, smell, taste, touch.",
-            "Organizing ideas with story maps and outlines.",
-            "Sharing stories and reciting poems with confidence."
+            "Letter Y: Yellow Yacht, Yak in mountains, and sweet Yummy Yogurt.",
+            "Letter Z: Zigzag Zebra, Zipper, and buzzing Honeybee Zone.",
+            "Final letters: Completing the 26 magical keys of English reading!",
+            "Rhyme: Zebras Zigzag through Yellow Yards with Zest!"
           ],
-          "footerText": "Page 17 of 20 \u00b7 Alphabet & First Phonics"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 17 of 20 · Alphabet & First Phonics"
         },
         {
           "pageNumber": 18,
           "header": "Alphabet & First Phonics",
-          "subHeader": "Language \u00b7 Class 1 \u00b7 Part 3",
-          "title": "Creative Writing & Expression: Topic 3",
+          "subHeader": "Language · Page 18",
+          "title": "The Vowel Family: A, E, I, O, U",
           "bulletPoints": [
-            "Describing a favorite memory or imaginary adventure.",
-            "Using sensory details: Sight, sound, smell, taste, touch.",
-            "Organizing ideas with story maps and outlines.",
-            "Sharing stories and reciting poems with confidence."
+            "Every English word must have at least one vowel to make a sound.",
+            "Short sounds: Cat /æ/, Bed /e/, Sit /ɪ/, Hot /ɒ/, Sun /ʌ/.",
+            "Long sounds: Say their own letter names: Bake, Pete, Pine, Rose, Cube.",
+            "The singing vowels give warmth and voice to all the consonants!"
           ],
-          "footerText": "Page 18 of 20 \u00b7 Alphabet & First Phonics"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 18 of 20 · Alphabet & First Phonics"
         },
         {
           "pageNumber": 19,
           "header": "Alphabet & First Phonics",
-          "subHeader": "Language \u00b7 Class 1 \u00b7 Part 4",
-          "title": "Creative Writing & Expression: Topic 4",
+          "subHeader": "Language · Page 19",
+          "title": "Word Families: Rhyme and Read",
           "bulletPoints": [
-            "Describing a favorite memory or imaginary adventure.",
-            "Using sensory details: Sight, sound, smell, taste, touch.",
-            "Organizing ideas with story maps and outlines.",
-            "Sharing stories and reciting poems with confidence."
+            "-AT family: Cat, Hat, Bat, Mat, Rat, Sat on the mat.",
+            "-OG family: Dog, Fog, Log, Frog jumping off the log.",
+            "-IN family: Pin, Tin, Win, Spin the top to win.",
+            "-UN family: Sun, Fun, Run, Bun fresh out of the oven!"
           ],
-          "footerText": "Page 19 of 20 \u00b7 Alphabet & First Phonics"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 19 of 20 · Alphabet & First Phonics"
         },
         {
           "pageNumber": 20,
           "header": "Alphabet & First Phonics",
-          "subHeader": "Language \u00b7 Class 1 \u00b7 Part 5",
-          "title": "Creative Writing & Expression: Topic 5",
+          "subHeader": "Language · Page 20",
+          "title": "The Alphabet Champion: A to Z Master",
           "bulletPoints": [
-            "Describing a favorite memory or imaginary adventure.",
-            "Using sensory details: Sight, sound, smell, taste, touch.",
-            "Organizing ideas with story maps and outlines.",
-            "Sharing stories and reciting poems with confidence."
+            "26 Letters mastered: From A for Apple all the way to Z for Zebra.",
+            "You now hold the keys to read thousands of storybooks and poems.",
+            "Keep practicing reading signs, labels, and favorite picture tales.",
+            "Celebrate: Sing the Alphabet Song with joy and pride!"
           ],
-          "footerText": "Page 20 of 20 \u00b7 Alphabet & First Phonics"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 20 of 20 · Alphabet & First Phonics"
         }
       ]
     }

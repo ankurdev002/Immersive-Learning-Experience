@@ -10,7 +10,7 @@
   "accentColor": "#fb923c",
   "coverImage": "/books/colors-drawing/cover.png",
   "sourcePdf": null,
-  "icon": "\ud83d\udd8d\ufe0f",
+  "icon": "🖍️",
   "isInteractive": true,
   "author": "Distinguished Curators & Academic Press",
   "totalPages": 20,
@@ -18,267 +18,327 @@
     {
       "chapterNumber": 1,
       "title": "Rainbow Colors & Drawing",
-      "description": "Comprehensive curriculum in Creative Art",
+      "description": "Delightful illustrated reading in Creative Art",
       "pages": [
         {
           "pageNumber": 1,
           "header": "Rainbow Colors & Drawing",
-          "subHeader": "Creative Art \u00b7 Class 1 \u00b7 Part 1",
-          "title": "Core Foundations & Introductory Concepts: Topic 1",
+          "subHeader": "Creative Art · Page 1",
+          "title": "The Magic of Colors: Nature's Rainbow",
           "bulletPoints": [
-            "Fundamental lessons and central principles of the domain.",
-            "Key definitions, terminology, and historical context.",
-            "Observing phenomena and recognizing patterns.",
-            "Building foundational mental models."
+            "Light from the sun looks white, but it holds every brilliant color in the universe.",
+            "Pigments are special substances that absorb some colors and bounce back others to our eyes.",
+            "Color wheel: Artists arrange colors in a circle to see how they harmonize and complement.",
+            "Colors create moods: Warm colors bring energy and excitement; cool colors bring calm and peace."
           ],
-          "footerText": "Page 1 of 20 \u00b7 Rainbow Colors & Drawing"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 1 of 20 · Rainbow Colors & Drawing"
         },
         {
           "pageNumber": 2,
           "header": "Rainbow Colors & Drawing",
-          "subHeader": "Creative Art \u00b7 Class 1 \u00b7 Part 2",
-          "title": "Core Foundations & Introductory Concepts: Topic 2",
+          "subHeader": "Creative Art · Page 2",
+          "title": "Primary Red: Warmth and Energy",
           "bulletPoints": [
-            "Fundamental lessons and central principles of the domain.",
-            "Key definitions, terminology, and historical context.",
-            "Observing phenomena and recognizing patterns.",
-            "Building foundational mental models."
+            "Red is a primary color; it cannot be mixed from any other colors.",
+            "In nature: Sweet ripe strawberries, ruby cherries, ladybug wings, and autumn maple leaves.",
+            "In life: Red fire engines, stop signs, and festive holiday ribbons.",
+            "Art feeling: Red feels bold, warm, loving, and energetic."
           ],
-          "footerText": "Page 2 of 20 \u00b7 Rainbow Colors & Drawing"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 2 of 20 · Rainbow Colors & Drawing"
         },
         {
           "pageNumber": 3,
           "header": "Rainbow Colors & Drawing",
-          "subHeader": "Creative Art \u00b7 Class 1 \u00b7 Part 3",
-          "title": "Core Foundations & Introductory Concepts: Topic 3",
+          "subHeader": "Creative Art · Page 3",
+          "title": "Primary Yellow: Sunshine and Laughter",
           "bulletPoints": [
-            "Fundamental lessons and central principles of the domain.",
-            "Key definitions, terminology, and historical context.",
-            "Observing phenomena and recognizing patterns.",
-            "Building foundational mental models."
+            "Yellow is the brightest color of the visible spectrum.",
+            "In nature: Warm morning sunshine, fluffy baby chicks, blooming dandelions, and ripe bananas.",
+            "Drawing tip: Yellow is wonderful for lighting up windows in nighttime house drawings.",
+            "Art feeling: Yellow brings feelings of joy, optimism, friendship, and morning energy."
           ],
-          "footerText": "Page 3 of 20 \u00b7 Rainbow Colors & Drawing"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 3 of 20 · Rainbow Colors & Drawing"
         },
         {
           "pageNumber": 4,
           "header": "Rainbow Colors & Drawing",
-          "subHeader": "Creative Art \u00b7 Class 1 \u00b7 Part 4",
-          "title": "Core Foundations & Introductory Concepts: Topic 4",
+          "subHeader": "Creative Art · Page 4",
+          "title": "Primary Blue: Depth and Serenity",
           "bulletPoints": [
-            "Fundamental lessons and central principles of the domain.",
-            "Key definitions, terminology, and historical context.",
-            "Observing phenomena and recognizing patterns.",
-            "Building foundational mental models."
+            "Blue is the third primary color, cool and vast as the endless sky.",
+            "In nature: Cloudless summer afternoons, deep ocean waters, peacock feathers, and blueberries.",
+            "Drawing tip: Blend dark blue and light blue to show the depth of waves in the sea.",
+            "Art feeling: Blue brings calm, peaceful thoughts, trust, and quiet focus."
           ],
-          "footerText": "Page 4 of 20 \u00b7 Rainbow Colors & Drawing"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 4 of 20 · Rainbow Colors & Drawing"
         },
         {
           "pageNumber": 5,
           "header": "Rainbow Colors & Drawing",
-          "subHeader": "Creative Art \u00b7 Class 1 \u00b7 Part 5",
-          "title": "Core Foundations & Introductory Concepts: Topic 5",
+          "subHeader": "Creative Art · Page 5",
+          "title": "Mixing Orange: Red Meets Yellow",
           "bulletPoints": [
-            "Fundamental lessons and central principles of the domain.",
-            "Key definitions, terminology, and historical context.",
-            "Observing phenomena and recognizing patterns.",
-            "Building foundational mental models."
+            "Secondary color creation: Mix equal drops of primary red and primary yellow paint on your palette.",
+            "The transformation: Watch them swirl together into a rich, juicy orange!",
+            "In nature: Sweet citrus oranges, crunchy carrots, glowing monarch butterfly wings, and pumpkins.",
+            "Sunset skies: Orange and yellow blend together when the sun dips below the western hills."
           ],
-          "footerText": "Page 5 of 20 \u00b7 Rainbow Colors & Drawing"
+          "formulaOrSummary": "Red + Yellow = Radiant Orange",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 5 of 20 · Rainbow Colors & Drawing"
         },
         {
           "pageNumber": 6,
           "header": "Rainbow Colors & Drawing",
-          "subHeader": "Creative Art \u00b7 Class 1 \u00b7 Part 6",
-          "title": "Mechanisms, Methods & Step-by-Step Analysis: Topic 6",
+          "subHeader": "Creative Art · Page 6",
+          "title": "Mixing Green: Blue Meets Yellow",
           "bulletPoints": [
-            "Detailed methodologies and structural frameworks.",
-            "Hands-on examples and guided practice exercises.",
-            "Component interactions and process workflows.",
-            "Common mistakes, diagnostics, and problem solving."
+            "Secondary color creation: Mix clear primary yellow with deep primary blue.",
+            "The transformation: Yellow and blue combine to make lush, living green!",
+            "In nature: Fresh spring grass, tree canopies, clover patches, mossy stones, and leaping frogs.",
+            "Tints of green: Add more yellow for bright lime green; add more blue for deep forest pine."
           ],
-          "footerText": "Page 6 of 20 \u00b7 Rainbow Colors & Drawing"
+          "formulaOrSummary": "Yellow + Blue = Lush Green",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 6 of 20 · Rainbow Colors & Drawing"
         },
         {
           "pageNumber": 7,
           "header": "Rainbow Colors & Drawing",
-          "subHeader": "Creative Art \u00b7 Class 1 \u00b7 Part 1",
-          "title": "Mechanisms, Methods & Step-by-Step Analysis: Topic 1",
+          "subHeader": "Creative Art · Page 7",
+          "title": "Mixing Purple: Blue Meets Red",
           "bulletPoints": [
-            "Detailed methodologies and structural frameworks.",
-            "Hands-on examples and guided practice exercises.",
-            "Component interactions and process workflows.",
-            "Common mistakes, diagnostics, and problem solving."
+            "Secondary color creation: Blend primary red and primary blue together.",
+            "The transformation: A royal, mysterious purple or violet emerges on your brush!",
+            "In nature: Sweet concord grapes, wild lavender flowers, eggplants, and twilight skies.",
+            "Royal history: In ancient times, purple dye was so rare that only kings and queens could wear it."
           ],
-          "footerText": "Page 7 of 20 \u00b7 Rainbow Colors & Drawing"
+          "formulaOrSummary": "Red + Blue = Royal Purple",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 7 of 20 · Rainbow Colors & Drawing"
         },
         {
           "pageNumber": 8,
           "header": "Rainbow Colors & Drawing",
-          "subHeader": "Creative Art \u00b7 Class 1 \u00b7 Part 2",
-          "title": "Mechanisms, Methods & Step-by-Step Analysis: Topic 2",
+          "subHeader": "Creative Art · Page 8",
+          "title": "Black, White, and Neutral Gray",
           "bulletPoints": [
-            "Detailed methodologies and structural frameworks.",
-            "Hands-on examples and guided practice exercises.",
-            "Component interactions and process workflows.",
-            "Common mistakes, diagnostics, and problem solving."
+            "White is the color of fresh winter snow, cotton clouds, and pure blank drawing paper.",
+            "Black is the shade of coal, midnight darkness, and rich India ink pens.",
+            "Mixing gray: Combine white and black to create soft shadow gray.",
+            "Shading objects: Adding a touch of black makes a color darker (shade); adding white makes it lighter (tint)."
           ],
-          "footerText": "Page 8 of 20 \u00b7 Rainbow Colors & Drawing"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 8 of 20 · Rainbow Colors & Drawing"
         },
         {
           "pageNumber": 9,
           "header": "Rainbow Colors & Drawing",
-          "subHeader": "Creative Art \u00b7 Class 1 \u00b7 Part 3",
-          "title": "Mechanisms, Methods & Step-by-Step Analysis: Topic 3",
+          "subHeader": "Creative Art · Page 9",
+          "title": "Earthy Browns: Nature's Foundations",
           "bulletPoints": [
-            "Detailed methodologies and structural frameworks.",
-            "Hands-on examples and guided practice exercises.",
-            "Component interactions and process workflows.",
-            "Common mistakes, diagnostics, and problem solving."
+            "Mixing brown: Blend all three primary colors together (red + yellow + blue) or mix orange with blue.",
+            "In nature: Rich garden soil, tree bark, coconut shells, pinecones, and cinnamon sticks.",
+            "Animals: Brown bear fur, playful river otters, and nimble deer grazing in the woods.",
+            "Warm and grounded: Brown provides the solid earth for all your landscape paintings."
           ],
-          "footerText": "Page 9 of 20 \u00b7 Rainbow Colors & Drawing"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 9 of 20 · Rainbow Colors & Drawing"
         },
         {
           "pageNumber": 10,
           "header": "Rainbow Colors & Drawing",
-          "subHeader": "Creative Art \u00b7 Class 1 \u00b7 Part 4",
-          "title": "Mechanisms, Methods & Step-by-Step Analysis: Topic 4",
+          "subHeader": "Creative Art · Page 10",
+          "title": "Pink Petals: Soft and Gentle",
           "bulletPoints": [
-            "Detailed methodologies and structural frameworks.",
-            "Hands-on examples and guided practice exercises.",
-            "Component interactions and process workflows.",
-            "Common mistakes, diagnostics, and problem solving."
+            "Mixing pink: Add a small dab of bright red into a pool of pure white paint.",
+            "In nature: Delicate cherry blossom petals, flamingos wading in lagoons, and morning sunrises.",
+            "Art expression: Pink feels gentle, sweet, comforting, and playful.",
+            "Flower paintings: Use pink for lotus blossoms, garden roses, and birthday party frosting."
           ],
-          "footerText": "Page 10 of 20 \u00b7 Rainbow Colors & Drawing"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 10 of 20 · Rainbow Colors & Drawing"
         },
         {
           "pageNumber": 11,
           "header": "Rainbow Colors & Drawing",
-          "subHeader": "Creative Art \u00b7 Class 1 \u00b7 Part 5",
-          "title": "Applied Problem Solving & Real-World Context: Topic 5",
+          "subHeader": "Creative Art · Page 11",
+          "title": "Warm Colors vs Cool Colors",
           "bulletPoints": [
-            "Practical applications across daily life and industry.",
-            "Case studies, stories, and investigative highlights.",
-            "Connecting concepts across multidisciplinary domains.",
-            "Creative exploration and independent project work."
+            "Warm colors: Red, Orange, and Yellow remind us of fire, warmth, and sunshine; they seem to pop forward.",
+            "Cool colors: Blue, Green, and Purple remind us of water, shade, and ice; they seem to recede into the distance.",
+            "Contrast power: Placing warm orange next to cool blue makes both colors vibrate with excitement!",
+            "Mood painting: Paint a warm bonfire on the beach surrounded by cool dark blue nighttime waves."
           ],
-          "footerText": "Page 11 of 20 \u00b7 Rainbow Colors & Drawing"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 11 of 20 · Rainbow Colors & Drawing"
         },
         {
           "pageNumber": 12,
           "header": "Rainbow Colors & Drawing",
-          "subHeader": "Creative Art \u00b7 Class 1 \u00b7 Part 6",
-          "title": "Applied Problem Solving & Real-World Context: Topic 6",
+          "subHeader": "Creative Art · Page 12",
+          "title": "The Language of Lines: Straight, Curved, and Wavy",
           "bulletPoints": [
-            "Practical applications across daily life and industry.",
-            "Case studies, stories, and investigative highlights.",
-            "Connecting concepts across multidisciplinary domains.",
-            "Creative exploration and independent project work."
+            "Every great drawing starts with a simple line.",
+            "Straight lines: Vertical lines stand tall like trees; horizontal lines rest flat like water.",
+            "Curved and wavy lines: Flow like river currents, smoke rising from a chimney, or wind in the breeze.",
+            "Zigzag lines: Sharp and dynamic like lightning bolts, mountain ridges, and alligator teeth."
           ],
-          "footerText": "Page 12 of 20 \u00b7 Rainbow Colors & Drawing"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 12 of 20 · Rainbow Colors & Drawing"
         },
         {
           "pageNumber": 13,
           "header": "Rainbow Colors & Drawing",
-          "subHeader": "Creative Art \u00b7 Class 1 \u00b7 Part 1",
-          "title": "Applied Problem Solving & Real-World Context: Topic 1",
+          "subHeader": "Creative Art · Page 13",
+          "title": "Drawing Basic Shapes: Everyday Objects",
           "bulletPoints": [
-            "Practical applications across daily life and industry.",
-            "Case studies, stories, and investigative highlights.",
-            "Connecting concepts across multidisciplinary domains.",
-            "Creative exploration and independent project work."
+            "Combine simple shapes: A square house with a triangular roof, a rectangular door, and circular windows.",
+            "Trees: A brown rectangle trunk topped with a fluffy green cloud shape.",
+            "Teacups: A half-circle bowl with a curved oval rim and a C-shaped handle.",
+            "Seeing like an artist: Look at any object in your room and discover the hidden basic shapes inside it."
           ],
-          "footerText": "Page 13 of 20 \u00b7 Rainbow Colors & Drawing"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 13 of 20 · Rainbow Colors & Drawing"
         },
         {
           "pageNumber": 14,
           "header": "Rainbow Colors & Drawing",
-          "subHeader": "Creative Art \u00b7 Class 1 \u00b7 Part 2",
-          "title": "Applied Problem Solving & Real-World Context: Topic 2",
+          "subHeader": "Creative Art · Page 14",
+          "title": "Finger Painting & Textures: Hands-On Art",
           "bulletPoints": [
-            "Practical applications across daily life and industry.",
-            "Case studies, stories, and investigative highlights.",
-            "Connecting concepts across multidisciplinary domains.",
-            "Creative exploration and independent project work."
+            "Use your fingertips, palms, and knuckles directly on paper with non-toxic washable paints.",
+            "Thumbprint animals: Press your thumb in brown paint, then add pen ears and whiskers to make little mice!",
+            "Sponging texture: Dab a sea sponge in leafy green paint to create fluffy realistic tree foliage.",
+            "Scratch art (Sgraffito): Layer oil pastels and scratch designs through with a wooden stylus."
           ],
-          "footerText": "Page 14 of 20 \u00b7 Rainbow Colors & Drawing"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 14 of 20 · Rainbow Colors & Drawing"
         },
         {
           "pageNumber": 15,
           "header": "Rainbow Colors & Drawing",
-          "subHeader": "Creative Art \u00b7 Class 1 \u00b7 Part 3",
-          "title": "Applied Problem Solving & Real-World Context: Topic 3",
+          "subHeader": "Creative Art · Page 15",
+          "title": "Crayon Resist: Wax and Watercolor Magic",
           "bulletPoints": [
-            "Practical applications across daily life and industry.",
-            "Case studies, stories, and investigative highlights.",
-            "Connecting concepts across multidisciplinary domains.",
-            "Creative exploration and independent project work."
+            "Wax and water do not mix! Draw white or yellow stars firmly on paper using wax crayons.",
+            "Watercolor wash: Brush dark blue or purple liquid watercolor right over your wax drawing.",
+            "The magic reveal: The watery paint slides right off the waxy lines, leaving bright glowing stars in a night sky!",
+            "Great for ocean scenes: Draw white jellyfish and watch them glow beneath turquoise watercolor water."
           ],
-          "footerText": "Page 15 of 20 \u00b7 Rainbow Colors & Drawing"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 15 of 20 · Rainbow Colors & Drawing"
         },
         {
           "pageNumber": 16,
           "header": "Rainbow Colors & Drawing",
-          "subHeader": "Creative Art \u00b7 Class 1 \u00b7 Part 4",
-          "title": "Review, Synthesis & Key Takeaways: Topic 4",
+          "subHeader": "Creative Art · Page 16",
+          "title": "Patterns & Prints: Polka Dots, Stripes & Checkerboards",
           "bulletPoints": [
-            "Comprehensive summary of essential insights.",
-            "Key formulas, checklists, and mental checkpoints.",
-            "Self-assessment quizzes and reflection prompts.",
-            "Continuing the learning journey with curiosity."
+            "A pattern is an element that repeats in a rhythmic, orderly sequence.",
+            "Stripes: Alternating thick and thin colorful bands across wallpaper or clothing.",
+            "Polka dots: Evenly spaced colored circles bouncing across a dress or teacup.",
+            "Vegetable stamp prints: Cut an okra (ladyfinger) or bell pepper in half, dip in paint, and stamp floral geometric prints!"
           ],
-          "footerText": "Page 16 of 20 \u00b7 Rainbow Colors & Drawing"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 16 of 20 · Rainbow Colors & Drawing"
         },
         {
           "pageNumber": 17,
           "header": "Rainbow Colors & Drawing",
-          "subHeader": "Creative Art \u00b7 Class 1 \u00b7 Part 5",
-          "title": "Review, Synthesis & Key Takeaways: Topic 5",
+          "subHeader": "Creative Art · Page 17",
+          "title": "Drawing Faces and Emotions: Joy, Wonder, and Smiles",
           "bulletPoints": [
-            "Comprehensive summary of essential insights.",
-            "Key formulas, checklists, and mental checkpoints.",
-            "Self-assessment quizzes and reflection prompts.",
-            "Continuing the learning journey with curiosity."
+            "Start with an oval head; draw a light vertical centerline and horizontal eye line.",
+            "Eyes: Almond shapes with round iris centers and tiny white catchlights to make them sparkle.",
+            "Happy mouth: An upward curve with dimples; surprised mouth: a round \"O\"; peaceful mouth: a soft gentle line.",
+            "Expressing emotion: The angle of eyebrows changes the whole feeling from curious to joyful!"
           ],
-          "footerText": "Page 17 of 20 \u00b7 Rainbow Colors & Drawing"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 17 of 20 · Rainbow Colors & Drawing"
         },
         {
           "pageNumber": 18,
           "header": "Rainbow Colors & Drawing",
-          "subHeader": "Creative Art \u00b7 Class 1 \u00b7 Part 6",
-          "title": "Review, Synthesis & Key Takeaways: Topic 6",
+          "subHeader": "Creative Art · Page 18",
+          "title": "Landscape Composition: Foreground, Middle, Background",
           "bulletPoints": [
-            "Comprehensive summary of essential insights.",
-            "Key formulas, checklists, and mental checkpoints.",
-            "Self-assessment quizzes and reflection prompts.",
-            "Continuing the learning journey with curiosity."
+            "Foreground: Things close to you are drawn large, low on the page, with crisp details and vivid colors.",
+            "Middleground: Rolling green meadows and small houses in the middle distance.",
+            "Background: Distant mountains drawn soft, hazy, and pale near the top horizon line.",
+            "Overlap creates depth: Place a large tree in the foreground overlapping distant mountain slopes."
           ],
-          "footerText": "Page 18 of 20 \u00b7 Rainbow Colors & Drawing"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 18 of 20 · Rainbow Colors & Drawing"
         },
         {
           "pageNumber": 19,
           "header": "Rainbow Colors & Drawing",
-          "subHeader": "Creative Art \u00b7 Class 1 \u00b7 Part 1",
-          "title": "Review, Synthesis & Key Takeaways: Topic 1",
+          "subHeader": "Creative Art · Page 19",
+          "title": "Color Harmony: Designing Beautiful Palettes",
           "bulletPoints": [
-            "Comprehensive summary of essential insights.",
-            "Key formulas, checklists, and mental checkpoints.",
-            "Self-assessment quizzes and reflection prompts.",
-            "Continuing the learning journey with curiosity."
+            "Monochromatic harmony: Use different tints and shades of a single color (e.g. navy, sky blue, baby blue).",
+            "Complementary harmony: Pairs opposite each other on the color wheel: Blue & Orange, Red & Green, Yellow & Purple.",
+            "Analogous harmony: Colors sitting side-by-side: Yellow, Yellow-Green, and Green for a sunlit spring meadow.",
+            "Trust your eyes: If a color combination brings warmth and delight to your heart, it is perfect!"
           ],
-          "footerText": "Page 19 of 20 \u00b7 Rainbow Colors & Drawing"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 19 of 20 · Rainbow Colors & Drawing"
         },
         {
           "pageNumber": 20,
           "header": "Rainbow Colors & Drawing",
-          "subHeader": "Creative Art \u00b7 Class 1 \u00b7 Part 2",
-          "title": "Review, Synthesis & Key Takeaways: Topic 2",
+          "subHeader": "Creative Art · Page 20",
+          "title": "The Grand Artist Exhibition: My Masterpiece",
           "bulletPoints": [
-            "Comprehensive summary of essential insights.",
-            "Key formulas, checklists, and mental checkpoints.",
-            "Self-assessment quizzes and reflection prompts.",
-            "Continuing the learning journey with curiosity."
+            "Every artist has a unique voice: No two people in the world draw a flower or sunset the exact same way.",
+            "Celebrate your practice: Making mistakes is just part of exploring new colors and discovering surprises.",
+            "Frame your art: Give your finished drawing a title, sign your artist signature proudly, and hang it on the wall.",
+            "Keep creating: The whole world is your canvas, waiting for your imagination to fill it with color!"
           ],
-          "footerText": "Page 20 of 20 \u00b7 Rainbow Colors & Drawing"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 20 of 20 · Rainbow Colors & Drawing"
         }
       ]
     }

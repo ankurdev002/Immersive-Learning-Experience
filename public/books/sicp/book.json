@@ -12,7 +12,7 @@
   "sourcePdf": null,
   "icon": "\u03bb",
   "isInteractive": true,
-  "author": "Distinguished Curators & Academic Press",
+  "author": "Academic Faculty & Domain Curators",
   "totalPages": 25,
   "chapters": [
     {
@@ -23,325 +23,325 @@
         {
           "pageNumber": 1,
           "header": "Structure & Interpretation (SICP)",
-          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Part 1",
-          "title": "The Scientific Method: Observe & Ask: Topic 1",
+          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Section 1",
+          "title": "The Elements of Programming: Expressions & Values",
           "bulletPoints": [
-            "Making careful observations using our five senses.",
-            "Formulating hypotheses and curious questions.",
-            "Designing fair tests and controlling variables.",
-            "Recording data with sketches, tables, and notes."
+            "Lisp / Scheme computational model: Prefix notation (+ 1 2) providing uniform syntax for all operator applications.",
+            "Evaluating combinations: Evaluate sub-expressions, then apply operator procedure to argument values.",
+            "Naming and the Environment: (define size 2) binding symbolic names to computational values.",
+            "Special forms: Expressions with custom evaluation rules (define, if, cond, lambda) that bypass standard applicative order."
           ],
           "footerText": "Page 1 of 25 \u00b7 Structure & Interpretation (SICP)"
         },
         {
           "pageNumber": 2,
           "header": "Structure & Interpretation (SICP)",
-          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Part 2",
-          "title": "The Scientific Method: Observe & Ask: Topic 2",
+          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Section 2",
+          "title": "Procedures and the Processes They Generate",
           "bulletPoints": [
-            "Making careful observations using our five senses.",
-            "Formulating hypotheses and curious questions.",
-            "Designing fair tests and controlling variables.",
-            "Recording data with sketches, tables, and notes."
+            "Linear Recursive processes: Expanding chain of deferred operations consuming stack space O(n).",
+            "Linear Iterative processes: State captured entirely in state variables; executed in constant memory space O(1).",
+            "Tail-Call Optimization (TCO): Scheme guarantee that iterative algorithms described recursively run in constant stack space.",
+            "Case study: Comparing recursive factorial with tail-recursive accumulator factorial."
           ],
           "footerText": "Page 2 of 25 \u00b7 Structure & Interpretation (SICP)"
         },
         {
           "pageNumber": 3,
           "header": "Structure & Interpretation (SICP)",
-          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Part 3",
-          "title": "The Scientific Method: Observe & Ask: Topic 3",
+          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Section 3",
+          "title": "Higher-Order Procedures & Abstractions",
           "bulletPoints": [
-            "Making careful observations using our five senses.",
-            "Formulating hypotheses and curious questions.",
-            "Designing fair tests and controlling variables.",
-            "Recording data with sketches, tables, and notes."
+            "Procedures as First-Class Citizens: Procedures can be passed as arguments, returned as values, and stored in data structures.",
+            "Abstracting common patterns: Summation procedure taking term and next functions to compute arbitrary mathematical series.",
+            "Lambda expressions: Constructing anonymous procedures on the fly via (lambda (x) (* x x)).",
+            "Let bindings: Syntactic sugar for anonymous lambda applications creating localized lexical scopes."
           ],
           "footerText": "Page 3 of 25 \u00b7 Structure & Interpretation (SICP)"
         },
         {
           "pageNumber": 4,
           "header": "Structure & Interpretation (SICP)",
-          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Part 4",
-          "title": "The Scientific Method: Observe & Ask: Topic 4",
+          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Section 4",
+          "title": "Procedures as General Methods",
           "bulletPoints": [
-            "Making careful observations using our five senses.",
-            "Formulating hypotheses and curious questions.",
-            "Designing fair tests and controlling variables.",
-            "Recording data with sketches, tables, and notes."
+            "Finding roots of equations by half-interval method (bisection algorithm over continuous functions).",
+            "Fixed points of functions: Computing f(x) = x through repeated iteration with average damping.",
+            "Newton's Method for square roots expressed as a general fixed-point transformation.",
+            "Procedures as returned values: Higher-order procedures returning derivative approximations and function transforms."
           ],
           "footerText": "Page 4 of 25 \u00b7 Structure & Interpretation (SICP)"
         },
         {
           "pageNumber": 5,
           "header": "Structure & Interpretation (SICP)",
-          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Part 5",
-          "title": "The Scientific Method: Observe & Ask: Topic 5",
+          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Section 5",
+          "title": "Data Abstraction: Building with Pairs",
           "bulletPoints": [
-            "Making careful observations using our five senses.",
-            "Formulating hypotheses and curious questions.",
-            "Designing fair tests and controlling variables.",
-            "Recording data with sketches, tables, and notes."
+            "Compound data: Combining data objects to form structured computational representations.",
+            "Pairs: The fundamental primitive (cons x y), with selectors (car p) for first element and (cdr p) for second element.",
+            "Closure property of data: The ability to combine pairs whose elements are themselves pairs, building hierarchical structures.",
+            "Data abstraction barrier: Using constructor make-rat and selectors numer/denom to decouple representations from operations."
           ],
           "footerText": "Page 5 of 25 \u00b7 Structure & Interpretation (SICP)"
         },
         {
           "pageNumber": 6,
           "header": "Structure & Interpretation (SICP)",
-          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Part 6",
-          "title": "Matter & Materials: Solids, Liquids, Gases: Topic 6",
+          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Section 6",
+          "title": "Hierarchical Data & The List Structure",
           "bulletPoints": [
-            "States of matter and their physical properties.",
-            "Melting, freezing, evaporation, and condensation.",
-            "Mixtures, solutions, and separation techniques.",
-            "Density: Why objects float or sink in water."
+            "List representation: Chains of pairs terminated by empty list '() / nil.",
+            "List operations: (length lst), (append list1 list2), and recursive list reversal.",
+            "Mapping over lists: The higher-order (map proc lst) transforming every element in a list.",
+            "Trees: Modeling nested lists as tree branches; counting leaves and mapping over tree nodes."
           ],
           "footerText": "Page 6 of 25 \u00b7 Structure & Interpretation (SICP)"
         },
         {
           "pageNumber": 7,
           "header": "Structure & Interpretation (SICP)",
-          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Part 1",
-          "title": "Matter & Materials: Solids, Liquids, Gases: Topic 1",
+          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Section 7",
+          "title": "Sequences as Conventional Interfaces",
           "bulletPoints": [
-            "States of matter and their physical properties.",
-            "Melting, freezing, evaporation, and condensation.",
-            "Mixtures, solutions, and separation techniques.",
-            "Density: Why objects float or sink in water."
+            "Signal-flow architecture: Enumerating, filtering, mapping, and accumulating data streams.",
+            "Filter, Accumulate (fold-right), and Flatmap operations on list sequences.",
+            "Nested mappings: Solving the prime-sum-pairs problem using sequence comprehension idioms.",
+            "Eight-Queens Puzzle: Solving constraint satisfaction problems through sequence transformations."
           ],
           "footerText": "Page 7 of 25 \u00b7 Structure & Interpretation (SICP)"
         },
         {
           "pageNumber": 8,
           "header": "Structure & Interpretation (SICP)",
-          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Part 2",
-          "title": "Matter & Materials: Solids, Liquids, Gases: Topic 2",
+          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Section 8",
+          "title": "Symbolic Data & Symbolic Differentiation",
           "bulletPoints": [
-            "States of matter and their physical properties.",
-            "Melting, freezing, evaporation, and condensation.",
-            "Mixtures, solutions, and separation techniques.",
-            "Density: Why objects float or sink in water."
+            "Quotation: Preventing evaluation using 'symbol to manipulate literal language symbols as data.",
+            "Symbolic algebra: Representing algebraic expressions (+ x 3) as nested Scheme lists.",
+            "Differentiation rules: Implementing the derivative operator d/dx for sums, products, and powers.",
+            "Simplification: Algebraic canonical reduction (e.g. (+ x 0) -> x, (* x 1) -> x) through constructor pattern matching."
           ],
           "footerText": "Page 8 of 25 \u00b7 Structure & Interpretation (SICP)"
         },
         {
           "pageNumber": 9,
           "header": "Structure & Interpretation (SICP)",
-          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Part 3",
-          "title": "Matter & Materials: Solids, Liquids, Gases: Topic 3",
+          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Section 9",
+          "title": "Multiple Representations for Abstract Data",
           "bulletPoints": [
-            "States of matter and their physical properties.",
-            "Melting, freezing, evaporation, and condensation.",
-            "Mixtures, solutions, and separation techniques.",
-            "Density: Why objects float or sink in water."
+            "Complex numbers: Rectangular coordinates (real, imag) vs Polar coordinates (magnitude, angle).",
+            "Type tagging: Attaching type tags ('rectangular, 'polar) to data objects to guide runtime dispatch.",
+            "Data-directed programming: Organizing operations and types in a two-dimensional dispatch table.",
+            "Message-passing style: Objects represented as procedures that dispatch on incoming method messages."
           ],
           "footerText": "Page 9 of 25 \u00b7 Structure & Interpretation (SICP)"
         },
         {
           "pageNumber": 10,
           "header": "Structure & Interpretation (SICP)",
-          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Part 4",
-          "title": "Matter & Materials: Solids, Liquids, Gases: Topic 4",
+          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Section 10",
+          "title": "Generic Arithmetic Operations",
           "bulletPoints": [
-            "States of matter and their physical properties.",
-            "Melting, freezing, evaporation, and condensation.",
-            "Mixtures, solutions, and separation techniques.",
-            "Density: Why objects float or sink in water."
+            "Designing a generic arithmetic system supporting ordinary numbers, rational numbers, and complex numbers.",
+            "Two-dimensional coercion table: Coercing types into common super-types (e.g. integer -> real -> complex).",
+            "Tower of types: Hierarchical subtyping and automatic raising of arguments in arithmetic expressions.",
+            "Symbolic polynomials: Extending generic arithmetic to handle multi-variable polynomial algebra."
           ],
           "footerText": "Page 10 of 25 \u00b7 Structure & Interpretation (SICP)"
         },
         {
           "pageNumber": 11,
           "header": "Structure & Interpretation (SICP)",
-          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Part 5",
-          "title": "Forces, Motion & Simple Machines: Topic 5",
+          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Section 11",
+          "title": "Modularity, Objects & State",
           "bulletPoints": [
-            "Pushes and pulls: Understanding friction and gravity.",
-            "Speed, velocity, and acceleration basics.",
-            "Inclined planes, levers, pulleys, and wheels.",
-            "Balanced vs unbalanced forces in daily life."
+            "Assignment operator (set! var val): Introducing mutable state into functional programming.",
+            "The cost of assignment: Loss of the Substitution Model of evaluation; referential transparency is broken.",
+            "Local state variables: Encapsulating private state variables inside closure procedures (e.g. bank account balance).",
+            "Sameness vs change: The philosophical challenge of identity when objects mutate over time."
           ],
           "footerText": "Page 11 of 25 \u00b7 Structure & Interpretation (SICP)"
         },
         {
           "pageNumber": 12,
           "header": "Structure & Interpretation (SICP)",
-          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Part 6",
-          "title": "Forces, Motion & Simple Machines: Topic 6",
+          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Section 12",
+          "title": "The Environment Model of Evaluation",
           "bulletPoints": [
-            "Pushes and pulls: Understanding friction and gravity.",
-            "Speed, velocity, and acceleration basics.",
-            "Inclined planes, levers, pulleys, and wheels.",
-            "Balanced vs unbalanced forces in daily life."
+            "Frames and Environments: An environment is a chain of frames; each frame is a table of variable-value bindings.",
+            "Evaluating a lambda expression: Creates a procedure object containing procedure code and a pointer to the enclosing environment.",
+            "Applying a procedure: Creates a new frame whose enclosing environment is the procedure's creation environment.",
+            "Tracing local state: How closures maintain persistent state across function invocations."
           ],
           "footerText": "Page 12 of 25 \u00b7 Structure & Interpretation (SICP)"
         },
         {
           "pageNumber": 13,
           "header": "Structure & Interpretation (SICP)",
-          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Part 1",
-          "title": "Forces, Motion & Simple Machines: Topic 1",
+          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Section 13",
+          "title": "Mutable Data Structures & Queues",
           "bulletPoints": [
-            "Pushes and pulls: Understanding friction and gravity.",
-            "Speed, velocity, and acceleration basics.",
-            "Inclined planes, levers, pulleys, and wheels.",
-            "Balanced vs unbalanced forces in daily life."
+            "Mutating pairs: Primitive mutators (set-car! pair val) and (set-cdr! pair val).",
+            "Queue implementation: Maintaining front-pointer and rear-pointer in a pair for O(1) insertion and deletion.",
+            "Tables / Dictionaries: 1D and 2D associative tables constructed from key-value pair chains.",
+            "Circuit simulator: Event-driven simulation modeling logic gates, wires, and propagation delays with agenda queues."
           ],
           "footerText": "Page 13 of 25 \u00b7 Structure & Interpretation (SICP)"
         },
         {
           "pageNumber": 14,
           "header": "Structure & Interpretation (SICP)",
-          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Part 2",
-          "title": "Forces, Motion & Simple Machines: Topic 2",
+          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Section 14",
+          "title": "Concurrency: Time and Mutable State",
           "bulletPoints": [
-            "Pushes and pulls: Understanding friction and gravity.",
-            "Speed, velocity, and acceleration basics.",
-            "Inclined planes, levers, pulleys, and wheels.",
-            "Balanced vs unbalanced forces in daily life."
+            "The nature of time in programs with state: Interleaved concurrent execution producing race conditions.",
+            "Bank account transfer bug: Interleaving balance checks and withdrawals across concurrent threads.",
+            "Serializers: Mutex synchronization ensuring only one thread executes a critical section at any instant.",
+            "Deadlock in concurrent programs: Two threads acquiring serializers in opposite orders."
           ],
           "footerText": "Page 14 of 25 \u00b7 Structure & Interpretation (SICP)"
         },
         {
           "pageNumber": 15,
           "header": "Structure & Interpretation (SICP)",
-          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Part 3",
-          "title": "Forces, Motion & Simple Machines: Topic 3",
+          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Section 15",
+          "title": "Streams: Delayed Evaluation & Lazy Lists",
           "bulletPoints": [
-            "Pushes and pulls: Understanding friction and gravity.",
-            "Speed, velocity, and acceleration basics.",
-            "Inclined planes, levers, pulleys, and wheels.",
-            "Balanced vs unbalanced forces in daily life."
+            "The dilemma of lists: Processing large sequences forces all intermediate elements into memory simultaneously.",
+            "Stream abstraction: Streams are lazy lists where elements are constructed only on demand (memoized delay).",
+            "Primitives: (cons-stream a b) expands into (cons a (delay b)); (stream-car s) and (stream-cdr s) forces evaluation.",
+            "Infinite streams: Representing the infinite stream of integers, Fibonacci numbers, and prime numbers in constant memory."
           ],
           "footerText": "Page 15 of 25 \u00b7 Structure & Interpretation (SICP)"
         },
         {
           "pageNumber": 16,
           "header": "Structure & Interpretation (SICP)",
-          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Part 4",
-          "title": "Energy, Light & Sound Waves: Topic 4",
+          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Section 16",
+          "title": "Stream Processing & Signal Processing",
           "bulletPoints": [
-            "Forms of energy: Kinetic, potential, thermal, electrical.",
-            "Light travel: Reflection, shadows, and prisms.",
-            "Sound vibrations through air, water, and solids.",
-            "Renewable energy: Solar power, wind, and water turbines."
+            "Implicit stream definitions: (define ones (cons-stream 1 ones)) and stream addition.",
+            "Sieve of Eratosthenes: Elegant prime generation filtering infinite integer streams.",
+            "Series approximations: Computing pi and e through Euler's accelerated stream transformations.",
+            "Modeling systems with state: Replacing mutable state variables with stateless infinite streams of successive states."
           ],
           "footerText": "Page 16 of 25 \u00b7 Structure & Interpretation (SICP)"
         },
         {
           "pageNumber": 17,
           "header": "Structure & Interpretation (SICP)",
-          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Part 5",
-          "title": "Energy, Light & Sound Waves: Topic 5",
+          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Section 17",
+          "title": "The Metacircular Evaluator: Core Architecture",
           "bulletPoints": [
-            "Forms of energy: Kinetic, potential, thermal, electrical.",
-            "Light travel: Reflection, shadows, and prisms.",
-            "Sound vibrations through air, water, and solids.",
-            "Renewable energy: Solar power, wind, and water turbines."
+            "Metacircular Evaluator: An interpreter written in the same language it is interpreting (eval and apply cycle).",
+            "The Eval function: Classifying expressions (self-evaluating, variables, quotes, assignments, definitions, conditionals, lambdas).",
+            "The Apply function: Unpacking primitive procedures vs compound procedures and binding arguments in new environment frames.",
+            "The eval-apply mutually recursive engine driving computational execution."
           ],
           "footerText": "Page 17 of 25 \u00b7 Structure & Interpretation (SICP)"
         },
         {
           "pageNumber": 18,
           "header": "Structure & Interpretation (SICP)",
-          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Part 6",
-          "title": "Energy, Light & Sound Waves: Topic 6",
+          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Section 18",
+          "title": "Representing Expressions & Data Structures",
           "bulletPoints": [
-            "Forms of energy: Kinetic, potential, thermal, electrical.",
-            "Light travel: Reflection, shadows, and prisms.",
-            "Sound vibrations through air, water, and solids.",
-            "Renewable energy: Solar power, wind, and water turbines."
+            "Syntactic abstractions: Separating syntax representation from evaluator implementation.",
+            "Tagged lists: Testing (pair? exp) and (eq? (car exp) 'if) to identify expression forms.",
+            "Representing environments: Association lists of variable-value pairs and enclosing parent environment pointers.",
+            "Error handling and driver loop: Reading expressions from prompt, evaluating, and printing results (REPL)."
           ],
           "footerText": "Page 18 of 25 \u00b7 Structure & Interpretation (SICP)"
         },
         {
           "pageNumber": 19,
           "header": "Structure & Interpretation (SICP)",
-          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Part 1",
-          "title": "Energy, Light & Sound Waves: Topic 1",
+          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Section 19",
+          "title": "Evaluator Data as Programs",
           "bulletPoints": [
-            "Forms of energy: Kinetic, potential, thermal, electrical.",
-            "Light travel: Reflection, shadows, and prisms.",
-            "Sound vibrations through air, water, and solids.",
-            "Renewable energy: Solar power, wind, and water turbines."
+            "Syntactic analysis separation: Analyzing expressions once to produce execution procedures, accelerating interpretation.",
+            "Separating analysis from execution: Pre-compiling AST expressions into closures accepting only an environment parameter.",
+            "Performance optimization: Eliminating repeated syntax parsing inside high-iteration loops.",
+            "Homoiconicity: Code is data; programs can generate, analyze, and execute new programs seamlessly."
           ],
           "footerText": "Page 19 of 25 \u00b7 Structure & Interpretation (SICP)"
         },
         {
           "pageNumber": 20,
           "header": "Structure & Interpretation (SICP)",
-          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Part 2",
-          "title": "Energy, Light & Sound Waves: Topic 2",
+          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Section 20",
+          "title": "Variations on a Scheme: Lazy Evaluation",
           "bulletPoints": [
-            "Forms of energy: Kinetic, potential, thermal, electrical.",
-            "Light travel: Reflection, shadows, and prisms.",
-            "Sound vibrations through air, water, and solids.",
-            "Renewable energy: Solar power, wind, and water turbines."
+            "Normal-order evaluation: Delaying argument evaluation until their values are strictly required by primitive procedures.",
+            "Thunks: Wrapping unevaluated arguments in environments and memoizing results upon first evaluation.",
+            "Lazy Scheme interpreter: Modifying eval and apply to support non-strict procedure parameters.",
+            "Infinite data structures as first-class objects: Passing infinite lists directly to ordinary procedures."
           ],
           "footerText": "Page 20 of 25 \u00b7 Structure & Interpretation (SICP)"
         },
         {
           "pageNumber": 21,
           "header": "Structure & Interpretation (SICP)",
-          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Part 3",
-          "title": "Earth & Space Explorations: Topic 3",
+          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Section 21",
+          "title": "Nondeterministic Computing: The Amb Evaluator",
           "bulletPoints": [
-            "Earth's layers: Crust, mantle, outer core, inner core.",
-            "The solar system: Planets orbiting our bright Sun.",
-            "Constellations and mapping the night sky.",
-            "Conserving natural resources and caring for Earth."
+            "Nondeterministic choice: (amb e1 e2 ... en) returns one of the values, backtracking if subsequent code fails.",
+            "The (require p) primitive: Prunes search branches where predicate p is false, triggering automatic backtracking.",
+            "Automatic search: Solving logic puzzles (e.g. Liars puzzle, Multiple dwelling puzzle) through nondeterministic choice.",
+            "Continuation-passing implementation: Success continuations and failure continuations managing backtracking execution paths."
           ],
           "footerText": "Page 21 of 25 \u00b7 Structure & Interpretation (SICP)"
         },
         {
           "pageNumber": 22,
           "header": "Structure & Interpretation (SICP)",
-          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Part 4",
-          "title": "Earth & Space Explorations: Topic 4",
+          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Section 22",
+          "title": "Logic Programming & The Query System",
           "bulletPoints": [
-            "Earth's layers: Crust, mantle, outer core, inner core.",
-            "The solar system: Planets orbiting our bright Sun.",
-            "Constellations and mapping the night sky.",
-            "Conserving natural resources and caring for Earth."
+            "Declarative programming: Expressing WHAT is true rather than HOW to calculate it.",
+            "Deductive information retrieval: Querying databases of assertions and relational rules.",
+            "Pattern matching: Comparing query patterns against database assertions containing variable tokens ?x.",
+            "Unification: Generalization of pattern matching finding variable substitutions that make two symbolic expressions identical."
           ],
           "footerText": "Page 22 of 25 \u00b7 Structure & Interpretation (SICP)"
         },
         {
           "pageNumber": 23,
           "header": "Structure & Interpretation (SICP)",
-          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Part 5",
-          "title": "Earth & Space Explorations: Topic 5",
+          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Section 23",
+          "title": "Register Machines & Hardware Models",
           "bulletPoints": [
-            "Earth's layers: Crust, mantle, outer core, inner core.",
-            "The solar system: Planets orbiting our bright Sun.",
-            "Constellations and mapping the night sky.",
-            "Conserving natural resources and caring for Earth."
+            "Register Machine model: Data paths (registers, ALU operations) controlled by a finite state Controller.",
+            "Designing instruction sequences for GCD (Greatest Common Divisor) and iterative factorial machines.",
+            "Subroutines and stacks: Adding a LIFO stack to execute recursive procedures (recursive factorial and Fibonacci).",
+            "Simulating register machines in Scheme: Building a software simulator executing register machine assembly instructions."
           ],
           "footerText": "Page 23 of 25 \u00b7 Structure & Interpretation (SICP)"
         },
         {
           "pageNumber": 24,
           "header": "Structure & Interpretation (SICP)",
-          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Part 6",
-          "title": "Earth & Space Explorations: Topic 6",
+          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Section 24",
+          "title": "Compilation to Register Machines",
           "bulletPoints": [
-            "Earth's layers: Crust, mantle, outer core, inner core.",
-            "The solar system: Planets orbiting our bright Sun.",
-            "Constellations and mapping the night sky.",
-            "Conserving natural resources and caring for Earth."
+            "Compiler vs Interpreter: Compiling source Scheme expressions directly into native register machine instructions.",
+            "Code generation targets: Preserving registers across sub-expression evaluations.",
+            "Compiling expressions: Linkages (return, next, or branch targets) and register allocation strategy.",
+            "Combining compiled code and interpreted code: Interfacing compiled routines with the metacircular evaluator."
           ],
           "footerText": "Page 24 of 25 \u00b7 Structure & Interpretation (SICP)"
         },
         {
           "pageNumber": 25,
           "header": "Structure & Interpretation (SICP)",
-          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Part 1",
-          "title": "Earth & Space Explorations: Topic 1",
+          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Section 25",
+          "title": "Epilogue: Computing as Pure Thought",
           "bulletPoints": [
-            "Earth's layers: Crust, mantle, outer core, inner core.",
-            "The solar system: Planets orbiting our bright Sun.",
-            "Constellations and mapping the night sky.",
-            "Conserving natural resources and caring for Earth."
+            "The deep unity of computer science: Procedures as data, data as procedures, and the universal evaluator.",
+            "Abstraction as intellectual lever: Managing complexity by constructing layers of expressive languages.",
+            "Turing completeness and Church-Turing thesis: The equivalence of Scheme, lambda calculus, and Turing machines.",
+            "The wizard book legacy: Programming as an expressive artistic medium for human understanding."
           ],
           "footerText": "Page 25 of 25 \u00b7 Structure & Interpretation (SICP)"
         }

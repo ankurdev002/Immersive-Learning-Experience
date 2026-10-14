@@ -681,7 +681,7 @@ export function createBookPageTexture(
   subject = 'Mathematics',
   bookId?: string
 ): THREE.CanvasTexture {
-  const cacheKey = `${bookId || subject}_p${pageNumber}_v2`
+  const cacheKey = `${bookId || subject}_p${pageNumber}_v3`
   const cached = pageTextureCache.get(cacheKey)
   if (cached) return cached
   // High-DPI 1200x1600 canvas for pin-sharp typography and diagram readability

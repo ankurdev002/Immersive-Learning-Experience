@@ -12,7 +12,7 @@
   "sourcePdf": null,
   "icon": "\ud83d\udce1",
   "isInteractive": true,
-  "author": "Distinguished Curators & Academic Press",
+  "author": "Andrew S. Tanenbaum & David J. Wetherall",
   "totalPages": 25,
   "chapters": [
     {
@@ -23,325 +23,326 @@
         {
           "pageNumber": 1,
           "header": "Computer Networks",
-          "subHeader": "Networking \u00b7 Class 5 \u00b7 Part 1",
-          "title": "Foundational Models & System Abstractions: Topic 1",
+          "subHeader": "Networking \u00b7 Class 5 \u00b7 Section 1",
+          "title": "The Architecture of the Internet",
           "bulletPoints": [
-            "Architectural paradigms and foundational theorems.",
-            "Trade-off evaluation: Performance, latency, consistency, and cost.",
-            "Mathematical formulations and algorithmic bounds.",
-            "Decomposing complex systems into verifiable modules."
+            "Network edge vs network core: End systems (hosts), access networks, and packet-switched routing mesh.",
+            "Protocol layering: The 5-layer Internet protocol stack (Application, Transport, Network, Link, Physical).",
+            "The 7-layer ISO/OSI reference model: Presentation and Session layers in conceptual architectures.",
+            "Encapsulation: Headers and payloads as data traverses down from messages to segments, packets, frames, and bits."
           ],
           "footerText": "Page 1 of 25 \u00b7 Computer Networks"
         },
         {
           "pageNumber": 2,
           "header": "Computer Networks",
-          "subHeader": "Networking \u00b7 Class 5 \u00b7 Part 2",
-          "title": "Foundational Models & System Abstractions: Topic 2",
+          "subHeader": "Networking \u00b7 Class 5 \u00b7 Section 2",
+          "title": "Physical Layer & Transmission Media",
           "bulletPoints": [
-            "Architectural paradigms and foundational theorems.",
-            "Trade-off evaluation: Performance, latency, consistency, and cost.",
-            "Mathematical formulations and algorithmic bounds.",
-            "Decomposing complex systems into verifiable modules."
+            "Guided transmission media: Twisted-pair copper (Cat 6/7), coaxial cable, and fiber-optic cables (single/multi-mode).",
+            "Unguided wireless transmission: Terrestrial radio, Wi-Fi bands (2.4 GHz, 5 GHz, 6 GHz), and satellite links.",
+            "Signal propagation: Attenuation, distortion, thermal noise, and signal-to-noise ratio (SNR).",
+            "Nyquist bit rate and Shannon channel capacity theorem: Maximum theoretical data rate over noisy channels."
           ],
           "footerText": "Page 2 of 25 \u00b7 Computer Networks"
         },
         {
           "pageNumber": 3,
           "header": "Computer Networks",
-          "subHeader": "Networking \u00b7 Class 5 \u00b7 Part 3",
-          "title": "Foundational Models & System Abstractions: Topic 3",
+          "subHeader": "Networking \u00b7 Class 5 \u00b7 Section 3",
+          "title": "Data Link Layer & Framing",
           "bulletPoints": [
-            "Architectural paradigms and foundational theorems.",
-            "Trade-off evaluation: Performance, latency, consistency, and cost.",
-            "Mathematical formulations and algorithmic bounds.",
-            "Decomposing complex systems into verifiable modules."
+            "Link layer services: Framing, physical MAC addressing, flow control, and error detection/correction.",
+            "Framing techniques: Character count, byte stuffing (flag bytes with escape sequences), and bit stuffing.",
+            "Error detection: Parity checks, Internet checksums, and Cyclic Redundancy Checks (CRC polynomial division).",
+            "Point-to-Point Protocol (PPP) framing and High-Level Data Link Control (HDLC) specifications."
           ],
           "footerText": "Page 3 of 25 \u00b7 Computer Networks"
         },
         {
           "pageNumber": 4,
           "header": "Computer Networks",
-          "subHeader": "Networking \u00b7 Class 5 \u00b7 Part 4",
-          "title": "Foundational Models & System Abstractions: Topic 4",
+          "subHeader": "Networking \u00b7 Class 5 \u00b7 Section 4",
+          "title": "Medium Access Control & Ethernet",
           "bulletPoints": [
-            "Architectural paradigms and foundational theorems.",
-            "Trade-off evaluation: Performance, latency, consistency, and cost.",
-            "Mathematical formulations and algorithmic bounds.",
-            "Decomposing complex systems into verifiable modules."
+            "Multiple Access Protocols: Channel partitioning (TDM, FDM, CDMA), Random access, and Taking-turns protocols.",
+            "CSMA/CD: Carrier Sense Multiple Access with Collision Detection in legacy half-duplex Ethernet.",
+            "Binary exponential backoff algorithm: Random delay selection resolving repeated channel collisions.",
+            "Modern Switched Ethernet: Full-duplex twisted pair and fiber lines connected through non-blocking layer-2 switches."
           ],
           "footerText": "Page 4 of 25 \u00b7 Computer Networks"
         },
         {
           "pageNumber": 5,
           "header": "Computer Networks",
-          "subHeader": "Networking \u00b7 Class 5 \u00b7 Part 5",
-          "title": "Foundational Models & System Abstractions: Topic 5",
+          "subHeader": "Networking \u00b7 Class 5 \u00b7 Section 5",
+          "title": "Wireless LANs: IEEE 802.11 (Wi-Fi)",
           "bulletPoints": [
-            "Architectural paradigms and foundational theorems.",
-            "Trade-off evaluation: Performance, latency, consistency, and cost.",
-            "Mathematical formulations and algorithmic bounds.",
-            "Decomposing complex systems into verifiable modules."
+            "The hidden terminal problem and exposed terminal problem in wireless radio environments.",
+            "CSMA/CA: Collision Avoidance using Request to Send (RTS) and Clear to Send (CTS) handshake frames.",
+            "802.11 frame architecture: Four address fields handling distribution systems and wireless access points (APs).",
+            "Generations of Wi-Fi: From 802.11b and 802.11g to 802.11ac, Wi-Fi 6 (802.11ax), and Wi-Fi 7 (802.11be)."
           ],
           "footerText": "Page 5 of 25 \u00b7 Computer Networks"
         },
         {
           "pageNumber": 6,
           "header": "Computer Networks",
-          "subHeader": "Networking \u00b7 Class 5 \u00b7 Part 6",
-          "title": "Core Mechanisms & Algorithmic Engines: Topic 6",
+          "subHeader": "Networking \u00b7 Class 5 \u00b7 Section 6",
+          "title": "The Network Layer & IPv4 Addressing",
           "bulletPoints": [
-            "In-depth analysis of structural algorithms and state machines.",
-            "Memory access optimizations and data layout efficiency.",
-            "Protocol interactions, handshakes, and invariant maintenance.",
-            "Diagnostic profiling and empirical performance benchmarking."
+            "Network layer duties: Packet forwarding (data plane) and routing path computation (control plane).",
+            "IPv4 datagram header format: 20-byte base header, TTL, header checksum, protocol numbers, flags, and fragmentation.",
+            "Classful addressing (Classes A, B, C, D, E) vs Classless Inter-Domain Routing (CIDR prefix notation /24).",
+            "Subnetting and subnet masks: Dividing network prefixes into local subnetworks and host identifiers."
           ],
           "footerText": "Page 6 of 25 \u00b7 Computer Networks"
         },
         {
           "pageNumber": 7,
           "header": "Computer Networks",
-          "subHeader": "Networking \u00b7 Class 5 \u00b7 Part 1",
-          "title": "Core Mechanisms & Algorithmic Engines: Topic 1",
+          "subHeader": "Networking \u00b7 Class 5 \u00b7 Section 7",
+          "title": "Network Address Translation (NAT) & DHCP",
           "bulletPoints": [
-            "In-depth analysis of structural algorithms and state machines.",
-            "Memory access optimizations and data layout efficiency.",
-            "Protocol interactions, handshakes, and invariant maintenance.",
-            "Diagnostic profiling and empirical performance benchmarking."
+            "IPv4 address exhaustion: Private address spaces (10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16).",
+            "NAT translation tables: Mapping private IP/port pairs to a single public IP and translated source port.",
+            "Dynamic Host Configuration Protocol (DHCP): DORA process (Discover, Offer, Request, Acknowledge).",
+            "ICMP (Internet Control Message Protocol): Ping echo requests/replies and TTL-expired messages in traceroute."
           ],
           "footerText": "Page 7 of 25 \u00b7 Computer Networks"
         },
         {
           "pageNumber": 8,
           "header": "Computer Networks",
-          "subHeader": "Networking \u00b7 Class 5 \u00b7 Part 2",
-          "title": "Core Mechanisms & Algorithmic Engines: Topic 2",
+          "subHeader": "Networking \u00b7 Class 5 \u00b7 Section 8",
+          "title": "IPv6: Next-Generation Internet Protocol",
           "bulletPoints": [
-            "In-depth analysis of structural algorithms and state machines.",
-            "Memory access optimizations and data layout efficiency.",
-            "Protocol interactions, handshakes, and invariant maintenance.",
-            "Diagnostic profiling and empirical performance benchmarking."
+            "IPv6 128-bit address space: Providing 3.4 \u00d7 10^38 unique addresses to connect all global devices.",
+            "Fixed 40-byte base header: Eliminating header checksums and hop-by-hop fragmentation to accelerate router forwarding.",
+            "Extension headers: Daisy-chained headers for routing, security (IPsec), and hop-by-hop options.",
+            "Transition mechanisms: Dual-stack nodes, 6to4 tunneling, and NAT64/DNS64 translation."
           ],
           "footerText": "Page 8 of 25 \u00b7 Computer Networks"
         },
         {
           "pageNumber": 9,
           "header": "Computer Networks",
-          "subHeader": "Networking \u00b7 Class 5 \u00b7 Part 3",
-          "title": "Core Mechanisms & Algorithmic Engines: Topic 3",
+          "subHeader": "Networking \u00b7 Class 5 \u00b7 Section 9",
+          "title": "Routing Algorithms: Link-State & Distance Vector",
           "bulletPoints": [
-            "In-depth analysis of structural algorithms and state machines.",
-            "Memory access optimizations and data layout efficiency.",
-            "Protocol interactions, handshakes, and invariant maintenance.",
-            "Diagnostic profiling and empirical performance benchmarking."
+            "Global vs Decentralized routing algorithms across network graphs G = (V, E).",
+            "Link-State Routing: OSPF protocol flooding link states via Dijkstra's shortest path algorithm.",
+            "Distance Vector Routing: RIP protocol using the Bellman-Ford equation D_x(y) = min_v { c(x,v) + D_v(y) }.",
+            "The Count-to-Infinity problem: Resolving routing loops using split horizon and poisoned reverse rules."
           ],
           "footerText": "Page 9 of 25 \u00b7 Computer Networks"
         },
         {
           "pageNumber": 10,
           "header": "Computer Networks",
-          "subHeader": "Networking \u00b7 Class 5 \u00b7 Part 4",
-          "title": "Core Mechanisms & Algorithmic Engines: Topic 4",
+          "subHeader": "Networking \u00b7 Class 5 \u00b7 Section 10",
+          "title": "Inter-Domain Routing: BGP",
           "bulletPoints": [
-            "In-depth analysis of structural algorithms and state machines.",
-            "Memory access optimizations and data layout efficiency.",
-            "Protocol interactions, handshakes, and invariant maintenance.",
-            "Diagnostic profiling and empirical performance benchmarking."
+            "Autonomous Systems (AS): Intra-AS interior gateway protocols (OSPF, IS-IS) vs Inter-AS exterior routing.",
+            "Border Gateway Protocol (BGP-4): The glue holding the global Internet together via TCP peering sessions.",
+            "Path-vector protocol: Advertising AS-PATH attributes to prevent loops and enforce business peering policies.",
+            "BGP route selection: Local preference, shortest AS-PATH, MED (Multi-Exit Discriminator), and interior metric."
           ],
           "footerText": "Page 10 of 25 \u00b7 Computer Networks"
         },
         {
           "pageNumber": 11,
           "header": "Computer Networks",
-          "subHeader": "Networking \u00b7 Class 5 \u00b7 Part 5",
-          "title": "Concurrency, Scaling & Fault Tolerance: Topic 5",
+          "subHeader": "Networking \u00b7 Class 5 \u00b7 Section 11",
+          "title": "Transport Layer & UDP Protocol",
           "bulletPoints": [
-            "Synchronization primitives, lock-free designs, and consensus.",
-            "Handling failures: Retry strategies, circuit breakers, and idempotency.",
-            "Horizontal scaling vs vertical hardware specialization.",
-            "High-availability architectures and replication topologies."
+            "Transport layer abstraction: Logical end-to-end process-to-process communication across untrusted networks.",
+            "Port numbers: 16-bit identifiers multiplexing connections (well-known, registered, dynamic ports).",
+            "User Datagram Protocol (UDP): Connectionless, lightweight 8-byte header, no flow control or retransmissions.",
+            "UDP use cases: Real-time gaming, DNS queries, voice/video streaming (RTP), and QUIC transport."
           ],
           "footerText": "Page 11 of 25 \u00b7 Computer Networks"
         },
         {
           "pageNumber": 12,
           "header": "Computer Networks",
-          "subHeader": "Networking \u00b7 Class 5 \u00b7 Part 6",
-          "title": "Concurrency, Scaling & Fault Tolerance: Topic 6",
+          "subHeader": "Networking \u00b7 Class 5 \u00b7 Section 12",
+          "title": "Reliable Data Transfer (rdt) Principles",
           "bulletPoints": [
-            "Synchronization primitives, lock-free designs, and consensus.",
-            "Handling failures: Retry strategies, circuit breakers, and idempotency.",
-            "Horizontal scaling vs vertical hardware specialization.",
-            "High-availability architectures and replication topologies."
+            "Building reliability over unreliable channels: Stop-and-Wait protocols (rdt 1.0, 2.0, 3.0).",
+            "Sequence numbers and positive acknowledgements (ACKs) with checksum validation.",
+            "Pipelined protocols: Go-Back-N (cumulative ACKs, retransmitting entire window upon timeout).",
+            "Selective Repeat: Individual ACKs and buffering out-of-order packets at the receiver."
           ],
           "footerText": "Page 12 of 25 \u00b7 Computer Networks"
         },
         {
           "pageNumber": 13,
           "header": "Computer Networks",
-          "subHeader": "Networking \u00b7 Class 5 \u00b7 Part 1",
-          "title": "Concurrency, Scaling & Fault Tolerance: Topic 1",
+          "subHeader": "Networking \u00b7 Class 5 \u00b7 Section 13",
+          "title": "TCP Connection Lifecycle & Handshake",
           "bulletPoints": [
-            "Synchronization primitives, lock-free designs, and consensus.",
-            "Handling failures: Retry strategies, circuit breakers, and idempotency.",
-            "Horizontal scaling vs vertical hardware specialization.",
-            "High-availability architectures and replication topologies."
+            "Transmission Control Protocol (TCP): Connection-oriented, reliable, full-duplex byte-stream transport.",
+            "Three-way handshake: Client SYN -> Server SYN-ACK -> Client ACK establishing sequence numbers.",
+            "Connection teardown: Four-way handshake with FIN and ACK packets, entering TIME_WAIT state (2MSL delay).",
+            "TCP segment header: Sequence number, acknowledgment number, window size, flags (SYN, ACK, FIN, RST, PSH, URG)."
           ],
           "footerText": "Page 13 of 25 \u00b7 Computer Networks"
         },
         {
           "pageNumber": 14,
           "header": "Computer Networks",
-          "subHeader": "Networking \u00b7 Class 5 \u00b7 Part 2",
-          "title": "Concurrency, Scaling & Fault Tolerance: Topic 2",
+          "subHeader": "Networking \u00b7 Class 5 \u00b7 Section 14",
+          "title": "TCP Flow Control & Sliding Window",
           "bulletPoints": [
-            "Synchronization primitives, lock-free designs, and consensus.",
-            "Handling failures: Retry strategies, circuit breakers, and idempotency.",
-            "Horizontal scaling vs vertical hardware specialization.",
-            "High-availability architectures and replication topologies."
+            "Flow control service: Preventing a fast sender from overflowing a slow receiver's buffer memory.",
+            "Receive Window (rwnd): Advertised window size in TCP headers indicating available buffer capacity.",
+            "Sliding window operation: Tracking unacknowledged sent bytes and usable sending window.",
+            "Zero window probing: Sending 1-byte probe segments to detect when receiver buffer reopens."
           ],
           "footerText": "Page 14 of 25 \u00b7 Computer Networks"
         },
         {
           "pageNumber": 15,
           "header": "Computer Networks",
-          "subHeader": "Networking \u00b7 Class 5 \u00b7 Part 3",
-          "title": "Concurrency, Scaling & Fault Tolerance: Topic 3",
+          "subHeader": "Networking \u00b7 Class 5 \u00b7 Section 15",
+          "title": "TCP Congestion Control: Reno, Cubic & BBR",
           "bulletPoints": [
-            "Synchronization primitives, lock-free designs, and consensus.",
-            "Handling failures: Retry strategies, circuit breakers, and idempotency.",
-            "Horizontal scaling vs vertical hardware specialization.",
-            "High-availability architectures and replication topologies."
+            "Congestion Window (cwnd): Sender-side limit based on perceived network pipeline capacity.",
+            "Slow Start: Exponential cwnd growth doubling every RTT until slow-start threshold (ssthresh) is reached.",
+            "Congestion Avoidance: Additive Increase / Multiplicative Decrease (AIMD) linear growth.",
+            "TCP Cubic: Polynomial window growth function for high-bandwidth delay product (BDP) networks.",
+            "Google BBR (Bottleneck Bandwidth and RTT): Model-based congestion control maximizing throughput without bufferbloat."
           ],
           "footerText": "Page 15 of 25 \u00b7 Computer Networks"
         },
         {
           "pageNumber": 16,
           "header": "Computer Networks",
-          "subHeader": "Networking \u00b7 Class 5 \u00b7 Part 4",
-          "title": "Real-World Production Architectures: Topic 4",
+          "subHeader": "Networking \u00b7 Class 5 \u00b7 Section 16",
+          "title": "The Domain Name System (DNS)",
           "bulletPoints": [
-            "Case studies from large-scale datacenter deployments.",
-            "Monitoring, telemetry, observability, and tracing.",
-            "Security boundaries, threat models, and access control.",
-            "Best practices for evolving long-lived software systems."
+            "Hierarchical distributed database: Root DNS servers -> Top-Level Domain (TLD) servers -> Authoritative servers.",
+            "DNS resolution workflows: Iterative queries vs recursive queries handled by local recursive resolvers.",
+            "Resource Record (RR) types: A (IPv4), AAAA (IPv6), CNAME (canonical alias), MX (mail), NS (nameserver), TXT.",
+            "DNS caching and TTL: Accelerating lookups and mitigating cache poisoning via DNSSEC cryptographic signatures."
           ],
           "footerText": "Page 16 of 25 \u00b7 Computer Networks"
         },
         {
           "pageNumber": 17,
           "header": "Computer Networks",
-          "subHeader": "Networking \u00b7 Class 5 \u00b7 Part 5",
-          "title": "Real-World Production Architectures: Topic 5",
+          "subHeader": "Networking \u00b7 Class 5 \u00b7 Section 17",
+          "title": "HTTP/1.1 Evolution & Pipelining",
           "bulletPoints": [
-            "Case studies from large-scale datacenter deployments.",
-            "Monitoring, telemetry, observability, and tracing.",
-            "Security boundaries, threat models, and access control.",
-            "Best practices for evolving long-lived software systems."
+            "Hypertext Transfer Protocol: Stateless client-server request-response protocol over TCP port 80.",
+            "HTTP methods (GET, POST, PUT, DELETE, PATCH, HEAD, OPTIONS) and status codes (200, 301, 404, 500).",
+            "Persistent connections (Keep-Alive): Reusing TCP handshakes across multiple consecutive resource fetches.",
+            "Head-of-Line (HoL) blocking in HTTP/1.1: Why pipelining failed when slow responses blocked subsequent requests."
           ],
           "footerText": "Page 17 of 25 \u00b7 Computer Networks"
         },
         {
           "pageNumber": 18,
           "header": "Computer Networks",
-          "subHeader": "Networking \u00b7 Class 5 \u00b7 Part 6",
-          "title": "Real-World Production Architectures: Topic 6",
+          "subHeader": "Networking \u00b7 Class 5 \u00b7 Section 18",
+          "title": "HTTP/2 Multiplexing & Binary Framing",
           "bulletPoints": [
-            "Case studies from large-scale datacenter deployments.",
-            "Monitoring, telemetry, observability, and tracing.",
-            "Security boundaries, threat models, and access control.",
-            "Best practices for evolving long-lived software systems."
+            "Binary framing layer: Replacing plain-text HTTP messages with binary frames (HEADERS, DATA, SETTINGS).",
+            "Multiplexing over a single TCP connection: Interleaving multiple concurrent streams without blocking.",
+            "HPACK header compression: Static and dynamic Huffman coding eliminating redundant header overhead.",
+            "Stream prioritization and Server Push: Proactively sending critical CSS and JS assets to browser clients."
           ],
           "footerText": "Page 18 of 25 \u00b7 Computer Networks"
         },
         {
           "pageNumber": 19,
           "header": "Computer Networks",
-          "subHeader": "Networking \u00b7 Class 5 \u00b7 Part 1",
-          "title": "Real-World Production Architectures: Topic 1",
+          "subHeader": "Networking \u00b7 Class 5 \u00b7 Section 19",
+          "title": "HTTP/3 and QUIC Protocol",
           "bulletPoints": [
-            "Case studies from large-scale datacenter deployments.",
-            "Monitoring, telemetry, observability, and tracing.",
-            "Security boundaries, threat models, and access control.",
-            "Best practices for evolving long-lived software systems."
+            "The limits of TCP: Packet loss on one HTTP/2 stream stalls all multiplexed streams at the TCP layer.",
+            "QUIC (Quick UDP Internet Connections): Modern transport layer running entirely in user space over UDP port 443.",
+            "True independent streams: Packet loss on stream A does not block independent streams B and C.",
+            "0-RTT connection establishment: Combining transport handshake and TLS 1.3 cryptographic key exchange in one round-trip."
           ],
           "footerText": "Page 19 of 25 \u00b7 Computer Networks"
         },
         {
           "pageNumber": 20,
           "header": "Computer Networks",
-          "subHeader": "Networking \u00b7 Class 5 \u00b7 Part 2",
-          "title": "Real-World Production Architectures: Topic 2",
+          "subHeader": "Networking \u00b7 Class 5 \u00b7 Section 20",
+          "title": "Transport Layer Security (TLS 1.3)",
           "bulletPoints": [
-            "Case studies from large-scale datacenter deployments.",
-            "Monitoring, telemetry, observability, and tracing.",
-            "Security boundaries, threat models, and access control.",
-            "Best practices for evolving long-lived software systems."
+            "Cryptographic goals: Confidentiality (symmetric encryption), Integrity (HMAC/AEAD), Authentication (digital certificates).",
+            "Public-key cryptography: RSA, Diffie-Hellman, and Elliptic Curve Cryptography (ECDHE key exchange).",
+            "TLS 1.3 1-RTT handshake: Eliminating legacy renegotiation and enforcing forward secrecy.",
+            "X.509 Public Key Infrastructure (PKI): Certificate Authorities (CAs) and Certificate Revocation Lists (CRL/OCSP)."
           ],
           "footerText": "Page 20 of 25 \u00b7 Computer Networks"
         },
         {
           "pageNumber": 21,
           "header": "Computer Networks",
-          "subHeader": "Networking \u00b7 Class 5 \u00b7 Part 3",
-          "title": "Emerging Horizons & Future Directions: Topic 3",
+          "subHeader": "Networking \u00b7 Class 5 \u00b7 Section 21",
+          "title": "WebSockets & Real-Time Communications",
           "bulletPoints": [
-            "Next-generation paradigms and hardware trends.",
-            "Bridging theoretical models with practical engineering.",
-            "Open-source ecosystems and industry standards.",
-            "Synthesis: Key takeaways and architectural mastery."
+            "The limitation of HTTP polling: Costly request headers and connection overhead for real-time dashboards.",
+            "WebSocket handshake: Upgrading an existing HTTP connection to a full-duplex bidirectional TCP socket.",
+            "Framing protocol: Minimal 2-byte framing overhead for sending text and binary frames with masking keys.",
+            "WebRTC: Peer-to-peer browser audio, video, and data channels using ICE, STUN, and TURN NAT traversal."
           ],
           "footerText": "Page 21 of 25 \u00b7 Computer Networks"
         },
         {
           "pageNumber": 22,
           "header": "Computer Networks",
-          "subHeader": "Networking \u00b7 Class 5 \u00b7 Part 4",
-          "title": "Emerging Horizons & Future Directions: Topic 4",
+          "subHeader": "Networking \u00b7 Class 5 \u00b7 Section 22",
+          "title": "Content Delivery Networks (CDNs)",
           "bulletPoints": [
-            "Next-generation paradigms and hardware trends.",
-            "Bridging theoretical models with practical engineering.",
-            "Open-source ecosystems and industry standards.",
-            "Synthesis: Key takeaways and architectural mastery."
+            "Geographical latency: The physics of light through fiber optic cables imposing ~100ms round-trips across oceans.",
+            "Edge caching: Point of Presence (PoP) edge servers storing static HTML, images, and video close to users.",
+            "Anycast routing: Multiple globally distributed servers advertising the identical IP address via BGP.",
+            "Dynamic site acceleration: Edge computing, TLS termination at the edge, and persistent connections back to origin."
           ],
           "footerText": "Page 22 of 25 \u00b7 Computer Networks"
         },
         {
           "pageNumber": 23,
           "header": "Computer Networks",
-          "subHeader": "Networking \u00b7 Class 5 \u00b7 Part 5",
-          "title": "Emerging Horizons & Future Directions: Topic 5",
+          "subHeader": "Networking \u00b7 Class 5 \u00b7 Section 23",
+          "title": "Network Security: Firewalls & Attacks",
           "bulletPoints": [
-            "Next-generation paradigms and hardware trends.",
-            "Bridging theoretical models with practical engineering.",
-            "Open-source ecosystems and industry standards.",
-            "Synthesis: Key takeaways and architectural mastery."
+            "Denial of Service (DoS & DDoS): SYN flood attacks, UDP amplification, and botnet traffic scrubbing.",
+            "Packet filtering firewalls: Stateless inspection of IP/port headers vs Stateful inspection tracking TCP connection states.",
+            "Application Layer Gateways / Web Application Firewalls (WAF): Inspecting HTTP payloads for SQL injection and XSS.",
+            "Virtual Private Networks (VPNs): Encapsulating and encrypting private LAN packets through public internet tunnels."
           ],
           "footerText": "Page 23 of 25 \u00b7 Computer Networks"
         },
         {
           "pageNumber": 24,
           "header": "Computer Networks",
-          "subHeader": "Networking \u00b7 Class 5 \u00b7 Part 6",
-          "title": "Emerging Horizons & Future Directions: Topic 6",
+          "subHeader": "Networking \u00b7 Class 5 \u00b7 Section 24",
+          "title": "Software-Defined Networking (SDN)",
           "bulletPoints": [
-            "Next-generation paradigms and hardware trends.",
-            "Bridging theoretical models with practical engineering.",
-            "Open-source ecosystems and industry standards.",
-            "Synthesis: Key takeaways and architectural mastery."
+            "Decoupling planes: Separating the Data Plane (packet forwarding in switches) from the Control Plane (centralized routing logic).",
+            "OpenFlow protocol: Standard interface enabling software controllers to install forwarding rules in switch flow tables.",
+            "Network virtualization: Overlay networks (VXLAN, NVGRE) creating multi-tenant software-defined clouds.",
+            "Programmable data planes: P4 programming language defining custom packet parsing and processing pipelines."
           ],
           "footerText": "Page 24 of 25 \u00b7 Computer Networks"
         },
         {
           "pageNumber": 25,
           "header": "Computer Networks",
-          "subHeader": "Networking \u00b7 Class 5 \u00b7 Part 1",
-          "title": "Emerging Horizons & Future Directions: Topic 1",
+          "subHeader": "Networking \u00b7 Class 5 \u00b7 Section 25",
+          "title": "Future Horizons in Computer Networks",
           "bulletPoints": [
-            "Next-generation paradigms and hardware trends.",
-            "Bridging theoretical models with practical engineering.",
-            "Open-source ecosystems and industry standards.",
-            "Synthesis: Key takeaways and architectural mastery."
+            "Low-Earth Orbit (LEO) satellite constellations (Starlink) delivering low-latency broadband to remote regions.",
+            "Deterministic networking (DetNet) and Time-Sensitive Networking (TSN) for industrial robotics and autonomous vehicles.",
+            "Quantum Key Distribution (QKD): Utilizing quantum entanglement to guarantee eavesdropper-proof cryptographic channels.",
+            "Synthesis of global connectivity: The evolving balance of scalability, security, and universal access."
           ],
           "footerText": "Page 25 of 25 \u00b7 Computer Networks"
         }

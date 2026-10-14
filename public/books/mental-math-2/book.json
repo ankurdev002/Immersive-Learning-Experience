@@ -10,7 +10,7 @@
   "accentColor": "#fbbf24",
   "coverImage": "/books/mental-math-2/cover.png",
   "sourcePdf": null,
-  "icon": "\ud83c\udfb2",
+  "icon": "🎲",
   "isInteractive": true,
   "author": "Distinguished Curators & Academic Press",
   "totalPages": 20,
@@ -23,262 +23,323 @@
         {
           "pageNumber": 1,
           "header": "Mental Math & Puzzles",
-          "subHeader": "Mathematics \u00b7 Class 2 \u00b7 Part 1",
-          "title": "Number Explorations & Counting Patterns: Topic 1",
+          "subHeader": "Mathematics · Chapter 1 · Section 1",
+          "title": "Number Bonds to 10: The Magic Pairs",
           "bulletPoints": [
-            "Understanding values, magnitude, and digits.",
-            "Identifying number sequences and skip-counting patterns.",
-            "Working with base-10 representations and place values.",
-            "Hands-on number line problem solving."
+            "Number bonds are pairs of numbers that join together perfectly to make a target number.",
+            "The 10-Partners: 1+9=10, 2+8=10, 3+7=10, 4+6=10, and 5+5=10.",
+            "Ten-frame visualization: Five red counters and five yellow counters fill the two rows of ten.",
+            "Instant recall: When you see 7, your brain instantly whispers 3 to complete the decade!"
           ],
-          "footerText": "Page 1 of 20 \u00b7 Mental Math & Puzzles"
+          "formulaOrSummary": "1+9=10 | 2+8=10 | 3+7=10 | 4+6=10 | 5+5=10",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 1 of 20 · Mental Math & Puzzles"
         },
         {
           "pageNumber": 2,
           "header": "Mental Math & Puzzles",
-          "subHeader": "Mathematics \u00b7 Class 2 \u00b7 Part 2",
-          "title": "Number Explorations & Counting Patterns: Topic 2",
+          "subHeader": "Mathematics · Chapter 1 · Section 2",
+          "title": "Bonds to 20: Stepping Across the 10-Bridge",
           "bulletPoints": [
-            "Understanding values, magnitude, and digits.",
-            "Identifying number sequences and skip-counting patterns.",
-            "Working with base-10 representations and place values.",
-            "Hands-on number line problem solving."
+            "Bridging to 20 uses the same friendly units as 10: 11+9=20, 12+8=20, 13+7=20, 14+6=20, 15+5=20.",
+            "Double tens: 20 is simply two full bundles of ten sticks with zero singles leftover.",
+            "Split strategy: To add 16 + 4, see 6 + 4 = 10, then add the existing ten to get 20.",
+            "Quick check: Any number whose ones digit adds to 10 completes the next round ten!"
           ],
-          "footerText": "Page 2 of 20 \u00b7 Mental Math & Puzzles"
+          "formulaOrSummary": "11+9=20 | 12+8=20 | 13+7=20 | 14+6=20 | 15+5=20",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 2 of 20 · Mental Math & Puzzles"
         },
         {
           "pageNumber": 3,
           "header": "Mental Math & Puzzles",
-          "subHeader": "Mathematics \u00b7 Class 2 \u00b7 Part 3",
-          "title": "Number Explorations & Counting Patterns: Topic 3",
+          "subHeader": "Mathematics · Chapter 1 · Section 3",
+          "title": "Doubles & Near Doubles: The Twin Strategy",
           "bulletPoints": [
-            "Understanding values, magnitude, and digits.",
-            "Identifying number sequences and skip-counting patterns.",
-            "Working with base-10 representations and place values.",
-            "Hands-on number line problem solving."
+            "Mastering doubles: 1+1=2, 2+2=4, 3+3=6, 4+4=8, 5+5=10, 6+6=12, 7+7=14, 8+8=16, 9+9=18.",
+            "Near doubles trick: To solve 6 + 7, think: \"6 + 6 = 12, plus one more is 13!\"",
+            "Another neighbor: To solve 8 + 9, think: \"8 + 8 = 16, plus one more is 17!\"",
+            "Subtracting near doubles: To solve 7 + 8, you can also think: \"Double 8 is 16, minus one is 15!\""
           ],
-          "footerText": "Page 3 of 20 \u00b7 Mental Math & Puzzles"
+          "formulaOrSummary": "Double + 1: 6+7 = (6+6) + 1 = 13",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 3 of 20 · Mental Math & Puzzles"
         },
         {
           "pageNumber": 4,
           "header": "Mental Math & Puzzles",
-          "subHeader": "Mathematics \u00b7 Class 2 \u00b7 Part 4",
-          "title": "Number Explorations & Counting Patterns: Topic 4",
+          "subHeader": "Mathematics · Chapter 1 · Section 4",
+          "title": "Making Tens: The Friendly Number Strategy",
           "bulletPoints": [
-            "Understanding values, magnitude, and digits.",
-            "Identifying number sequences and skip-counting patterns.",
-            "Working with base-10 representations and place values.",
-            "Hands-on number line problem solving."
+            "When adding numbers like 8 + 5, break the second number apart to complete 10 first.",
+            "Deconstruct: 8 needs 2 to make 10. Split 5 into 2 and 3.",
+            "Combine: (8 + 2) + 3 = 10 + 3 = 13.",
+            "Try with 9: 9 + 7 = (9 + 1) + 6 = 10 + 6 = 16. Fast and foolproof!"
           ],
-          "footerText": "Page 4 of 20 \u00b7 Mental Math & Puzzles"
+          "formulaOrSummary": "8 + 5 = (8 + 2) + 3 = 10 + 3 = 13",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 4 of 20 · Mental Math & Puzzles"
         },
         {
           "pageNumber": 5,
           "header": "Mental Math & Puzzles",
-          "subHeader": "Mathematics \u00b7 Class 2 \u00b7 Part 5",
-          "title": "Addition Strategies & Number Bonds: Topic 5",
+          "subHeader": "Mathematics · Chapter 1 · Section 5",
+          "title": "Adding 9 Trick: Add 10 and Take Away 1",
           "bulletPoints": [
-            "Combining groups and visualizing sums.",
-            "Making tens and friendly number grouping.",
-            "Mental math shortcuts for fast calculation.",
-            "Real-world word problem applications."
+            "9 is very close to 10; it is only 1 less than 10.",
+            "The mental shortcut: To add 9 to any number, add 10 first, then subtract 1.",
+            "Example: 34 + 9 -> Think 34 + 10 = 44, minus 1 = 43.",
+            "Example: 68 + 9 -> Think 68 + 10 = 78, minus 1 = 77. You can do this in under one second!"
           ],
-          "footerText": "Page 5 of 20 \u00b7 Mental Math & Puzzles"
+          "formulaOrSummary": "n + 9 = (n + 10) - 1",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 5 of 20 · Mental Math & Puzzles"
         },
         {
           "pageNumber": 6,
           "header": "Mental Math & Puzzles",
-          "subHeader": "Mathematics \u00b7 Class 2 \u00b7 Part 1",
-          "title": "Addition Strategies & Number Bonds: Topic 1",
+          "subHeader": "Mathematics · Chapter 1 · Section 6",
+          "title": "Adding 8 Trick: Add 10 and Take Away 2",
           "bulletPoints": [
-            "Combining groups and visualizing sums.",
-            "Making tens and friendly number grouping.",
-            "Mental math shortcuts for fast calculation.",
-            "Real-world word problem applications."
+            "8 is just 2 away from 10.",
+            "The mental shortcut: To add 8, add 10 first, then subtract 2.",
+            "Example: 45 + 8 -> Think 45 + 10 = 55, minus 2 = 53.",
+            "Example: 83 + 8 -> Think 83 + 10 = 93, minus 2 = 91.",
+            "Power tip: The ones digit always decreases by 2 while the tens digit jumps by 1!"
           ],
-          "footerText": "Page 6 of 20 \u00b7 Mental Math & Puzzles"
+          "formulaOrSummary": "n + 8 = (n + 10) - 2",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 6 of 20 · Mental Math & Puzzles"
         },
         {
           "pageNumber": 7,
           "header": "Mental Math & Puzzles",
-          "subHeader": "Mathematics \u00b7 Class 2 \u00b7 Part 2",
-          "title": "Addition Strategies & Number Bonds: Topic 2",
+          "subHeader": "Mathematics · Chapter 1 · Section 7",
+          "title": "Skip Counting by 2s: Even Number Pathways",
           "bulletPoints": [
-            "Combining groups and visualizing sums.",
-            "Making tens and friendly number grouping.",
-            "Mental math shortcuts for fast calculation.",
-            "Real-world word problem applications."
+            "Skip counting by 2s hops across the number line: 2, 4, 6, 8, 10, 12, 14, 16, 18, 20.",
+            "Even numbers rule: Every even number ends in 0, 2, 4, 6, or 8.",
+            "Pairs of things: Shoes, socks, mittens, eyes, and bicycle wheels always come in pairs of 2.",
+            "Odd numbers pathway: Starting at 1 gives odd skips: 1, 3, 5, 7, 9, 11, 13, 15, 17, 19."
           ],
-          "footerText": "Page 7 of 20 \u00b7 Mental Math & Puzzles"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 7 of 20 · Mental Math & Puzzles"
         },
         {
           "pageNumber": 8,
           "header": "Mental Math & Puzzles",
-          "subHeader": "Mathematics \u00b7 Class 2 \u00b7 Part 3",
-          "title": "Addition Strategies & Number Bonds: Topic 3",
+          "subHeader": "Mathematics · Chapter 1 · Section 8",
+          "title": "Skip Counting by 5s: Clock Faces & Nickel Jumps",
           "bulletPoints": [
-            "Combining groups and visualizing sums.",
-            "Making tens and friendly number grouping.",
-            "Mental math shortcuts for fast calculation.",
-            "Real-world word problem applications."
+            "Counting by 5s rhythm: 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60.",
+            "Ending digits pattern: The units place always alternates between 5 and 0.",
+            "Telling time: The minute hand on an analog clock counts by 5s from 1 (5 mins) to 12 (60 mins).",
+            "Counting hands: 4 hands have 5+5+5+5 = 20 fingers in total!"
           ],
-          "footerText": "Page 8 of 20 \u00b7 Mental Math & Puzzles"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 8 of 20 · Mental Math & Puzzles"
         },
         {
           "pageNumber": 9,
           "header": "Mental Math & Puzzles",
-          "subHeader": "Mathematics \u00b7 Class 2 \u00b7 Part 4",
-          "title": "Subtraction & Difference Models: Topic 4",
+          "subHeader": "Mathematics · Chapter 1 · Section 9",
+          "title": "Skip Counting by 10s: Towers to 100",
           "bulletPoints": [
-            "Taking away, counting backward, and finding differences.",
-            "Regrouping and borrowing techniques.",
-            "Fact families connecting addition and subtraction.",
-            "Checking subtraction using inverse operations."
+            "The decade leap: 10, 20, 30, 40, 50, 60, 70, 80, 90, 100.",
+            "Place value insight: The tens digit increments by 1 while the ones digit remains anchored at 0.",
+            "Currency connection: 10 dimes equal one whole dollar ($1.00 = 100 cents).",
+            "Hundred chart column: Look down the far-right column of any hundred chart to see all 10s aligned."
           ],
-          "footerText": "Page 9 of 20 \u00b7 Mental Math & Puzzles"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 9 of 20 · Mental Math & Puzzles"
         },
         {
           "pageNumber": 10,
           "header": "Mental Math & Puzzles",
-          "subHeader": "Mathematics \u00b7 Class 2 \u00b7 Part 5",
-          "title": "Subtraction & Difference Models: Topic 5",
+          "subHeader": "Mathematics · Chapter 1 · Section 10",
+          "title": "Subtracting Across 10: Down to 10 and Back",
           "bulletPoints": [
-            "Taking away, counting backward, and finding differences.",
-            "Regrouping and borrowing techniques.",
-            "Fact families connecting addition and subtraction.",
-            "Checking subtraction using inverse operations."
+            "To solve 14 - 6: First take away 4 to land safely on 10 (14 - 4 = 10).",
+            "Now take away the remaining 2 from 10: 10 - 2 = 8. So 14 - 6 = 8!",
+            "To solve 16 - 9: First 16 - 6 = 10, then 10 - 3 = 7.",
+            "Stepping stones: Landing on round 10 makes difficult mental subtractions simple."
           ],
-          "footerText": "Page 10 of 20 \u00b7 Mental Math & Puzzles"
+          "formulaOrSummary": "14 - 6 = (14 - 4) - 2 = 10 - 2 = 8",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 10 of 20 · Mental Math & Puzzles"
         },
         {
           "pageNumber": 11,
           "header": "Mental Math & Puzzles",
-          "subHeader": "Mathematics \u00b7 Class 2 \u00b7 Part 1",
-          "title": "Subtraction & Difference Models: Topic 1",
+          "subHeader": "Mathematics · Chapter 1 · Section 11",
+          "title": "Halving Numbers: Splitting Fairly in Two",
           "bulletPoints": [
-            "Taking away, counting backward, and finding differences.",
-            "Regrouping and borrowing techniques.",
-            "Fact families connecting addition and subtraction.",
-            "Checking subtraction using inverse operations."
+            "Halving is dividing a collection into two equal, balanced parts.",
+            "Even halves: Half of 2 is 1, half of 4 is 2, half of 6 is 3, half of 8 is 4, half of 10 is 5.",
+            "Teen halves: Half of 12 is 6, half of 14 is 7, half of 16 is 8, half of 18 is 9, half of 20 is 10.",
+            "Splitting 2-digit tens: Half of 40 is 20; half of 60 is 30; half of 100 is 50."
           ],
-          "footerText": "Page 11 of 20 \u00b7 Mental Math & Puzzles"
+          "formulaOrSummary": "Half of 16 = 8 | Half of 50 = 25 | Half of 100 = 50",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 11 of 20 · Mental Math & Puzzles"
         },
         {
           "pageNumber": 12,
           "header": "Mental Math & Puzzles",
-          "subHeader": "Mathematics \u00b7 Class 2 \u00b7 Part 2",
-          "title": "Subtraction & Difference Models: Topic 2",
+          "subHeader": "Mathematics · Chapter 1 · Section 12",
+          "title": "Adding 2-Digit Numbers: Split into Tens and Ones",
           "bulletPoints": [
-            "Taking away, counting backward, and finding differences.",
-            "Regrouping and borrowing techniques.",
-            "Fact families connecting addition and subtraction.",
-            "Checking subtraction using inverse operations."
+            "To calculate 34 + 25 in your head: Split both numbers into tens and ones.",
+            "Step 1: Add the tens: 30 + 20 = 50.",
+            "Step 2: Add the ones: 4 + 5 = 9.",
+            "Step 3: Combine: 50 + 9 = 59. No paper or pencil required!"
           ],
-          "footerText": "Page 12 of 20 \u00b7 Mental Math & Puzzles"
+          "formulaOrSummary": "34 + 25 = (30 + 20) + (4 + 5) = 50 + 9 = 59",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 12 of 20 · Mental Math & Puzzles"
         },
         {
           "pageNumber": 13,
           "header": "Mental Math & Puzzles",
-          "subHeader": "Mathematics \u00b7 Class 2 \u00b7 Part 3",
-          "title": "Geometry: Shapes & Spatial Reasoning: Topic 3",
+          "subHeader": "Mathematics · Chapter 1 · Section 13",
+          "title": "10 More and 10 Less: Sliding on the 100-Chart",
           "bulletPoints": [
-            "2D shapes: Circles, triangles, squares, and rectangles.",
-            "Sides, vertices, and symmetry lines.",
-            "3D solid shapes: Spheres, cubes, cylinders, and cones.",
-            "Tessellations and tiling patterns in nature."
+            "On a 100-grid, moving down one row adds 10; moving up one row subtracts 10.",
+            "The ones digit never changes: 10 more than 47 is 57; 10 less than 47 is 37.",
+            "Crossing 50: 10 more than 52 is 62; 10 more than 89 is 99.",
+            "Mental agility: Practice saying \"10 more\" and \"10 less\" for random numbers instantly."
           ],
-          "footerText": "Page 13 of 20 \u00b7 Mental Math & Puzzles"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 13 of 20 · Mental Math & Puzzles"
         },
         {
           "pageNumber": 14,
           "header": "Mental Math & Puzzles",
-          "subHeader": "Mathematics \u00b7 Class 2 \u00b7 Part 4",
-          "title": "Geometry: Shapes & Spatial Reasoning: Topic 4",
+          "subHeader": "Mathematics · Chapter 1 · Section 14",
+          "title": "100-Partners: Pairs that Make 100",
           "bulletPoints": [
-            "2D shapes: Circles, triangles, squares, and rectangles.",
-            "Sides, vertices, and symmetry lines.",
-            "3D solid shapes: Spheres, cubes, cylinders, and cones.",
-            "Tessellations and tiling patterns in nature."
+            "Tens partners: 10+90=100, 20+80=100, 30+70=100, 40+60=100, 50+50=100.",
+            "The 9-and-10 trick for ones: To find the partner of 36, make tens add to 9 and ones add to 10.",
+            "Check: 3 needs 6 to make 9 (so tens is 60), 6 needs 4 to make 10 (so ones is 4). 36 + 64 = 100!",
+            "Shopping money: A dollar is 100 cents; buying a 65¢ pencil gives you 35¢ change."
           ],
-          "footerText": "Page 14 of 20 \u00b7 Mental Math & Puzzles"
+          "formulaOrSummary": "Make tens sum to 9 and ones sum to 10: 36 + 64 = 100",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 14 of 20 · Mental Math & Puzzles"
         },
         {
           "pageNumber": 15,
           "header": "Mental Math & Puzzles",
-          "subHeader": "Mathematics \u00b7 Class 2 \u00b7 Part 5",
-          "title": "Geometry: Shapes & Spatial Reasoning: Topic 5",
+          "subHeader": "Mathematics · Chapter 1 · Section 15",
+          "title": "Repeated Addition: The Secret of Multiplication",
           "bulletPoints": [
-            "2D shapes: Circles, triangles, squares, and rectangles.",
-            "Sides, vertices, and symmetry lines.",
-            "3D solid shapes: Spheres, cubes, cylinders, and cones.",
-            "Tessellations and tiling patterns in nature."
+            "Multiplication is simply fast repeated addition of equal groups.",
+            "3 groups of 4 apples = 4 + 4 + 4 = 12 apples.",
+            "The times sign: 3 x 4 means \"3 groups of 4\".",
+            "Arrays in rows: An array of 2 rows with 5 stars per row has 2 x 5 = 10 stars total!"
           ],
-          "footerText": "Page 15 of 20 \u00b7 Mental Math & Puzzles"
+          "formulaOrSummary": "4 + 4 + 4 = 3 x 4 = 12",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 15 of 20 · Mental Math & Puzzles"
         },
         {
           "pageNumber": 16,
           "header": "Mental Math & Puzzles",
-          "subHeader": "Mathematics \u00b7 Class 2 \u00b7 Part 1",
-          "title": "Geometry: Shapes & Spatial Reasoning: Topic 1",
+          "subHeader": "Mathematics · Chapter 1 · Section 16",
+          "title": "Multiplication Table of 2: The Double Builder",
           "bulletPoints": [
-            "2D shapes: Circles, triangles, squares, and rectangles.",
-            "Sides, vertices, and symmetry lines.",
-            "3D solid shapes: Spheres, cubes, cylinders, and cones.",
-            "Tessellations and tiling patterns in nature."
+            "Multiplying by 2 is identical to doubling the number.",
+            "1x2=2, 2x2=4, 3x2=6, 4x2=8, 5x2=10, 6x2=12, 7x2=14, 8x2=16, 9x2=18, 10x2=20.",
+            "Commutative property: 2 x 6 is the exact same answer as 6 x 2 = 12.",
+            "Bicycle problem: 7 bicycles parked outside have 7 x 2 = 14 wheels."
           ],
-          "footerText": "Page 16 of 20 \u00b7 Mental Math & Puzzles"
+          "formulaOrSummary": "n x 2 = n + n",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 16 of 20 · Mental Math & Puzzles"
         },
         {
           "pageNumber": 17,
           "header": "Mental Math & Puzzles",
-          "subHeader": "Mathematics \u00b7 Class 2 \u00b7 Part 2",
-          "title": "Measurement: Length, Weight & Time: Topic 2",
+          "subHeader": "Mathematics · Chapter 1 · Section 17",
+          "title": "Multiplication Table of 5: Hands and Stars",
           "bulletPoints": [
-            "Standard units of measurement vs non-standard benchmarks.",
-            "Reading clocks: Hours, half-hours, and elapsed time.",
-            "Measuring weight with balance scales.",
-            "Estimating lengths with rulers and measuring tapes."
+            "Multiplying by 5 gives products ending only in 0 or 5.",
+            "1x5=5, 2x5=10, 3x5=15, 4x5=20, 5x5=25, 6x5=30, 7x5=35, 8x5=40, 9x5=45, 10x5=50.",
+            "Even times 5 ends in 0 (4 x 5 = 20); odd times 5 ends in 5 (7 x 5 = 35).",
+            "Star points: 6 starfish with 5 arms each have 6 x 5 = 30 arms!"
           ],
-          "footerText": "Page 17 of 20 \u00b7 Mental Math & Puzzles"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 17 of 20 · Mental Math & Puzzles"
         },
         {
           "pageNumber": 18,
           "header": "Mental Math & Puzzles",
-          "subHeader": "Mathematics \u00b7 Class 2 \u00b7 Part 3",
-          "title": "Measurement: Length, Weight & Time: Topic 3",
+          "subHeader": "Mathematics · Chapter 1 · Section 18",
+          "title": "Multiplication Table of 10: The Magic Zero",
           "bulletPoints": [
-            "Standard units of measurement vs non-standard benchmarks.",
-            "Reading clocks: Hours, half-hours, and elapsed time.",
-            "Measuring weight with balance scales.",
-            "Estimating lengths with rulers and measuring tapes."
+            "Multiplying any whole number by 10 simply shifts digits one place left and appends a 0.",
+            "3 x 10 = 30; 7 x 10 = 70; 9 x 10 = 90; 12 x 10 = 120.",
+            "Why does it work? 10 represents 1 ten; multiplying 4 by 10 gives 4 tens (40).",
+            "Coin counting: 8 ten-rupee notes equal 8 x 10 = 80 rupees."
           ],
-          "footerText": "Page 18 of 20 \u00b7 Mental Math & Puzzles"
+          "formulaOrSummary": "n x 10 = [n]0",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 18 of 20 · Mental Math & Puzzles"
         },
         {
           "pageNumber": 19,
           "header": "Mental Math & Puzzles",
-          "subHeader": "Mathematics \u00b7 Class 2 \u00b7 Part 4",
-          "title": "Measurement: Length, Weight & Time: Topic 4",
+          "subHeader": "Mathematics · Chapter 1 · Section 19",
+          "title": "Mental Math Word Riddles: Real-World Practice",
           "bulletPoints": [
-            "Standard units of measurement vs non-standard benchmarks.",
-            "Reading clocks: Hours, half-hours, and elapsed time.",
-            "Measuring weight with balance scales.",
-            "Estimating lengths with rulers and measuring tapes."
+            "Riddle 1: \"I have 15 marbles. I win 8 more in a game. How many do I have?\" Think 15 + 8 = 15 + 10 - 2 = 23.",
+            "Riddle 2: \"There are 24 birds on a tree. 9 fly away. How many remain?\" Think 24 - 10 + 1 = 15.",
+            "Riddle 3: \"A baker bakes 5 trays of muffins with 6 muffins on each tray. Total?\" 5 x 6 = 30 muffins.",
+            "Word problem rule: Translate words into numbers and choose the fastest mental shortcut!"
           ],
-          "footerText": "Page 19 of 20 \u00b7 Mental Math & Puzzles"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 19 of 20 · Mental Math & Puzzles"
         },
         {
           "pageNumber": 20,
           "header": "Mental Math & Puzzles",
-          "subHeader": "Mathematics \u00b7 Class 2 \u00b7 Part 5",
-          "title": "Measurement: Length, Weight & Time: Topic 5",
+          "subHeader": "Mathematics · Chapter 1 · Section 20",
+          "title": "The Math Wizard Crown: 20 Lightning Calculations",
           "bulletPoints": [
-            "Standard units of measurement vs non-standard benchmarks.",
-            "Reading clocks: Hours, half-hours, and elapsed time.",
-            "Measuring weight with balance scales.",
-            "Estimating lengths with rulers and measuring tapes."
+            "Speed drill: Practice solving these 5 daily: 18 + 7, 35 - 9, double 14, half of 60, 6 x 5.",
+            "Confidence building: You do not need to count on your fingers when your mind knows the number bridges.",
+            "Accuracy before speed: First ensure your reasoning is solid, and lightning speed will naturally follow.",
+            "Congratulations: You are now an official Class 2 Mental Math Champion!"
           ],
-          "footerText": "Page 20 of 20 \u00b7 Mental Math & Puzzles"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 20 of 20 · Mental Math & Puzzles"
         }
       ]
     }

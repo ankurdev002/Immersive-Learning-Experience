@@ -10,7 +10,7 @@
   "accentColor": "#f472b6",
   "coverImage": "/books/storyland-2/cover.png",
   "sourcePdf": null,
-  "icon": "\u2728",
+  "icon": "✨",
   "isInteractive": true,
   "author": "Distinguished Curators & Academic Press",
   "totalPages": 20,
@@ -18,267 +18,327 @@
     {
       "chapterNumber": 1,
       "title": "Tales from Storyland",
-      "description": "Comprehensive curriculum in Literature",
+      "description": "Delightful illustrated reading in Literature",
       "pages": [
         {
           "pageNumber": 1,
           "header": "Tales from Storyland",
-          "subHeader": "Literature \u00b7 Class 2 \u00b7 Part 1",
-          "title": "Sounds, Phonics & Letters: Topic 1",
+          "subHeader": "Literature · Story 1",
+          "title": "The Tortoise and the Hare: Slow and Steady",
           "bulletPoints": [
-            "Phonemic awareness: Listening to letter sounds.",
-            "Consonants and vowel sounds (short and long).",
-            "Blending letter sounds into simple words.",
-            "Sight word recognition and reading practice."
+            "A boastful speedy Hare teased a quiet little Tortoise for walking so slowly through the forest meadow.",
+            "The challenge: Tortoise proposed a cross-forest race to the old grandfather oak tree.",
+            "The Hare’s mistake: Racing far ahead, Hare grew overconfident and took a nap under the warm apple tree shade.",
+            "The triumph: Step by steady step, Tortoise never stopped, crossing the finish line just as Hare woke up in disbelief!"
           ],
-          "footerText": "Page 1 of 20 \u00b7 Tales from Storyland"
+          "formulaOrSummary": "Moral: Slow and steady wins the race.",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 1 of 20 · Tales from Storyland"
         },
         {
           "pageNumber": 2,
           "header": "Tales from Storyland",
-          "subHeader": "Literature \u00b7 Class 2 \u00b7 Part 2",
-          "title": "Sounds, Phonics & Letters: Topic 2",
+          "subHeader": "Literature · Story 2",
+          "title": "The Lion and the Mouse: Kindness is Never Wasted",
           "bulletPoints": [
-            "Phonemic awareness: Listening to letter sounds.",
-            "Consonants and vowel sounds (short and long).",
-            "Blending letter sounds into simple words.",
-            "Sight word recognition and reading practice."
+            "A mighty Lion slept in the sun when a tiny field mouse scurried across his giant paws.",
+            "The plea: Lion trapped Mouse under his claw; Mouse begged for mercy, promising to help Lion one day.",
+            "The Lion chuckled and let the little mouse go free, amused by the idea of a mouse helping a king.",
+            "The rescue: Days later, Lion was caught in hunters' ropes; Mouse heard his roars and gnawed through the thick cords!"
           ],
-          "footerText": "Page 2 of 20 \u00b7 Tales from Storyland"
+          "formulaOrSummary": "Moral: Even the smallest friend can be of great help.",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 2 of 20 · Tales from Storyland"
         },
         {
           "pageNumber": 3,
           "header": "Tales from Storyland",
-          "subHeader": "Literature \u00b7 Class 2 \u00b7 Part 3",
-          "title": "Sounds, Phonics & Letters: Topic 3",
+          "subHeader": "Literature · Story 3",
+          "title": "The Boy Who Cried Wolf: Protecting Your Word",
           "bulletPoints": [
-            "Phonemic awareness: Listening to letter sounds.",
-            "Consonants and vowel sounds (short and long).",
-            "Blending letter sounds into simple words.",
-            "Sight word recognition and reading practice."
+            "A shepherd boy tended his village flock on the hillside and grew lonely and bored.",
+            "The false alarm: He shouted \"Wolf! Wolf!\" causing all the villagers to drop their work and run up the hill.",
+            "Laughing at their alarm, he repeated the prank again the following afternoon, delighting in the commotion.",
+            "The real wolf: A hungry gray wolf truly emerged from the dark woods; the boy cried for help, but nobody believed him."
           ],
-          "footerText": "Page 3 of 20 \u00b7 Tales from Storyland"
+          "formulaOrSummary": "Moral: Nobody believes a liar, even when they speak the truth.",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 3 of 20 · Tales from Storyland"
         },
         {
           "pageNumber": 4,
           "header": "Tales from Storyland",
-          "subHeader": "Literature \u00b7 Class 2 \u00b7 Part 4",
-          "title": "Sounds, Phonics & Letters: Topic 4",
+          "subHeader": "Literature · Story 4",
+          "title": "The Ant and the Grasshopper: Seasons of Work",
           "bulletPoints": [
-            "Phonemic awareness: Listening to letter sounds.",
-            "Consonants and vowel sounds (short and long).",
-            "Blending letter sounds into simple words.",
-            "Sight word recognition and reading practice."
+            "All summer long, Grasshopper sang, danced, and rested in the warm green meadow sunshine.",
+            "Nearby, busy little Ant carried heavy grains of golden wheat on his back to his underground pantry.",
+            "\"Why work so hard?\" asked Grasshopper. \"Winter is coming,\" replied Ant, \"and winter is cold and barren.\"",
+            "When freezing snow blankets fell, Grasshopper shivered with no food, while Ant’s family ate warm roasted corn."
           ],
-          "footerText": "Page 4 of 20 \u00b7 Tales from Storyland"
+          "formulaOrSummary": "Moral: Prepare today for the needs of tomorrow.",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 4 of 20 · Tales from Storyland"
         },
         {
           "pageNumber": 5,
           "header": "Tales from Storyland",
-          "subHeader": "Literature \u00b7 Class 2 \u00b7 Part 5",
-          "title": "Building Rich Vocabulary: Topic 5",
+          "subHeader": "Literature · Story 5",
+          "title": "The North Wind and the Sun: Gentle Persuasion",
           "bulletPoints": [
-            "Action verbs, descriptive adjectives, and naming nouns.",
-            "Synonyms, antonyms, and word categories.",
-            "Context clues for discovering new word meanings.",
-            "Using expressive words in daily conversation."
+            "The North Wind and the Sun argued over who was stronger in the celestial realm.",
+            "The challenge: Whichever could make a walking traveler take off his warm woolen cloak would be crowned champion.",
+            "The Wind’s attempt: Wind blew fierce icy gales, but the traveler only wrapped his cloak tighter around his shoulders.",
+            "The Sun’s turn: Sun beamed warm, pleasant golden rays; within minutes, the traveler grew warm and cheerfully took off his coat."
           ],
-          "footerText": "Page 5 of 20 \u00b7 Tales from Storyland"
+          "formulaOrSummary": "Moral: Warmth and gentle kindness achieve what harsh force never can.",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 5 of 20 · Tales from Storyland"
         },
         {
           "pageNumber": 6,
           "header": "Tales from Storyland",
-          "subHeader": "Literature \u00b7 Class 2 \u00b7 Part 1",
-          "title": "Building Rich Vocabulary: Topic 1",
+          "subHeader": "Literature · Story 6",
+          "title": "The Crow and the Pitcher: Wit Over Despair",
           "bulletPoints": [
-            "Action verbs, descriptive adjectives, and naming nouns.",
-            "Synonyms, antonyms, and word categories.",
-            "Context clues for discovering new word meanings.",
-            "Using expressive words in daily conversation."
+            "A thirsty black Crow flew over dry summer fields searching desperately for a drink of fresh water.",
+            "He spotted a clay pitcher, but the water inside was low and his beak could not reach the surface.",
+            "Giving up seemed easy, but Crow looked around and spotted small pebbles scattered across the garden path.",
+            "One by one, Crow dropped pebbles into the pitcher; slowly, the water level rose until he drank happily!"
           ],
-          "footerText": "Page 6 of 20 \u00b7 Tales from Storyland"
+          "formulaOrSummary": "Moral: Thoughtful problem-solving overcomes brute strength.",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 6 of 20 · Tales from Storyland"
         },
         {
           "pageNumber": 7,
           "header": "Tales from Storyland",
-          "subHeader": "Literature \u00b7 Class 2 \u00b7 Part 2",
-          "title": "Building Rich Vocabulary: Topic 2",
+          "subHeader": "Literature · Story 7",
+          "title": "The Town Mouse and the Country Mouse: True Peace",
           "bulletPoints": [
-            "Action verbs, descriptive adjectives, and naming nouns.",
-            "Synonyms, antonyms, and word categories.",
-            "Context clues for discovering new word meanings.",
-            "Using expressive words in daily conversation."
+            "Country Mouse welcomed his cousin Town Mouse to his hollow log home, serving fresh acorns and wheat stalks.",
+            "Town Mouse turned his nose up: \"Come to my palace in town, where we feast on jellies, cake, and cheese!\"",
+            "In town, they sneaked into a rich banquet room, but suddenly ferocious barking dogs burst through the doors.",
+            "Scampering for his life into a wall crack, Country Mouse whispered: \"I prefer my dry acorns in peace to rich cakes in fear!\""
           ],
-          "footerText": "Page 7 of 20 \u00b7 Tales from Storyland"
+          "formulaOrSummary": "Moral: Better a modest life in peace than riches in terror.",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 7 of 20 · Tales from Storyland"
         },
         {
           "pageNumber": 8,
           "header": "Tales from Storyland",
-          "subHeader": "Literature \u00b7 Class 2 \u00b7 Part 3",
-          "title": "Building Rich Vocabulary: Topic 3",
+          "subHeader": "Literature · Story 8",
+          "title": "The Fox and the Grapes: Contentment in Truth",
           "bulletPoints": [
-            "Action verbs, descriptive adjectives, and naming nouns.",
-            "Synonyms, antonyms, and word categories.",
-            "Context clues for discovering new word meanings.",
-            "Using expressive words in daily conversation."
+            "A hungry Fox strolled through an autumn vineyard and spotted luscious, purple grapes hanging high on a vine.",
+            "His mouth watered as sunlight glistened on the plump, juicy fruit dangling just out of reach.",
+            "He backed up, sprinted, and leaped into the air, but snapped his jaws on empty breeze.",
+            "After trying ten times and missing, he walked away with his nose in the air: \"Bah, they are probably sour anyway!\""
           ],
-          "footerText": "Page 8 of 20 \u00b7 Tales from Storyland"
+          "formulaOrSummary": "Moral: It is easy to despise what you cannot attain.",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 8 of 20 · Tales from Storyland"
         },
         {
           "pageNumber": 9,
           "header": "Tales from Storyland",
-          "subHeader": "Literature \u00b7 Class 2 \u00b7 Part 4",
-          "title": "Sentence Structure & Punctuation: Topic 4",
+          "subHeader": "Literature · Story 9",
+          "title": "The Golden Goose: Gratitude Over Greed",
           "bulletPoints": [
-            "Capital letters at the start of sentences.",
-            "Periods, question marks, and exclamation points.",
-            "Connecting thoughts with conjunctions (and, but, because).",
-            "Crafting clear, expressive sentences."
+            "A poor woodcutter owned a wonderful white goose that laid one solid golden egg every single morning.",
+            "He sold the eggs in the market, quickly becoming wealthy with warm clothes and a fine timber home.",
+            "Greed took over: He thought the goose must have a vast treasure of gold inside its belly right now.",
+            "He foolishly cut the goose open, only to find it was like any normal bird—and now his daily gift was lost forever."
           ],
-          "footerText": "Page 9 of 20 \u00b7 Tales from Storyland"
+          "formulaOrSummary": "Moral: Greed destroys the very blessings you enjoy.",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 9 of 20 · Tales from Storyland"
         },
         {
           "pageNumber": 10,
           "header": "Tales from Storyland",
-          "subHeader": "Literature \u00b7 Class 2 \u00b7 Part 5",
-          "title": "Sentence Structure & Punctuation: Topic 5",
+          "subHeader": "Literature · Story 10",
+          "title": "The Ugly Duckling: The Beauty of Becoming",
           "bulletPoints": [
-            "Capital letters at the start of sentences.",
-            "Periods, question marks, and exclamation points.",
-            "Connecting thoughts with conjunctions (and, but, because).",
-            "Crafting clear, expressive sentences."
+            "In a warm farmyard nest, one egg was larger and took longer to hatch into a strange, clumsy gray chick.",
+            "The farmyard ducks pecked and teased him because he did not look like the fluffy yellow ducklings.",
+            "Heartbroken, he flew away and spent a lonely, freezing winter hiding in the reeds of a mountain marsh.",
+            "When spring flowers bloomed, he looked into clear water and saw his reflection: he had grown into a majestic white Swan!"
           ],
-          "footerText": "Page 10 of 20 \u00b7 Tales from Storyland"
+          "formulaOrSummary": "Moral: Do not judge by appearances; true greatness takes time to unfold.",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 10 of 20 · Tales from Storyland"
         },
         {
           "pageNumber": 11,
           "header": "Tales from Storyland",
-          "subHeader": "Literature \u00b7 Class 2 \u00b7 Part 1",
-          "title": "Sentence Structure & Punctuation: Topic 1",
+          "subHeader": "Literature · Story 11",
+          "title": "The Three Little Pigs: Diligence and Resilience",
           "bulletPoints": [
-            "Capital letters at the start of sentences.",
-            "Periods, question marks, and exclamation points.",
-            "Connecting thoughts with conjunctions (and, but, because).",
-            "Crafting clear, expressive sentences."
+            "Three pig brothers set out into the world to build their very own homes.",
+            "First pig built quickly with yellow straw; second pig built with light wooden sticks so they could play.",
+            "The third pig worked patiently all day, laying solid clay bricks and mortar to build a sturdy home.",
+            "The Big Bad Wolf huffed and puffed down the straw and stick shacks, but could not budge the brick house!"
           ],
-          "footerText": "Page 11 of 20 \u00b7 Tales from Storyland"
+          "formulaOrSummary": "Moral: Hard work and patience build lasting security.",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 11 of 20 · Tales from Storyland"
         },
         {
           "pageNumber": 12,
           "header": "Tales from Storyland",
-          "subHeader": "Literature \u00b7 Class 2 \u00b7 Part 2",
-          "title": "Sentence Structure & Punctuation: Topic 2",
+          "subHeader": "Literature · Story 12",
+          "title": "Goldilocks and the Three Bears: Respecting Boundaries",
           "bulletPoints": [
-            "Capital letters at the start of sentences.",
-            "Periods, question marks, and exclamation points.",
-            "Connecting thoughts with conjunctions (and, but, because).",
-            "Crafting clear, expressive sentences."
+            "A curious girl with golden curls walked through the forest and discovered an unlocked cottage.",
+            "Three bowls of porridge: Papa Bear’s too hot, Mama Bear’s too cold, and Baby Bear’s just right—which she ate all up.",
+            "She broke Baby Bear’s little chair, and fell fast asleep across Baby Bear’s cozy bed.",
+            "When the three bears returned from their walk, Goldilocks awoke to three furry faces and leaped out the window!"
           ],
-          "footerText": "Page 12 of 20 \u00b7 Tales from Storyland"
+          "formulaOrSummary": "Moral: Always respect others' homes and personal belongings.",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 12 of 20 · Tales from Storyland"
         },
         {
           "pageNumber": 13,
           "header": "Tales from Storyland",
-          "subHeader": "Literature \u00b7 Class 2 \u00b7 Part 3",
-          "title": "Story Elements & Reading Comprehension: Topic 3",
+          "subHeader": "Literature · Story 13",
+          "title": "The Elves and the Shoemaker: Quiet Generosity",
           "bulletPoints": [
-            "Characters: Who is the story about?",
-            "Setting: Where and when does the story take place?",
-            "Plot: Beginning, middle, problem, and resolution.",
-            "Identifying the central theme and moral lesson."
+            "An honest old shoemaker had only enough leather left to stitch one final pair of shoes before bed.",
+            "In the morning, he awoke to find exquisite, perfect shoes stitched with invisible, delicate seams.",
+            "A customer bought them for double the price; the next night, two pairs were completed with matching mastery.",
+            "Shoemaker and his wife hid behind a curtain and saw two tiny shivering elves; in gratitude, they stitched warm coats for them!"
           ],
-          "footerText": "Page 13 of 20 \u00b7 Tales from Storyland"
+          "formulaOrSummary": "Moral: Generosity and gratitude create endless joy.",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 13 of 20 · Tales from Storyland"
         },
         {
           "pageNumber": 14,
           "header": "Tales from Storyland",
-          "subHeader": "Literature \u00b7 Class 2 \u00b7 Part 4",
-          "title": "Story Elements & Reading Comprehension: Topic 4",
+          "subHeader": "Literature · Story 14",
+          "title": "Jack and the Beanstalk: Courage and Wonder",
           "bulletPoints": [
-            "Characters: Who is the story about?",
-            "Setting: Where and when does the story take place?",
-            "Plot: Beginning, middle, problem, and resolution.",
-            "Identifying the central theme and moral lesson."
+            "Poor Jack traded his family's only milk cow for five shiny, colorful magic beans.",
+            "His angry mother tossed them out the kitchen window, but overnight they sprouted into a colossal green beanstalk.",
+            "Jack climbed past the clouds into a sky kingdom where a giant kept a golden harp and a hen that laid golden eggs.",
+            "With quick wits and nimble feet, Jack carried the hen home and chopped down the stalk just in time!"
           ],
-          "footerText": "Page 14 of 20 \u00b7 Tales from Storyland"
+          "formulaOrSummary": "Moral: Have the courage to climb toward your highest dreams.",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 14 of 20 · Tales from Storyland"
         },
         {
           "pageNumber": 15,
           "header": "Tales from Storyland",
-          "subHeader": "Literature \u00b7 Class 2 \u00b7 Part 5",
-          "title": "Story Elements & Reading Comprehension: Topic 5",
+          "subHeader": "Literature · Story 15",
+          "title": "The Little Red Hen: Pitching In to Share",
           "bulletPoints": [
-            "Characters: Who is the story about?",
-            "Setting: Where and when does the story take place?",
-            "Plot: Beginning, middle, problem, and resolution.",
-            "Identifying the central theme and moral lesson."
+            "Little Red Hen found grains of wheat and asked: \"Who will help me plant these seeds in the soil?\"",
+            "\"Not I,\" barked the lazy dog; \"Not I,\" purred the sleepy cat; \"Not I,\" quacked the idle duck.",
+            "\"Then I will,\" said Hen; she watered the wheat, harvested the stalks, and ground them into fine white flour.",
+            "When the fragrance of freshly baked warm bread filled the air, all animals begged to eat; Hen shared it with her working chicks!"
           ],
-          "footerText": "Page 15 of 20 \u00b7 Tales from Storyland"
+          "formulaOrSummary": "Moral: Those who help do the work deserve to share the rewards.",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 15 of 20 · Tales from Storyland"
         },
         {
           "pageNumber": 16,
           "header": "Tales from Storyland",
-          "subHeader": "Literature \u00b7 Class 2 \u00b7 Part 1",
-          "title": "Story Elements & Reading Comprehension: Topic 1",
+          "subHeader": "Literature · Story 16",
+          "title": "The Fisherman and His Wife: Contentment with Enough",
           "bulletPoints": [
-            "Characters: Who is the story about?",
-            "Setting: Where and when does the story take place?",
-            "Plot: Beginning, middle, problem, and resolution.",
-            "Identifying the central theme and moral lesson."
+            "A humble fisherman caught an enchanted golden flounder that pleaded for its life and offered wishes.",
+            "The kind fisherman released the fish without asking for anything in return, returning to his tiny thatched hut.",
+            "His ambitious wife sent him back to demand a cottage, then a stone castle, then to be crowned king.",
+            "When she demanded to control the sun and moon, the sea raged black, and they found themselves back in their humble hut."
           ],
-          "footerText": "Page 16 of 20 \u00b7 Tales from Storyland"
+          "formulaOrSummary": "Moral: Never let endless wanting drown out gratitude for what you have.",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 16 of 20 · Tales from Storyland"
         },
         {
           "pageNumber": 17,
           "header": "Tales from Storyland",
-          "subHeader": "Literature \u00b7 Class 2 \u00b7 Part 2",
-          "title": "Creative Writing & Expression: Topic 2",
+          "subHeader": "Literature · Story 17",
+          "title": "The Steadfast Tin Soldier: Unshakable Loyalty",
           "bulletPoints": [
-            "Describing a favorite memory or imaginary adventure.",
-            "Using sensory details: Sight, sound, smell, taste, touch.",
-            "Organizing ideas with story maps and outlines.",
-            "Sharing stories and reciting poems with confidence."
+            "Cast from an old tin spoon, one brave little toy soldier had only one leg, yet stood tall and proud.",
+            "He admired a graceful paper dancer standing on one tiptoe outside her cardboard castle.",
+            "Tossed by winds onto a paper boat down stormy street gutters and swallowed by a fish, he never dropped his musket.",
+            "Recovered back in his home parlor, he stood steadfast beside his dancer, proving courage shines forever."
           ],
-          "footerText": "Page 17 of 20 \u00b7 Tales from Storyland"
+          "formulaOrSummary": "Moral: True loyalty and courage never waver, whatever storms arise.",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 17 of 20 · Tales from Storyland"
         },
         {
           "pageNumber": 18,
           "header": "Tales from Storyland",
-          "subHeader": "Literature \u00b7 Class 2 \u00b7 Part 3",
-          "title": "Creative Writing & Expression: Topic 3",
+          "subHeader": "Literature · Story 18",
+          "title": "The Princess and the Pea: Inner Sensitivity",
           "bulletPoints": [
-            "Describing a favorite memory or imaginary adventure.",
-            "Using sensory details: Sight, sound, smell, taste, touch.",
-            "Organizing ideas with story maps and outlines.",
-            "Sharing stories and reciting poems with confidence."
+            "A prince sought a true princess of authentic refinement and tender sensitivity.",
+            "On a stormy night, a drenched maiden knocked at the castle gate claiming to be a royal princess.",
+            "The queen placed a tiny green pea on the bedstead and piled twenty thick mattresses and featherbeds on top.",
+            "In the morning, the maiden confessed she had tossed all night bruised by something hard—proving her true royal sensitivity!"
           ],
-          "footerText": "Page 18 of 20 \u00b7 Tales from Storyland"
+          "formulaOrSummary": "Moral: True nobility is revealed through genuine sensitivity and truth.",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 18 of 20 · Tales from Storyland"
         },
         {
           "pageNumber": 19,
           "header": "Tales from Storyland",
-          "subHeader": "Literature \u00b7 Class 2 \u00b7 Part 4",
-          "title": "Creative Writing & Expression: Topic 4",
+          "subHeader": "Literature · Story 19",
+          "title": "Rumpelstiltskin: The Power of Truth and Names",
           "bulletPoints": [
-            "Describing a favorite memory or imaginary adventure.",
-            "Using sensory details: Sight, sound, smell, taste, touch.",
-            "Organizing ideas with story maps and outlines.",
-            "Sharing stories and reciting poems with confidence."
+            "A miller foolishly bragged to the king that his clever daughter could spin yellow straw into pure gold thread.",
+            "A mysterious little man appeared in the locked tower, spinning straw into gold in exchange for her necklace and ring.",
+            "For the final room, she promised her firstborn child unless she could discover the little man’s secret name.",
+            "Her royal messenger overheard him singing around a midnight campfire: \"Merrily feast, for Rumpelstiltskin is my name!\""
           ],
-          "footerText": "Page 19 of 20 \u00b7 Tales from Storyland"
+          "formulaOrSummary": "Moral: Truth and resourcefulness unravel even the deepest secrets.",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 19 of 20 · Tales from Storyland"
         },
         {
           "pageNumber": 20,
           "header": "Tales from Storyland",
-          "subHeader": "Literature \u00b7 Class 2 \u00b7 Part 5",
-          "title": "Creative Writing & Expression: Topic 5",
+          "subHeader": "Literature · Story 20",
+          "title": "The Magic Paintbrush: Art to Lift the World",
           "bulletPoints": [
-            "Describing a favorite memory or imaginary adventure.",
-            "Using sensory details: Sight, sound, smell, taste, touch.",
-            "Organizing ideas with story maps and outlines.",
-            "Sharing stories and reciting poems with confidence."
+            "A kind orphan boy named Ma Liang loved drawing pictures in the dirt with broken sticks.",
+            "An elder gifted him a golden paintbrush that brought everything he painted into living reality.",
+            "Ma Liang painted buffaloes for poor farmers to plow fields, water wheels for drought villages, and food for the hungry.",
+            "When a greedy emperor demanded piles of gold, Ma Liang painted an ocean and a ship, sailing away into freedom."
           ],
-          "footerText": "Page 20 of 20 \u00b7 Tales from Storyland"
+          "formulaOrSummary": "Moral: Talents should be used with compassion to bring joy and justice to others.",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 20 of 20 · Tales from Storyland"
         }
       ]
     }

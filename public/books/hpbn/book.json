@@ -10,7 +10,7 @@
   "accentColor": "#38bdf8",
   "coverImage": "/books/hpbn/cover.png",
   "sourcePdf": null,
-  "icon": "\u26a1",
+  "icon": "⚡",
   "isInteractive": true,
   "author": "Distinguished Curators & Academic Press",
   "totalPages": 25,
@@ -18,332 +18,407 @@
     {
       "chapterNumber": 1,
       "title": "High Performance Browser Networking",
-      "description": "Comprehensive curriculum in Networking",
+      "description": "Authoritative curriculum in Networking",
       "pages": [
         {
           "pageNumber": 1,
           "header": "High Performance Browser Networking",
-          "subHeader": "Networking \u00b7 Class 3 \u00b7 Part 1",
-          "title": "Core Foundations & Introductory Concepts: Topic 1",
+          "subHeader": "Networking · Chapter 1 · Section 1",
+          "title": "Primer on Latency & Bandwidth: Speed of Light",
           "bulletPoints": [
-            "Fundamental lessons and central principles of the domain.",
-            "Key definitions, terminology, and historical context.",
-            "Observing phenomena and recognizing patterns.",
-            "Building foundational mental models."
+            "Latency: The time it takes for a packet to travel from source to destination (governed strictly by the speed of light).",
+            "Bandwidth: The maximum data throughput of the communication path (governed by network capacity and frequency modulation).",
+            "Speed of light in fiber optics: Light travels at ~200,000 km/s in glass (approx. 33% slower than in a vacuum).",
+            "The core bottleneck: Bandwidth has grown exponentially over the decades, but latency remains bound by physics."
           ],
-          "footerText": "Page 1 of 25 \u00b7 High Performance Browser Networking"
+          "formulaOrSummary": "Round Trip Time (RTT) = 2 * (Distance / Speed_in_Medium) + Queuing",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 1 of 25 · High Performance Browser Networking"
         },
         {
           "pageNumber": 2,
           "header": "High Performance Browser Networking",
-          "subHeader": "Networking \u00b7 Class 3 \u00b7 Part 2",
-          "title": "Core Foundations & Introductory Concepts: Topic 2",
+          "subHeader": "Networking · Chapter 1 · Section 2",
+          "title": "TCP Fundamentals: Three-Way Handshake & RTT",
           "bulletPoints": [
-            "Fundamental lessons and central principles of the domain.",
-            "Key definitions, terminology, and historical context.",
-            "Observing phenomena and recognizing patterns.",
-            "Building foundational mental models."
+            "Three-Way Handshake: SYN -> SYN-ACK -> ACK establishes a stateful, reliable, bi-directional byte stream.",
+            "Latency cost: The initial handshake imposes a full Round-Trip Time (RTT) penalty before any data bytes can be transmitted.",
+            "TCP Fast Open (TFO): Enables data exchange inside the initial SYN packet using cryptographic cookies to save 1 RTT.",
+            "Keep-Alive: Reusing existing connections is the single most important network optimization for web performance."
           ],
-          "footerText": "Page 2 of 25 \u00b7 High Performance Browser Networking"
+          "formulaOrSummary": "Handshake: SYN (Client) -> SYN-ACK (Server) -> ACK (Client)",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 2 of 25 · High Performance Browser Networking"
         },
         {
           "pageNumber": 3,
           "header": "High Performance Browser Networking",
-          "subHeader": "Networking \u00b7 Class 3 \u00b7 Part 3",
-          "title": "Core Foundations & Introductory Concepts: Topic 3",
+          "subHeader": "Networking · Chapter 1 · Section 3",
+          "title": "TCP Congestion Control: Slow Start & AIMD",
           "bulletPoints": [
-            "Fundamental lessons and central principles of the domain.",
-            "Key definitions, terminology, and historical context.",
-            "Observing phenomena and recognizing patterns.",
-            "Building foundational mental models."
+            "Congestion Window (cwnd): Limits the total number of unacknowledged packets that the sender may transmit.",
+            "Slow Start: cwnd starts small (initially 10 packets) and doubles every RTT (exponential growth: 10 -> 20 -> 40 -> 80).",
+            "Congestion Avoidance: Once packet loss occurs or ssthresh is reached, cwnd transitions to Additive Increase / Multiplicative Decrease (AIMD).",
+            "Impact on web: Short, bursty HTTP requests often terminate while still trapped in Slow Start without reaching full bandwidth."
           ],
-          "footerText": "Page 3 of 25 \u00b7 High Performance Browser Networking"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 3 of 25 · High Performance Browser Networking"
         },
         {
           "pageNumber": 4,
           "header": "High Performance Browser Networking",
-          "subHeader": "Networking \u00b7 Class 3 \u00b7 Part 4",
-          "title": "Core Foundations & Introductory Concepts: Topic 4",
+          "subHeader": "Networking · Chapter 1 · Section 4",
+          "title": "TCP Tuning: Window Scaling, SACK & Tail Loss Probe",
           "bulletPoints": [
-            "Fundamental lessons and central principles of the domain.",
-            "Key definitions, terminology, and historical context.",
-            "Observing phenomena and recognizing patterns.",
-            "Building foundational mental models."
+            "Window Scaling (RFC 1323): Extends the 16-bit receive window up to 1GB to saturate high-bandwidth, high-latency links.",
+            "Selective Acknowledgment (SACK): Allows receiver to acknowledge non-contiguous packet blocks, eliminating full retransmissions.",
+            "Explicit Congestion Notification (ECN): Routers mark packet headers to signal congestion before packet drops happen.",
+            "Tail Loss Probe (TLP): Quickly retransmits lost tail packets to prevent long retransmission timeouts (RTO)."
           ],
-          "footerText": "Page 4 of 25 \u00b7 High Performance Browser Networking"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 4 of 25 · High Performance Browser Networking"
         },
         {
           "pageNumber": 5,
           "header": "High Performance Browser Networking",
-          "subHeader": "Networking \u00b7 Class 3 \u00b7 Part 5",
-          "title": "Core Foundations & Introductory Concepts: Topic 5",
+          "subHeader": "Networking · Chapter 1 · Section 5",
+          "title": "UDP Fundamentals: Stateless Datagram Transport",
           "bulletPoints": [
-            "Fundamental lessons and central principles of the domain.",
-            "Key definitions, terminology, and historical context.",
-            "Observing phenomena and recognizing patterns.",
-            "Building foundational mental models."
+            "User Datagram Protocol (UDP): Lightweight, connectionless transport offering zero connection overhead.",
+            "No guarantees: UDP provides no retransmission, no in-order delivery, no flow control, and no congestion control.",
+            "Application control: Audio/video streaming, multiplayer gaming, and DNS prefer UDP to avoid TCP head-of-line blocking.",
+            "Foundation for QUIC: The modern web builds custom reliability, security, and flow control on top of raw UDP datagrams."
           ],
-          "footerText": "Page 5 of 25 \u00b7 High Performance Browser Networking"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 5 of 25 · High Performance Browser Networking"
         },
         {
           "pageNumber": 6,
           "header": "High Performance Browser Networking",
-          "subHeader": "Networking \u00b7 Class 3 \u00b7 Part 6",
-          "title": "Core Foundations & Introductory Concepts: Topic 6",
+          "subHeader": "Networking · Chapter 1 · Section 6",
+          "title": "TLS/SSL Primer: Public Keys, Certificates & Trust",
           "bulletPoints": [
-            "Fundamental lessons and central principles of the domain.",
-            "Key definitions, terminology, and historical context.",
-            "Observing phenomena and recognizing patterns.",
-            "Building foundational mental models."
+            "Transport Layer Security (TLS) provides confidentiality (encryption), integrity (tamper detection), and authentication.",
+            "Asymmetric cryptography (RSA / Elliptic Curve): Used during handshake to securely exchange symmetric session keys.",
+            "Symmetric cryptography (AES-GCM / ChaCha20-Poly1305): Used for high-speed hardware-accelerated bulk payload encryption.",
+            "Certificate Authorities (CAs): Sign public keys to prove server identity against cryptographically verified trust roots."
           ],
-          "footerText": "Page 6 of 25 \u00b7 High Performance Browser Networking"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 6 of 25 · High Performance Browser Networking"
         },
         {
           "pageNumber": 7,
           "header": "High Performance Browser Networking",
-          "subHeader": "Networking \u00b7 Class 3 \u00b7 Part 7",
-          "title": "Core Foundations & Introductory Concepts: Topic 7",
+          "subHeader": "Networking · Chapter 1 · Section 7",
+          "title": "TLS Handshake Evolution: 2-RTT to 1-RTT & 0-RTT",
           "bulletPoints": [
-            "Fundamental lessons and central principles of the domain.",
-            "Key definitions, terminology, and historical context.",
-            "Observing phenomena and recognizing patterns.",
-            "Building foundational mental models."
+            "Legacy TLS 1.2: Required 2 full round trips for cipher negotiation and key exchange before the first encrypted byte.",
+            "Modern TLS 1.3: Redesigned handshake completes in exactly 1 RTT by sending key shares in the initial ClientHello.",
+            "Zero Round-Trip Time (0-RTT): Returning clients resume connections and transmit early encrypted data in 0 RTT.",
+            "Replay attacks in 0-RTT: Early data is vulnerable to replay attacks; only idempotent requests (GET) should use 0-RTT."
           ],
-          "footerText": "Page 7 of 25 \u00b7 High Performance Browser Networking"
+          "formulaOrSummary": "TLS 1.2 = 2 RTTs | TLS 1.3 = 1 RTT | TLS 1.3 Resumption = 0 RTT",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 7 of 25 · High Performance Browser Networking"
         },
         {
           "pageNumber": 8,
           "header": "High Performance Browser Networking",
-          "subHeader": "Networking \u00b7 Class 3 \u00b7 Part 1",
-          "title": "Mechanisms, Methods & Step-by-Step Analysis: Topic 1",
+          "subHeader": "Networking · Chapter 1 · Section 8",
+          "title": "Optimizing TLS: Session Resumption & ALPN",
           "bulletPoints": [
-            "Detailed methodologies and structural frameworks.",
-            "Hands-on examples and guided practice exercises.",
-            "Component interactions and process workflows.",
-            "Common mistakes, diagnostics, and problem solving."
+            "Session Tickets (RFC 5077): Encrypted state tickets sent to the client to avoid server-side session caching across clusters.",
+            "Application-Layer Protocol Negotiation (ALPN): Negotiates the protocol (HTTP/2, HTTP/3) inside the TLS handshake.",
+            "OCSP Stapling: Server caches signed certificate revocation proofs from the CA to eliminate client OCSP lookups.",
+            "Forward Secrecy: Ephemeral Diffie-Hellman (ECDHE) ensures compromised long-term private keys cannot decrypt past sessions."
           ],
-          "footerText": "Page 8 of 25 \u00b7 High Performance Browser Networking"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 8 of 25 · High Performance Browser Networking"
         },
         {
           "pageNumber": 9,
           "header": "High Performance Browser Networking",
-          "subHeader": "Networking \u00b7 Class 3 \u00b7 Part 2",
-          "title": "Mechanisms, Methods & Step-by-Step Analysis: Topic 2",
+          "subHeader": "Networking · Chapter 1 · Section 9",
+          "title": "Wireless & Mobile Networks: Cellular Radios & RRC",
           "bulletPoints": [
-            "Detailed methodologies and structural frameworks.",
-            "Hands-on examples and guided practice exercises.",
-            "Component interactions and process workflows.",
-            "Common mistakes, diagnostics, and problem solving."
+            "Radio Resource Control (RRC): State machine managing phone battery power and cellular network radio connectivity.",
+            "RRC States: Idle (low power, radio disconnected), Cell_FACH (medium power), and Cell_DCH (high power, dedicated channel).",
+            "Tail timer penalty: Radios stay in high-power Cell_DCH for 10-15 seconds after network traffic stops, draining battery.",
+            "Packet bursting: Group network requests together into rapid bursts to allow the mobile radio to return to low-power Idle."
           ],
-          "footerText": "Page 9 of 25 \u00b7 High Performance Browser Networking"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 9 of 25 · High Performance Browser Networking"
         },
         {
           "pageNumber": 10,
           "header": "High Performance Browser Networking",
-          "subHeader": "Networking \u00b7 Class 3 \u00b7 Part 3",
-          "title": "Mechanisms, Methods & Step-by-Step Analysis: Topic 3",
+          "subHeader": "Networking · Chapter 1 · Section 10",
+          "title": "Optimizing for Mobile: Intermittent Networks & Battery",
           "bulletPoints": [
-            "Detailed methodologies and structural frameworks.",
-            "Hands-on examples and guided practice exercises.",
-            "Component interactions and process workflows.",
-            "Common mistakes, diagnostics, and problem solving."
+            "Eliminate periodic polling: Polling every 60 seconds keeps the cellular radio continuously in high-power state, killing battery.",
+            "Adopt server push: Use WebSockets, Server-Sent Events, or push notifications to deliver messages only when events occur.",
+            "Prefetch strategically: Download content anticipated during the active session while the radio is already awake.",
+            "Resilient retry logic: Expect sudden network drops when users walk into elevators or switch between Wi-Fi and 5G."
           ],
-          "footerText": "Page 10 of 25 \u00b7 High Performance Browser Networking"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 10 of 25 · High Performance Browser Networking"
         },
         {
           "pageNumber": 11,
           "header": "High Performance Browser Networking",
-          "subHeader": "Networking \u00b7 Class 3 \u00b7 Part 4",
-          "title": "Mechanisms, Methods & Step-by-Step Analysis: Topic 4",
+          "subHeader": "Networking · Chapter 1 · Section 11",
+          "title": "HTTP/1.1 Evolution: Keep-Alive & Domain Sharding",
           "bulletPoints": [
-            "Detailed methodologies and structural frameworks.",
-            "Hands-on examples and guided practice exercises.",
-            "Component interactions and process workflows.",
-            "Common mistakes, diagnostics, and problem solving."
+            "HTTP/1.0 created a new TCP connection for every file; HTTP/1.1 introduced persistent Keep-Alive connections.",
+            "Head-of-Line (HoL) Blocking at HTTP layer: Only one request/response transaction can be active on a TCP connection at a time.",
+            "Workaround hacks: Domain sharding (splitting assets across 4 subdomains), CSS image sprites, and JS asset bundling.",
+            "Pipelining failure: HTTP pipelining attempted to queue requests, but buggy proxies caused responses to misalign."
           ],
-          "footerText": "Page 11 of 25 \u00b7 High Performance Browser Networking"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 11 of 25 · High Performance Browser Networking"
         },
         {
           "pageNumber": 12,
           "header": "High Performance Browser Networking",
-          "subHeader": "Networking \u00b7 Class 3 \u00b7 Part 5",
-          "title": "Mechanisms, Methods & Step-by-Step Analysis: Topic 5",
+          "subHeader": "Networking · Chapter 1 · Section 12",
+          "title": "HTTP/2 Architecture: Binary Framing & Multiplexing",
           "bulletPoints": [
-            "Detailed methodologies and structural frameworks.",
-            "Hands-on examples and guided practice exercises.",
-            "Component interactions and process workflows.",
-            "Common mistakes, diagnostics, and problem solving."
+            "Binary Framing Layer: Replaces plain text with binary frames (HEADERS, DATA, SETTINGS, PING, RST_STREAM).",
+            "Streams and multiplexing: Multiple independent bi-directional streams interleave across a single shared TCP connection.",
+            "Elimination of HTTP HoL blocking: Heavy image downloads no longer block lightweight API JSON responses.",
+            "Stream lifecycle: Streams are numbered (odd for client-initiated, even for server-initiated) and can be reset without closing TCP."
           ],
-          "footerText": "Page 12 of 25 \u00b7 High Performance Browser Networking"
+          "formulaOrSummary": "Single TCP Socket === Multiplexed ===> [Stream 1] [Stream 3] [Stream 5]",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 12 of 25 · High Performance Browser Networking"
         },
         {
           "pageNumber": 13,
           "header": "High Performance Browser Networking",
-          "subHeader": "Networking \u00b7 Class 3 \u00b7 Part 6",
-          "title": "Mechanisms, Methods & Step-by-Step Analysis: Topic 6",
+          "subHeader": "Networking · Chapter 1 · Section 13",
+          "title": "HTTP/2 Stream Prioritization & Dependency Trees",
           "bulletPoints": [
-            "Detailed methodologies and structural frameworks.",
-            "Hands-on examples and guided practice exercises.",
-            "Component interactions and process workflows.",
-            "Common mistakes, diagnostics, and problem solving."
+            "Clients can declare stream dependencies and assign integer weights (1 to 256) to prioritize critical resources.",
+            "Critical assets first: HTML and critical CSS receive high priority; background images and analytics scripts receive low priority.",
+            "Dependency tree: If resource A depends on resource B, the server allocates bandwidth to B before transmitting A.",
+            "Server implementation challenges: Misconfigured proxies often ignore prioritization trees, causing suboptimal delivery."
           ],
-          "footerText": "Page 13 of 25 \u00b7 High Performance Browser Networking"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 13 of 25 · High Performance Browser Networking"
         },
         {
           "pageNumber": 14,
           "header": "High Performance Browser Networking",
-          "subHeader": "Networking \u00b7 Class 3 \u00b7 Part 7",
-          "title": "Applied Problem Solving & Real-World Context: Topic 7",
+          "subHeader": "Networking · Chapter 1 · Section 14",
+          "title": "HTTP/2 Header Compression: HPACK Algorithm",
           "bulletPoints": [
-            "Practical applications across daily life and industry.",
-            "Case studies, stories, and investigative highlights.",
-            "Connecting concepts across multidisciplinary domains.",
-            "Creative exploration and independent project work."
+            "HTTP headers are repetitive (Cookies, User-Agent, Accept headers repeat on every single asset request).",
+            "HPACK compression: Employs a Static Table (common HTTP headers) and a Dynamic Table (discovered during the session).",
+            "Huffman coding: Employs static Huffman tables to compress string characters into fewer bits.",
+            "Bandwidth savings: Reduces header overhead by over 85%, significantly accelerating mobile web browsing."
           ],
-          "footerText": "Page 14 of 25 \u00b7 High Performance Browser Networking"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 14 of 25 · High Performance Browser Networking"
         },
         {
           "pageNumber": 15,
           "header": "High Performance Browser Networking",
-          "subHeader": "Networking \u00b7 Class 3 \u00b7 Part 1",
-          "title": "Applied Problem Solving & Real-World Context: Topic 1",
+          "subHeader": "Networking · Chapter 1 · Section 15",
+          "title": "HTTP/2 Server Push: Mechanics & Limitations",
           "bulletPoints": [
-            "Practical applications across daily life and industry.",
-            "Case studies, stories, and investigative highlights.",
-            "Connecting concepts across multidisciplinary domains.",
-            "Creative exploration and independent project work."
+            "Server Push allows a server to send resources to the client cache before the client even parses the HTML and requests them.",
+            "PUSH_PROMISE frame: Informs the client of intent to push an asset; client can send RST_STREAM if already cached.",
+            "Real-world issues: Pushing assets already present in browser cache wastes bandwidth; 103 Early Hints has largely superseded push.",
+            "Cache-digest proposals: Attempted to solve over-pushing by transmitting a bloom filter of cached assets."
           ],
-          "footerText": "Page 15 of 25 \u00b7 High Performance Browser Networking"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 15 of 25 · High Performance Browser Networking"
         },
         {
           "pageNumber": 16,
           "header": "High Performance Browser Networking",
-          "subHeader": "Networking \u00b7 Class 3 \u00b7 Part 2",
-          "title": "Applied Problem Solving & Real-World Context: Topic 2",
+          "subHeader": "Networking · Chapter 1 · Section 16",
+          "title": "The Limits of TCP: Transport-Layer Head-of-Line Blocking",
           "bulletPoints": [
-            "Practical applications across daily life and industry.",
-            "Case studies, stories, and investigative highlights.",
-            "Connecting concepts across multidisciplinary domains.",
-            "Creative exploration and independent project work."
+            "HTTP/2 solved HTTP-layer HoL blocking, but could not fix TCP-layer Head-of-Line blocking.",
+            "TCP guarantee: TCP guarantees strictly in-order delivery of the underlying byte stream.",
+            "The single packet drop problem: If 1 TCP packet is dropped, the OS kernel buffers all subsequent streams until retransmission.",
+            "Worse on lossy networks: On a lossy 2% cellular network, multiplexed HTTP/2 can perform slower than multiple HTTP/1.1 connections."
           ],
-          "footerText": "Page 16 of 25 \u00b7 High Performance Browser Networking"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 16 of 25 · High Performance Browser Networking"
         },
         {
           "pageNumber": 17,
           "header": "High Performance Browser Networking",
-          "subHeader": "Networking \u00b7 Class 3 \u00b7 Part 3",
-          "title": "Applied Problem Solving & Real-World Context: Topic 3",
+          "subHeader": "Networking · Chapter 1 · Section 17",
+          "title": "HTTP/3 & QUIC: Re-Inventing Transport on UDP",
           "bulletPoints": [
-            "Practical applications across daily life and industry.",
-            "Case studies, stories, and investigative highlights.",
-            "Connecting concepts across multidisciplinary domains.",
-            "Creative exploration and independent project work."
+            "QUIC (Quick UDP Internet Connections): Designed from scratch by Google and standardized by IETF as the foundation of HTTP/3.",
+            "Runs entirely on UDP: Bypasses OS kernel TCP stack constraints, allowing rapid user-space innovation and deployment.",
+            "Independent stream transport: Packet loss on Stream A does NOT pause or delay packet processing on Stream B.",
+            "Native encryption: TLS 1.3 is baked directly into the QUIC transport packet header rather than running as a layered protocol."
           ],
-          "footerText": "Page 17 of 25 \u00b7 High Performance Browser Networking"
+          "formulaOrSummary": "HTTP/3 = HTTP Semantics + QUIC (Independent Streams + Embedded TLS 1.3) + UDP",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 17 of 25 · High Performance Browser Networking"
         },
         {
           "pageNumber": 18,
           "header": "High Performance Browser Networking",
-          "subHeader": "Networking \u00b7 Class 3 \u00b7 Part 4",
-          "title": "Applied Problem Solving & Real-World Context: Topic 4",
+          "subHeader": "Networking · Chapter 1 · Section 18",
+          "title": "QUIC Innovations: Connection Migration & Faster Recovery",
           "bulletPoints": [
-            "Practical applications across daily life and industry.",
-            "Case studies, stories, and investigative highlights.",
-            "Connecting concepts across multidisciplinary domains.",
-            "Creative exploration and independent project work."
+            "Connection ID (CID): Connections are identified by a 64-bit CID rather than the traditional 4-tuple (IP, port).",
+            "Seamless connection migration: When moving from home Wi-Fi to 5G cellular, active downloads continue without breaking.",
+            "Improved packet numbering: Every packet has a monotonically increasing packet number, eliminating retransmission ambiguity.",
+            "Monotonic acknowledgments: Precise RTT measurements prevent spurious retransmissions."
           ],
-          "footerText": "Page 18 of 25 \u00b7 High Performance Browser Networking"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 18 of 25 · High Performance Browser Networking"
         },
         {
           "pageNumber": 19,
           "header": "High Performance Browser Networking",
-          "subHeader": "Networking \u00b7 Class 3 \u00b7 Part 5",
-          "title": "Applied Problem Solving & Real-World Context: Topic 5",
+          "subHeader": "Networking · Chapter 1 · Section 19",
+          "title": "Browser Networking Internals: Sockets & Speculation",
           "bulletPoints": [
-            "Practical applications across daily life and industry.",
-            "Case studies, stories, and investigative highlights.",
-            "Connecting concepts across multidisciplinary domains.",
-            "Creative exploration and independent project work."
+            "Speculative preconnect: Modern browsers predict user navigation based on hover/typing and open TCP+TLS connections early.",
+            "DNS prefetching: `<link rel=\"dns-prefetch\" href=\"//cdn.example.com\">` resolves domain IP addresses in the background.",
+            "Resource preloading: `<link rel=\"preload\" as=\"font\" href=\"...\">` fetches critical web fonts before CSS renders.",
+            "103 Early Hints: Server sends preliminary 103 HTTP status while generating HTML, allowing browser to preload subresources."
           ],
-          "footerText": "Page 19 of 25 \u00b7 High Performance Browser Networking"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 19 of 25 · High Performance Browser Networking"
         },
         {
           "pageNumber": 20,
           "header": "High Performance Browser Networking",
-          "subHeader": "Networking \u00b7 Class 3 \u00b7 Part 6",
-          "title": "Review, Synthesis & Key Takeaways: Topic 6",
+          "subHeader": "Networking · Chapter 1 · Section 20",
+          "title": "Resource Timing & Navigation Timing APIs",
           "bulletPoints": [
-            "Comprehensive summary of essential insights.",
-            "Key formulas, checklists, and mental checkpoints.",
-            "Self-assessment quizzes and reflection prompts.",
-            "Continuing the learning journey with curiosity."
+            "PerformanceNavigationTiming: Measures high-resolution timestamps for redirect, DNS, TCP, TLS, TTFB, and DOM complete.",
+            "Time to First Byte (TTFB): Time from sending request to receiving the first byte of response; reflects server and network latency.",
+            "First Contentful Paint (FCP) & Largest Contentful Paint (LCP): Core Web Vitals measuring visual loading perception.",
+            "ResourceTiming API: Detailed network waterfall metrics for every individual script, style, image, and font resource."
           ],
-          "footerText": "Page 20 of 25 \u00b7 High Performance Browser Networking"
+          "formulaOrSummary": "TTFB = DNS + TCP_Handshake + TLS_Handshake + Server_Processing_Delay",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 20 of 25 · High Performance Browser Networking"
         },
         {
           "pageNumber": 21,
           "header": "High Performance Browser Networking",
-          "subHeader": "Networking \u00b7 Class 3 \u00b7 Part 7",
-          "title": "Review, Synthesis & Key Takeaways: Topic 7",
+          "subHeader": "Networking · Chapter 1 · Section 21",
+          "title": "WebSockets: Full-Duplex Bi-Directional Streaming",
           "bulletPoints": [
-            "Comprehensive summary of essential insights.",
-            "Key formulas, checklists, and mental checkpoints.",
-            "Self-assessment quizzes and reflection prompts.",
-            "Continuing the learning journey with curiosity."
+            "HTTP Upgrade: Client starts with standard HTTP request with `Upgrade: websocket` and `Connection: Upgrade` headers.",
+            "Persistent framing: Establishes a lightweight, bi-directional framing channel over a single TCP socket.",
+            "Minimal overhead: Frame headers add only 2 to 10 bytes of overhead compared to hundreds of bytes in HTTP requests.",
+            "Best uses: High-frequency collaborative apps, real-time gaming, financial tickers, and live chat applications."
           ],
-          "footerText": "Page 21 of 25 \u00b7 High Performance Browser Networking"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 21 of 25 · High Performance Browser Networking"
         },
         {
           "pageNumber": 22,
           "header": "High Performance Browser Networking",
-          "subHeader": "Networking \u00b7 Class 3 \u00b7 Part 1",
-          "title": "Review, Synthesis & Key Takeaways: Topic 1",
+          "subHeader": "Networking · Chapter 1 · Section 22",
+          "title": "WebRTC Primer: Real-Time Audio, Video & P2P Data",
           "bulletPoints": [
-            "Comprehensive summary of essential insights.",
-            "Key formulas, checklists, and mental checkpoints.",
-            "Self-assessment quizzes and reflection prompts.",
-            "Continuing the learning journey with curiosity."
+            "WebRTC (Web Real-Time Communication): Native browser API for peer-to-peer audio, video, and arbitrary binary data.",
+            "MediaStream: Captures camera and microphone input, handles hardware echo cancellation, noise suppression, and gain control.",
+            "RTCDataChannel: Peer-to-peer data channel supporting both reliable (TCP-like) and unreliable (UDP-like) delivery semantics.",
+            "Real-Time Transport Protocol (RTP / SRTP): Encrypted media delivery optimized for sub-500ms interactive human conversations."
           ],
-          "footerText": "Page 22 of 25 \u00b7 High Performance Browser Networking"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 22 of 25 · High Performance Browser Networking"
         },
         {
           "pageNumber": 23,
           "header": "High Performance Browser Networking",
-          "subHeader": "Networking \u00b7 Class 3 \u00b7 Part 2",
-          "title": "Review, Synthesis & Key Takeaways: Topic 2",
+          "subHeader": "Networking · Chapter 1 · Section 23",
+          "title": "WebRTC Signaling & NAT Traversal (ICE, STUN, TURN)",
           "bulletPoints": [
-            "Comprehensive summary of essential insights.",
-            "Key formulas, checklists, and mental checkpoints.",
-            "Self-assessment quizzes and reflection prompts.",
-            "Continuing the learning journey with curiosity."
+            "Signaling channel: WebRTC does not specify how peers find each other; developers exchange SDP offers/answers via WebSocket.",
+            "STUN (Session Traversal Utilities for NAT): Discovers public IP addresses and port mappings behind consumer NAT routers.",
+            "TURN (Traversal Using Relays around NAT): Cloud relay server used as fallback when symmetric NATs block direct P2P connections.",
+            "Interactive Connectivity Establishment (ICE): Tests all candidate connection pairs to find the fastest direct path."
           ],
-          "footerText": "Page 23 of 25 \u00b7 High Performance Browser Networking"
+          "formulaOrSummary": "Direct P2P (STUN) -> Fallback to Cloud Relay (TURN)",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 23 of 25 · High Performance Browser Networking"
         },
         {
           "pageNumber": 24,
           "header": "High Performance Browser Networking",
-          "subHeader": "Networking \u00b7 Class 3 \u00b7 Part 3",
-          "title": "Review, Synthesis & Key Takeaways: Topic 3",
+          "subHeader": "Networking · Chapter 1 · Section 24",
+          "title": "WebRTC DataChannels: Reliable vs Unreliable Transport",
           "bulletPoints": [
-            "Comprehensive summary of essential insights.",
-            "Key formulas, checklists, and mental checkpoints.",
-            "Self-assessment quizzes and reflection prompts.",
-            "Continuing the learning journey with curiosity."
+            "Built on SCTP (Stream Control Transmission Protocol) encapsulated inside DTLS over UDP.",
+            "Unreliable delivery option: Configure `maxRetransmits: 0` for game player positions; stale packets are discarded immediately.",
+            "Ordered vs unordered delivery: Disabling ordering requirement eliminates head-of-line blocking for independent updates.",
+            "Sub-100ms P2P gaming: Enables direct peer-to-peer gaming lobbies and decentralized file sharing."
           ],
-          "footerText": "Page 24 of 25 \u00b7 High Performance Browser Networking"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 24 of 25 · High Performance Browser Networking"
         },
         {
           "pageNumber": 25,
           "header": "High Performance Browser Networking",
-          "subHeader": "Networking \u00b7 Class 3 \u00b7 Part 4",
-          "title": "Review, Synthesis & Key Takeaways: Topic 4",
+          "subHeader": "Networking · Chapter 1 · Section 25",
+          "title": "The Performance Delivery Checklist: Modern Best Practices",
           "bulletPoints": [
-            "Comprehensive summary of essential insights.",
-            "Key formulas, checklists, and mental checkpoints.",
-            "Self-assessment quizzes and reflection prompts.",
-            "Continuing the learning journey with curiosity."
+            "Deploy HTTP/3 & QUIC: Fallback gracefully to HTTP/2; enable TLS 1.3 with session resumption across all CDN edges.",
+            "Leverage CDNs: Move content closer to users to minimize physical round-trip speed-of-light propagation delays.",
+            "Optimize critical path: Inline critical CSS, preload hero images and key fonts, and defer non-essential JavaScript.",
+            "Embrace modern compression: Serve Brotli (br) for text assets and AVIF / WebP for visual media to minimize byte transfer."
           ],
-          "footerText": "Page 25 of 25 \u00b7 High Performance Browser Networking"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 25 of 25 · High Performance Browser Networking"
         }
       ]
     }

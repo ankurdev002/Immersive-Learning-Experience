@@ -12,7 +12,7 @@
   "sourcePdf": null,
   "icon": "\u2699\ufe0f",
   "isInteractive": true,
-  "author": "Distinguished Curators & Academic Press",
+  "author": "Alfred V. Aho, Monica S. Lam, Ravi Sethi & Jeffrey D. Ullman",
   "totalPages": 25,
   "chapters": [
     {
@@ -23,325 +23,325 @@
         {
           "pageNumber": 1,
           "header": "Compilers: Principles & Tools",
-          "subHeader": "Compilers \u00b7 Class 5 \u00b7 Part 1",
-          "title": "Foundational Models & System Abstractions: Topic 1",
+          "subHeader": "Compilers \u00b7 Class 5 \u00b7 Section 1",
+          "title": "The Structure of a Modern Compiler",
           "bulletPoints": [
-            "Architectural paradigms and foundational theorems.",
-            "Trade-off evaluation: Performance, latency, consistency, and cost.",
-            "Mathematical formulations and algorithmic bounds.",
-            "Decomposing complex systems into verifiable modules."
+            "Analysis-Synthesis Model: Front-end analyzes source language; Back-end synthesizes target machine code.",
+            "Linear phases: Lexical Analysis -> Syntax Analysis -> Semantic Analysis -> Intermediate Code -> Optimization -> Code Gen.",
+            "Symbol Table Manager: Maintains identifiers, scoping levels, type attributes, memory offsets, and function signatures.",
+            "Error Handler: Detecting, reporting, and recovering from syntax and semantic errors to continue compilation."
           ],
           "footerText": "Page 1 of 25 \u00b7 Compilers: Principles & Tools"
         },
         {
           "pageNumber": 2,
           "header": "Compilers: Principles & Tools",
-          "subHeader": "Compilers \u00b7 Class 5 \u00b7 Part 2",
-          "title": "Foundational Models & System Abstractions: Topic 2",
+          "subHeader": "Compilers \u00b7 Class 5 \u00b7 Section 2",
+          "title": "Lexical Analysis & Tokenization",
           "bulletPoints": [
-            "Architectural paradigms and foundational theorems.",
-            "Trade-off evaluation: Performance, latency, consistency, and cost.",
-            "Mathematical formulations and algorithmic bounds.",
-            "Decomposing complex systems into verifiable modules."
+            "Role of the Lexer: Converting raw character streams into meaningful lexical tokens <token-name, attribute-value>.",
+            "Patterns and Lexemes: The character sequence matching a token pattern (e.g. 'while' matching KEYWORD).",
+            "Handling whitespace and comments: Stripping comments and whitespace without altering source line number tracking.",
+            "Buffer pairs: Using two N-character buffers and forward/lexeme-beginning pointers to avoid costly single-character disk reads."
           ],
           "footerText": "Page 2 of 25 \u00b7 Compilers: Principles & Tools"
         },
         {
           "pageNumber": 3,
           "header": "Compilers: Principles & Tools",
-          "subHeader": "Compilers \u00b7 Class 5 \u00b7 Part 3",
-          "title": "Foundational Models & System Abstractions: Topic 3",
+          "subHeader": "Compilers \u00b7 Class 5 \u00b7 Section 3",
+          "title": "Regular Expressions & Language Specification",
           "bulletPoints": [
-            "Architectural paradigms and foundational theorems.",
-            "Trade-off evaluation: Performance, latency, consistency, and cost.",
-            "Mathematical formulations and algorithmic bounds.",
-            "Decomposing complex systems into verifiable modules."
+            "Formal languages: Alphabets (Sigma), strings, concatenation, alternation (|), Kleene closure (*), positive closure (+).",
+            "Regular definitions: Giving names to regular expressions for programming tokens (digits, letters, identifiers, numbers).",
+            "Extensions: Character classes [a-z], optional elements (?), and word boundary anchors.",
+            "Limitations: Why regular expressions cannot describe nested balanced parentheses or recursive structures (Chomsky hierarchy)."
           ],
           "footerText": "Page 3 of 25 \u00b7 Compilers: Principles & Tools"
         },
         {
           "pageNumber": 4,
           "header": "Compilers: Principles & Tools",
-          "subHeader": "Compilers \u00b7 Class 5 \u00b7 Part 4",
-          "title": "Foundational Models & System Abstractions: Topic 4",
+          "subHeader": "Compilers \u00b7 Class 5 \u00b7 Section 4",
+          "title": "Finite Automata: NFA and DFA",
           "bulletPoints": [
-            "Architectural paradigms and foundational theorems.",
-            "Trade-off evaluation: Performance, latency, consistency, and cost.",
-            "Mathematical formulations and algorithmic bounds.",
-            "Decomposing complex systems into verifiable modules."
+            "Deterministic Finite Automata (DFA): Exactly one transition state per input character; no epsilon transitions.",
+            "Nondeterministic Finite Automata (NFA): Multiple transitions possible on the same symbol, plus epsilon (empty) moves.",
+            "Thompson's Construction: Algorithm converting arbitrary regular expressions into equivalent NFAs in O(n) time.",
+            "Subset Construction Algorithm: Converting NFAs into minimal deterministic DFAs using epsilon-closure sets."
           ],
           "footerText": "Page 4 of 25 \u00b7 Compilers: Principles & Tools"
         },
         {
           "pageNumber": 5,
           "header": "Compilers: Principles & Tools",
-          "subHeader": "Compilers \u00b7 Class 5 \u00b7 Part 5",
-          "title": "Foundational Models & System Abstractions: Topic 5",
+          "subHeader": "Compilers \u00b7 Class 5 \u00b7 Section 5",
+          "title": "DFA State Minimization & Lexer Generators",
           "bulletPoints": [
-            "Architectural paradigms and foundational theorems.",
-            "Trade-off evaluation: Performance, latency, consistency, and cost.",
-            "Mathematical formulations and algorithmic bounds.",
-            "Decomposing complex systems into verifiable modules."
+            "Hopcroft's DFA Minimization: Partitioning states into distinguishable groups to produce the unique minimal-state DFA.",
+            "Lookahead ambiguities: Resolving longest-match rule (e.g. '==' vs '=') and rule priority order.",
+            "Lex and Flex tools: Translating regular expression specifications into compact C/C++ lexer transition tables.",
+            "Direct-coded lexers: Hand-written switch-case lexers achieving maximum throughput in production compilers."
           ],
           "footerText": "Page 5 of 25 \u00b7 Compilers: Principles & Tools"
         },
         {
           "pageNumber": 6,
           "header": "Compilers: Principles & Tools",
-          "subHeader": "Compilers \u00b7 Class 5 \u00b7 Part 6",
-          "title": "Core Mechanisms & Algorithmic Engines: Topic 6",
+          "subHeader": "Compilers \u00b7 Class 5 \u00b7 Section 6",
+          "title": "Context-Free Grammars & Syntax Trees",
           "bulletPoints": [
-            "In-depth analysis of structural algorithms and state machines.",
-            "Memory access optimizations and data layout efficiency.",
-            "Protocol interactions, handshakes, and invariant maintenance.",
-            "Diagnostic profiling and empirical performance benchmarking."
+            "Context-Free Grammar (CFG): Four-tuple G = (V_N, V_T, P, S) defining recursive syntactic structure.",
+            "Derivations: Leftmost and rightmost derivations replacing non-terminals with production right-hand sides.",
+            "Parse Trees: Graphical representations of grammatical derivations showing hierarchical sentence structure.",
+            "Ambiguity in grammars: Multiple parse trees for single expressions (e.g. the dangling-else problem) and disambiguation rules."
           ],
           "footerText": "Page 6 of 25 \u00b7 Compilers: Principles & Tools"
         },
         {
           "pageNumber": 7,
           "header": "Compilers: Principles & Tools",
-          "subHeader": "Compilers \u00b7 Class 5 \u00b7 Part 1",
-          "title": "Core Mechanisms & Algorithmic Engines: Topic 1",
+          "subHeader": "Compilers \u00b7 Class 5 \u00b7 Section 7",
+          "title": "Top-Down Parsing & Recursive Descent",
           "bulletPoints": [
-            "In-depth analysis of structural algorithms and state machines.",
-            "Memory access optimizations and data layout efficiency.",
-            "Protocol interactions, handshakes, and invariant maintenance.",
-            "Diagnostic profiling and empirical performance benchmarking."
+            "Top-down parsing strategy: Constructing parse tree from root (Start symbol) downward to leaves (terminals).",
+            "Backtracking recursive descent: Predictive parsing vs backtracking overhead and infinite loops on left recursion.",
+            "Eliminating left recursion: Rewriting A -> A alpha | beta into A -> beta A' and A' -> alpha A' | epsilon.",
+            "Left factoring: Factoring out common prefixes to enable deterministic single-token lookahead parsing."
           ],
           "footerText": "Page 7 of 25 \u00b7 Compilers: Principles & Tools"
         },
         {
           "pageNumber": 8,
           "header": "Compilers: Principles & Tools",
-          "subHeader": "Compilers \u00b7 Class 5 \u00b7 Part 2",
-          "title": "Core Mechanisms & Algorithmic Engines: Topic 2",
+          "subHeader": "Compilers \u00b7 Class 5 \u00b7 Section 8",
+          "title": "LL(1) Predictive Parsing",
           "bulletPoints": [
-            "In-depth analysis of structural algorithms and state machines.",
-            "Memory access optimizations and data layout efficiency.",
-            "Protocol interactions, handshakes, and invariant maintenance.",
-            "Diagnostic profiling and empirical performance benchmarking."
+            "FIRST and FOLLOW sets: Mathematical construction of token lookahead sets for production selection.",
+            "LL(1) Grammars: Left-to-right scan, Leftmost derivation, 1-token lookahead; grammar has no parsing table conflicts.",
+            "Parsing table construction: Mapping non-terminal A and lookahead token 'a' to a unique production rule.",
+            "Non-recursive predictive parsing: Explicit parsing stack and input buffer driven by LL(1) transition matrix."
           ],
           "footerText": "Page 8 of 25 \u00b7 Compilers: Principles & Tools"
         },
         {
           "pageNumber": 9,
           "header": "Compilers: Principles & Tools",
-          "subHeader": "Compilers \u00b7 Class 5 \u00b7 Part 3",
-          "title": "Core Mechanisms & Algorithmic Engines: Topic 3",
+          "subHeader": "Compilers \u00b7 Class 5 \u00b7 Section 9",
+          "title": "Bottom-Up Parsing: Shift-Reduce Concept",
           "bulletPoints": [
-            "In-depth analysis of structural algorithms and state machines.",
-            "Memory access optimizations and data layout efficiency.",
-            "Protocol interactions, handshakes, and invariant maintenance.",
-            "Diagnostic profiling and empirical performance benchmarking."
+            "Bottom-up strategy: Constructing parse tree from terminal leaves upward to the root start symbol.",
+            "Handle pruning: Identifying substrings matching production right-hand sides and reducing them to non-terminals.",
+            "Shift-Reduce parser states: Shift (push token onto stack), Reduce (replace handle with non-terminal), Accept, Error.",
+            "Conflicts: Shift/Reduce conflicts and Reduce/Reduce conflicts arising from ambiguous or un-parseable grammars."
           ],
           "footerText": "Page 9 of 25 \u00b7 Compilers: Principles & Tools"
         },
         {
           "pageNumber": 10,
           "header": "Compilers: Principles & Tools",
-          "subHeader": "Compilers \u00b7 Class 5 \u00b7 Part 4",
-          "title": "Core Mechanisms & Algorithmic Engines: Topic 4",
+          "subHeader": "Compilers \u00b7 Class 5 \u00b7 Section 10",
+          "title": "LR(0) and SLR(1) Parsing",
           "bulletPoints": [
-            "In-depth analysis of structural algorithms and state machines.",
-            "Memory access optimizations and data layout efficiency.",
-            "Protocol interactions, handshakes, and invariant maintenance.",
-            "Diagnostic profiling and empirical performance benchmarking."
+            "LR Parser architecture: Input buffer, parsing stack of (state, symbol) pairs, and Action/Goto parsing tables.",
+            "LR(0) items: Productions with dot markers indicating parser progress (e.g. A -> alpha . beta).",
+            "Canonical collection of LR(0) items: Using closure and GOTO operations to build DFA of parser states.",
+            "Simple LR (SLR(1)): Using FOLLOW sets of non-terminals to resolve reduce actions and eliminate shift/reduce conflicts."
           ],
           "footerText": "Page 10 of 25 \u00b7 Compilers: Principles & Tools"
         },
         {
           "pageNumber": 11,
           "header": "Compilers: Principles & Tools",
-          "subHeader": "Compilers \u00b7 Class 5 \u00b7 Part 5",
-          "title": "Concurrency, Scaling & Fault Tolerance: Topic 5",
+          "subHeader": "Compilers \u00b7 Class 5 \u00b7 Section 11",
+          "title": "Canonical LR(1) and LALR(1) Parsers",
           "bulletPoints": [
-            "Synchronization primitives, lock-free designs, and consensus.",
-            "Handling failures: Retry strategies, circuit breakers, and idempotency.",
-            "Horizontal scaling vs vertical hardware specialization.",
-            "High-availability architectures and replication topologies."
+            "LR(1) items: Enhancing LR(0) items with explicit lookahead tokens [A -> alpha . beta, a].",
+            "Canonical LR(1) tables: Extremely powerful, accepting all deterministic context-free languages, but with thousands of states.",
+            "LALR(1) (Look-Ahead LR): Merging states with identical core LR(0) items, reducing table size to SLR(1) proportions.",
+            "Yacc and Bison: Industry-standard LALR(1) parser generators generating C code from grammar rules."
           ],
           "footerText": "Page 11 of 25 \u00b7 Compilers: Principles & Tools"
         },
         {
           "pageNumber": 12,
           "header": "Compilers: Principles & Tools",
-          "subHeader": "Compilers \u00b7 Class 5 \u00b7 Part 6",
-          "title": "Concurrency, Scaling & Fault Tolerance: Topic 6",
+          "subHeader": "Compilers \u00b7 Class 5 \u00b7 Section 12",
+          "title": "Syntax-Directed Translation (SDT)",
           "bulletPoints": [
-            "Synchronization primitives, lock-free designs, and consensus.",
-            "Handling failures: Retry strategies, circuit breakers, and idempotency.",
-            "Horizontal scaling vs vertical hardware specialization.",
-            "High-availability architectures and replication topologies."
+            "Syntax-Directed Definitions (SDD): Associating semantic attributes and semantic rules with grammar productions.",
+            "Synthesized attributes: Computed from child node attributes in the parse tree (bottom-up evaluation).",
+            "Inherited attributes: Computed from parent or sibling node attributes (top-down context propagation).",
+            "S-Attributed and L-Attributed definitions: Ensuring semantic actions can be evaluated during standard LR parsing."
           ],
           "footerText": "Page 12 of 25 \u00b7 Compilers: Principles & Tools"
         },
         {
           "pageNumber": 13,
           "header": "Compilers: Principles & Tools",
-          "subHeader": "Compilers \u00b7 Class 5 \u00b7 Part 1",
-          "title": "Concurrency, Scaling & Fault Tolerance: Topic 1",
+          "subHeader": "Compilers \u00b7 Class 5 \u00b7 Section 13",
+          "title": "Abstract Syntax Trees (AST)",
           "bulletPoints": [
-            "Synchronization primitives, lock-free designs, and consensus.",
-            "Handling failures: Retry strategies, circuit breakers, and idempotency.",
-            "Horizontal scaling vs vertical hardware specialization.",
-            "High-availability architectures and replication topologies."
+            "Parse Tree vs Abstract Syntax Tree: Dropping syntactic punctuation, retaining only operators and semantic operands.",
+            "Node representations: Discriminated unions / class hierarchies for Expressions, Statements, Declarations, and Blocks.",
+            "Homogeneous vs Heterogeneous ASTs: General node types vs strictly-typed language-specific AST structures.",
+            "Visitor Pattern: Traversing AST nodes cleanly to perform type checking, interpretation, and code generation."
           ],
           "footerText": "Page 13 of 25 \u00b7 Compilers: Principles & Tools"
         },
         {
           "pageNumber": 14,
           "header": "Compilers: Principles & Tools",
-          "subHeader": "Compilers \u00b7 Class 5 \u00b7 Part 2",
-          "title": "Concurrency, Scaling & Fault Tolerance: Topic 2",
+          "subHeader": "Compilers \u00b7 Class 5 \u00b7 Section 14",
+          "title": "Semantic Analysis & Type Checking",
           "bulletPoints": [
-            "Synchronization primitives, lock-free designs, and consensus.",
-            "Handling failures: Retry strategies, circuit breakers, and idempotency.",
-            "Horizontal scaling vs vertical hardware specialization.",
-            "High-availability architectures and replication topologies."
+            "Type systems: Primitive types, compound types (arrays, structs, pointers), function types, and subtyping.",
+            "Static vs dynamic typing: Catching type errors at compile time vs checking type tags at runtime.",
+            "Type checking rules: Semantic validation of assignments, function parameter compatibility, and implicit coercions.",
+            "Scope resolution: Lexical scoping rules, shadowing, symbol table enter/exit scopes, and forward declarations."
           ],
           "footerText": "Page 14 of 25 \u00b7 Compilers: Principles & Tools"
         },
         {
           "pageNumber": 15,
           "header": "Compilers: Principles & Tools",
-          "subHeader": "Compilers \u00b7 Class 5 \u00b7 Part 3",
-          "title": "Concurrency, Scaling & Fault Tolerance: Topic 3",
+          "subHeader": "Compilers \u00b7 Class 5 \u00b7 Section 15",
+          "title": "Intermediate Representations (IR)",
           "bulletPoints": [
-            "Synchronization primitives, lock-free designs, and consensus.",
-            "Handling failures: Retry strategies, circuit breakers, and idempotency.",
-            "Horizontal scaling vs vertical hardware specialization.",
-            "High-availability architectures and replication topologies."
+            "Why Intermediate Representations matter: Decoupling M source front-ends from N target machine architectures (M + N vs M \u00d7 N).",
+            "Three-Address Code (TAC): Linear quadruples (op, arg1, arg2, result) where each instruction has at most three operands.",
+            "Static Single Assignment (SSA) form: Every variable is assigned exactly once; phi-nodes resolve diverging control paths.",
+            "High-level vs Low-level IR: High-level ASTs preserve language semantics; Low-level IR mirrors target machine registers."
           ],
           "footerText": "Page 15 of 25 \u00b7 Compilers: Principles & Tools"
         },
         {
           "pageNumber": 16,
           "header": "Compilers: Principles & Tools",
-          "subHeader": "Compilers \u00b7 Class 5 \u00b7 Part 4",
-          "title": "Real-World Production Architectures: Topic 4",
+          "subHeader": "Compilers \u00b7 Class 5 \u00b7 Section 16",
+          "title": "Control Flow Graphs & Basic Blocks",
           "bulletPoints": [
-            "Case studies from large-scale datacenter deployments.",
-            "Monitoring, telemetry, observability, and tracing.",
-            "Security boundaries, threat models, and access control.",
-            "Best practices for evolving long-lived software systems."
+            "Basic Block: A sequence of consecutive intermediate instructions with single entry and single exit.",
+            "Leader identification: Target of jumps, instructions immediately following jumps, and program entry points.",
+            "Control Flow Graph (CFG): Directed graph where nodes are basic blocks and edges represent branch and jump paths.",
+            "Dominator trees: Node D dominates node N if every execution path from entry to N must pass through D."
           ],
           "footerText": "Page 16 of 25 \u00b7 Compilers: Principles & Tools"
         },
         {
           "pageNumber": 17,
           "header": "Compilers: Principles & Tools",
-          "subHeader": "Compilers \u00b7 Class 5 \u00b7 Part 5",
-          "title": "Real-World Production Architectures: Topic 5",
+          "subHeader": "Compilers \u00b7 Class 5 \u00b7 Section 17",
+          "title": "Data-Flow Analysis & Liveness",
           "bulletPoints": [
-            "Case studies from large-scale datacenter deployments.",
-            "Monitoring, telemetry, observability, and tracing.",
-            "Security boundaries, threat models, and access control.",
-            "Best practices for evolving long-lived software systems."
+            "Data-flow frameworks: Computing program properties over CFGs using iterative transfer functions and meet operators.",
+            "Reaching Definitions: Determining which variable definitions may reach a given program point.",
+            "Live-Variable Analysis: Backward data-flow analysis finding which variables hold values that may be read in future steps.",
+            "Available Expressions: Forward data-flow analysis eliminating redundant re-computations of common subexpressions."
           ],
           "footerText": "Page 17 of 25 \u00b7 Compilers: Principles & Tools"
         },
         {
           "pageNumber": 18,
           "header": "Compilers: Principles & Tools",
-          "subHeader": "Compilers \u00b7 Class 5 \u00b7 Part 6",
-          "title": "Real-World Production Architectures: Topic 6",
+          "subHeader": "Compilers \u00b7 Class 5 \u00b7 Section 18",
+          "title": "Classical Machine-Independent Optimizations",
           "bulletPoints": [
-            "Case studies from large-scale datacenter deployments.",
-            "Monitoring, telemetry, observability, and tracing.",
-            "Security boundaries, threat models, and access control.",
-            "Best practices for evolving long-lived software systems."
+            "Common Subexpression Elimination (CSE): Reusing previously computed expressions stored in temporary variables.",
+            "Constant Folding and Constant Propagation: Evaluating compile-time constants and propagating known values.",
+            "Dead Code Elimination: Deleting unreachable basic blocks and computations whose results are never read.",
+            "Copy Propagation: Replacing occurrences of variable y with x after assignment y = x."
           ],
           "footerText": "Page 18 of 25 \u00b7 Compilers: Principles & Tools"
         },
         {
           "pageNumber": 19,
           "header": "Compilers: Principles & Tools",
-          "subHeader": "Compilers \u00b7 Class 5 \u00b7 Part 1",
-          "title": "Real-World Production Architectures: Topic 1",
+          "subHeader": "Compilers \u00b7 Class 5 \u00b7 Section 19",
+          "title": "Loop Optimizations & Vectorization",
           "bulletPoints": [
-            "Case studies from large-scale datacenter deployments.",
-            "Monitoring, telemetry, observability, and tracing.",
-            "Security boundaries, threat models, and access control.",
-            "Best practices for evolving long-lived software systems."
+            "Loop Invariant Code Motion (Hoisting): Moving calculations whose values do not change outside the loop pre-header.",
+            "Strength Reduction: Replacing expensive operations (e.g. multiplication inside loops) with cheaper ones (addition).",
+            "Loop Unrolling: Duplicating loop bodies to reduce branch overhead and expose instruction-level parallelism.",
+            "Auto-vectorization: Transforming scalar loops into parallel SIMD instructions (AVX, NEON) over array elements."
           ],
           "footerText": "Page 19 of 25 \u00b7 Compilers: Principles & Tools"
         },
         {
           "pageNumber": 20,
           "header": "Compilers: Principles & Tools",
-          "subHeader": "Compilers \u00b7 Class 5 \u00b7 Part 2",
-          "title": "Real-World Production Architectures: Topic 2",
+          "subHeader": "Compilers \u00b7 Class 5 \u00b7 Section 20",
+          "title": "Run-Time Memory Environments & Stack Frames",
           "bulletPoints": [
-            "Case studies from large-scale datacenter deployments.",
-            "Monitoring, telemetry, observability, and tracing.",
-            "Security boundaries, threat models, and access control.",
-            "Best practices for evolving long-lived software systems."
+            "Process memory layout: Code segment, Static data, Heap (dynamic allocation), and Call Stack.",
+            "Stack Activation Records (Frames): Return address, previous frame pointer (EBP/RBP), saved registers, local variables.",
+            "Calling conventions: cdecl, System V AMD64 ABI, Microsoft x64 (argument passing in registers vs stack).",
+            "Access links and display arrays: Supporting nested functions and static closures in block-structured languages."
           ],
           "footerText": "Page 20 of 25 \u00b7 Compilers: Principles & Tools"
         },
         {
           "pageNumber": 21,
           "header": "Compilers: Principles & Tools",
-          "subHeader": "Compilers \u00b7 Class 5 \u00b7 Part 3",
-          "title": "Emerging Horizons & Future Directions: Topic 3",
+          "subHeader": "Compilers \u00b7 Class 5 \u00b7 Section 21",
+          "title": "Heap Management & Garbage Collection",
           "bulletPoints": [
-            "Next-generation paradigms and hardware trends.",
-            "Bridging theoretical models with practical engineering.",
-            "Open-source ecosystems and industry standards.",
-            "Synthesis: Key takeaways and architectural mastery."
+            "Dynamic memory allocation: Explicit malloc/free management vs automatic runtime garbage collection.",
+            "Reference Counting: Tracking reference tallies; immediate reclamation but unable to collect cyclic pointer structures.",
+            "Tracing Garbage Collection: Mark-and-Sweep from root sets (stack, globals) followed by sweep of unreachable heap cells.",
+            "Generational GC: The weak generational hypothesis; separating young eden spaces from old survivor tenures."
           ],
           "footerText": "Page 21 of 25 \u00b7 Compilers: Principles & Tools"
         },
         {
           "pageNumber": 22,
           "header": "Compilers: Principles & Tools",
-          "subHeader": "Compilers \u00b7 Class 5 \u00b7 Part 4",
-          "title": "Emerging Horizons & Future Directions: Topic 4",
+          "subHeader": "Compilers \u00b7 Class 5 \u00b7 Section 22",
+          "title": "Register Allocation via Graph Coloring",
           "bulletPoints": [
-            "Next-generation paradigms and hardware trends.",
-            "Bridging theoretical models with practical engineering.",
-            "Open-source ecosystems and industry standards.",
-            "Synthesis: Key takeaways and architectural mastery."
+            "The Register Allocation problem: Mapping an unbounded number of IR variables to K physical hardware registers.",
+            "Interference Graphs: Nodes are variable live ranges; edges connect variables that are simultaneously live.",
+            "Chaitin-Briggs Graph Coloring: K-coloring the interference graph in polynomial time using Kempe heuristics.",
+            "Spilling: When a graph cannot be K-colored, selecting candidate variables to spill into memory stack slots."
           ],
           "footerText": "Page 22 of 25 \u00b7 Compilers: Principles & Tools"
         },
         {
           "pageNumber": 23,
           "header": "Compilers: Principles & Tools",
-          "subHeader": "Compilers \u00b7 Class 5 \u00b7 Part 5",
-          "title": "Emerging Horizons & Future Directions: Topic 5",
+          "subHeader": "Compilers \u00b7 Class 5 \u00b7 Section 23",
+          "title": "Instruction Selection & Code Generation",
           "bulletPoints": [
-            "Next-generation paradigms and hardware trends.",
-            "Bridging theoretical models with practical engineering.",
-            "Open-source ecosystems and industry standards.",
-            "Synthesis: Key takeaways and architectural mastery."
+            "Target machine architectures: RISC (fixed-width, load/store) vs CISC (variable-length, memory operands).",
+            "Tree Rewriting & Maximal Munch: Tiling AST expression trees with target machine instruction templates.",
+            "Dynamic programming for instruction selection: Finding optimal instruction sequences with minimum cycle cost.",
+            "Peephole Optimization: Sliding small window over generated machine code to eliminate redundant loads and jumps."
           ],
           "footerText": "Page 23 of 25 \u00b7 Compilers: Principles & Tools"
         },
         {
           "pageNumber": 24,
           "header": "Compilers: Principles & Tools",
-          "subHeader": "Compilers \u00b7 Class 5 \u00b7 Part 6",
-          "title": "Emerging Horizons & Future Directions: Topic 6",
+          "subHeader": "Compilers \u00b7 Class 5 \u00b7 Section 24",
+          "title": "Instruction Scheduling & Pipeline Hazards",
           "bulletPoints": [
-            "Next-generation paradigms and hardware trends.",
-            "Bridging theoretical models with practical engineering.",
-            "Open-source ecosystems and industry standards.",
-            "Synthesis: Key takeaways and architectural mastery."
+            "Instruction Scheduling: Reordering machine instructions to avoid hardware pipeline stalls without altering program semantics.",
+            "Dependency graphs: Read-After-Write (RAW), Write-After-Read (WAR), and Write-After-Write (WAW) latency edges.",
+            "List scheduling algorithm: Prioritizing critical path instructions on ready queues to minimize total cycle time.",
+            "VLIW and EPIC architectures: Compiler-directed parallel instruction issue and software pipelining."
           ],
           "footerText": "Page 24 of 25 \u00b7 Compilers: Principles & Tools"
         },
         {
           "pageNumber": 25,
           "header": "Compilers: Principles & Tools",
-          "subHeader": "Compilers \u00b7 Class 5 \u00b7 Part 1",
-          "title": "Emerging Horizons & Future Directions: Topic 1",
+          "subHeader": "Compilers \u00b7 Class 5 \u00b7 Section 25",
+          "title": "Modern Compilers: LLVM, JIT, and Synthesis",
           "bulletPoints": [
-            "Next-generation paradigms and hardware trends.",
-            "Bridging theoretical models with practical engineering.",
-            "Open-source ecosystems and industry standards.",
-            "Synthesis: Key takeaways and architectural mastery."
+            "The LLVM Compiler Infrastructure: Universal typed SSA intermediate representation and modular optimizer passes.",
+            "Just-In-Time (JIT) Compilation: Compiling hot bytecode loops into native machine code at runtime (V8, JVM HotSpot).",
+            "Profile-Guided Optimization (PGO): Using actual execution telemetry to optimize branch predictions and inline functions.",
+            "Compiler verification and formal methods: CompCert formally verified C compiler and the future of language engineering."
           ],
           "footerText": "Page 25 of 25 \u00b7 Compilers: Principles & Tools"
         }

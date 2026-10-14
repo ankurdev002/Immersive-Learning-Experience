@@ -10,7 +10,7 @@
   "accentColor": "#fb923c",
   "coverImage": "/books/lullabies-music/cover.png",
   "sourcePdf": null,
-  "icon": "\ud83c\udf19",
+  "icon": "🌙",
   "isInteractive": true,
   "author": "Distinguished Curators & Academic Press",
   "totalPages": 20,
@@ -18,267 +18,329 @@
     {
       "chapterNumber": 1,
       "title": "Gentle Music & Songs",
-      "description": "Comprehensive curriculum in Music",
+      "description": "Delightful early reading and discovery in Music",
       "pages": [
         {
           "pageNumber": 1,
           "header": "Gentle Music & Songs",
-          "subHeader": "Music \u00b7 Class 1 \u00b7 Part 1",
-          "title": "Foundations of Art & Creative Expression: Topic 1",
+          "subHeader": "Music · Chapter 1 · Page 1",
+          "title": "Golden Twilight: The Sun Bids Goodnight",
           "bulletPoints": [
-            "The elements of art: Line, shape, color, texture, space.",
-            "Primary colors, secondary colors, and color mixing.",
-            "Warm colors (red, orange, yellow) vs cool colors (blue, green, purple).",
-            "Expressing emotions and ideas through visual design."
+            "The golden sun dips slowly behind the western hills, painting the sky in violet and peach.",
+            "Daytime birds fly to their nests, tucking their heads under warm wings.",
+            "The busy world grows quiet, and shadows stretch long across the soft green grass.",
+            "Breathe in the cool evening air: It is time for peaceful rest and sweet dreams."
           ],
-          "footerText": "Page 1 of 20 \u00b7 Gentle Music & Songs"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 1 of 20 · Gentle Music & Songs"
         },
         {
           "pageNumber": 2,
           "header": "Gentle Music & Songs",
-          "subHeader": "Music \u00b7 Class 1 \u00b7 Part 2",
-          "title": "Foundations of Art & Creative Expression: Topic 2",
+          "subHeader": "Music · Chapter 1 · Page 2",
+          "title": "Hush, Little Baby: The Mockingbird Song",
           "bulletPoints": [
-            "The elements of art: Line, shape, color, texture, space.",
-            "Primary colors, secondary colors, and color mixing.",
-            "Warm colors (red, orange, yellow) vs cool colors (blue, green, purple).",
-            "Expressing emotions and ideas through visual design."
+            "Hush, little baby, don't say a word, Papa's gonna buy you a mockingbird.",
+            "And if that mockingbird won't sing, Papa's gonna buy you a diamond ring.",
+            "And if that diamond ring turns brass, Papa's gonna buy you a looking glass.",
+            "You are safe and cherished, wrapped in warm blankets all through the night."
           ],
-          "footerText": "Page 2 of 20 \u00b7 Gentle Music & Songs"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 2 of 20 · Gentle Music & Songs"
         },
         {
           "pageNumber": 3,
           "header": "Gentle Music & Songs",
-          "subHeader": "Music \u00b7 Class 1 \u00b7 Part 3",
-          "title": "Foundations of Art & Creative Expression: Topic 3",
+          "subHeader": "Music · Chapter 1 · Page 3",
+          "title": "Brahms' Lullaby: Cradle Melody",
           "bulletPoints": [
-            "The elements of art: Line, shape, color, texture, space.",
-            "Primary colors, secondary colors, and color mixing.",
-            "Warm colors (red, orange, yellow) vs cool colors (blue, green, purple).",
-            "Expressing emotions and ideas through visual design."
+            "Lullaby and good night, with pink roses bedight,",
+            "With lilies o'erspread, is baby's wee bed.",
+            "Lay thee down now and rest, may thy slumber be blest,",
+            "Lay thee down now and rest, may thy slumber be blest.",
+            "Sweet dreams softly floating down from the quiet starry heavens."
           ],
-          "footerText": "Page 3 of 20 \u00b7 Gentle Music & Songs"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 3 of 20 · Gentle Music & Songs"
         },
         {
           "pageNumber": 4,
           "header": "Gentle Music & Songs",
-          "subHeader": "Music \u00b7 Class 1 \u00b7 Part 4",
-          "title": "Foundations of Art & Creative Expression: Topic 4",
+          "subHeader": "Music · Chapter 1 · Page 4",
+          "title": "Golden Slumbers: Sleep, Pretty Wantons",
           "bulletPoints": [
-            "The elements of art: Line, shape, color, texture, space.",
-            "Primary colors, secondary colors, and color mixing.",
-            "Warm colors (red, orange, yellow) vs cool colors (blue, green, purple).",
-            "Expressing emotions and ideas through visual design."
+            "Golden slumbers kiss your eyes, Smiles awake you when you rise.",
+            "Sleep, pretty wantons, do not cry, And I will sing a lullaby.",
+            "Rock them, rock them, lullaby; Safe beneath the evening sky.",
+            "Care is far away tonight; all is gentle, calm, and bright."
           ],
-          "footerText": "Page 4 of 20 \u00b7 Gentle Music & Songs"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 4 of 20 · Gentle Music & Songs"
         },
         {
           "pageNumber": 5,
           "header": "Gentle Music & Songs",
-          "subHeader": "Music \u00b7 Class 1 \u00b7 Part 5",
-          "title": "Rhythm, Beat & Melodic Harmony: Topic 5",
+          "subHeader": "Music · Chapter 1 · Page 5",
+          "title": "Stars in the Night Sky: Friendly Lanterns",
           "bulletPoints": [
-            "Understanding the steady pulse of a musical beat.",
-            "Rhythm patterns: Quarter notes, eighth notes, and rests.",
-            "Pitch: High sounds like birds vs low sounds like thunder.",
-            "Singing melodies and listening to musical intervals."
+            "Countless friendly stars twinkle silently across the deep navy blue sky.",
+            "They are ancient suns shining light from millions of miles away to keep you company.",
+            "The Big Dipper points toward Polaris, the constant North Star guiding sailors home.",
+            "Pick your favorite star and whisper your gentle bedtime wish into the night."
           ],
-          "footerText": "Page 5 of 20 \u00b7 Gentle Music & Songs"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 5 of 20 · Gentle Music & Songs"
         },
         {
           "pageNumber": 6,
           "header": "Gentle Music & Songs",
-          "subHeader": "Music \u00b7 Class 1 \u00b7 Part 1",
-          "title": "Rhythm, Beat & Melodic Harmony: Topic 1",
+          "subHeader": "Music · Chapter 1 · Page 6",
+          "title": "The Gentle Ocean Waves: Nature's Hush",
           "bulletPoints": [
-            "Understanding the steady pulse of a musical beat.",
-            "Rhythm patterns: Quarter notes, eighth notes, and rests.",
-            "Pitch: High sounds like birds vs low sounds like thunder.",
-            "Singing melodies and listening to musical intervals."
+            "Shhhhh... the ocean waves glide softly up onto smooth sandy beaches.",
+            "In and out: The rhythmic breath of the sea matches slow, calm breaths.",
+            "Dolphins sleep near the surface, rising gently to breathe under starry skies.",
+            "Water rocks the shore like a loving mother rocking a cradle."
           ],
-          "footerText": "Page 6 of 20 \u00b7 Gentle Music & Songs"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 6 of 20 · Gentle Music & Songs"
         },
         {
           "pageNumber": 7,
           "header": "Gentle Music & Songs",
-          "subHeader": "Music \u00b7 Class 1 \u00b7 Part 2",
-          "title": "Rhythm, Beat & Melodic Harmony: Topic 2",
+          "subHeader": "Music · Chapter 1 · Page 7",
+          "title": "Sweet and Low: Wind of the Western Sea",
           "bulletPoints": [
-            "Understanding the steady pulse of a musical beat.",
-            "Rhythm patterns: Quarter notes, eighth notes, and rests.",
-            "Pitch: High sounds like birds vs low sounds like thunder.",
-            "Singing melodies and listening to musical intervals."
+            "Sweet and low, sweet and low, Wind of the western sea,",
+            "Low, low, breathe and blow, Wind of the western sea!",
+            "Over the rolling waters go, Come from the dying moon, and blow,",
+            "Blow him again to me; While my little one, while my pretty one, sleeps."
           ],
-          "footerText": "Page 7 of 20 \u00b7 Gentle Music & Songs"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 7 of 20 · Gentle Music & Songs"
         },
         {
           "pageNumber": 8,
           "header": "Gentle Music & Songs",
-          "subHeader": "Music \u00b7 Class 1 \u00b7 Part 3",
-          "title": "Rhythm, Beat & Melodic Harmony: Topic 3",
+          "subHeader": "Music · Chapter 1 · Page 8",
+          "title": "All Through the Night: Gentle Guardians",
           "bulletPoints": [
-            "Understanding the steady pulse of a musical beat.",
-            "Rhythm patterns: Quarter notes, eighth notes, and rests.",
-            "Pitch: High sounds like birds vs low sounds like thunder.",
-            "Singing melodies and listening to musical intervals."
+            "Sleep, my child, and peace attend thee, All through the night.",
+            "Guardian angels God will send thee, All through the night.",
+            "Soft the drowsy hours are creeping, Hill and vale in slumber sleeping,",
+            "I my loving vigil keeping, All through the night."
           ],
-          "footerText": "Page 8 of 20 \u00b7 Gentle Music & Songs"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 8 of 20 · Gentle Music & Songs"
         },
         {
           "pageNumber": 9,
           "header": "Gentle Music & Songs",
-          "subHeader": "Music \u00b7 Class 1 \u00b7 Part 4",
-          "title": "Instruments of the World: Topic 4",
+          "subHeader": "Music · Chapter 1 · Page 9",
+          "title": "Lavender's Blue: Cozy Hearthside Peace",
           "bulletPoints": [
-            "Strings: Violins, guitars, harps, and cellos.",
-            "Woodwinds: Flutes, clarinets, and oboes.",
-            "Brass: Trumpets, French horns, and trombones.",
-            "Percussion: Drums, xylophones, maracas, and cymbals."
+            "Lavender's blue, dilly, dilly, Lavender's green,",
+            "Warm is the fire, and quiet the scene.",
+            "Woodsmoke drifts up through the chimney so high,",
+            "Crickets sing soft in the meadow nearby.",
+            "Wrap up in flannel and cuddle up tight; blessings and love on your pillow tonight."
           ],
-          "footerText": "Page 9 of 20 \u00b7 Gentle Music & Songs"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 9 of 20 · Gentle Music & Songs"
         },
         {
           "pageNumber": 10,
           "header": "Gentle Music & Songs",
-          "subHeader": "Music \u00b7 Class 1 \u00b7 Part 5",
-          "title": "Instruments of the World: Topic 5",
+          "subHeader": "Music · Chapter 1 · Page 10",
+          "title": "Sleep, Little Angel: Floating on Clouds",
           "bulletPoints": [
-            "Strings: Violins, guitars, harps, and cellos.",
-            "Woodwinds: Flutes, clarinets, and oboes.",
-            "Brass: Trumpets, French horns, and trombones.",
-            "Percussion: Drums, xylophones, maracas, and cymbals."
+            "Imagine floating gently on a soft white cloud made of fluffy fleece.",
+            "Drifting over sleepy mountain valleys, winding silver rivers, and quiet towns.",
+            "Every window below glows with a warm amber light, then clicks off for sleep.",
+            "The cloud carries you higher into the calm, quiet land of peaceful dreams."
           ],
-          "footerText": "Page 10 of 20 \u00b7 Gentle Music & Songs"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 10 of 20 · Gentle Music & Songs"
         },
         {
           "pageNumber": 11,
           "header": "Gentle Music & Songs",
-          "subHeader": "Music \u00b7 Class 1 \u00b7 Part 1",
-          "title": "Instruments of the World: Topic 1",
+          "subHeader": "Music · Chapter 1 · Page 11",
+          "title": "The Moon's Silver Boat: Sailing the Sky",
           "bulletPoints": [
-            "Strings: Violins, guitars, harps, and cellos.",
-            "Woodwinds: Flutes, clarinets, and oboes.",
-            "Brass: Trumpets, French horns, and trombones.",
-            "Percussion: Drums, xylophones, maracas, and cymbals."
+            "The crescent moon looks like a slender silver boat sailing across dark blue waters.",
+            "The boat is laden with silver pearls, sweet dreams, and gentle fairy tales.",
+            "It sails slowly from the east to the west, rocking with the celestial tides.",
+            "Rest your sleepy eyes: The silver boat will watch over you until morning dawn."
           ],
-          "footerText": "Page 11 of 20 \u00b7 Gentle Music & Songs"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 11 of 20 · Gentle Music & Songs"
         },
         {
           "pageNumber": 12,
           "header": "Gentle Music & Songs",
-          "subHeader": "Music \u00b7 Class 1 \u00b7 Part 2",
-          "title": "Instruments of the World: Topic 2",
+          "subHeader": "Music · Chapter 1 · Page 12",
+          "title": "Fireflies in the Garden: Warm Nightlights",
           "bulletPoints": [
-            "Strings: Violins, guitars, harps, and cellos.",
-            "Woodwinds: Flutes, clarinets, and oboes.",
-            "Brass: Trumpets, French horns, and trombones.",
-            "Percussion: Drums, xylophones, maracas, and cymbals."
+            "Tiny fireflies blink like friendly yellow lanterns in the garden shrubs.",
+            "One glows green, another warm gold, pulsing in harmony with the night breeze.",
+            "They illuminate the sweet honeysuckle flowers and sleepy closed daisy buds.",
+            "Nature has provided a hundred living nightlights outside your bedroom window."
           ],
-          "footerText": "Page 12 of 20 \u00b7 Gentle Music & Songs"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 12 of 20 · Gentle Music & Songs"
         },
         {
           "pageNumber": 13,
           "header": "Gentle Music & Songs",
-          "subHeader": "Music \u00b7 Class 1 \u00b7 Part 3",
-          "title": "Textures, Patterns & Masterpieces: Topic 3",
+          "subHeader": "Music · Chapter 1 · Page 13",
+          "title": "Wind Whispering in the Pines",
           "bulletPoints": [
-            "Visual textures: Smooth, rough, bumpy, and waxy.",
-            "Creating symmetrical patterns and geometric mosaics.",
-            "Appreciating famous artworks and artistic styles.",
-            "Creating your own original masterpiece."
+            "Listen to the gentle wind whispering through tall pine needles: Shhhh, rest now.",
+            "The trees sway gently, dancing a slow waltz with the cool night air.",
+            "Dry pinecones rest on the mossy forest floor, safe and quiet.",
+            "Every living thing finds comfort in the embrace of the peaceful night."
           ],
-          "footerText": "Page 13 of 20 \u00b7 Gentle Music & Songs"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 13 of 20 · Gentle Music & Songs"
         },
         {
           "pageNumber": 14,
           "header": "Gentle Music & Songs",
-          "subHeader": "Music \u00b7 Class 1 \u00b7 Part 4",
-          "title": "Textures, Patterns & Masterpieces: Topic 4",
+          "subHeader": "Music · Chapter 1 · Page 14",
+          "title": "The Forest Animal Slumber",
           "bulletPoints": [
-            "Visual textures: Smooth, rough, bumpy, and waxy.",
-            "Creating symmetrical patterns and geometric mosaics.",
-            "Appreciating famous artworks and artistic styles.",
-            "Creating your own original masterpiece."
+            "Little deer curl up together under the sheltering hemlock boughs.",
+            "Mother fox curls her bushy tail around her tiny cubs in their warm den.",
+            "Owls perch high on oak branches, watching over the quiet sleeping woods.",
+            "The forest is safe, warm, and resting until the golden sunrise returns."
           ],
-          "footerText": "Page 14 of 20 \u00b7 Gentle Music & Songs"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 14 of 20 · Gentle Music & Songs"
         },
         {
           "pageNumber": 15,
           "header": "Gentle Music & Songs",
-          "subHeader": "Music \u00b7 Class 1 \u00b7 Part 5",
-          "title": "Textures, Patterns & Masterpieces: Topic 5",
+          "subHeader": "Music · Chapter 1 · Page 15",
+          "title": "Cradle Song: Rocking into Peace",
           "bulletPoints": [
-            "Visual textures: Smooth, rough, bumpy, and waxy.",
-            "Creating symmetrical patterns and geometric mosaics.",
-            "Appreciating famous artworks and artistic styles.",
-            "Creating your own original masterpiece."
+            "Rock back and forth, back and forth, like a boat on a calm glass lake.",
+            "Let your shoulders drop, let your hands uncurl, and let your eyelids feel heavy.",
+            "There is nothing you need to do right now except relax and breathe slow.",
+            "Inhale calm peace... exhale all the tiredness of the busy day."
           ],
-          "footerText": "Page 15 of 20 \u00b7 Gentle Music & Songs"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 15 of 20 · Gentle Music & Songs"
         },
         {
           "pageNumber": 16,
           "header": "Gentle Music & Songs",
-          "subHeader": "Music \u00b7 Class 1 \u00b7 Part 1",
-          "title": "Textures, Patterns & Masterpieces: Topic 1",
+          "subHeader": "Music · Chapter 1 · Page 16",
+          "title": "Rain on the Rooftop: Midnight Rhythm",
           "bulletPoints": [
-            "Visual textures: Smooth, rough, bumpy, and waxy.",
-            "Creating symmetrical patterns and geometric mosaics.",
-            "Appreciating famous artworks and artistic styles.",
-            "Creating your own original masterpiece."
+            "Pitter-patter, pitter-patter: Soft raindrops drum a gentle melody on the roof.",
+            "Each drop washes the garden clean, quenching the thirst of trees and flowers.",
+            "Inside your room, it is dry, cozy, and warm under thick down blankets.",
+            "The sound of rain is nature's most comforting lullaby, singing you to sleep."
           ],
-          "footerText": "Page 16 of 20 \u00b7 Gentle Music & Songs"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 16 of 20 · Gentle Music & Songs"
         },
         {
           "pageNumber": 17,
           "header": "Gentle Music & Songs",
-          "subHeader": "Music \u00b7 Class 1 \u00b7 Part 2",
-          "title": "The Joy of Performance & Celebration: Topic 2",
+          "subHeader": "Music · Chapter 1 · Page 17",
+          "title": "The Slumber Train: Journey to Dreamland",
           "bulletPoints": [
-            "Singing together in harmony and choral unity.",
-            "Movement, dance, and physical expression to music.",
-            "Storytelling through folk songs and theatrical art.",
-            "Sharing creative joy with friends and family."
+            "All aboard the Slumber Express: A train with wheels of velvet and cars of down.",
+            "The tracks are made of starlight, winding gently across the quiet night sky.",
+            "The conductor whispers: \"Next stop: The Land of Friendly Dreams and Rainbows.\"",
+            "Chugga-chugga, soft and slow, rocking you into deepest, sweetest sleep."
           ],
-          "footerText": "Page 17 of 20 \u00b7 Gentle Music & Songs"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 17 of 20 · Gentle Music & Songs"
         },
         {
           "pageNumber": 18,
           "header": "Gentle Music & Songs",
-          "subHeader": "Music \u00b7 Class 1 \u00b7 Part 3",
-          "title": "The Joy of Performance & Celebration: Topic 3",
+          "subHeader": "Music · Chapter 1 · Page 18",
+          "title": "The Distant Owl's Serenade",
           "bulletPoints": [
-            "Singing together in harmony and choral unity.",
-            "Movement, dance, and physical expression to music.",
-            "Storytelling through folk songs and theatrical art.",
-            "Sharing creative joy with friends and family."
+            "Hoo-hoo... hoo-hoo: The great horned owl calls softly from the old orchard.",
+            "A gentle reminder that the night is friendly, peaceful, and filled with quiet life.",
+            "Moths flutter on silken wings, visiting pale night-blooming moonflowers.",
+            "The night holds its own quiet magic, calm and restorative for all."
           ],
-          "footerText": "Page 18 of 20 \u00b7 Gentle Music & Songs"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 18 of 20 · Gentle Music & Songs"
         },
         {
           "pageNumber": 19,
           "header": "Gentle Music & Songs",
-          "subHeader": "Music \u00b7 Class 1 \u00b7 Part 4",
-          "title": "The Joy of Performance & Celebration: Topic 4",
+          "subHeader": "Music · Chapter 1 · Page 19",
+          "title": "Peace Over All the World",
           "bulletPoints": [
-            "Singing together in harmony and choral unity.",
-            "Movement, dance, and physical expression to music.",
-            "Storytelling through folk songs and theatrical art.",
-            "Sharing creative joy with friends and family."
+            "Across the city, across the villages, across the oceans, children are sleeping.",
+            "Safe in warm beds, dreaming of play, laughter, and sunny tomorrow adventures.",
+            "You are loved, you are protected, and you are surrounded by care.",
+            "Let peace settle deep in your heart like quiet snow falling on still waters."
           ],
-          "footerText": "Page 19 of 20 \u00b7 Gentle Music & Songs"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 19 of 20 · Gentle Music & Songs"
         },
         {
           "pageNumber": 20,
           "header": "Gentle Music & Songs",
-          "subHeader": "Music \u00b7 Class 1 \u00b7 Part 5",
-          "title": "The Joy of Performance & Celebration: Topic 5",
+          "subHeader": "Music · Chapter 1 · Page 20",
+          "title": "Goodnight Stars, Goodnight Moon",
           "bulletPoints": [
-            "Singing together in harmony and choral unity.",
-            "Movement, dance, and physical expression to music.",
-            "Storytelling through folk songs and theatrical art.",
-            "Sharing creative joy with friends and family."
+            "Goodnight stars, goodnight moon, goodnight gentle room.",
+            "Goodnight toys upon the shelf, goodnight teddy bear and books.",
+            "Close your sleepy eyes now; let warm dreams carry you away.",
+            "Sleep deeply, sleep sweet, until the golden sun brings morning light. Good night!"
           ],
-          "footerText": "Page 20 of 20 \u00b7 Gentle Music & Songs"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 20 of 20 · Gentle Music & Songs"
         }
       ]
     }

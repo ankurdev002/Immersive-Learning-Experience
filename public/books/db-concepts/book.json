@@ -12,7 +12,7 @@
   "sourcePdf": null,
   "icon": "\ud83d\uddc4\ufe0f",
   "isInteractive": true,
-  "author": "Distinguished Curators & Academic Press",
+  "author": "Abraham Silberschatz, Henry F. Korth & S. Sudarshan",
   "totalPages": 25,
   "chapters": [
     {
@@ -23,325 +23,326 @@
         {
           "pageNumber": 1,
           "header": "Database System Concepts",
-          "subHeader": "Databases \u00b7 Class 5 \u00b7 Part 1",
-          "title": "Foundational Models & System Abstractions: Topic 1",
+          "subHeader": "Databases \u00b7 Class 5 \u00b7 Section 1",
+          "title": "The Relational Model & Relational Algebra",
           "bulletPoints": [
-            "Architectural paradigms and foundational theorems.",
-            "Trade-off evaluation: Performance, latency, consistency, and cost.",
-            "Mathematical formulations and algorithmic bounds.",
-            "Decomposing complex systems into verifiable modules."
+            "Relational model fundamentals: Relations (tables), tuples (rows), attributes (columns), and atomic domains.",
+            "Integrity constraints: Entity integrity (primary key uniqueness), referential integrity (foreign keys), domain constraints.",
+            "Relational algebra fundamental operators: Select (sigma), Project (pi), Union (cup), Set Difference (-), Cartesian Product (times).",
+            "Additional operators: Natural Join (bowtie), Theta Join, Rename (rho), and Division."
           ],
           "footerText": "Page 1 of 25 \u00b7 Database System Concepts"
         },
         {
           "pageNumber": 2,
           "header": "Database System Concepts",
-          "subHeader": "Databases \u00b7 Class 5 \u00b7 Part 2",
-          "title": "Foundational Models & System Abstractions: Topic 2",
+          "subHeader": "Databases \u00b7 Class 5 \u00b7 Section 2",
+          "title": "SQL Fundamentals & Complex Queries",
           "bulletPoints": [
-            "Architectural paradigms and foundational theorems.",
-            "Trade-off evaluation: Performance, latency, consistency, and cost.",
-            "Mathematical formulations and algorithmic bounds.",
-            "Decomposing complex systems into verifiable modules."
+            "Data Definition Language (DDL): CREATE TABLE, ALTER TABLE, DROP TABLE, primary/foreign key definitions, constraints.",
+            "Data Manipulation Language (DML): SELECT, INSERT, UPDATE, DELETE syntax and execution semantics.",
+            "Aggregation and Grouping: GROUP BY, HAVING, and aggregate functions (COUNT, SUM, AVG, MIN, MAX).",
+            "Nested Subqueries: Correlated vs uncorrelated subqueries, IN, EXISTS, ALL, ANY, and Common Table Expressions (WITH clauses)."
           ],
           "footerText": "Page 2 of 25 \u00b7 Database System Concepts"
         },
         {
           "pageNumber": 3,
           "header": "Database System Concepts",
-          "subHeader": "Databases \u00b7 Class 5 \u00b7 Part 3",
-          "title": "Foundational Models & System Abstractions: Topic 3",
+          "subHeader": "Databases \u00b7 Class 5 \u00b7 Section 3",
+          "title": "Entity-Relationship (E-R) Modeling",
           "bulletPoints": [
-            "Architectural paradigms and foundational theorems.",
-            "Trade-off evaluation: Performance, latency, consistency, and cost.",
-            "Mathematical formulations and algorithmic bounds.",
-            "Decomposing complex systems into verifiable modules."
+            "E-R Modeling concepts: Entity sets, attributes (simple, composite, multivalued, derived), and relationship sets.",
+            "Mapping cardinalities: One-to-one, one-to-many, many-to-one, many-to-many relationship constraints.",
+            "Participation constraints: Total participation (double lines) vs partial participation.",
+            "Specialization and Generalization: Top-down specialization, bottom-up generalization, and aggregation abstractions."
           ],
           "footerText": "Page 3 of 25 \u00b7 Database System Concepts"
         },
         {
           "pageNumber": 4,
           "header": "Database System Concepts",
-          "subHeader": "Databases \u00b7 Class 5 \u00b7 Part 4",
-          "title": "Foundational Models & System Abstractions: Topic 4",
+          "subHeader": "Databases \u00b7 Class 5 \u00b7 Section 4",
+          "title": "Relational Database Design & Normalization",
           "bulletPoints": [
-            "Architectural paradigms and foundational theorems.",
-            "Trade-off evaluation: Performance, latency, consistency, and cost.",
-            "Mathematical formulations and algorithmic bounds.",
-            "Decomposing complex systems into verifiable modules."
+            "Pitfalls in relational design: Data redundancy, update anomalies, insertion anomalies, and deletion anomalies.",
+            "Functional Dependencies (FDs): Alpha -> Beta assertions; Armstrong's Axioms (reflexivity, augmentation, transitivity).",
+            "Attribute closure algorithm: Computing alpha+ to find candidate keys and verify dependency preservation.",
+            "Canonical cover: Minimal set of functional dependencies equivalent to a given set of FDs."
           ],
           "footerText": "Page 4 of 25 \u00b7 Database System Concepts"
         },
         {
           "pageNumber": 5,
           "header": "Database System Concepts",
-          "subHeader": "Databases \u00b7 Class 5 \u00b7 Part 5",
-          "title": "Foundational Models & System Abstractions: Topic 5",
+          "subHeader": "Databases \u00b7 Class 5 \u00b7 Section 5",
+          "title": "Normal Forms: 1NF, 2NF, 3NF, and BCNF",
           "bulletPoints": [
-            "Architectural paradigms and foundational theorems.",
-            "Trade-off evaluation: Performance, latency, consistency, and cost.",
-            "Mathematical formulations and algorithmic bounds.",
-            "Decomposing complex systems into verifiable modules."
+            "First Normal Form (1NF): All attribute domains must contain only atomic (indivisible) values.",
+            "Second Normal Form (2NF): 1NF plus no non-prime attribute is partially dependent on any candidate key.",
+            "Third Normal Form (3NF): 2NF plus no transitive dependencies (if X -> Y, X is superkey or Y is prime attribute).",
+            "Boyce-Codd Normal Form (BCNF): For every non-trivial dependency X -> Y, X must be a superkey; lossless-join decompositions."
           ],
           "footerText": "Page 5 of 25 \u00b7 Database System Concepts"
         },
         {
           "pageNumber": 6,
           "header": "Database System Concepts",
-          "subHeader": "Databases \u00b7 Class 5 \u00b7 Part 6",
-          "title": "Core Mechanisms & Algorithmic Engines: Topic 6",
+          "subHeader": "Databases \u00b7 Class 5 \u00b7 Section 6",
+          "title": "Storage Structure & File Organization",
           "bulletPoints": [
-            "In-depth analysis of structural algorithms and state machines.",
-            "Memory access optimizations and data layout efficiency.",
-            "Protocol interactions, handshakes, and invariant maintenance.",
-            "Diagnostic profiling and empirical performance benchmarking."
+            "Physical storage hierarchy: Cache, main memory, flash memory SSDs, magnetic hard disks, tape libraries.",
+            "File organization: Heap file organization, sequential file organization, and multitable clustering.",
+            "Record allocation in blocks: Fixed-length records vs variable-length records with slotted-page block architecture.",
+            "Buffer management: Managing the buffer pool, dirty page writes, and pin/unpin page reference counters."
           ],
           "footerText": "Page 6 of 25 \u00b7 Database System Concepts"
         },
         {
           "pageNumber": 7,
           "header": "Database System Concepts",
-          "subHeader": "Databases \u00b7 Class 5 \u00b7 Part 1",
-          "title": "Core Mechanisms & Algorithmic Engines: Topic 1",
+          "subHeader": "Databases \u00b7 Class 5 \u00b7 Section 7",
+          "title": "Indexing & B+ Tree Data Structures",
           "bulletPoints": [
-            "In-depth analysis of structural algorithms and state machines.",
-            "Memory access optimizations and data layout efficiency.",
-            "Protocol interactions, handshakes, and invariant maintenance.",
-            "Diagnostic profiling and empirical performance benchmarking."
+            "Index classifications: Primary (clustering) index vs Secondary (non-clustering) index; Dense index vs Sparse index.",
+            "B+ Tree structure: Balanced search tree where all data records reside at leaf nodes linked in a doubly linked list.",
+            "B+ Tree search: O(log_B N) root-to-leaf traversal; node splitting upon insertion overflow and node borrowing upon deletion underflow.",
+            "Multilevel indexing and index sequential access method (ISAM) architecture."
           ],
           "footerText": "Page 7 of 25 \u00b7 Database System Concepts"
         },
         {
           "pageNumber": 8,
           "header": "Database System Concepts",
-          "subHeader": "Databases \u00b7 Class 5 \u00b7 Part 2",
-          "title": "Core Mechanisms & Algorithmic Engines: Topic 2",
+          "subHeader": "Databases \u00b7 Class 5 \u00b7 Section 8",
+          "title": "Hashing Techniques & Dynamic Hashing",
           "bulletPoints": [
-            "In-depth analysis of structural algorithms and state machines.",
-            "Memory access optimizations and data layout efficiency.",
-            "Protocol interactions, handshakes, and invariant maintenance.",
-            "Diagnostic profiling and empirical performance benchmarking."
+            "Static hashing: Hash functions mapping search keys to bucket addresses; collision resolution via overflow chaining.",
+            "Hash index vs B+ Tree index: Hash index provides O(1) exact match lookup but cannot support range queries.",
+            "Dynamic hashing: Extendible hashing and Linear hashing adjusting bucket allocations gracefully as data volume grows.",
+            "Bitmap indexing: Space-efficient encoding for low-cardinality attributes (e.g. gender, status, country)."
           ],
           "footerText": "Page 8 of 25 \u00b7 Database System Concepts"
         },
         {
           "pageNumber": 9,
           "header": "Database System Concepts",
-          "subHeader": "Databases \u00b7 Class 5 \u00b7 Part 3",
-          "title": "Core Mechanisms & Algorithmic Engines: Topic 3",
+          "subHeader": "Databases \u00b7 Class 5 \u00b7 Section 9",
+          "title": "Query Processing: Parsing & Translation",
           "bulletPoints": [
-            "In-depth analysis of structural algorithms and state machines.",
-            "Memory access optimizations and data layout efficiency.",
-            "Protocol interactions, handshakes, and invariant maintenance.",
-            "Diagnostic profiling and empirical performance benchmarking."
+            "Steps in query processing: Parsing and translation -> Optimization -> Evaluation engine.",
+            "Relational algebra equivalence rules: Commutativity and associativity of joins, projection and selection pushdown.",
+            "Evaluating relational operators: Implementation algorithms for Selection (file scan vs index scan).",
+            "Sorting algorithms: External merge-sort algorithm for datasets exceeding available RAM buffer size."
           ],
           "footerText": "Page 9 of 25 \u00b7 Database System Concepts"
         },
         {
           "pageNumber": 10,
           "header": "Database System Concepts",
-          "subHeader": "Databases \u00b7 Class 5 \u00b7 Part 4",
-          "title": "Core Mechanisms & Algorithmic Engines: Topic 4",
+          "subHeader": "Databases \u00b7 Class 5 \u00b7 Section 10",
+          "title": "Join Algorithms: Nested-Loop, Merge & Hash",
           "bulletPoints": [
-            "In-depth analysis of structural algorithms and state machines.",
-            "Memory access optimizations and data layout efficiency.",
-            "Protocol interactions, handshakes, and invariant maintenance.",
-            "Diagnostic profiling and empirical performance benchmarking."
+            "Block Nested-Loop Join: Iterating outer blocks and inner blocks; cost = B_r + (B_r / (M - 2)) * B_s block I/Os.",
+            "Indexed Nested-Loop Join: Using index on inner relation to lookup matching tuples in O(log N).",
+            "Sort-Merge Join: Sorting both relations on join attributes and merging sorted streams in linear time.",
+            "Hash Join: Partitioning both relations using hash function on join key and probing matching hash buckets."
           ],
           "footerText": "Page 10 of 25 \u00b7 Database System Concepts"
         },
         {
           "pageNumber": 11,
           "header": "Database System Concepts",
-          "subHeader": "Databases \u00b7 Class 5 \u00b7 Part 5",
-          "title": "Concurrency, Scaling & Fault Tolerance: Topic 5",
+          "subHeader": "Databases \u00b7 Class 5 \u00b7 Section 11",
+          "title": "Query Optimization & Cost Estimation",
           "bulletPoints": [
-            "Synchronization primitives, lock-free designs, and consensus.",
-            "Handling failures: Retry strategies, circuit breakers, and idempotency.",
-            "Horizontal scaling vs vertical hardware specialization.",
-            "High-availability architectures and replication topologies."
+            "Cost-based query optimization: Estimating execution costs using catalog statistics (table cardinality, block counts).",
+            "Selectivity estimation: Estimating result size using uniform distribution assumptions, histograms, and sampling.",
+            "Join order optimization: Dynamic programming over left-deep join trees to find the minimum cost plan.",
+            "Heuristic optimization: Pushing selections down, pushing projections down, and performing most restrictive joins first."
           ],
           "footerText": "Page 11 of 25 \u00b7 Database System Concepts"
         },
         {
           "pageNumber": 12,
           "header": "Database System Concepts",
-          "subHeader": "Databases \u00b7 Class 5 \u00b7 Part 6",
-          "title": "Concurrency, Scaling & Fault Tolerance: Topic 6",
+          "subHeader": "Databases \u00b7 Class 5 \u00b7 Section 12",
+          "title": "Transaction Concept & ACID Properties",
           "bulletPoints": [
-            "Synchronization primitives, lock-free designs, and consensus.",
-            "Handling failures: Retry strategies, circuit breakers, and idempotency.",
-            "Horizontal scaling vs vertical hardware specialization.",
-            "High-availability architectures and replication topologies."
+            "Transaction definition: A unit of program execution that accesses and possibly updates various data items.",
+            "Atomicity: Either all operations of the transaction are completed successfully, or none are reflected in the database.",
+            "Consistency: Execution of a transaction in isolation preserves the consistency invariants of the database.",
+            "Isolation: Transactions execute concurrently without witnessing the uncommitted intermediate states of other transactions.",
+            "Durability: Once a transaction commits, its modifications persist permanently even upon sudden system crash."
           ],
           "footerText": "Page 12 of 25 \u00b7 Database System Concepts"
         },
         {
           "pageNumber": 13,
           "header": "Database System Concepts",
-          "subHeader": "Databases \u00b7 Class 5 \u00b7 Part 1",
-          "title": "Concurrency, Scaling & Fault Tolerance: Topic 1",
+          "subHeader": "Databases \u00b7 Class 5 \u00b7 Section 13",
+          "title": "Concurrency Control & Serializability",
           "bulletPoints": [
-            "Synchronization primitives, lock-free designs, and consensus.",
-            "Handling failures: Retry strategies, circuit breakers, and idempotency.",
-            "Horizontal scaling vs vertical hardware specialization.",
-            "High-availability architectures and replication topologies."
+            "Transaction states: Active, Partially Committed, Failed, Aborted, Committed.",
+            "Conflict Serializability: A schedule is conflict serializable if it is conflict equivalent to a serial schedule.",
+            "Precedence Graphs (Serialization Graphs): Directed graph where cycles indicate non-serializable concurrent schedules.",
+            "View Serializability: Weaker serializability condition accounting for blind writes."
           ],
           "footerText": "Page 13 of 25 \u00b7 Database System Concepts"
         },
         {
           "pageNumber": 14,
           "header": "Database System Concepts",
-          "subHeader": "Databases \u00b7 Class 5 \u00b7 Part 2",
-          "title": "Concurrency, Scaling & Fault Tolerance: Topic 2",
+          "subHeader": "Databases \u00b7 Class 5 \u00b7 Section 14",
+          "title": "Lock-Based Concurrency: Two-Phase Locking",
           "bulletPoints": [
-            "Synchronization primitives, lock-free designs, and consensus.",
-            "Handling failures: Retry strategies, circuit breakers, and idempotency.",
-            "Horizontal scaling vs vertical hardware specialization.",
-            "High-availability architectures and replication topologies."
+            "Lock modes: Shared lock (S) for reading and Exclusive lock (X) for writing; lock compatibility matrix.",
+            "Two-Phase Locking (2PL) protocol: Growing phase (acquiring locks) and Shrinking phase (releasing locks).",
+            "Strict 2PL: Holding all exclusive locks until transaction commit/abort, preventing cascading rollbacks.",
+            "Rigorous 2PL: Holding all shared and exclusive locks until transaction completion, guaranteeing serializability."
           ],
           "footerText": "Page 14 of 25 \u00b7 Database System Concepts"
         },
         {
           "pageNumber": 15,
           "header": "Database System Concepts",
-          "subHeader": "Databases \u00b7 Class 5 \u00b7 Part 3",
-          "title": "Concurrency, Scaling & Fault Tolerance: Topic 3",
+          "subHeader": "Databases \u00b7 Class 5 \u00b7 Section 15",
+          "title": "Deadlock Handling in Databases",
           "bulletPoints": [
-            "Synchronization primitives, lock-free designs, and consensus.",
-            "Handling failures: Retry strategies, circuit breakers, and idempotency.",
-            "Horizontal scaling vs vertical hardware specialization.",
-            "High-availability architectures and replication topologies."
+            "Deadlock conditions: Two or more transactions waiting for locks held by each other in a cyclic dependency.",
+            "Wait-For Graph (WFG): Directed graph of transactions; cycles indicate deadlocks; background deadlock detection threads.",
+            "Deadlock prevention schemes: Wait-Die scheme (non-preemptive) and Wound-Wait scheme (preemptive) based on timestamps.",
+            "Deadlock recovery: Victim selection, transaction rollback (total vs partial to savepoint), and starvation prevention."
           ],
           "footerText": "Page 15 of 25 \u00b7 Database System Concepts"
         },
         {
           "pageNumber": 16,
           "header": "Database System Concepts",
-          "subHeader": "Databases \u00b7 Class 5 \u00b7 Part 4",
-          "title": "Real-World Production Architectures: Topic 4",
+          "subHeader": "Databases \u00b7 Class 5 \u00b7 Section 16",
+          "title": "Timestamp-Based & Validation Protocols",
           "bulletPoints": [
-            "Case studies from large-scale datacenter deployments.",
-            "Monitoring, telemetry, observability, and tracing.",
-            "Security boundaries, threat models, and access control.",
-            "Best practices for evolving long-lived software systems."
+            "Timestamp-Ordering protocol: Ordering transaction execution according to monotonically increasing timestamps TS(T).",
+            "Read and write timestamp tracking: R-timestamp(Q) and W-timestamp(Q) for each data item Q.",
+            "Thomas' Write Rule: Obsolete write rule optimizing timestamp ordering by ignoring out-of-order writes.",
+            "Optimistic concurrency control (Validation-based): Read phase, Validation phase (checking conflicts), Write phase."
           ],
           "footerText": "Page 16 of 25 \u00b7 Database System Concepts"
         },
         {
           "pageNumber": 17,
           "header": "Database System Concepts",
-          "subHeader": "Databases \u00b7 Class 5 \u00b7 Part 5",
-          "title": "Real-World Production Architectures: Topic 5",
+          "subHeader": "Databases \u00b7 Class 5 \u00b7 Section 17",
+          "title": "Recovery Systems & ARIES Algorithm",
           "bulletPoints": [
-            "Case studies from large-scale datacenter deployments.",
-            "Monitoring, telemetry, observability, and tracing.",
-            "Security boundaries, threat models, and access control.",
-            "Best practices for evolving long-lived software systems."
+            "Failure classifications: Transaction failure, System crash (power loss), Disk failure (media corruption).",
+            "Write-Ahead Log (WAL) records: <T, X, V1, V2> storing transaction ID, data item, old value, and new value.",
+            "Checkpointing: Fuzzy checkpoints writing dirty buffer pages to disk and recording active transaction tables.",
+            "ARIES recovery process: Analysis pass (reconstructing state), Redo pass (repeating history), Undo pass (rolling back uncommitted work)."
           ],
           "footerText": "Page 17 of 25 \u00b7 Database System Concepts"
         },
         {
           "pageNumber": 18,
           "header": "Database System Concepts",
-          "subHeader": "Databases \u00b7 Class 5 \u00b7 Part 6",
-          "title": "Real-World Production Architectures: Topic 6",
+          "subHeader": "Databases \u00b7 Class 5 \u00b7 Section 18",
+          "title": "Distributed Databases & 2PC Protocol",
           "bulletPoints": [
-            "Case studies from large-scale datacenter deployments.",
-            "Monitoring, telemetry, observability, and tracing.",
-            "Security boundaries, threat models, and access control.",
-            "Best practices for evolving long-lived software systems."
+            "Distributed database architecture: Data fragmentation (horizontal and vertical), replication, and allocation.",
+            "Two-Phase Commit (2PC) protocol: Phase 1 (Prepare / Voting) and Phase 2 (Global Commit / Abort).",
+            "Coordinator failure modes: Blocking problem when coordinator crashes after participants vote YES.",
+            "Three-Phase Commit (3PC): Adding a pre-commit phase to eliminate blocking under non-network-partitioning assumptions."
           ],
           "footerText": "Page 18 of 25 \u00b7 Database System Concepts"
         },
         {
           "pageNumber": 19,
           "header": "Database System Concepts",
-          "subHeader": "Databases \u00b7 Class 5 \u00b7 Part 1",
-          "title": "Real-World Production Architectures: Topic 1",
+          "subHeader": "Databases \u00b7 Class 5 \u00b7 Section 19",
+          "title": "NoSQL Databases & The CAP Theorem",
           "bulletPoints": [
-            "Case studies from large-scale datacenter deployments.",
-            "Monitoring, telemetry, observability, and tracing.",
-            "Security boundaries, threat models, and access control.",
-            "Best practices for evolving long-lived software systems."
+            "The CAP Theorem (Brewer's Conjecture): A distributed data store can guarantee at most two of Consistency, Availability, Partition Tolerance.",
+            "BASE philosophy: Basically Available, Soft state, Eventual consistency.",
+            "NoSQL data models: Key-Value stores (Redis), Document stores (MongoDB), Wide-Column stores (Cassandra), Graph databases (Neo4j).",
+            "Consistent Hashing and tunable consistency levels (Quorum R + W > N) in Dynamo-style distributed systems."
           ],
           "footerText": "Page 19 of 25 \u00b7 Database System Concepts"
         },
         {
           "pageNumber": 20,
           "header": "Database System Concepts",
-          "subHeader": "Databases \u00b7 Class 5 \u00b7 Part 2",
-          "title": "Real-World Production Architectures: Topic 2",
+          "subHeader": "Databases \u00b7 Class 5 \u00b7 Section 20",
+          "title": "Data Warehousing & OLAP Cubes",
           "bulletPoints": [
-            "Case studies from large-scale datacenter deployments.",
-            "Monitoring, telemetry, observability, and tracing.",
-            "Security boundaries, threat models, and access control.",
-            "Best practices for evolving long-lived software systems."
+            "OLTP (Online Transaction Processing) vs OLAP (Online Analytical Processing) workloads.",
+            "Dimensional modeling: Star schema (central fact table surrounded by dimension tables) vs Snowflake schema.",
+            "Data warehouse architectures: Extract, Transform, Load (ETL) pipelines and staging areas.",
+            "OLAP operations: Roll-up (aggregation), Drill-down (increasing detail), Slice and Dice, and Pivot."
           ],
           "footerText": "Page 20 of 25 \u00b7 Database System Concepts"
         },
         {
           "pageNumber": 21,
           "header": "Database System Concepts",
-          "subHeader": "Databases \u00b7 Class 5 \u00b7 Part 3",
-          "title": "Emerging Horizons & Future Directions: Topic 3",
+          "subHeader": "Databases \u00b7 Class 5 \u00b7 Section 21",
+          "title": "Object-Relational & JSON Databases",
           "bulletPoints": [
-            "Next-generation paradigms and hardware trends.",
-            "Bridging theoretical models with practical engineering.",
-            "Open-source ecosystems and industry standards.",
-            "Synthesis: Key takeaways and architectural mastery."
+            "Object-Relational Mapping (ORM): Impedance mismatch between relational tables and object-oriented memory models.",
+            "Complex data types: Nested relations, array attributes, and spatial data types (PostGIS).",
+            "JSON/BSON document storage: Storing semi-structured documents directly in relational columns (PostgreSQL JSONB).",
+            "GIN and GiST generalized search tree indexes for fast semi-structured document searching."
           ],
           "footerText": "Page 21 of 25 \u00b7 Database System Concepts"
         },
         {
           "pageNumber": 22,
           "header": "Database System Concepts",
-          "subHeader": "Databases \u00b7 Class 5 \u00b7 Part 4",
-          "title": "Emerging Horizons & Future Directions: Topic 4",
+          "subHeader": "Databases \u00b7 Class 5 \u00b7 Section 22",
+          "title": "Database Security & Access Control",
           "bulletPoints": [
-            "Next-generation paradigms and hardware trends.",
-            "Bridging theoretical models with practical engineering.",
-            "Open-source ecosystems and industry standards.",
-            "Synthesis: Key takeaways and architectural mastery."
+            "Authentication and authorization: Role-Based Access Control (RBAC) and discretionary access control (DAC).",
+            "SQL GRANT and REVOKE commands for table, column, and view permissions.",
+            "SQL Injection prevention: Parameterized queries, prepared statements, and input validation.",
+            "Encryption: Data at rest (transparent data encryption TDE) and Data in transit (TLS/SSL)."
           ],
           "footerText": "Page 22 of 25 \u00b7 Database System Concepts"
         },
         {
           "pageNumber": 23,
           "header": "Database System Concepts",
-          "subHeader": "Databases \u00b7 Class 5 \u00b7 Part 5",
-          "title": "Emerging Horizons & Future Directions: Topic 5",
+          "subHeader": "Databases \u00b7 Class 5 \u00b7 Section 23",
+          "title": "Database Tuning & Performance Benchmarking",
           "bulletPoints": [
-            "Next-generation paradigms and hardware trends.",
-            "Bridging theoretical models with practical engineering.",
-            "Open-source ecosystems and industry standards.",
-            "Synthesis: Key takeaways and architectural mastery."
+            "Indexing strategies: Creating composite indexes, covering indexes, and avoiding index bloat.",
+            "Query plan analysis: Using EXPLAIN and EXPLAIN ANALYZE to identify sequential scans and costly joins.",
+            "Schema denormalization: Selectively introducing redundancy to eliminate expensive join operations on hot paths.",
+            "Standard benchmarks: TPC-C (OLTP transactional throughput) and TPC-H (OLAP analytical queries)."
           ],
           "footerText": "Page 23 of 25 \u00b7 Database System Concepts"
         },
         {
           "pageNumber": 24,
           "header": "Database System Concepts",
-          "subHeader": "Databases \u00b7 Class 5 \u00b7 Part 6",
-          "title": "Emerging Horizons & Future Directions: Topic 6",
+          "subHeader": "Databases \u00b7 Class 5 \u00b7 Section 24",
+          "title": "Spatial & Temporal Databases",
           "bulletPoints": [
-            "Next-generation paradigms and hardware trends.",
-            "Bridging theoretical models with practical engineering.",
-            "Open-source ecosystems and industry standards.",
-            "Synthesis: Key takeaways and architectural mastery."
+            "Spatial data: Points, lines, polygons representing geographic and geometric information.",
+            "Spatial indexing: R-Trees (bounding boxes) and Quadtrees for multi-dimensional spatial range queries.",
+            "Temporal databases: Valid time (when fact is true in reality) and Transaction time (when fact was recorded in database).",
+            "Bitemporal tables: Tracking historical corporate changes and audits with temporal primary keys."
           ],
           "footerText": "Page 24 of 25 \u00b7 Database System Concepts"
         },
         {
           "pageNumber": 25,
           "header": "Database System Concepts",
-          "subHeader": "Databases \u00b7 Class 5 \u00b7 Part 1",
-          "title": "Emerging Horizons & Future Directions: Topic 1",
+          "subHeader": "Databases \u00b7 Class 5 \u00b7 Section 25",
+          "title": "Future Trends: Cloud-Native & NewSQL",
           "bulletPoints": [
-            "Next-generation paradigms and hardware trends.",
-            "Bridging theoretical models with practical engineering.",
-            "Open-source ecosystems and industry standards.",
-            "Synthesis: Key takeaways and architectural mastery."
+            "Disaggregated storage and compute: Amazon Aurora, Google Cloud Spanner, and Snowflake architectures.",
+            "NewSQL systems: Delivering horizontal distributed scalability while preserving strict ACID transactional semantics.",
+            "TrueTime API: Synchronized atomic clocks and GPS receivers providing global external consistency in Google Spanner.",
+            "Vector databases: Approximate Nearest Neighbor (ANN) indexes (HNSW) powering large language model retrieval (RAG)."
           ],
           "footerText": "Page 25 of 25 \u00b7 Database System Concepts"
         }

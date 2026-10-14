@@ -10,7 +10,7 @@
   "accentColor": "#2dd4bf",
   "coverImage": "/books/streaming-sys/cover.png",
   "sourcePdf": null,
-  "icon": "\ud83c\udf0a",
+  "icon": "🌊",
   "isInteractive": true,
   "author": "Distinguished Curators & Academic Press",
   "totalPages": 25,
@@ -18,332 +18,407 @@
     {
       "chapterNumber": 1,
       "title": "Streaming Systems",
-      "description": "Comprehensive curriculum in Real-Time Data",
+      "description": "Authoritative curriculum in Real-Time Data",
       "pages": [
         {
           "pageNumber": 1,
           "header": "Streaming Systems",
-          "subHeader": "Real-Time Data \u00b7 Class 3 \u00b7 Part 1",
-          "title": "Core Foundations & Introductory Concepts: Topic 1",
+          "subHeader": "Real-Time Data · Chapter 1 · Section 1",
+          "title": "Foundations: Unbounded vs Bounded Data",
           "bulletPoints": [
-            "Fundamental lessons and central principles of the domain.",
-            "Key definitions, terminology, and historical context.",
-            "Observing phenomena and recognizing patterns.",
-            "Building foundational mental models."
+            "Streaming data is inherently unbounded: An infinite, continuously arriving stream of real-time events.",
+            "Batch processing is simply a subset of stream processing where the stream is artificially bounded at a point in time.",
+            "Historical batch pipelines introduced hours of latency; streaming provides instantaneous insights and fast reaction.",
+            "Key architectural challenge: Processing unbounded streams accurately despite out-of-order and delayed arrivals."
           ],
-          "footerText": "Page 1 of 25 \u00b7 Streaming Systems"
+          "formulaOrSummary": "Batch = Stream bounded at time T",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 1 of 25 · Streaming Systems"
         },
         {
           "pageNumber": 2,
           "header": "Streaming Systems",
-          "subHeader": "Real-Time Data \u00b7 Class 3 \u00b7 Part 2",
-          "title": "Core Foundations & Introductory Concepts: Topic 2",
+          "subHeader": "Real-Time Data · Chapter 1 · Section 2",
+          "title": "Batch vs Streaming: Evolution of Data Architectures",
           "bulletPoints": [
-            "Fundamental lessons and central principles of the domain.",
-            "Key definitions, terminology, and historical context.",
-            "Observing phenomena and recognizing patterns.",
-            "Building foundational mental models."
+            "Lambda Architecture: Running dual systems—a fast streaming layer (Storm) and an accurate batch layer (Hadoop/MapReduce).",
+            "Flaws of Lambda: Maintaining two separate codebases, dual business logic, and reconciling discrepancies between them.",
+            "Kappa Architecture: A single unified stream processing engine (Flink/Beam) that processes both real-time and historical data.",
+            "Unified API: The same transform code processes streaming events and re-processes historical logs from storage."
           ],
-          "footerText": "Page 2 of 25 \u00b7 Streaming Systems"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 2 of 25 · Streaming Systems"
         },
         {
           "pageNumber": 3,
           "header": "Streaming Systems",
-          "subHeader": "Real-Time Data \u00b7 Class 3 \u00b7 Part 3",
-          "title": "Core Foundations & Introductory Concepts: Topic 3",
+          "subHeader": "Real-Time Data · Chapter 1 · Section 3",
+          "title": "Event Time vs Processing Time: The Critical Distinction",
           "bulletPoints": [
-            "Fundamental lessons and central principles of the domain.",
-            "Key definitions, terminology, and historical context.",
-            "Observing phenomena and recognizing patterns.",
-            "Building foundational mental models."
+            "Event Time: The exact timestamp when an event originally occurred on the client device or sensor.",
+            "Processing Time: The timestamp when the stream processing engine receives and executes the event.",
+            "Ingestion Time: The timestamp when the event is appended to the message broker (e.g. Kafka partition).",
+            "The Golden Rule: For correct business calculations, grouping and windowing must always be based on Event Time."
           ],
-          "footerText": "Page 3 of 25 \u00b7 Streaming Systems"
+          "formulaOrSummary": "Event Time != Processing Time != Ingestion Time",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 3 of 25 · Streaming Systems"
         },
         {
           "pageNumber": 4,
           "header": "Streaming Systems",
-          "subHeader": "Real-Time Data \u00b7 Class 3 \u00b7 Part 4",
-          "title": "Core Foundations & Introductory Concepts: Topic 4",
+          "subHeader": "Real-Time Data · Chapter 1 · Section 4",
+          "title": "Skew and Watermarks: Measuring Event Time Progress",
           "bulletPoints": [
-            "Fundamental lessons and central principles of the domain.",
-            "Key definitions, terminology, and historical context.",
-            "Observing phenomena and recognizing patterns.",
-            "Building foundational mental models."
+            "Event-time skew: The delay between event time and processing time caused by network latency and client offline periods.",
+            "A Watermark is a monotonically increasing timestamp representing system progress: \"All data up to time T has arrived\".",
+            "Heuristic vs Perfect watermarks: Heuristic watermarks estimate arrival completeness based on observed network delays.",
+            "Watermark propagation: In a multi-stage streaming pipeline, the watermark is the minimum watermark of all input channels."
           ],
-          "footerText": "Page 4 of 25 \u00b7 Streaming Systems"
+          "formulaOrSummary": "Watermark(T) => All events with event_time < T have arrived",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 4 of 25 · Streaming Systems"
         },
         {
           "pageNumber": 5,
           "header": "Streaming Systems",
-          "subHeader": "Real-Time Data \u00b7 Class 3 \u00b7 Part 5",
-          "title": "Core Foundations & Introductory Concepts: Topic 5",
+          "subHeader": "Real-Time Data · Chapter 1 · Section 5",
+          "title": "The Four Core Questions of Stream Processing",
           "bulletPoints": [
-            "Fundamental lessons and central principles of the domain.",
-            "Key definitions, terminology, and historical context.",
-            "Observing phenomena and recognizing patterns.",
-            "Building foundational mental models."
+            "What is being computed? Defined by the transformation logic (e.g., Sum, Count, Average, Machine Learning inference).",
+            "Where in event time is it computed? Defined by the windowing strategy (Tumbling, Sliding, or Session windows).",
+            "When in processing time are results materialized? Governed by triggers and watermark progression.",
+            "How do those results relate? Governed by the accumulation mode (Discarding, Accumulating, or Retracting)."
           ],
-          "footerText": "Page 5 of 25 \u00b7 Streaming Systems"
+          "formulaOrSummary": "What (Logic) · Where (Window) · When (Trigger) · How (Accumulation)",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 5 of 25 · Streaming Systems"
         },
         {
           "pageNumber": 6,
           "header": "Streaming Systems",
-          "subHeader": "Real-Time Data \u00b7 Class 3 \u00b7 Part 6",
-          "title": "Core Foundations & Introductory Concepts: Topic 6",
+          "subHeader": "Real-Time Data · Chapter 1 · Section 6",
+          "title": "Windowing Strategies: Fixed (Tumbling) Windows",
           "bulletPoints": [
-            "Fundamental lessons and central principles of the domain.",
-            "Key definitions, terminology, and historical context.",
-            "Observing phenomena and recognizing patterns.",
-            "Building foundational mental models."
+            "Fixed windows segment time into non-overlapping, contiguous intervals of uniform duration (e.g. 5-minute windows).",
+            "Every event belongs to exactly one fixed window based on its event time.",
+            "Window boundaries: Window [12:00, 12:05) contains all events with timestamps 12:00:00 <= t < 12:05:00.",
+            "Common use cases: Hourly revenue aggregates, 10-minute sensor telemetry summaries, and daily active user metrics."
           ],
-          "footerText": "Page 6 of 25 \u00b7 Streaming Systems"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 6 of 25 · Streaming Systems"
         },
         {
           "pageNumber": 7,
           "header": "Streaming Systems",
-          "subHeader": "Real-Time Data \u00b7 Class 3 \u00b7 Part 7",
-          "title": "Core Foundations & Introductory Concepts: Topic 7",
+          "subHeader": "Real-Time Data · Chapter 1 · Section 7",
+          "title": "Sliding (Hopping) Windows & Multi-Bucket Aggregation",
           "bulletPoints": [
-            "Fundamental lessons and central principles of the domain.",
-            "Key definitions, terminology, and historical context.",
-            "Observing phenomena and recognizing patterns.",
-            "Building foundational mental models."
+            "Sliding windows have a fixed length and a slide period (e.g., 1-hour window sliding every 5 minutes).",
+            "Overlap factor: Since the window duration exceeds the slide period, events belong to multiple overlapping windows.",
+            "Efficient execution: Stream processors maintain micro-aggregates for the slide period to avoid redundant calculations.",
+            "Common use cases: Moving averages, stock trading volume trends, and sliding 15-minute anomaly detection."
           ],
-          "footerText": "Page 7 of 25 \u00b7 Streaming Systems"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 7 of 25 · Streaming Systems"
         },
         {
           "pageNumber": 8,
           "header": "Streaming Systems",
-          "subHeader": "Real-Time Data \u00b7 Class 3 \u00b7 Part 1",
-          "title": "Mechanisms, Methods & Step-by-Step Analysis: Topic 1",
+          "subHeader": "Real-Time Data · Chapter 1 · Section 8",
+          "title": "Session Windows: Dynamic Inactivity Gaps",
           "bulletPoints": [
-            "Detailed methodologies and structural frameworks.",
-            "Hands-on examples and guided practice exercises.",
-            "Component interactions and process workflows.",
-            "Common mistakes, diagnostics, and problem solving."
+            "Session windows are data-driven windows defined by periods of user activity separated by an inactivity gap (e.g. 30 mins).",
+            "No fixed size: A session can last 2 minutes or 5 hours depending on how long the user remains active.",
+            "Dynamic window merging: As out-of-order events arrive, two previously disjoint session windows may merge into one.",
+            "Ideal for web analytics: Tracking e-commerce user browsing journeys and game play sessions."
           ],
-          "footerText": "Page 8 of 25 \u00b7 Streaming Systems"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 8 of 25 · Streaming Systems"
         },
         {
           "pageNumber": 9,
           "header": "Streaming Systems",
-          "subHeader": "Real-Time Data \u00b7 Class 3 \u00b7 Part 2",
-          "title": "Mechanisms, Methods & Step-by-Step Analysis: Topic 2",
+          "subHeader": "Real-Time Data · Chapter 1 · Section 9",
+          "title": "Watermarks & Completeness: Handling Late Data",
           "bulletPoints": [
-            "Detailed methodologies and structural frameworks.",
-            "Hands-on examples and guided practice exercises.",
-            "Component interactions and process workflows.",
-            "Common mistakes, diagnostics, and problem solving."
+            "No matter how well-tuned a watermark is, mobile devices reconnecting after hours offline produce late data.",
+            "Allowed lateness: Configurable horizon specifying how long window state is preserved after the watermark passes.",
+            "Once allowed lateness expires, the window is permanently closed, and any subsequent events are routed to a dead-letter queue.",
+            "Trade-off: Longer allowed lateness ensures higher accuracy but requires keeping state in memory longer."
           ],
-          "footerText": "Page 9 of 25 \u00b7 Streaming Systems"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 9 of 25 · Streaming Systems"
         },
         {
           "pageNumber": 10,
           "header": "Streaming Systems",
-          "subHeader": "Real-Time Data \u00b7 Class 3 \u00b7 Part 3",
-          "title": "Mechanisms, Methods & Step-by-Step Analysis: Topic 3",
+          "subHeader": "Real-Time Data · Chapter 1 · Section 10",
+          "title": "Triggers: Controlling When Results Materialize",
           "bulletPoints": [
-            "Detailed methodologies and structural frameworks.",
-            "Hands-on examples and guided practice exercises.",
-            "Component interactions and process workflows.",
-            "Common mistakes, diagnostics, and problem solving."
+            "Triggers dictate the exact instant in processing time when intermediate or final window results are emitted.",
+            "Watermark triggers: Fire when the watermark sweeps past the end of the window (standard completeness trigger).",
+            "Processing-time triggers: Fire periodically (e.g. every 10 seconds) to emit speculative previews before window close.",
+            "Data-driven triggers: Fire every N elements (e.g. emit every 1,000 events) for high-frequency dashboards."
           ],
-          "footerText": "Page 10 of 25 \u00b7 Streaming Systems"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 10 of 25 · Streaming Systems"
         },
         {
           "pageNumber": 11,
           "header": "Streaming Systems",
-          "subHeader": "Real-Time Data \u00b7 Class 3 \u00b7 Part 4",
-          "title": "Mechanisms, Methods & Step-by-Step Analysis: Topic 4",
+          "subHeader": "Real-Time Data · Chapter 1 · Section 11",
+          "title": "Speculative Triggers & Punctual Updates",
           "bulletPoints": [
-            "Detailed methodologies and structural frameworks.",
-            "Hands-on examples and guided practice exercises.",
-            "Component interactions and process workflows.",
-            "Common mistakes, diagnostics, and problem solving."
+            "Low latency vs high accuracy: Users need low-latency estimates immediately, but also want final accurate values later.",
+            "Composite triggers: Fire a speculative estimate every 5 seconds until the watermark arrives, then fire late updates if needed.",
+            "Eliminating stale caches: Downstream dashboards can update progress bars in real time without waiting for full batch completion.",
+            "Graceful refinement: The system converges monotonically on the exact answer as data arrives."
           ],
-          "footerText": "Page 11 of 25 \u00b7 Streaming Systems"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 11 of 25 · Streaming Systems"
         },
         {
           "pageNumber": 12,
           "header": "Streaming Systems",
-          "subHeader": "Real-Time Data \u00b7 Class 3 \u00b7 Part 5",
-          "title": "Mechanisms, Methods & Step-by-Step Analysis: Topic 5",
+          "subHeader": "Real-Time Data · Chapter 1 · Section 12",
+          "title": "Accumulation Modes: Discarding, Accumulating & Retracting",
           "bulletPoints": [
-            "Detailed methodologies and structural frameworks.",
-            "Hands-on examples and guided practice exercises.",
-            "Component interactions and process workflows.",
-            "Common mistakes, diagnostics, and problem solving."
+            "Discarding: Each firing emits only the delta (new events) since the last trigger firing; past state is discarded.",
+            "Accumulating: Each firing emits the full updated aggregate (e.g. running total 10 -> 15 -> 22); downstream overwrites.",
+            "Retracting: Emits both a retraction of the previous estimate (-15) and the new value (+22) for downstream aggregators.",
+            "Retraction pipelines: Essential when feeding downstream relational tables that perform secondary groupings."
           ],
-          "footerText": "Page 12 of 25 \u00b7 Streaming Systems"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 12 of 25 · Streaming Systems"
         },
         {
           "pageNumber": 13,
           "header": "Streaming Systems",
-          "subHeader": "Real-Time Data \u00b7 Class 3 \u00b7 Part 6",
-          "title": "Mechanisms, Methods & Step-by-Step Analysis: Topic 6",
+          "subHeader": "Real-Time Data · Chapter 1 · Section 13",
+          "title": "Exactly-Once Processing Semantics (EOS)",
           "bulletPoints": [
-            "Detailed methodologies and structural frameworks.",
-            "Hands-on examples and guided practice exercises.",
-            "Component interactions and process workflows.",
-            "Common mistakes, diagnostics, and problem solving."
+            "At-least-once: Events are guaranteed to be processed, but network retries may duplicate records (over-counting).",
+            "At-most-once: Events are dropped under failure; no duplicates, but data loss occurs.",
+            "Exactly-Once Semantics (EOS): Every record impacts the final computed output state exactly once, despite failures.",
+            "Implementation: Requires end-to-end integration across replayable sources (Kafka), stateful engines, and transactional sinks."
           ],
-          "footerText": "Page 13 of 25 \u00b7 Streaming Systems"
+          "formulaOrSummary": "At-Least-Once + Idempotent / Two-Phase Commit Sink = Exactly-Once",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 13 of 25 · Streaming Systems"
         },
         {
           "pageNumber": 14,
           "header": "Streaming Systems",
-          "subHeader": "Real-Time Data \u00b7 Class 3 \u00b7 Part 7",
-          "title": "Applied Problem Solving & Real-World Context: Topic 7",
+          "subHeader": "Real-Time Data · Chapter 1 · Section 14",
+          "title": "State Management in Stream Processors",
           "bulletPoints": [
-            "Practical applications across daily life and industry.",
-            "Case studies, stories, and investigative highlights.",
-            "Connecting concepts across multidisciplinary domains.",
-            "Creative exploration and independent project work."
+            "Stateful streaming: Operations like aggregations, joins, and sessionization require persistent state between events.",
+            "Embedded state backends: Embedded key-value stores (e.g. RocksDB) store state locally on disk with in-memory caching.",
+            "Scalability: Local embedded state eliminates remote database RPC overheads, enabling millions of operations per second.",
+            "State pruning: State must be tied to TTLs or window lifetimes to prevent unbounded disk growth over months."
           ],
-          "footerText": "Page 14 of 25 \u00b7 Streaming Systems"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 14 of 25 · Streaming Systems"
         },
         {
           "pageNumber": 15,
           "header": "Streaming Systems",
-          "subHeader": "Real-Time Data \u00b7 Class 3 \u00b7 Part 1",
-          "title": "Applied Problem Solving & Real-World Context: Topic 1",
+          "subHeader": "Real-Time Data · Chapter 1 · Section 15",
+          "title": "Checkpointing & Distributed Snapshots (Chandy-Lamport)",
           "bulletPoints": [
-            "Practical applications across daily life and industry.",
-            "Case studies, stories, and investigative highlights.",
-            "Connecting concepts across multidisciplinary domains.",
-            "Creative exploration and independent project work."
+            "Asynchronous barrier snapshotting: Checkpoint barriers flow alongside data records through operator DAGs.",
+            "When an operator receives a barrier from all inputs, it snapshots its local state to durable storage (S3/HDFS).",
+            "Non-blocking: Stream processing continues without pausing while state is uploaded asynchronously in the background.",
+            "Recovery: On worker crash, the entire pipeline rolls back to the last completed checkpoint and replays stream sources."
           ],
-          "footerText": "Page 15 of 25 \u00b7 Streaming Systems"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 15 of 25 · Streaming Systems"
         },
         {
           "pageNumber": 16,
           "header": "Streaming Systems",
-          "subHeader": "Real-Time Data \u00b7 Class 3 \u00b7 Part 2",
-          "title": "Applied Problem Solving & Real-World Context: Topic 2",
+          "subHeader": "Real-Time Data · Chapter 1 · Section 16",
+          "title": "Stream Joins: Windowed Stream-to-Stream Joins",
           "bulletPoints": [
-            "Practical applications across daily life and industry.",
-            "Case studies, stories, and investigative highlights.",
-            "Connecting concepts across multidisciplinary domains.",
-            "Creative exploration and independent project work."
+            "Joining two unbounded streams (e.g., ad impressions and ad clicks) requires a bounding window in event time.",
+            "Interval join: Join event A with event B where event_time_B is within [event_time_A - 10m, event_time_A + 30m].",
+            "State retention: Both streams buffer events in state until the join condition is satisfied or the interval window expires.",
+            "Clean-up: Expired unjoined records can be emitted as outer joins (e.g., impressions that never received a click)."
           ],
-          "footerText": "Page 16 of 25 \u00b7 Streaming Systems"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 16 of 25 · Streaming Systems"
         },
         {
           "pageNumber": 17,
           "header": "Streaming Systems",
-          "subHeader": "Real-Time Data \u00b7 Class 3 \u00b7 Part 3",
-          "title": "Applied Problem Solving & Real-World Context: Topic 3",
+          "subHeader": "Real-Time Data · Chapter 1 · Section 17",
+          "title": "The Stream-Table Duality",
           "bulletPoints": [
-            "Practical applications across daily life and industry.",
-            "Case studies, stories, and investigative highlights.",
-            "Connecting concepts across multidisciplinary domains.",
-            "Creative exploration and independent project work."
+            "A stream is a changelog of events over time; a table is the materialized snapshot of state at a single point in time.",
+            "Stream -> Table: Aggregating a changelog of inserts, updates, and deletes produces a current state table.",
+            "Table -> Stream: Capturing the change-data-capture (CDC) log of a database table produces an event stream.",
+            "Unifying paradigm: Streams and tables are two sides of the same coin, formalized in Kafka Streams (KStream/KTable) and Flink."
           ],
-          "footerText": "Page 17 of 25 \u00b7 Streaming Systems"
+          "formulaOrSummary": "Stream (Changelog) <==== Duality ====> Table (Current State)",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 17 of 25 · Streaming Systems"
         },
         {
           "pageNumber": 18,
           "header": "Streaming Systems",
-          "subHeader": "Real-Time Data \u00b7 Class 3 \u00b7 Part 4",
-          "title": "Applied Problem Solving & Real-World Context: Topic 4",
+          "subHeader": "Real-Time Data · Chapter 1 · Section 18",
+          "title": "Temporal Joins & Dimension Table Lookups",
           "bulletPoints": [
-            "Practical applications across daily life and industry.",
-            "Case studies, stories, and investigative highlights.",
-            "Connecting concepts across multidisciplinary domains.",
-            "Creative exploration and independent project work."
+            "Joining an event stream with an evolving dimension table (e.g. transaction stream joined with customer credit score table).",
+            "Temporal tables preserve historical versioning: Query the customer’s credit score *at the exact time of the transaction*.",
+            "Eliminates race conditions: Changes to customer profile today do not retroactively invalidate transactions from yesterday.",
+            "Native support in SQL streaming engines via versioned state snapshots and changelog joins."
           ],
-          "footerText": "Page 18 of 25 \u00b7 Streaming Systems"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 18 of 25 · Streaming Systems"
         },
         {
           "pageNumber": 19,
           "header": "Streaming Systems",
-          "subHeader": "Real-Time Data \u00b7 Class 3 \u00b7 Part 5",
-          "title": "Applied Problem Solving & Real-World Context: Topic 5",
+          "subHeader": "Real-Time Data · Chapter 1 · Section 19",
+          "title": "Handling Out-of-Order Data: DLQs & Late Routing",
           "bulletPoints": [
-            "Practical applications across daily life and industry.",
-            "Case studies, stories, and investigative highlights.",
-            "Connecting concepts across multidisciplinary domains.",
-            "Creative exploration and independent project work."
+            "Dead-Letter Queues (DLQ): Route unparseable, malformed, or hopelessly late events to a dedicated isolation topic.",
+            "Automated alerts: Monitor DLQ volume to detect client app regressions, corrupted schema encoders, or protocol mismatches.",
+            "Offline re-drive: Once bugs in processing logic are resolved, messages from the DLQ can be replayed and re-injected safely.",
+            "Zero data loss: Isolating bad records prevents toxic payloads from blocking processing threads."
           ],
-          "footerText": "Page 19 of 25 \u00b7 Streaming Systems"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 19 of 25 · Streaming Systems"
         },
         {
           "pageNumber": 20,
           "header": "Streaming Systems",
-          "subHeader": "Real-Time Data \u00b7 Class 3 \u00b7 Part 6",
-          "title": "Review, Synthesis & Key Takeaways: Topic 6",
+          "subHeader": "Real-Time Data · Chapter 1 · Section 20",
+          "title": "Backpressure: Downstream Flow Control",
           "bulletPoints": [
-            "Comprehensive summary of essential insights.",
-            "Key formulas, checklists, and mental checkpoints.",
-            "Self-assessment quizzes and reflection prompts.",
-            "Continuing the learning journey with curiosity."
+            "When downstream operators cannot keep up with upstream arrival rates, buffers fill up rapidly.",
+            "Reactive backpressure: Slow downstream operators stop pulling from input buffers, propagating backpressure upstream.",
+            "TCP flow control: Buffers fill up to network sockets, ultimately signaling the message broker consumer to slow down.",
+            "Graceful throttling: The cluster slows down gracefully instead of crashing due to out-of-memory errors."
           ],
-          "footerText": "Page 20 of 25 \u00b7 Streaming Systems"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 20 of 25 · Streaming Systems"
         },
         {
           "pageNumber": 21,
           "header": "Streaming Systems",
-          "subHeader": "Real-Time Data \u00b7 Class 3 \u00b7 Part 7",
-          "title": "Review, Synthesis & Key Takeaways: Topic 7",
+          "subHeader": "Real-Time Data · Chapter 1 · Section 21",
+          "title": "Dynamic Autoscaling in Streaming Topologies",
           "bulletPoints": [
-            "Comprehensive summary of essential insights.",
-            "Key formulas, checklists, and mental checkpoints.",
-            "Self-assessment quizzes and reflection prompts.",
-            "Continuing the learning journey with curiosity."
+            "Streaming workloads experience diurnal traffic peaks (e.g. evening shopping spikes, weekend sports events).",
+            "Autoscaling triggers: Scale workers based on consumer group lag and operator CPU utilization.",
+            "State redistribution: When adding new workers, stream state partitions must rebalance across the expanded worker pool.",
+            "Reactive vs predictive scaling: Use predictive historical models to scale up clusters 15 minutes before anticipated peaks."
           ],
-          "footerText": "Page 21 of 25 \u00b7 Streaming Systems"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 21 of 25 · Streaming Systems"
         },
         {
           "pageNumber": 22,
           "header": "Streaming Systems",
-          "subHeader": "Real-Time Data \u00b7 Class 3 \u00b7 Part 1",
-          "title": "Review, Synthesis & Key Takeaways: Topic 1",
+          "subHeader": "Real-Time Data · Chapter 1 · Section 22",
+          "title": "Streaming SQL: Declarative Relational Processing",
           "bulletPoints": [
-            "Comprehensive summary of essential insights.",
-            "Key formulas, checklists, and mental checkpoints.",
-            "Self-assessment quizzes and reflection prompts.",
-            "Continuing the learning journey with curiosity."
+            "Standard SQL syntax extended with streaming primitives: TUMBLE(ts, INTERVAL 5 MINUTE), HOP, and SESSION.",
+            "Apache Calcite and Flink SQL translate declarative queries into optimized stateful physical operator graphs.",
+            "Democratization: Data analysts and engineers query real-time streams using familiar SELECT, WHERE, and GROUP BY.",
+            "Continuous queries: A streaming SQL query runs continuously, producing an output changelog stream."
           ],
-          "footerText": "Page 22 of 25 \u00b7 Streaming Systems"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 22 of 25 · Streaming Systems"
         },
         {
           "pageNumber": 23,
           "header": "Streaming Systems",
-          "subHeader": "Real-Time Data \u00b7 Class 3 \u00b7 Part 2",
-          "title": "Review, Synthesis & Key Takeaways: Topic 2",
+          "subHeader": "Real-Time Data · Chapter 1 · Section 23",
+          "title": "Operator Chaining & Memory Management",
           "bulletPoints": [
-            "Comprehensive summary of essential insights.",
-            "Key formulas, checklists, and mental checkpoints.",
-            "Self-assessment quizzes and reflection prompts.",
-            "Continuing the learning journey with curiosity."
+            "Operator chaining: Fuses adjacent operators (e.g., filter -> map) into a single thread to eliminate serialization overhead.",
+            "Off-heap memory management: Allocate state and network buffers outside JVM garbage collection to eliminate GC pauses.",
+            "Zero-copy network transfers: Pass memory segments directly between Netty network channels and operator buffers.",
+            "Sub-millisecond latency: Chaining and off-heap memory achieve consistent microsecond-to-millisecond end-to-end latencies."
           ],
-          "footerText": "Page 23 of 25 \u00b7 Streaming Systems"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 23 of 25 · Streaming Systems"
         },
         {
           "pageNumber": 24,
           "header": "Streaming Systems",
-          "subHeader": "Real-Time Data \u00b7 Class 3 \u00b7 Part 3",
-          "title": "Review, Synthesis & Key Takeaways: Topic 3",
+          "subHeader": "Real-Time Data · Chapter 1 · Section 24",
+          "title": "Monitoring & Operating Streaming Topologies",
           "bulletPoints": [
-            "Comprehensive summary of essential insights.",
-            "Key formulas, checklists, and mental checkpoints.",
-            "Self-assessment quizzes and reflection prompts.",
-            "Continuing the learning journey with curiosity."
+            "Key streaming metrics: Source ingestion lag, event-time watermark latency, checkpoint duration, and GC pause times.",
+            "Watermark lag: The difference between current wall-clock time and the pipeline watermark reveals if data processing is falling behind.",
+            "Checkpoint size growth: Track state size to identify leaking keys or unbounded state accumulators.",
+            "Alerting: Alert when checkpoint duration exceeds checkpoint interval, which indicates imminent cluster stalling."
           ],
-          "footerText": "Page 24 of 25 \u00b7 Streaming Systems"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 24 of 25 · Streaming Systems"
         },
         {
           "pageNumber": 25,
           "header": "Streaming Systems",
-          "subHeader": "Real-Time Data \u00b7 Class 3 \u00b7 Part 4",
-          "title": "Review, Synthesis & Key Takeaways: Topic 4",
+          "subHeader": "Real-Time Data · Chapter 1 · Section 25",
+          "title": "The Future of Streaming: Unified Real-Time Platforms",
           "bulletPoints": [
-            "Comprehensive summary of essential insights.",
-            "Key formulas, checklists, and mental checkpoints.",
-            "Self-assessment quizzes and reflection prompts.",
-            "Continuing the learning journey with curiosity."
+            "Convergence of streaming and storage: Modern lakehouse architectures (Apache Iceberg, Delta Lake) ingest streaming updates directly.",
+            "Serverless streaming: Instant spin-up of compute operators without managing dedicated distributed clusters.",
+            "Real-time AI/ML feature stores: Continuous stream processors compute live features for online fraud detection and recommendation.",
+            "Streaming as default: All future data architectures will treat batch as a historical subset of continuous event streaming."
           ],
-          "footerText": "Page 25 of 25 \u00b7 Streaming Systems"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 25 of 25 · Streaming Systems"
         }
       ]
     }

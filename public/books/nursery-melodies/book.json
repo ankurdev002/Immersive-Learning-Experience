@@ -10,7 +10,7 @@
   "accentColor": "#c4b5fd",
   "coverImage": "/books/nursery-melodies/cover.png",
   "sourcePdf": null,
-  "icon": "\ud83c\udfb5",
+  "icon": "🎵",
   "isInteractive": true,
   "author": "Distinguished Curators & Academic Press",
   "totalPages": 20,
@@ -18,267 +18,328 @@
     {
       "chapterNumber": 1,
       "title": "Nursery Rhymes & Poems",
-      "description": "Comprehensive curriculum in Poetry & Music",
+      "description": "Delightful illustrated reading in Poetry & Music",
       "pages": [
         {
           "pageNumber": 1,
           "header": "Nursery Rhymes & Poems",
-          "subHeader": "Poetry & Music \u00b7 Class 1 \u00b7 Part 1",
-          "title": "Foundations of Art & Creative Expression: Topic 1",
+          "subHeader": "Poetry & Music · Page 1",
+          "title": "Twinkle, Twinkle, Little Star",
           "bulletPoints": [
-            "The elements of art: Line, shape, color, texture, space.",
-            "Primary colors, secondary colors, and color mixing.",
-            "Warm colors (red, orange, yellow) vs cool colors (blue, green, purple).",
-            "Expressing emotions and ideas through visual design."
+            "Twinkle, twinkle, little star, How I wonder what you are!",
+            "Up above the world so high, Like a diamond in the sky.",
+            "When the blazing sun is gone, When he nothing shines upon,",
+            "Then you show your little light, Twinkle, twinkle, all the night."
           ],
-          "footerText": "Page 1 of 20 \u00b7 Nursery Rhymes & Poems"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 1 of 20 · Nursery Rhymes & Poems"
         },
         {
           "pageNumber": 2,
           "header": "Nursery Rhymes & Poems",
-          "subHeader": "Poetry & Music \u00b7 Class 1 \u00b7 Part 2",
-          "title": "Foundations of Art & Creative Expression: Topic 2",
+          "subHeader": "Poetry & Music · Page 2",
+          "title": "Baa, Baa, Black Sheep",
           "bulletPoints": [
-            "The elements of art: Line, shape, color, texture, space.",
-            "Primary colors, secondary colors, and color mixing.",
-            "Warm colors (red, orange, yellow) vs cool colors (blue, green, purple).",
-            "Expressing emotions and ideas through visual design."
+            "Baa, baa, black sheep, Have you any wool?",
+            "Yes, sir, yes, sir, Three bags full:",
+            "One for the master, And one for the dame,",
+            "And one for the little boy Who lives down the lane."
           ],
-          "footerText": "Page 2 of 20 \u00b7 Nursery Rhymes & Poems"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 2 of 20 · Nursery Rhymes & Poems"
         },
         {
           "pageNumber": 3,
           "header": "Nursery Rhymes & Poems",
-          "subHeader": "Poetry & Music \u00b7 Class 1 \u00b7 Part 3",
-          "title": "Foundations of Art & Creative Expression: Topic 3",
+          "subHeader": "Poetry & Music · Page 3",
+          "title": "Humpty Dumpty",
           "bulletPoints": [
-            "The elements of art: Line, shape, color, texture, space.",
-            "Primary colors, secondary colors, and color mixing.",
-            "Warm colors (red, orange, yellow) vs cool colors (blue, green, purple).",
-            "Expressing emotions and ideas through visual design."
+            "Humpty Dumpty sat on a wall,",
+            "Humpty Dumpty had a great fall.",
+            "All the king's horses and all the king's men,",
+            "Couldn't put Humpty together again."
           ],
-          "footerText": "Page 3 of 20 \u00b7 Nursery Rhymes & Poems"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 3 of 20 · Nursery Rhymes & Poems"
         },
         {
           "pageNumber": 4,
           "header": "Nursery Rhymes & Poems",
-          "subHeader": "Poetry & Music \u00b7 Class 1 \u00b7 Part 4",
-          "title": "Foundations of Art & Creative Expression: Topic 4",
+          "subHeader": "Poetry & Music · Page 4",
+          "title": "Row, Row, Row Your Boat",
           "bulletPoints": [
-            "The elements of art: Line, shape, color, texture, space.",
-            "Primary colors, secondary colors, and color mixing.",
-            "Warm colors (red, orange, yellow) vs cool colors (blue, green, purple).",
-            "Expressing emotions and ideas through visual design."
+            "Row, row, row your boat Gently down the stream,",
+            "Merrily, merrily, merrily, merrily, Life is but a dream.",
+            "Row, row, row your boat Gently down the brook,",
+            "If you catch a little fish, Please let it off the hook!"
           ],
-          "footerText": "Page 4 of 20 \u00b7 Nursery Rhymes & Poems"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 4 of 20 · Nursery Rhymes & Poems"
         },
         {
           "pageNumber": 5,
           "header": "Nursery Rhymes & Poems",
-          "subHeader": "Poetry & Music \u00b7 Class 1 \u00b7 Part 5",
-          "title": "Rhythm, Beat & Melodic Harmony: Topic 5",
+          "subHeader": "Poetry & Music · Page 5",
+          "title": "The Itsy Bitsy Spider",
           "bulletPoints": [
-            "Understanding the steady pulse of a musical beat.",
-            "Rhythm patterns: Quarter notes, eighth notes, and rests.",
-            "Pitch: High sounds like birds vs low sounds like thunder.",
-            "Singing melodies and listening to musical intervals."
+            "The itsy bitsy spider climbed up the waterspout,",
+            "Down came the rain and washed the spider out.",
+            "Out came the sunshine and dried up all the rain,",
+            "And the itsy bitsy spider climbed up the spout again."
           ],
-          "footerText": "Page 5 of 20 \u00b7 Nursery Rhymes & Poems"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 5 of 20 · Nursery Rhymes & Poems"
         },
         {
           "pageNumber": 6,
           "header": "Nursery Rhymes & Poems",
-          "subHeader": "Poetry & Music \u00b7 Class 1 \u00b7 Part 1",
-          "title": "Rhythm, Beat & Melodic Harmony: Topic 1",
+          "subHeader": "Poetry & Music · Page 6",
+          "title": "Hickory Dickory Dock",
           "bulletPoints": [
-            "Understanding the steady pulse of a musical beat.",
-            "Rhythm patterns: Quarter notes, eighth notes, and rests.",
-            "Pitch: High sounds like birds vs low sounds like thunder.",
-            "Singing melodies and listening to musical intervals."
+            "Hickory, dickory, dock, The mouse ran up the clock.",
+            "The clock struck one, The mouse ran down,",
+            "Hickory, dickory, dock!",
+            "The clock struck two, The mouse said \"Boo!\", Hickory, dickory, dock!"
           ],
-          "footerText": "Page 6 of 20 \u00b7 Nursery Rhymes & Poems"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 6 of 20 · Nursery Rhymes & Poems"
         },
         {
           "pageNumber": 7,
           "header": "Nursery Rhymes & Poems",
-          "subHeader": "Poetry & Music \u00b7 Class 1 \u00b7 Part 2",
-          "title": "Rhythm, Beat & Melodic Harmony: Topic 2",
+          "subHeader": "Poetry & Music · Page 7",
+          "title": "Jack and Jill",
           "bulletPoints": [
-            "Understanding the steady pulse of a musical beat.",
-            "Rhythm patterns: Quarter notes, eighth notes, and rests.",
-            "Pitch: High sounds like birds vs low sounds like thunder.",
-            "Singing melodies and listening to musical intervals."
+            "Jack and Jill went up the hill To fetch a pail of water.",
+            "Jack fell down and broke his crown, And Jill came tumbling after.",
+            "Up Jack got, and home did trot, As fast as he could caper,",
+            "To old Dame Dob, who patched his knob With vinegar and brown paper."
           ],
-          "footerText": "Page 7 of 20 \u00b7 Nursery Rhymes & Poems"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 7 of 20 · Nursery Rhymes & Poems"
         },
         {
           "pageNumber": 8,
           "header": "Nursery Rhymes & Poems",
-          "subHeader": "Poetry & Music \u00b7 Class 1 \u00b7 Part 3",
-          "title": "Rhythm, Beat & Melodic Harmony: Topic 3",
+          "subHeader": "Poetry & Music · Page 8",
+          "title": "Old MacDonald Had a Farm",
           "bulletPoints": [
-            "Understanding the steady pulse of a musical beat.",
-            "Rhythm patterns: Quarter notes, eighth notes, and rests.",
-            "Pitch: High sounds like birds vs low sounds like thunder.",
-            "Singing melodies and listening to musical intervals."
+            "Old MacDonald had a farm, E-I-E-I-O!",
+            "And on his farm he had a cow, E-I-E-I-O!",
+            "With a moo-moo here, and a moo-moo there, Here a moo, there a moo, everywhere a moo-moo!",
+            "Old MacDonald had a farm, E-I-E-I-O!"
           ],
-          "footerText": "Page 8 of 20 \u00b7 Nursery Rhymes & Poems"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 8 of 20 · Nursery Rhymes & Poems"
         },
         {
           "pageNumber": 9,
           "header": "Nursery Rhymes & Poems",
-          "subHeader": "Poetry & Music \u00b7 Class 1 \u00b7 Part 4",
-          "title": "Instruments of the World: Topic 4",
+          "subHeader": "Poetry & Music · Page 9",
+          "title": "Mary Had a Little Lamb",
           "bulletPoints": [
-            "Strings: Violins, guitars, harps, and cellos.",
-            "Woodwinds: Flutes, clarinets, and oboes.",
-            "Brass: Trumpets, French horns, and trombones.",
-            "Percussion: Drums, xylophones, maracas, and cymbals."
+            "Mary had a little lamb, Its fleece was white as snow;",
+            "And everywhere that Mary went, The lamb was sure to go.",
+            "It followed her to school one day, Which was against the rule;",
+            "It made the children laugh and play To see a lamb at school."
           ],
-          "footerText": "Page 9 of 20 \u00b7 Nursery Rhymes & Poems"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 9 of 20 · Nursery Rhymes & Poems"
         },
         {
           "pageNumber": 10,
           "header": "Nursery Rhymes & Poems",
-          "subHeader": "Poetry & Music \u00b7 Class 1 \u00b7 Part 5",
-          "title": "Instruments of the World: Topic 5",
+          "subHeader": "Poetry & Music · Page 10",
+          "title": "London Bridge is Falling Down",
           "bulletPoints": [
-            "Strings: Violins, guitars, harps, and cellos.",
-            "Woodwinds: Flutes, clarinets, and oboes.",
-            "Brass: Trumpets, French horns, and trombones.",
-            "Percussion: Drums, xylophones, maracas, and cymbals."
+            "London Bridge is falling down, Falling down, falling down,",
+            "London Bridge is falling down, My fair lady.",
+            "Build it up with iron and steel, Iron and steel, iron and steel,",
+            "Iron and steel will bend and bow, My fair lady."
           ],
-          "footerText": "Page 10 of 20 \u00b7 Nursery Rhymes & Poems"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 10 of 20 · Nursery Rhymes & Poems"
         },
         {
           "pageNumber": 11,
           "header": "Nursery Rhymes & Poems",
-          "subHeader": "Poetry & Music \u00b7 Class 1 \u00b7 Part 1",
-          "title": "Instruments of the World: Topic 1",
+          "subHeader": "Poetry & Music · Page 11",
+          "title": "Sing a Song of Sixpence",
           "bulletPoints": [
-            "Strings: Violins, guitars, harps, and cellos.",
-            "Woodwinds: Flutes, clarinets, and oboes.",
-            "Brass: Trumpets, French horns, and trombones.",
-            "Percussion: Drums, xylophones, maracas, and cymbals."
+            "Sing a song of sixpence, A pocket full of rye,",
+            "Four and twenty blackbirds Baked in a pie.",
+            "When the pie was opened, The birds began to sing;",
+            "Was not that a dainty dish To set before the king?"
           ],
-          "footerText": "Page 11 of 20 \u00b7 Nursery Rhymes & Poems"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 11 of 20 · Nursery Rhymes & Poems"
         },
         {
           "pageNumber": 12,
           "header": "Nursery Rhymes & Poems",
-          "subHeader": "Poetry & Music \u00b7 Class 1 \u00b7 Part 2",
-          "title": "Instruments of the World: Topic 2",
+          "subHeader": "Poetry & Music · Page 12",
+          "title": "Hey Diddle Diddle",
           "bulletPoints": [
-            "Strings: Violins, guitars, harps, and cellos.",
-            "Woodwinds: Flutes, clarinets, and oboes.",
-            "Brass: Trumpets, French horns, and trombones.",
-            "Percussion: Drums, xylophones, maracas, and cymbals."
+            "Hey diddle diddle, The cat and the fiddle,",
+            "The cow jumped over the moon;",
+            "The little dog laughed To see such sport,",
+            "And the dish ran away with the spoon!"
           ],
-          "footerText": "Page 12 of 20 \u00b7 Nursery Rhymes & Poems"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 12 of 20 · Nursery Rhymes & Poems"
         },
         {
           "pageNumber": 13,
           "header": "Nursery Rhymes & Poems",
-          "subHeader": "Poetry & Music \u00b7 Class 1 \u00b7 Part 3",
-          "title": "Textures, Patterns & Masterpieces: Topic 3",
+          "subHeader": "Poetry & Music · Page 13",
+          "title": "Little Bo-Peep",
           "bulletPoints": [
-            "Visual textures: Smooth, rough, bumpy, and waxy.",
-            "Creating symmetrical patterns and geometric mosaics.",
-            "Appreciating famous artworks and artistic styles.",
-            "Creating your own original masterpiece."
+            "Little Bo-Peep has lost her sheep, And doesn't know where to find them;",
+            "Leave them alone, and they'll come home, Wagging their tails behind them.",
+            "Little Bo-Peep fell fast asleep, And dreamt she heard them bleating;",
+            "When she awoke, she found it a joke, For they were still a-fleeting."
           ],
-          "footerText": "Page 13 of 20 \u00b7 Nursery Rhymes & Poems"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 13 of 20 · Nursery Rhymes & Poems"
         },
         {
           "pageNumber": 14,
           "header": "Nursery Rhymes & Poems",
-          "subHeader": "Poetry & Music \u00b7 Class 1 \u00b7 Part 4",
-          "title": "Textures, Patterns & Masterpieces: Topic 4",
+          "subHeader": "Poetry & Music · Page 14",
+          "title": "Ring Around the Rosie",
           "bulletPoints": [
-            "Visual textures: Smooth, rough, bumpy, and waxy.",
-            "Creating symmetrical patterns and geometric mosaics.",
-            "Appreciating famous artworks and artistic styles.",
-            "Creating your own original masterpiece."
+            "Ring around the rosie, A pocket full of posies,",
+            "Ashes! Ashes! We all fall down!",
+            "Cows are in the meadow Eating buttercups,",
+            "Thunder, lightning! We all jump up!"
           ],
-          "footerText": "Page 14 of 20 \u00b7 Nursery Rhymes & Poems"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 14 of 20 · Nursery Rhymes & Poems"
         },
         {
           "pageNumber": 15,
           "header": "Nursery Rhymes & Poems",
-          "subHeader": "Poetry & Music \u00b7 Class 1 \u00b7 Part 5",
-          "title": "Textures, Patterns & Masterpieces: Topic 5",
+          "subHeader": "Poetry & Music · Page 15",
+          "title": "Pop Goes the Weasel",
           "bulletPoints": [
-            "Visual textures: Smooth, rough, bumpy, and waxy.",
-            "Creating symmetrical patterns and geometric mosaics.",
-            "Appreciating famous artworks and artistic styles.",
-            "Creating your own original masterpiece."
+            "All around the mulberry bush The monkey chased the weasel;",
+            "The monkey thought 'twas all in fun, Pop! goes the weasel.",
+            "A penny for a spool of thread, A penny for a needle—",
+            "That's the way the money goes, Pop! goes the weasel."
           ],
-          "footerText": "Page 15 of 20 \u00b7 Nursery Rhymes & Poems"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 15 of 20 · Nursery Rhymes & Poems"
         },
         {
           "pageNumber": 16,
           "header": "Nursery Rhymes & Poems",
-          "subHeader": "Poetry & Music \u00b7 Class 1 \u00b7 Part 1",
-          "title": "Textures, Patterns & Masterpieces: Topic 1",
+          "subHeader": "Poetry & Music · Page 16",
+          "title": "One, Two, Buckle My Shoe",
           "bulletPoints": [
-            "Visual textures: Smooth, rough, bumpy, and waxy.",
-            "Creating symmetrical patterns and geometric mosaics.",
-            "Appreciating famous artworks and artistic styles.",
-            "Creating your own original masterpiece."
+            "One, two, buckle my shoe; Three, four, knock at the door;",
+            "Five, six, pick up sticks; Seven, eight, lay them straight;",
+            "Nine, ten, a big fat hen; Eleven, twelve, dig and delve;",
+            "Thirteen, fourteen, maids a-courting; Fifteen, sixteen, maids in the kitchen!"
           ],
-          "footerText": "Page 16 of 20 \u00b7 Nursery Rhymes & Poems"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 16 of 20 · Nursery Rhymes & Poems"
         },
         {
           "pageNumber": 17,
           "header": "Nursery Rhymes & Poems",
-          "subHeader": "Poetry & Music \u00b7 Class 1 \u00b7 Part 2",
-          "title": "The Joy of Performance & Celebration: Topic 2",
+          "subHeader": "Poetry & Music · Page 17",
+          "title": "Rock-a-bye Baby",
           "bulletPoints": [
-            "Singing together in harmony and choral unity.",
-            "Movement, dance, and physical expression to music.",
-            "Storytelling through folk songs and theatrical art.",
-            "Sharing creative joy with friends and family."
+            "Rock-a-bye baby, on the tree top,",
+            "When the wind blows, the cradle will rock.",
+            "When the bough breaks, the cradle will fall,",
+            "And down will come baby, cradle and all.",
+            "Baby is safe in mother's warm arms, Sheltered and cozy away from all harms."
           ],
-          "footerText": "Page 17 of 20 \u00b7 Nursery Rhymes & Poems"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 17 of 20 · Nursery Rhymes & Poems"
         },
         {
           "pageNumber": 18,
           "header": "Nursery Rhymes & Poems",
-          "subHeader": "Poetry & Music \u00b7 Class 1 \u00b7 Part 3",
-          "title": "The Joy of Performance & Celebration: Topic 3",
+          "subHeader": "Poetry & Music · Page 18",
+          "title": "The Wheels on the Bus",
           "bulletPoints": [
-            "Singing together in harmony and choral unity.",
-            "Movement, dance, and physical expression to music.",
-            "Storytelling through folk songs and theatrical art.",
-            "Sharing creative joy with friends and family."
+            "The wheels on the bus go round and round, Round and round, round and round;",
+            "The wipers on the bus go swish, swish, swish, All through the town.",
+            "The horn on the bus goes beep, beep, beep, All through the town.",
+            "The people on the bus go up and down, Up and down, all through the town!"
           ],
-          "footerText": "Page 18 of 20 \u00b7 Nursery Rhymes & Poems"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 18 of 20 · Nursery Rhymes & Poems"
         },
         {
           "pageNumber": 19,
           "header": "Nursery Rhymes & Poems",
-          "subHeader": "Poetry & Music \u00b7 Class 1 \u00b7 Part 4",
-          "title": "The Joy of Performance & Celebration: Topic 4",
+          "subHeader": "Poetry & Music · Page 19",
+          "title": "Lavender's Blue, Dilly Dilly",
           "bulletPoints": [
-            "Singing together in harmony and choral unity.",
-            "Movement, dance, and physical expression to music.",
-            "Storytelling through folk songs and theatrical art.",
-            "Sharing creative joy with friends and family."
+            "Lavender's blue, dilly, dilly, Lavender's green,",
+            "When I am king, dilly, dilly, You shall be queen.",
+            "Call up your men, dilly, dilly, Set them to work,",
+            "Some to the plough, dilly, dilly, Some to the fork."
           ],
-          "footerText": "Page 19 of 20 \u00b7 Nursery Rhymes & Poems"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 19 of 20 · Nursery Rhymes & Poems"
         },
         {
           "pageNumber": 20,
           "header": "Nursery Rhymes & Poems",
-          "subHeader": "Poetry & Music \u00b7 Class 1 \u00b7 Part 5",
-          "title": "The Joy of Performance & Celebration: Topic 5",
+          "subHeader": "Poetry & Music · Page 20",
+          "title": "Sleep, Baby, Sleep: The Goodnight Song",
           "bulletPoints": [
-            "Singing together in harmony and choral unity.",
-            "Movement, dance, and physical expression to music.",
-            "Storytelling through folk songs and theatrical art.",
-            "Sharing creative joy with friends and family."
+            "Sleep, baby, sleep, Thy father watches the sheep;",
+            "Thy mother is shaking the dream-tree sweet, And down falls a little dream on thee;",
+            "Sleep, baby, sleep, The large stars are the sheep,",
+            "The little stars are the lambs, I guess, And the fair moon is the shepherdess."
           ],
-          "footerText": "Page 20 of 20 \u00b7 Nursery Rhymes & Poems"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 20 of 20 · Nursery Rhymes & Poems"
         }
       ]
     }

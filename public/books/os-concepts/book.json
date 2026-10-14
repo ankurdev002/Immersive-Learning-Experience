@@ -12,7 +12,7 @@
   "sourcePdf": null,
   "icon": "\ud83d\udda5\ufe0f",
   "isInteractive": true,
-  "author": "Distinguished Curators & Academic Press",
+  "author": "Abraham Silberschatz, Peter B. Galvin & Greg Gagne",
   "totalPages": 25,
   "chapters": [
     {
@@ -23,325 +23,325 @@
         {
           "pageNumber": 1,
           "header": "Operating System Concepts",
-          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Part 1",
-          "title": "Foundational Models & System Abstractions: Topic 1",
+          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Section 1",
+          "title": "Operating System Foundations & Services",
           "bulletPoints": [
-            "Architectural paradigms and foundational theorems.",
-            "Trade-off evaluation: Performance, latency, consistency, and cost.",
-            "Mathematical formulations and algorithmic bounds.",
-            "Decomposing complex systems into verifiable modules."
+            "The Operating System as an extended machine (clean abstractions) and resource allocator (CPU, memory, disk).",
+            "Dual-mode operation: User Mode vs Kernel Mode protected by hardware privilege rings and mode bits.",
+            "System Calls: Controlled software traps transferring execution safely from user mode into OS kernel handlers.",
+            "Core OS architecture: Monolithic kernels (Linux), Microkernels (Mach/QNX), Hybrid kernels (Windows/macOS)."
           ],
           "footerText": "Page 1 of 25 \u00b7 Operating System Concepts"
         },
         {
           "pageNumber": 2,
           "header": "Operating System Concepts",
-          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Part 2",
-          "title": "Foundational Models & System Abstractions: Topic 2",
+          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Section 2",
+          "title": "Processes & Process Control Blocks",
           "bulletPoints": [
-            "Architectural paradigms and foundational theorems.",
-            "Trade-off evaluation: Performance, latency, consistency, and cost.",
-            "Mathematical formulations and algorithmic bounds.",
-            "Decomposing complex systems into verifiable modules."
+            "Process definition: A program in execution containing program counter, stack, data section, and heap.",
+            "Process states: New, Ready, Running, Waiting (Blocked), and Terminated state transition diagram.",
+            "Process Control Block (PCB): Storing process ID, state, CPU registers, scheduling priority, and open file descriptors.",
+            "Context Switching: Saving the state of the running process and restoring another process; kernel overhead metrics."
           ],
           "footerText": "Page 2 of 25 \u00b7 Operating System Concepts"
         },
         {
           "pageNumber": 3,
           "header": "Operating System Concepts",
-          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Part 3",
-          "title": "Foundational Models & System Abstractions: Topic 3",
+          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Section 3",
+          "title": "Process Creation & Inter-Process Communication",
           "bulletPoints": [
-            "Architectural paradigms and foundational theorems.",
-            "Trade-off evaluation: Performance, latency, consistency, and cost.",
-            "Mathematical formulations and algorithmic bounds.",
-            "Decomposing complex systems into verifiable modules."
+            "Process hierarchy: The init/systemd root process; fork() duplicating processes and execve() loading binaries.",
+            "Zombie and Orphan processes: Handling terminated children and adoption by init.",
+            "IPC models: Shared memory (high speed, requires synchronization) vs Message Passing (pipes, message queues, sockets).",
+            "Unix pipes: Anonymous unidirectional byte streams between related processes; named pipes (FIFOs) across filesystem."
           ],
           "footerText": "Page 3 of 25 \u00b7 Operating System Concepts"
         },
         {
           "pageNumber": 4,
           "header": "Operating System Concepts",
-          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Part 4",
-          "title": "Foundational Models & System Abstractions: Topic 4",
+          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Section 4",
+          "title": "Threads & Multi-Threading Models",
           "bulletPoints": [
-            "Architectural paradigms and foundational theorems.",
-            "Trade-off evaluation: Performance, latency, consistency, and cost.",
-            "Mathematical formulations and algorithmic bounds.",
-            "Decomposing complex systems into verifiable modules."
+            "Thread concept: Lightweight unit of CPU utilization sharing code, data, and OS resources with peer threads.",
+            "Thread control block: Private thread ID, program counter, register set, and private execution stack.",
+            "User threads vs Kernel threads: Many-to-One, One-to-One (standard Linux pthreads), and Many-to-Many models.",
+            "Thread pools: Amortizing thread creation overhead by maintaining worker queues for incoming tasks."
           ],
           "footerText": "Page 4 of 25 \u00b7 Operating System Concepts"
         },
         {
           "pageNumber": 5,
           "header": "Operating System Concepts",
-          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Part 5",
-          "title": "Foundational Models & System Abstractions: Topic 5",
+          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Section 5",
+          "title": "CPU Scheduling Concepts & Metrics",
           "bulletPoints": [
-            "Architectural paradigms and foundational theorems.",
-            "Trade-off evaluation: Performance, latency, consistency, and cost.",
-            "Mathematical formulations and algorithmic bounds.",
-            "Decomposing complex systems into verifiable modules."
+            "CPU-I/O burst cycle: Processes alternate between intensive CPU computation and waiting for I/O completion.",
+            "Preemptive vs Non-preemptive scheduling: Forcibly interrupting running threads vs waiting for voluntary yield.",
+            "Scheduling metrics: CPU Utilization, Throughput, Turnaround Time, Waiting Time, and Response Time.",
+            "Dispatcher: The module that gives control of the CPU to the process selected by the short-term scheduler."
           ],
           "footerText": "Page 5 of 25 \u00b7 Operating System Concepts"
         },
         {
           "pageNumber": 6,
           "header": "Operating System Concepts",
-          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Part 6",
-          "title": "Core Mechanisms & Algorithmic Engines: Topic 6",
+          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Section 6",
+          "title": "Classic Scheduling Algorithms",
           "bulletPoints": [
-            "In-depth analysis of structural algorithms and state machines.",
-            "Memory access optimizations and data layout efficiency.",
-            "Protocol interactions, handshakes, and invariant maintenance.",
-            "Diagnostic profiling and empirical performance benchmarking."
+            "First-Come, First-Served (FCFS): Simple FIFO queue; prone to the Convoy Effect where short jobs wait behind long ones.",
+            "Shortest Job First (SJF) & Shortest Remaining Time First (SRTF): Mathematically optimal average wait time, but requires burst prediction.",
+            "Round Robin (RR): Preemptive time-slicing using a fixed time quantum q; balancing responsiveness and context switch overhead.",
+            "Priority Scheduling: Assigning priorities; preventing starvation of low-priority tasks through aging techniques."
           ],
           "footerText": "Page 6 of 25 \u00b7 Operating System Concepts"
         },
         {
           "pageNumber": 7,
           "header": "Operating System Concepts",
-          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Part 1",
-          "title": "Core Mechanisms & Algorithmic Engines: Topic 1",
+          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Section 7",
+          "title": "Multi-Level Queue & Multi-Core Scheduling",
           "bulletPoints": [
-            "In-depth analysis of structural algorithms and state machines.",
-            "Memory access optimizations and data layout efficiency.",
-            "Protocol interactions, handshakes, and invariant maintenance.",
-            "Diagnostic profiling and empirical performance benchmarking."
+            "Multi-Level Feedback Queue (MLFQ): Dynamically adjusting thread priorities based on observed CPU burst behavior.",
+            "I/O-bound interactive processes stay at high priority; CPU-intensive batch jobs descend to lower priority levels.",
+            "Multiprocessor scheduling: Asymmetric multiprocessing (master/worker) vs Symmetric Multiprocessing (SMP).",
+            "Processor affinity (Soft vs Hard affinity) and NUMA-aware scheduling to maximize local cache hits."
           ],
           "footerText": "Page 7 of 25 \u00b7 Operating System Concepts"
         },
         {
           "pageNumber": 8,
           "header": "Operating System Concepts",
-          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Part 2",
-          "title": "Core Mechanisms & Algorithmic Engines: Topic 2",
+          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Section 8",
+          "title": "Process Synchronization & Critical Sections",
           "bulletPoints": [
-            "In-depth analysis of structural algorithms and state machines.",
-            "Memory access optimizations and data layout efficiency.",
-            "Protocol interactions, handshakes, and invariant maintenance.",
-            "Diagnostic profiling and empirical performance benchmarking."
+            "Race conditions: Inconsistent system state when multiple concurrent threads read and write shared data without synchronization.",
+            "The Critical Section Problem: A section of code accessing shared resources; requires Mutual Exclusion, Progress, and Bounded Waiting.",
+            "Peterson's Algorithm: Software solution for two processes using turn variables and flag arrays with memory barrier requirements.",
+            "Hardware synchronization primitives: Atomic Test-and-Set and Compare-and-Swap (CAS) CPU instructions."
           ],
           "footerText": "Page 8 of 25 \u00b7 Operating System Concepts"
         },
         {
           "pageNumber": 9,
           "header": "Operating System Concepts",
-          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Part 3",
-          "title": "Core Mechanisms & Algorithmic Engines: Topic 3",
+          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Section 9",
+          "title": "Mutex Locks, Semaphores & Monitors",
           "bulletPoints": [
-            "In-depth analysis of structural algorithms and state machines.",
-            "Memory access optimizations and data layout efficiency.",
-            "Protocol interactions, handshakes, and invariant maintenance.",
-            "Diagnostic profiling and empirical performance benchmarking."
+            "Mutex locks: Binary locking primitives with acquire() and release() enforcing mutual exclusion.",
+            "Counting Semaphores: Integer variables initialized to N resource slots, accessed via wait() [P] and signal() [V].",
+            "Spinlocks vs Sleeping locks: Busy-waiting on multiprocessor systems vs context switching to sleep queues.",
+            "Monitors: High-level language synchronization construct encapsulating shared variables and condition variables (wait/signal)."
           ],
           "footerText": "Page 9 of 25 \u00b7 Operating System Concepts"
         },
         {
           "pageNumber": 10,
           "header": "Operating System Concepts",
-          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Part 4",
-          "title": "Core Mechanisms & Algorithmic Engines: Topic 4",
+          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Section 10",
+          "title": "Classic Synchronization Problems",
           "bulletPoints": [
-            "In-depth analysis of structural algorithms and state machines.",
-            "Memory access optimizations and data layout efficiency.",
-            "Protocol interactions, handshakes, and invariant maintenance.",
-            "Diagnostic profiling and empirical performance benchmarking."
+            "The Bounded-Buffer (Producer-Consumer) problem: Managing full, empty, and mutex semaphores across circular buffers.",
+            "The Readers-Writers problem: Permitting concurrent read operations while ensuring exclusive write operations without starvation.",
+            "The Dining Philosophers problem: Preventing deadlock and starvation when multiple threads acquire circular resources.",
+            "Deadlock-free philosopher solutions: Resource hierarchy ordering and asymmetrical pickup rules."
           ],
           "footerText": "Page 10 of 25 \u00b7 Operating System Concepts"
         },
         {
           "pageNumber": 11,
           "header": "Operating System Concepts",
-          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Part 5",
-          "title": "Concurrency, Scaling & Fault Tolerance: Topic 5",
+          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Section 11",
+          "title": "Deadlock Characterization & Prevention",
           "bulletPoints": [
-            "Synchronization primitives, lock-free designs, and consensus.",
-            "Handling failures: Retry strategies, circuit breakers, and idempotency.",
-            "Horizontal scaling vs vertical hardware specialization.",
-            "High-availability architectures and replication topologies."
+            "The four Coffman conditions for deadlock: Mutual Exclusion, Hold and Wait, No Preemption, and Circular Wait.",
+            "Resource Allocation Graphs (RAG): Cycle detection in systems with single resource instances indicates deadlock.",
+            "Deadlock Prevention: Eliminating at least one Coffman condition (e.g. strict global resource numbering for circular wait).",
+            "Deadlock Avoidance: Operating system checks if resource allocation leaves system in a provably Safe State."
           ],
           "footerText": "Page 11 of 25 \u00b7 Operating System Concepts"
         },
         {
           "pageNumber": 12,
           "header": "Operating System Concepts",
-          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Part 6",
-          "title": "Concurrency, Scaling & Fault Tolerance: Topic 6",
+          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Section 12",
+          "title": "Banker's Algorithm for Deadlock Avoidance",
           "bulletPoints": [
-            "Synchronization primitives, lock-free designs, and consensus.",
-            "Handling failures: Retry strategies, circuit breakers, and idempotency.",
-            "Horizontal scaling vs vertical hardware specialization.",
-            "High-availability architectures and replication topologies."
+            "Safe vs Unsafe states: An unsafe state is not a deadlock, but it has the potential to lead to a deadlock.",
+            "Banker's Algorithm data structures: Available vector, Max matrix, Allocation matrix, and Need matrix (Need = Max - Allocation).",
+            "Safety algorithm: Searching for an execution sequence where all processes can finish with currently available resources.",
+            "Resource request algorithm: Granting requests only if the hypothetical resulting state remains provably safe."
           ],
           "footerText": "Page 12 of 25 \u00b7 Operating System Concepts"
         },
         {
           "pageNumber": 13,
           "header": "Operating System Concepts",
-          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Part 1",
-          "title": "Concurrency, Scaling & Fault Tolerance: Topic 1",
+          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Section 13",
+          "title": "Deadlock Detection & Recovery",
           "bulletPoints": [
-            "Synchronization primitives, lock-free designs, and consensus.",
-            "Handling failures: Retry strategies, circuit breakers, and idempotency.",
-            "Horizontal scaling vs vertical hardware specialization.",
-            "High-availability architectures and replication topologies."
+            "Deadlock detection in systems with multiple resource instances: Graph reduction algorithms on allocation/request matrices.",
+            "Detection frequency trade-offs: Checking on every request vs running background periodic sweeps.",
+            "Recovery strategies: Process termination (aborting all deadlocked processes vs aborting one by one until cycle breaks).",
+            "Resource preemption: Rolling back victim processes to checkpoints and preventing victim starvation."
           ],
           "footerText": "Page 13 of 25 \u00b7 Operating System Concepts"
         },
         {
           "pageNumber": 14,
           "header": "Operating System Concepts",
-          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Part 2",
-          "title": "Concurrency, Scaling & Fault Tolerance: Topic 2",
+          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Section 14",
+          "title": "Main Memory Management & Address Binding",
           "bulletPoints": [
-            "Synchronization primitives, lock-free designs, and consensus.",
-            "Handling failures: Retry strategies, circuit breakers, and idempotency.",
-            "Horizontal scaling vs vertical hardware specialization.",
-            "High-availability architectures and replication topologies."
+            "Address binding stages: Compile time (absolute addresses), Load time (relocatable addresses), Execution time (dynamic MMU translation).",
+            "Memory Management Unit (MMU): Hardware device mapping logical addresses to physical RAM addresses.",
+            "Relocation and Limit registers: Enforcing memory protection and process address space confinement.",
+            "Contiguous memory allocation: Fixed partitions vs Variable partitions; First-fit, Best-fit, and Worst-fit strategies."
           ],
           "footerText": "Page 14 of 25 \u00b7 Operating System Concepts"
         },
         {
           "pageNumber": 15,
           "header": "Operating System Concepts",
-          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Part 3",
-          "title": "Concurrency, Scaling & Fault Tolerance: Topic 3",
+          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Section 15",
+          "title": "Fragmentation & Paging Mechanisms",
           "bulletPoints": [
-            "Synchronization primitives, lock-free designs, and consensus.",
-            "Handling failures: Retry strategies, circuit breakers, and idempotency.",
-            "Horizontal scaling vs vertical hardware specialization.",
-            "High-availability architectures and replication topologies."
+            "External fragmentation: Total memory space is sufficient, but storage is fragmented into unusable tiny holes (solved by compaction).",
+            "Internal fragmentation: Allocated memory blocks are slightly larger than requested data (e.g. page boundaries).",
+            "Paging concept: Breaking physical memory into fixed-size Frames and logical memory into same-sized Pages.",
+            "Page table lookups: Page number (p) indexes into page table to retrieve physical frame base address (f)."
           ],
           "footerText": "Page 15 of 25 \u00b7 Operating System Concepts"
         },
         {
           "pageNumber": 16,
           "header": "Operating System Concepts",
-          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Part 4",
-          "title": "Real-World Production Architectures: Topic 4",
+          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Section 16",
+          "title": "Hardware Page Tables & Translation Lookaside Buffers",
           "bulletPoints": [
-            "Case studies from large-scale datacenter deployments.",
-            "Monitoring, telemetry, observability, and tracing.",
-            "Security boundaries, threat models, and access control.",
-            "Best practices for evolving long-lived software systems."
+            "Translation Lookaside Buffer (TLB): High-speed hardware associative cache storing recent virtual-to-physical translations.",
+            "Effective Memory Access Time: EAT = Hit_Ratio \u00d7 (TLB_access + RAM_access) + (1 - Hit_Ratio) \u00d7 (TLB_access + 2 \u00d7 RAM_access).",
+            "TLB reach: The amount of memory accessible from the TLB (Number of entries \u00d7 Page size).",
+            "ASIDs: Address-Space Identifiers in TLB entries preventing full TLB flushes on process context switches."
           ],
           "footerText": "Page 16 of 25 \u00b7 Operating System Concepts"
         },
         {
           "pageNumber": 17,
           "header": "Operating System Concepts",
-          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Part 5",
-          "title": "Real-World Production Architectures: Topic 5",
+          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Section 17",
+          "title": "Hierarchical & Inverted Page Tables",
           "bulletPoints": [
-            "Case studies from large-scale datacenter deployments.",
-            "Monitoring, telemetry, observability, and tracing.",
-            "Security boundaries, threat models, and access control.",
-            "Best practices for evolving long-lived software systems."
+            "The challenge of large 64-bit address spaces: A single flat page table would require terabytes of physical memory.",
+            "Multi-level hierarchical page tables: Two-level, three-level, and four-level page tables paged on demand.",
+            "Hashed page tables: Using hash tables keyed by virtual page number for 64-bit sparse address spaces.",
+            "Inverted page tables: Exactly one entry per physical frame in RAM, indexed by PID and virtual page number."
           ],
           "footerText": "Page 17 of 25 \u00b7 Operating System Concepts"
         },
         {
           "pageNumber": 18,
           "header": "Operating System Concepts",
-          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Part 6",
-          "title": "Real-World Production Architectures: Topic 6",
+          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Section 18",
+          "title": "Virtual Memory & Demand Paging",
           "bulletPoints": [
-            "Case studies from large-scale datacenter deployments.",
-            "Monitoring, telemetry, observability, and tracing.",
-            "Security boundaries, threat models, and access control.",
-            "Best practices for evolving long-lived software systems."
+            "Virtual memory: Separating user logical memory from physical memory; running programs larger than physical RAM.",
+            "Demand Paging: Loading pages into physical memory only when they are accessed during program execution.",
+            "Page fault sequence: MMU trap -> OS saves registers -> check internal tables -> allocate free frame -> disk read -> update page table -> restart instruction.",
+            "Pure demand paging: Starting execution with zero pages in memory, generating page faults as instructions execute."
           ],
           "footerText": "Page 18 of 25 \u00b7 Operating System Concepts"
         },
         {
           "pageNumber": 19,
           "header": "Operating System Concepts",
-          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Part 1",
-          "title": "Real-World Production Architectures: Topic 1",
+          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Section 19",
+          "title": "Page Replacement Algorithms",
           "bulletPoints": [
-            "Case studies from large-scale datacenter deployments.",
-            "Monitoring, telemetry, observability, and tracing.",
-            "Security boundaries, threat models, and access control.",
-            "Best practices for evolving long-lived software systems."
+            "Page replacement need: Resolving out-of-memory conditions when a page fault occurs and no free frames exist.",
+            "FIFO (First-In, First-Out): Replacing oldest page; subject to Belady's Anomaly (more frames causing more page faults!).",
+            "Optimal Algorithm (OPT): Replacing page that will not be used for the longest period of time (theoretical benchmark).",
+            "LRU (Least Recently Used): Replacing page unused for the longest time; implemented via counters or stack structures."
           ],
           "footerText": "Page 19 of 25 \u00b7 Operating System Concepts"
         },
         {
           "pageNumber": 20,
           "header": "Operating System Concepts",
-          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Part 2",
-          "title": "Real-World Production Architectures: Topic 2",
+          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Section 20",
+          "title": "Second-Chance, Clock & Working-Set Model",
           "bulletPoints": [
-            "Case studies from large-scale datacenter deployments.",
-            "Monitoring, telemetry, observability, and tracing.",
-            "Security boundaries, threat models, and access control.",
-            "Best practices for evolving long-lived software systems."
+            "Second-Chance (Clock) algorithm: FIFO replacement enhanced with reference bit; giving active pages a second chance.",
+            "Enhanced second-chance: Combining reference bit (r) and dirty bit (m) into four priority classes (r, m).",
+            "Thrashing: When a system spends more time servicing page faults and swapping than executing user instructions.",
+            "Working-Set Model: Tracking pages referenced in the last Delta time window to allocate sufficient frames and prevent thrashing."
           ],
           "footerText": "Page 20 of 25 \u00b7 Operating System Concepts"
         },
         {
           "pageNumber": 21,
           "header": "Operating System Concepts",
-          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Part 3",
-          "title": "Emerging Horizons & Future Directions: Topic 3",
+          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Section 21",
+          "title": "Mass Storage & Disk Scheduling",
           "bulletPoints": [
-            "Next-generation paradigms and hardware trends.",
-            "Bridging theoretical models with practical engineering.",
-            "Open-source ecosystems and industry standards.",
-            "Synthesis: Key takeaways and architectural mastery."
+            "Hard Disk Drives (HDDs): Platters, read/write heads, tracks, sectors, seek time, rotational latency, transfer rate.",
+            "Solid-State Drives (SSDs): Flash memory cells, pages (read/write unit), blocks (erase unit), wear leveling, TRIM command.",
+            "Disk scheduling algorithms: FCFS, SSTF (Shortest Seek Time First), SCAN (Elevator algorithm), C-SCAN (Circular SCAN).",
+            "RAID redundancy: Mirroring (RAID 1), Block interleaved parity (RAID 5), Dual parity (RAID 6)."
           ],
           "footerText": "Page 21 of 25 \u00b7 Operating System Concepts"
         },
         {
           "pageNumber": 22,
           "header": "Operating System Concepts",
-          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Part 4",
-          "title": "Emerging Horizons & Future Directions: Topic 4",
+          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Section 22",
+          "title": "File System Interface & Directory Structure",
           "bulletPoints": [
-            "Next-generation paradigms and hardware trends.",
-            "Bridging theoretical models with practical engineering.",
-            "Open-source ecosystems and industry standards.",
-            "Synthesis: Key takeaways and architectural mastery."
+            "File concept: Contiguous logical address space abstracting persistent secondary storage.",
+            "File attributes: Name, identifier, type, location, size, protection permissions, timestamps.",
+            "File access methods: Sequential access (tape/stream model) vs Direct / Random access (block seeking).",
+            "Directory structures: Single-level, Two-level, Tree-structured directories, and Acyclic-graph directories (hard/soft links)."
           ],
           "footerText": "Page 22 of 25 \u00b7 Operating System Concepts"
         },
         {
           "pageNumber": 23,
           "header": "Operating System Concepts",
-          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Part 5",
-          "title": "Emerging Horizons & Future Directions: Topic 5",
+          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Section 23",
+          "title": "File System Implementation & Inodes",
           "bulletPoints": [
-            "Next-generation paradigms and hardware trends.",
-            "Bridging theoretical models with practical engineering.",
-            "Open-source ecosystems and industry standards.",
-            "Synthesis: Key takeaways and architectural mastery."
+            "Disk block allocation: Contiguous allocation, Linked allocation, and Indexed allocation (Inodes).",
+            "Unix Inode architecture: Direct block pointers, single indirect pointer, double indirect pointer, triple indirect pointer.",
+            "Free-space management: Bit vectors (bitmaps), linked free space lists, and grouping/counting techniques.",
+            "VFS (Virtual File System): Kernel abstraction layer providing standard POSIX file operations over ext4, NTFS, NFS."
           ],
           "footerText": "Page 23 of 25 \u00b7 Operating System Concepts"
         },
         {
           "pageNumber": 24,
           "header": "Operating System Concepts",
-          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Part 6",
-          "title": "Emerging Horizons & Future Directions: Topic 6",
+          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Section 24",
+          "title": "File System Reliability & Journaling",
           "bulletPoints": [
-            "Next-generation paradigms and hardware trends.",
-            "Bridging theoretical models with practical engineering.",
-            "Open-source ecosystems and industry standards.",
-            "Synthesis: Key takeaways and architectural mastery."
+            "Consistency checking: fsck scanning disk metadata after unexpected crashes to rebuild allocation bitmaps.",
+            "Journaling / Write-Ahead Logging file systems (ext3, ext4, NTFS): Recording metadata updates to journal before committing to disk.",
+            "Log recovery: Fast replay of journal transactions upon reboot, reducing recovery time from hours to seconds.",
+            "Log-Structured File Systems (LFS): Writing all file data and metadata sequentially in continuous disk segments."
           ],
           "footerText": "Page 24 of 25 \u00b7 Operating System Concepts"
         },
         {
           "pageNumber": 25,
           "header": "Operating System Concepts",
-          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Part 1",
-          "title": "Emerging Horizons & Future Directions: Topic 1",
+          "subHeader": "Computer Systems \u00b7 Class 5 \u00b7 Section 25",
+          "title": "OS Security, Virtualization & Hypervisors",
           "bulletPoints": [
-            "Next-generation paradigms and hardware trends.",
-            "Bridging theoretical models with practical engineering.",
-            "Open-source ecosystems and industry standards.",
-            "Synthesis: Key takeaways and architectural mastery."
+            "Protection domain: Access matrices specifying rights of domains over objects; Access Control Lists (ACLs) vs Capabilities.",
+            "Type-1 (Bare Metal) Hypervisors (Xen, ESXi) vs Type-2 (Hosted) Hypervisors (KVM, VirtualBox).",
+            "Hardware-assisted virtualization: Intel VT-x and AMD-V extended page tables (EPT) eliminating binary translation.",
+            "Containers vs Virtual Machines: OS-level virtualization sharing common kernel via Linux namespaces and cgroups (Docker)."
           ],
           "footerText": "Page 25 of 25 \u00b7 Operating System Concepts"
         }

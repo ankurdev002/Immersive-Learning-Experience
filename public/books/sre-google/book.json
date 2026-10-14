@@ -10,7 +10,7 @@
   "accentColor": "#60a5fa",
   "coverImage": "/books/sre-google/cover.png",
   "sourcePdf": null,
-  "icon": "\ud83d\udee1\ufe0f",
+  "icon": "🛡️",
   "isInteractive": true,
   "author": "Distinguished Curators & Academic Press",
   "totalPages": 25,
@@ -18,332 +18,407 @@
     {
       "chapterNumber": 1,
       "title": "Site Reliability Engineering",
-      "description": "Comprehensive curriculum in DevOps & Reliability",
+      "description": "Authoritative curriculum in DevOps & Reliability",
       "pages": [
         {
           "pageNumber": 1,
           "header": "Site Reliability Engineering",
-          "subHeader": "DevOps & Reliability \u00b7 Class 3 \u00b7 Part 1",
-          "title": "Core Foundations & Introductory Concepts: Topic 1",
+          "subHeader": "DevOps & Reliability · Chapter 1 · Section 1",
+          "title": "Foundations: Hope is Not a Strategy",
           "bulletPoints": [
-            "Fundamental lessons and central principles of the domain.",
-            "Key definitions, terminology, and historical context.",
-            "Observing phenomena and recognizing patterns.",
-            "Building foundational mental models."
+            "Site Reliability Engineering (SRE) treats operations as an engineering problem solved with software.",
+            "Traditional conflict: Product developers want rapid velocity; operations teams want absolute stability.",
+            "SRE bridges the gap: Software engineers tasked with designing, operating, and scaling large production systems.",
+            "Key rule: At least 50% of an SRE engineer’s time must be dedicated to pure engineering (software projects, automation)."
           ],
-          "footerText": "Page 1 of 25 \u00b7 Site Reliability Engineering"
+          "formulaOrSummary": "SRE = Software Engineering + Distributed Operations",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 1 of 25 · Site Reliability Engineering"
         },
         {
           "pageNumber": 2,
           "header": "Site Reliability Engineering",
-          "subHeader": "DevOps & Reliability \u00b7 Class 3 \u00b7 Part 2",
-          "title": "Core Foundations & Introductory Concepts: Topic 2",
+          "subHeader": "DevOps & Reliability · Chapter 1 · Section 2",
+          "title": "SRE vs DevOps: Shared Cultural Principles",
           "bulletPoints": [
-            "Fundamental lessons and central principles of the domain.",
-            "Key definitions, terminology, and historical context.",
-            "Observing phenomena and recognizing patterns.",
-            "Building foundational mental models."
+            "DevOps defines high-level philosophy; SRE provides concrete operational implementations.",
+            "Reduce organizational silos: SREs embed with development teams and share ownership of production releases.",
+            "Accept failure as normal: Hardware will fail, networks will partition, bugs will slip into production.",
+            "Implement gradual change: Small canary rollouts minimize blast radius when unexpected regressions occur."
           ],
-          "footerText": "Page 2 of 25 \u00b7 Site Reliability Engineering"
+          "formulaOrSummary": "Class SRE implements interface DevOps",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 2 of 25 · Site Reliability Engineering"
         },
         {
           "pageNumber": 3,
           "header": "Site Reliability Engineering",
-          "subHeader": "DevOps & Reliability \u00b7 Class 3 \u00b7 Part 3",
-          "title": "Core Foundations & Introductory Concepts: Topic 3",
+          "subHeader": "DevOps & Reliability · Chapter 1 · Section 3",
+          "title": "Service Level Terminology: SLIs, SLOs, and SLAs",
           "bulletPoints": [
-            "Fundamental lessons and central principles of the domain.",
-            "Key definitions, terminology, and historical context.",
-            "Observing phenomena and recognizing patterns.",
-            "Building foundational mental models."
+            "Service Level Indicator (SLI): A quantifiable metric measuring service behavior (e.g. latency, error rate).",
+            "Service Level Objective (SLO): A target percentage or range agreed internally that the service must achieve.",
+            "Service Level Agreement (SLA): A formal external business contract with customers incurring legal/financial penalties.",
+            "SRE principle: SLOs must always be stricter than SLAs to catch and resolve regressions before penalties trigger."
           ],
-          "footerText": "Page 3 of 25 \u00b7 Site Reliability Engineering"
+          "formulaOrSummary": "SLI: Metric -> SLO: Target -> SLA: Contract",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 3 of 25 · Site Reliability Engineering"
         },
         {
           "pageNumber": 4,
           "header": "Site Reliability Engineering",
-          "subHeader": "DevOps & Reliability \u00b7 Class 3 \u00b7 Part 4",
-          "title": "Core Foundations & Introductory Concepts: Topic 4",
+          "subHeader": "DevOps & Reliability · Chapter 1 · Section 4",
+          "title": "Defining Meaningful SLIs in Production",
           "bulletPoints": [
-            "Fundamental lessons and central principles of the domain.",
-            "Key definitions, terminology, and historical context.",
-            "Observing phenomena and recognizing patterns.",
-            "Building foundational mental models."
+            "User-centric measurement: Measure SLIs from the customer’s perspective, not merely server CPU saturation.",
+            "Request-driven services: Request latency, HTTP status code distribution (2xx/3xx vs 5xx), and throughput.",
+            "Data pipeline services: Processing lag, pipeline throughput (records/sec), and end-to-end data freshness.",
+            "Storage systems: Availability of read/write operations, data durability, and tail read latency."
           ],
-          "footerText": "Page 4 of 25 \u00b7 Site Reliability Engineering"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 4 of 25 · Site Reliability Engineering"
         },
         {
           "pageNumber": 5,
           "header": "Site Reliability Engineering",
-          "subHeader": "DevOps & Reliability \u00b7 Class 3 \u00b7 Part 5",
-          "title": "Core Foundations & Introductory Concepts: Topic 5",
+          "subHeader": "DevOps & Reliability · Chapter 1 · Section 5",
+          "title": "Choosing Realistic SLOs & Target Windows",
           "bulletPoints": [
-            "Fundamental lessons and central principles of the domain.",
-            "Key definitions, terminology, and historical context.",
-            "Observing phenomena and recognizing patterns.",
-            "Building foundational mental models."
+            "Never promise 100% reliability: 100% is the wrong target for virtually everything because users cannot tell the difference.",
+            "The edge problem: User phone networks, ISP hiccups, and Wi-Fi drops limit user-perceived uptime to 99.9% or 99.99%.",
+            "Rolling measurement windows: A 30-day rolling window gives a smooth, consistent view without arbitrary calendar resets.",
+            "Cost escalation: Moving from 99.9% (43 mins downtime/month) to 99.99% (4 mins) costs 10x more engineering effort."
           ],
-          "footerText": "Page 5 of 25 \u00b7 Site Reliability Engineering"
+          "formulaOrSummary": "99.9% = 43.8 min/month downtime | 99.99% = 4.38 min/month",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 5 of 25 · Site Reliability Engineering"
         },
         {
           "pageNumber": 6,
           "header": "Site Reliability Engineering",
-          "subHeader": "DevOps & Reliability \u00b7 Class 3 \u00b7 Part 6",
-          "title": "Core Foundations & Introductory Concepts: Topic 6",
+          "subHeader": "DevOps & Reliability · Chapter 1 · Section 6",
+          "title": "The Error Budget: Balancing Velocity and Stability",
           "bulletPoints": [
-            "Fundamental lessons and central principles of the domain.",
-            "Key definitions, terminology, and historical context.",
-            "Observing phenomena and recognizing patterns.",
-            "Building foundational mental models."
+            "The Error Budget is the exact mathematical inverse of the SLO (e.g., a 99.9% SLO leaves a 0.1% Error Budget).",
+            "Error budget as shared currency: The product team can burn this budget on risky new feature releases and experiments.",
+            "Budget exhausted consequence: Feature releases freeze immediately, and all engineering shifts to reliability work.",
+            "Outcome: Development and operations teams are naturally aligned rather than fighting over releases."
           ],
-          "footerText": "Page 6 of 25 \u00b7 Site Reliability Engineering"
+          "formulaOrSummary": "Error Budget (%) = 100% - SLO (%)",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 6 of 25 · Site Reliability Engineering"
         },
         {
           "pageNumber": 7,
           "header": "Site Reliability Engineering",
-          "subHeader": "DevOps & Reliability \u00b7 Class 3 \u00b7 Part 7",
-          "title": "Core Foundations & Introductory Concepts: Topic 7",
+          "subHeader": "DevOps & Reliability · Chapter 1 · Section 7",
+          "title": "Calculating and Spending Error Budgets Safely",
           "bulletPoints": [
-            "Fundamental lessons and central principles of the domain.",
-            "Key definitions, terminology, and historical context.",
-            "Observing phenomena and recognizing patterns.",
-            "Building foundational mental models."
+            "Burn rate calculation: Burn rate indicates how rapidly a service is exhausting its error budget relative to the window.",
+            "Burn rate = 1: The service will consume 100% of its budget over the entire 30-day window.",
+            "Burn rate = 14.4: The service will burn through 2% of its monthly budget in just one hour.",
+            "Multi-window multi-burn-rate alerting: Alert pagers on high burn rates (e.g. 14.4x), while ticket low burn rates."
           ],
-          "footerText": "Page 7 of 25 \u00b7 Site Reliability Engineering"
+          "formulaOrSummary": "Burn Rate = (Error Rate / Allowed Error Rate)",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 7 of 25 · Site Reliability Engineering"
         },
         {
           "pageNumber": 8,
           "header": "Site Reliability Engineering",
-          "subHeader": "DevOps & Reliability \u00b7 Class 3 \u00b7 Part 1",
-          "title": "Mechanisms, Methods & Step-by-Step Analysis: Topic 1",
+          "subHeader": "DevOps & Reliability · Chapter 1 · Section 8",
+          "title": "Eliminating Toil: Defining Toil vs Engineering Work",
           "bulletPoints": [
-            "Detailed methodologies and structural frameworks.",
-            "Hands-on examples and guided practice exercises.",
-            "Component interactions and process workflows.",
-            "Common mistakes, diagnostics, and problem solving."
+            "Toil is operational work tied to running a service that is repetitive, manual, tactical, and lacks enduring value.",
+            "Toil scales linearly with service size: If doubling traffic doubles operational tasks, the team is drowning in toil.",
+            "Engineering work creates enduring value: Writing autonomous remediation daemons, self-healing controllers, and tools.",
+            "The 50% rule: SRE teams track and cap toil strictly at 50%; excess operational load is routed back to product teams."
           ],
-          "footerText": "Page 8 of 25 \u00b7 Site Reliability Engineering"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 8 of 25 · Site Reliability Engineering"
         },
         {
           "pageNumber": 9,
           "header": "Site Reliability Engineering",
-          "subHeader": "DevOps & Reliability \u00b7 Class 3 \u00b7 Part 2",
-          "title": "Mechanisms, Methods & Step-by-Step Analysis: Topic 2",
+          "subHeader": "DevOps & Reliability · Chapter 1 · Section 9",
+          "title": "Engineering Strategies for Automating Operational Work",
           "bulletPoints": [
-            "Detailed methodologies and structural frameworks.",
-            "Hands-on examples and guided practice exercises.",
-            "Component interactions and process workflows.",
-            "Common mistakes, diagnostics, and problem solving."
+            "Automate incrementally: Start by documenting standard operating procedures (runbooks), then script them.",
+            "Self-healing systems: Systems should detect failing pods, corrupt disks, or network blackholes and remediate autonomously.",
+            "Idempotent operations: Scripts and automations must be safe to execute multiple times without unexpected side-effects.",
+            "Human-in-the-loop fallback: Provide clean override levers so on-call engineers can halt runaway automation if needed."
           ],
-          "footerText": "Page 9 of 25 \u00b7 Site Reliability Engineering"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 9 of 25 · Site Reliability Engineering"
         },
         {
           "pageNumber": 10,
           "header": "Site Reliability Engineering",
-          "subHeader": "DevOps & Reliability \u00b7 Class 3 \u00b7 Part 3",
-          "title": "Mechanisms, Methods & Step-by-Step Analysis: Topic 3",
+          "subHeader": "DevOps & Reliability · Chapter 1 · Section 10",
+          "title": "The Four Golden Signals of Distributed Systems",
           "bulletPoints": [
-            "Detailed methodologies and structural frameworks.",
-            "Hands-on examples and guided practice exercises.",
-            "Component interactions and process workflows.",
-            "Common mistakes, diagnostics, and problem solving."
+            "Latency: The time it takes to service a request (differentiate between successful request latency vs failed error latency).",
+            "Traffic: A measure of how much demand is placed on your system (e.g., HTTP requests/sec or concurrent streaming sessions).",
+            "Errors: The rate of requests that fail, either explicitly (HTTP 500) or implicitly (wrong payload or empty results).",
+            "Saturation: How \"full\" the service is, measuring constrained resources (CPU, RAM memory, IOPS, disk, or connection pools)."
           ],
-          "footerText": "Page 10 of 25 \u00b7 Site Reliability Engineering"
+          "formulaOrSummary": "Golden Signals: Latency · Traffic · Errors · Saturation",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 10 of 25 · Site Reliability Engineering"
         },
         {
           "pageNumber": 11,
           "header": "Site Reliability Engineering",
-          "subHeader": "DevOps & Reliability \u00b7 Class 3 \u00b7 Part 4",
-          "title": "Mechanisms, Methods & Step-by-Step Analysis: Topic 4",
+          "subHeader": "DevOps & Reliability · Chapter 1 · Section 11",
+          "title": "White-Box vs Black-Box Monitoring & Probing",
           "bulletPoints": [
-            "Detailed methodologies and structural frameworks.",
-            "Hands-on examples and guided practice exercises.",
-            "Component interactions and process workflows.",
-            "Common mistakes, diagnostics, and problem solving."
+            "White-box monitoring: Introspecting internal system state using logs, traces, and metrics (Prometheus, OpenTelemetry).",
+            "Black-box monitoring: Testing externally visible system behavior from external probes (probing synthetic user journeys).",
+            "Complementary power: Black-box testing tells you the site is down; white-box metrics tell you which component broke and why.",
+            "Synthetic probers: Run scheduled fake user transactions (e.g. login, add-to-cart) to detect broken paths before users do."
           ],
-          "footerText": "Page 11 of 25 \u00b7 Site Reliability Engineering"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 11 of 25 · Site Reliability Engineering"
         },
         {
           "pageNumber": 12,
           "header": "Site Reliability Engineering",
-          "subHeader": "DevOps & Reliability \u00b7 Class 3 \u00b7 Part 5",
-          "title": "Mechanisms, Methods & Step-by-Step Analysis: Topic 5",
+          "subHeader": "DevOps & Reliability · Chapter 1 · Section 12",
+          "title": "Effective Alerting: Reducing Pager Fatigue",
           "bulletPoints": [
-            "Detailed methodologies and structural frameworks.",
-            "Hands-on examples and guided practice exercises.",
-            "Component interactions and process workflows.",
-            "Common mistakes, diagnostics, and problem solving."
+            "Every alert that pages an engineer must be urgent, actionable, and require human intuition immediately.",
+            "Non-actionable noise: If an alert fires and the engineer simply acknowledges and sleeps, delete that alert immediately.",
+            "Symptom-based alerting: Alert on broken user journeys (elevated 5xx rate), not cause-based noise (single server CPU at 95%).",
+            "Link directly to runbooks: Every alert notification should include a clickable link to a step-by-step triage guide."
           ],
-          "footerText": "Page 12 of 25 \u00b7 Site Reliability Engineering"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 12 of 25 · Site Reliability Engineering"
         },
         {
           "pageNumber": 13,
           "header": "Site Reliability Engineering",
-          "subHeader": "DevOps & Reliability \u00b7 Class 3 \u00b7 Part 6",
-          "title": "Mechanisms, Methods & Step-by-Step Analysis: Topic 6",
+          "subHeader": "DevOps & Reliability · Chapter 1 · Section 13",
+          "title": "Incident Management: Roles & Clear Communication",
           "bulletPoints": [
-            "Detailed methodologies and structural frameworks.",
-            "Hands-on examples and guided practice exercises.",
-            "Component interactions and process workflows.",
-            "Common mistakes, diagnostics, and problem solving."
+            "Incident Commander (IC): Leads the response, coordinates delegates, and makes high-level decisions; does not debug.",
+            "Operations Lead (Ops): The hands on keyboard executing diagnostics, rollbacks, and mitigations.",
+            "Communications Lead (Comms): Updates status dashboards, executive stakeholders, and customer support channels.",
+            "Structured response: Clear role segregation prevents chaos and duplicate efforts during high-pressure outages."
           ],
-          "footerText": "Page 13 of 25 \u00b7 Site Reliability Engineering"
+          "formulaOrSummary": "Incident Command: Commander · Ops Lead · Comms Lead",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 13 of 25 · Site Reliability Engineering"
         },
         {
           "pageNumber": 14,
           "header": "Site Reliability Engineering",
-          "subHeader": "DevOps & Reliability \u00b7 Class 3 \u00b7 Part 7",
-          "title": "Applied Problem Solving & Real-World Context: Topic 7",
+          "subHeader": "DevOps & Reliability · Chapter 1 · Section 14",
+          "title": "Blameless Postmortems: Culture of Learning",
           "bulletPoints": [
-            "Practical applications across daily life and industry.",
-            "Case studies, stories, and investigative highlights.",
-            "Connecting concepts across multidisciplinary domains.",
-            "Creative exploration and independent project work."
+            "Core tenet: Assume that everyone involved had good intentions and acted on the best information available at the time.",
+            "Blame stifles truth: Punishing mistakes leads engineers to hide failures and prevents discovering systemic weaknesses.",
+            "Focus on system design: Why did the system allow a human to accidentally drop a production database?",
+            "Key artifacts: Detailed timeline of events, root cause analysis, what went well, what went poorly, and action items."
           ],
-          "footerText": "Page 14 of 25 \u00b7 Site Reliability Engineering"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 14 of 25 · Site Reliability Engineering"
         },
         {
           "pageNumber": 15,
           "header": "Site Reliability Engineering",
-          "subHeader": "DevOps & Reliability \u00b7 Class 3 \u00b7 Part 1",
-          "title": "Applied Problem Solving & Real-World Context: Topic 1",
+          "subHeader": "DevOps & Reliability · Chapter 1 · Section 15",
+          "title": "Tracking Action Items & Preventing Recurrence",
           "bulletPoints": [
-            "Practical applications across daily life and industry.",
-            "Case studies, stories, and investigative highlights.",
-            "Connecting concepts across multidisciplinary domains.",
-            "Creative exploration and independent project work."
+            "Action items from postmortems must be tracked as high-priority engineering tasks with assigned owners and due dates.",
+            "Defense in depth: Add automated regression tests, guardrails, policy-as-code validators, and architectural buffers.",
+            "Chaos validation: After fixing an issue, intentionally inject the same failure in staging to prove the remediation works.",
+            "Review cadence: Regularly review open postmortem action items to ensure reliability fixes do not get neglected."
           ],
-          "footerText": "Page 15 of 25 \u00b7 Site Reliability Engineering"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 15 of 25 · Site Reliability Engineering"
         },
         {
           "pageNumber": 16,
           "header": "Site Reliability Engineering",
-          "subHeader": "DevOps & Reliability \u00b7 Class 3 \u00b7 Part 2",
-          "title": "Applied Problem Solving & Real-World Context: Topic 2",
+          "subHeader": "DevOps & Reliability · Chapter 1 · Section 16",
+          "title": "Graceful Degradation & Emergency Response",
           "bulletPoints": [
-            "Practical applications across daily life and industry.",
-            "Case studies, stories, and investigative highlights.",
-            "Connecting concepts across multidisciplinary domains.",
-            "Creative exploration and independent project work."
+            "Degrade non-essential functionality: During peak loads, turn off expensive recommendations and personalizations.",
+            "Static fallback pages: Serve cached static snapshots from CDN edges when backend databases are struggling.",
+            "Prioritize critical paths: In an e-commerce platform, checkout and payment must survive even if search is impaired.",
+            "Feature flags: Equip all high-overhead features with kill-switches to shed compute cycles during emergencies."
           ],
-          "footerText": "Page 16 of 25 \u00b7 Site Reliability Engineering"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 16 of 25 · Site Reliability Engineering"
         },
         {
           "pageNumber": 17,
           "header": "Site Reliability Engineering",
-          "subHeader": "DevOps & Reliability \u00b7 Class 3 \u00b7 Part 3",
-          "title": "Applied Problem Solving & Real-World Context: Topic 3",
+          "subHeader": "DevOps & Reliability · Chapter 1 · Section 17",
+          "title": "Managing Overload: Rate Limiting & Circuit Breaking",
           "bulletPoints": [
-            "Practical applications across daily life and industry.",
-            "Case studies, stories, and investigative highlights.",
-            "Connecting concepts across multidisciplinary domains.",
-            "Creative exploration and independent project work."
+            "Rate limiting: Protect upstream services from sudden traffic spikes using token bucket or leaky bucket algorithms.",
+            "Circuit breaking: Automatically stop routing requests to an unhealthy dependency to allow it time to recover.",
+            "States of a circuit breaker: Closed (healthy, requests flow), Open (failing, fast-fail), Half-Open (trial requests).",
+            "Preventing thundering herds: Cache responses locally and synchronize cache re-population across instances."
           ],
-          "footerText": "Page 17 of 25 \u00b7 Site Reliability Engineering"
+          "formulaOrSummary": "Circuit Breaker: CLOSED -> (Errors) -> OPEN -> (Timeout) -> HALF-OPEN",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 17 of 25 · Site Reliability Engineering"
         },
         {
           "pageNumber": 18,
           "header": "Site Reliability Engineering",
-          "subHeader": "DevOps & Reliability \u00b7 Class 3 \u00b7 Part 4",
-          "title": "Applied Problem Solving & Real-World Context: Topic 4",
+          "subHeader": "DevOps & Reliability · Chapter 1 · Section 18",
+          "title": "Cascading Failures: Deadlines, Backoff & Jitter",
           "bulletPoints": [
-            "Practical applications across daily life and industry.",
-            "Case studies, stories, and investigative highlights.",
-            "Connecting concepts across multidisciplinary domains.",
-            "Creative exploration and independent project work."
+            "Cascading failure: A failure in one component causes failures in dependent components, crashing the entire cluster.",
+            "Deadlines / Timeouts: Propagate request deadlines across all RPC hops so dead requests are stopped early.",
+            "Exponential backoff: Increase retry delays exponentially (1s, 2s, 4s, 8s) to avoid overwhelming a struggling server.",
+            "Random jitter: Add randomized delay to retries to desynchronize retry spikes across thousands of clients."
           ],
-          "footerText": "Page 18 of 25 \u00b7 Site Reliability Engineering"
+          "formulaOrSummary": "Wait Time = min(max_delay, base * 2^attempt) + random_jitter",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 18 of 25 · Site Reliability Engineering"
         },
         {
           "pageNumber": 19,
           "header": "Site Reliability Engineering",
-          "subHeader": "DevOps & Reliability \u00b7 Class 3 \u00b7 Part 5",
-          "title": "Applied Problem Solving & Real-World Context: Topic 5",
+          "subHeader": "DevOps & Reliability · Chapter 1 · Section 19",
+          "title": "Distributed Consensus & Replication in SRE",
           "bulletPoints": [
-            "Practical applications across daily life and industry.",
-            "Case studies, stories, and investigative highlights.",
-            "Connecting concepts across multidisciplinary domains.",
-            "Creative exploration and independent project work."
+            "Strong consensus engines (Raft, Paxos, Spanner TrueTime) provide coordination for leader election and state machines.",
+            "Split-brain prevention: Strict majority quorums (N/2 + 1) guarantee that network partitions cannot elect two leaders.",
+            "Operational hazard: Taking down too many nodes for rolling upgrades can break quorum and freeze the cluster.",
+            "Monitoring consensus health: Track leader transitions, election counts, and log replication lag across regions."
           ],
-          "footerText": "Page 19 of 25 \u00b7 Site Reliability Engineering"
+          "formulaOrSummary": "Quorum = floor(N / 2) + 1",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 19 of 25 · Site Reliability Engineering"
         },
         {
           "pageNumber": 20,
           "header": "Site Reliability Engineering",
-          "subHeader": "DevOps & Reliability \u00b7 Class 3 \u00b7 Part 6",
-          "title": "Review, Synthesis & Key Takeaways: Topic 6",
+          "subHeader": "DevOps & Reliability · Chapter 1 · Section 20",
+          "title": "Periodic Scheduling & Distributed Cron at Scale",
           "bulletPoints": [
-            "Comprehensive summary of essential insights.",
-            "Key formulas, checklists, and mental checkpoints.",
-            "Self-assessment quizzes and reflection prompts.",
-            "Continuing the learning journey with curiosity."
+            "Single-point-of-failure cron: Traditional server cron crashes if the host dies or triggers duplicate tasks upon failover.",
+            "Leader-elected distributed cron: Use Paxos/etcd to lease a single scheduler leader responsible for firing jobs.",
+            "Job idempotence: Every batch job must be idempotent or handle duplicate task deliveries without corrupting state.",
+            "Thundering herd mitigation: Avoid scheduling thousands of cron jobs at exactly 00:00:00 UTC; distribute launch minutes."
           ],
-          "footerText": "Page 20 of 25 \u00b7 Site Reliability Engineering"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 20 of 25 · Site Reliability Engineering"
         },
         {
           "pageNumber": 21,
           "header": "Site Reliability Engineering",
-          "subHeader": "DevOps & Reliability \u00b7 Class 3 \u00b7 Part 7",
-          "title": "Review, Synthesis & Key Takeaways: Topic 7",
+          "subHeader": "DevOps & Reliability · Chapter 1 · Section 21",
+          "title": "Capacity Planning & Demand Forecasting",
           "bulletPoints": [
-            "Comprehensive summary of essential insights.",
-            "Key formulas, checklists, and mental checkpoints.",
-            "Self-assessment quizzes and reflection prompts.",
-            "Continuing the learning journey with curiosity."
+            "Capacity planning ensures that sufficient hardware, network, and cloud resources exist to meet future demand.",
+            "Organic growth vs inorganic events: Track steady daily user growth vs marketing campaigns and viral spikes.",
+            "N+1 and N+2 redundancy: Ensure the service can survive the loss of one (or two) entire data centers without degradation.",
+            "Load testing: Regularly subject services to synthetic peak load benchmarks to discover hidden resource bottlenecks."
           ],
-          "footerText": "Page 21 of 25 \u00b7 Site Reliability Engineering"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 21 of 25 · Site Reliability Engineering"
         },
         {
           "pageNumber": 22,
           "header": "Site Reliability Engineering",
-          "subHeader": "DevOps & Reliability \u00b7 Class 3 \u00b7 Part 1",
-          "title": "Review, Synthesis & Key Takeaways: Topic 1",
+          "subHeader": "DevOps & Reliability · Chapter 1 · Section 22",
+          "title": "Safe Software Deployment: Canary Releases & Rollouts",
           "bulletPoints": [
-            "Comprehensive summary of essential insights.",
-            "Key formulas, checklists, and mental checkpoints.",
-            "Self-assessment quizzes and reflection prompts.",
-            "Continuing the learning journey with curiosity."
+            "Canary deployment: Direct a small fraction (e.g. 1%) of production traffic to the new binary before wide rollout.",
+            "Automated canary analysis: Compare SLIs (latency, error rates, CPU usage) between canary and baseline clusters.",
+            "Blue-Green deployments: Run two identical production environments; switch router traffic atomically once verified.",
+            "Fast rollback: The rollback mechanism must be a single-click, reliable operation that completes in under 60 seconds."
           ],
-          "footerText": "Page 22 of 25 \u00b7 Site Reliability Engineering"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 22 of 25 · Site Reliability Engineering"
         },
         {
           "pageNumber": 23,
           "header": "Site Reliability Engineering",
-          "subHeader": "DevOps & Reliability \u00b7 Class 3 \u00b7 Part 2",
-          "title": "Review, Synthesis & Key Takeaways: Topic 2",
+          "subHeader": "DevOps & Reliability · Chapter 1 · Section 23",
+          "title": "Chaos Engineering & Fault Injection (DiRT & Chaos)",
           "bulletPoints": [
-            "Comprehensive summary of essential insights.",
-            "Key formulas, checklists, and mental checkpoints.",
-            "Self-assessment quizzes and reflection prompts.",
-            "Continuing the learning journey with curiosity."
+            "Disaster Recovery Testing (DiRT): Proactively inject controlled failures into production to uncover vulnerabilities.",
+            "Netflix Chaos Monkey: Randomly terminates production instances to prove services survive spontaneous node loss.",
+            "Network chaos: Simulate packet drops, latency injection, and cross-region network partitions.",
+            "Confidence through adversity: You do not know if your failover works until you test it under real operational conditions."
           ],
-          "footerText": "Page 23 of 25 \u00b7 Site Reliability Engineering"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 23 of 25 · Site Reliability Engineering"
         },
         {
           "pageNumber": 24,
           "header": "Site Reliability Engineering",
-          "subHeader": "DevOps & Reliability \u00b7 Class 3 \u00b7 Part 3",
-          "title": "Review, Synthesis & Key Takeaways: Topic 3",
+          "subHeader": "DevOps & Reliability · Chapter 1 · Section 24",
+          "title": "On-Call Health: Sustainable Rotations & Paging Limits",
           "bulletPoints": [
-            "Comprehensive summary of essential insights.",
-            "Key formulas, checklists, and mental checkpoints.",
-            "Self-assessment quizzes and reflection prompts.",
-            "Continuing the learning journey with curiosity."
+            "Human sustainability: An SRE team should ideally have at least 8 engineers per on-call rotation to avoid burnout.",
+            "Paging budget: Aim for no more than 2 pagers per 12-hour shift on average to preserve focus and well-being.",
+            "Follow-the-Sun rotation: Distribute on-call between timezones (e.g., US and Europe/Asia) to eliminate overnight pages.",
+            "Compensation and recovery: Provide on-call pay and compensatory rest time after shifts involving overnight incidents."
           ],
-          "footerText": "Page 24 of 25 \u00b7 Site Reliability Engineering"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 24 of 25 · Site Reliability Engineering"
         },
         {
           "pageNumber": 25,
           "header": "Site Reliability Engineering",
-          "subHeader": "DevOps & Reliability \u00b7 Class 3 \u00b7 Part 4",
-          "title": "Review, Synthesis & Key Takeaways: Topic 4",
+          "subHeader": "DevOps & Reliability · Chapter 1 · Section 25",
+          "title": "Maturing SRE: Organizational Culture & Evolution",
           "bulletPoints": [
-            "Comprehensive summary of essential insights.",
-            "Key formulas, checklists, and mental checkpoints.",
-            "Self-assessment quizzes and reflection prompts.",
-            "Continuing the learning journey with curiosity."
+            "SRE is a cultural mindset of continuous improvement, rigorous measurement, and engineering-first operations.",
+            "Psychological safety: Engineers must feel safe to admit mistakes, challenge assumptions, and learn openly.",
+            "Celebrate reliability wins: Celebrate error budget surpluses and successful disaster tests alongside feature releases.",
+            "Enduring impact: Building reliable, scalable, and autonomous systems powers world-class software infrastructure."
           ],
-          "footerText": "Page 25 of 25 \u00b7 Site Reliability Engineering"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 25 of 25 · Site Reliability Engineering"
         }
       ]
     }

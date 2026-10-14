@@ -10,7 +10,7 @@
   "accentColor": "#fb7185",
   "coverImage": "/books/numbers-1-50/cover.png",
   "sourcePdf": null,
-  "icon": "\ud83d\udd1f",
+  "icon": "🔟",
   "isInteractive": true,
   "author": "Distinguished Curators & Academic Press",
   "totalPages": 20,
@@ -18,267 +18,339 @@
     {
       "chapterNumber": 1,
       "title": "Numbers & Counting 1-50",
-      "description": "Comprehensive curriculum in Mathematics",
+      "description": "Delightful illustrated reading in Mathematics",
       "pages": [
         {
           "pageNumber": 1,
           "header": "Numbers & Counting 1-50",
-          "subHeader": "Mathematics \u00b7 Class 1 \u00b7 Part 1",
-          "title": "Number Explorations & Counting Patterns: Topic 1",
+          "subHeader": "Mathematics · Page 1",
+          "title": "Numbers 1 to 5: Single Digit Starters",
           "bulletPoints": [
-            "Understanding values, magnitude, and digits.",
-            "Identifying number sequences and skip-counting patterns.",
-            "Working with base-10 representations and place values.",
-            "Hands-on number line problem solving."
+            "1: One golden Sun shining bright in the clear sky.",
+            "2: Two eyes to see, two ears to hear, and two shoes on feet.",
+            "3: Three sides on a triangle, three wheels on a tricycle.",
+            "4: Four legs on a table, four paws on a puppy, four corners on a square.",
+            "5: Five little fingers on one hand, high five for learning!"
           ],
-          "footerText": "Page 1 of 20 \u00b7 Numbers & Counting 1-50"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 1 of 20 · Numbers & Counting 1-50"
         },
         {
           "pageNumber": 2,
           "header": "Numbers & Counting 1-50",
-          "subHeader": "Mathematics \u00b7 Class 1 \u00b7 Part 2",
-          "title": "Number Explorations & Counting Patterns: Topic 2",
+          "subHeader": "Mathematics · Page 2",
+          "title": "Numbers 6 to 10: Filling the Ten-Frame",
           "bulletPoints": [
-            "Understanding values, magnitude, and digits.",
-            "Identifying number sequences and skip-counting patterns.",
-            "Working with base-10 representations and place values.",
-            "Hands-on number line problem solving."
+            "6: Six legs on an ant, six spots on a ladybug.",
+            "7: Seven colors in a rainbow: Violet, Indigo, Blue, Green, Yellow, Orange, Red.",
+            "8: Eight legs on an octopus, eight corners on a cube.",
+            "9: Nine bowling pins standing in a neat triangle.",
+            "10: Ten little toes, two full hands of fingers, a complete decade!"
           ],
-          "footerText": "Page 2 of 20 \u00b7 Numbers & Counting 1-50"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 2 of 20 · Numbers & Counting 1-50"
         },
         {
           "pageNumber": 3,
           "header": "Numbers & Counting 1-50",
-          "subHeader": "Mathematics \u00b7 Class 1 \u00b7 Part 3",
-          "title": "Number Explorations & Counting Patterns: Topic 3",
+          "subHeader": "Mathematics · Page 3",
+          "title": "The Power of 10: Bundles and Units",
           "bulletPoints": [
-            "Understanding values, magnitude, and digits.",
-            "Identifying number sequences and skip-counting patterns.",
-            "Working with base-10 representations and place values.",
-            "Hands-on number line problem solving."
+            "10 is special: It is the base of our entire decimal counting system.",
+            "Tying sticks: Tie ten single sticks together with a ribbon to make one bundle of 10.",
+            "Zero the hero: 10 has 1 ten and 0 ones.",
+            "Coins: 10 one-rupee coins stack up to equal one ten-rupee note!"
           ],
-          "footerText": "Page 3 of 20 \u00b7 Numbers & Counting 1-50"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 3 of 20 · Numbers & Counting 1-50"
         },
         {
           "pageNumber": 4,
           "header": "Numbers & Counting 1-50",
-          "subHeader": "Mathematics \u00b7 Class 1 \u00b7 Part 4",
-          "title": "Number Explorations & Counting Patterns: Topic 4",
+          "subHeader": "Mathematics · Page 4",
+          "title": "Teens 11 to 15: One Ten and More",
           "bulletPoints": [
-            "Understanding values, magnitude, and digits.",
-            "Identifying number sequences and skip-counting patterns.",
-            "Working with base-10 representations and place values.",
-            "Hands-on number line problem solving."
+            "11: Eleven = 1 ten + 1 one (10 + 1).",
+            "12: Twelve = 1 ten + 2 ones (10 + 2 = a dozen eggs!).",
+            "13: Thirteen = 1 ten + 3 ones (10 + 3).",
+            "14: Fourteen = 1 ten + 4 ones (10 + 4).",
+            "15: Fifteen = 1 ten + 5 ones (10 + 5 = 15 minutes is a quarter hour)."
           ],
-          "footerText": "Page 4 of 20 \u00b7 Numbers & Counting 1-50"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 4 of 20 · Numbers & Counting 1-50"
         },
         {
           "pageNumber": 5,
           "header": "Numbers & Counting 1-50",
-          "subHeader": "Mathematics \u00b7 Class 1 \u00b7 Part 5",
-          "title": "Addition Strategies & Number Bonds: Topic 5",
+          "subHeader": "Mathematics · Page 5",
+          "title": "Teens 16 to 20: Reaching Two Decades",
           "bulletPoints": [
-            "Combining groups and visualizing sums.",
-            "Making tens and friendly number grouping.",
-            "Mental math shortcuts for fast calculation.",
-            "Real-world word problem applications."
+            "16: Sixteen = 1 ten + 6 ones (10 + 6).",
+            "17: Seventeen = 1 ten + 7 ones (10 + 7).",
+            "18: Eighteen = 1 ten + 8 ones (10 + 8).",
+            "19: Nineteen = 1 ten + 9 ones (10 + 9).",
+            "20: Twenty = 2 full tens and 0 ones (10 + 10 = 20)!"
           ],
-          "footerText": "Page 5 of 20 \u00b7 Numbers & Counting 1-50"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 5 of 20 · Numbers & Counting 1-50"
         },
         {
           "pageNumber": 6,
           "header": "Numbers & Counting 1-50",
-          "subHeader": "Mathematics \u00b7 Class 1 \u00b7 Part 1",
-          "title": "Addition Strategies & Number Bonds: Topic 1",
+          "subHeader": "Mathematics · Page 6",
+          "title": "Place Value: Tens and Ones Columns",
           "bulletPoints": [
-            "Combining groups and visualizing sums.",
-            "Making tens and friendly number grouping.",
-            "Mental math shortcuts for fast calculation.",
-            "Real-world word problem applications."
+            "In any 2-digit number, the left digit shows Tens and the right digit shows Ones.",
+            "In 23: The 2 stands for 20 (two bundles of 10) and the 3 stands for 3 singles.",
+            "In 28: 2 tens + 8 ones = 28.",
+            "Expand any number: 25 = 20 + 5. Simple, clear, and powerful!"
           ],
-          "footerText": "Page 6 of 20 \u00b7 Numbers & Counting 1-50"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 6 of 20 · Numbers & Counting 1-50"
         },
         {
           "pageNumber": 7,
           "header": "Numbers & Counting 1-50",
-          "subHeader": "Mathematics \u00b7 Class 1 \u00b7 Part 2",
-          "title": "Addition Strategies & Number Bonds: Topic 2",
+          "subHeader": "Mathematics · Page 7",
+          "title": "The Roaring Twenties: 21 to 25",
           "bulletPoints": [
-            "Combining groups and visualizing sums.",
-            "Making tens and friendly number grouping.",
-            "Mental math shortcuts for fast calculation.",
-            "Real-world word problem applications."
+            "21: Twenty-one = 2 tens and 1 one.",
+            "22: Twenty-two = 2 tens and 2 ones (twin twos).",
+            "23: Twenty-three = 2 tens and 3 ones.",
+            "24: Twenty-four = 2 tens and 4 ones (24 hours in a full day!).",
+            "25: Twenty-five = 2 tens and 5 ones (quarter of 100)."
           ],
-          "footerText": "Page 7 of 20 \u00b7 Numbers & Counting 1-50"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 7 of 20 · Numbers & Counting 1-50"
         },
         {
           "pageNumber": 8,
           "header": "Numbers & Counting 1-50",
-          "subHeader": "Mathematics \u00b7 Class 1 \u00b7 Part 3",
-          "title": "Addition Strategies & Number Bonds: Topic 3",
+          "subHeader": "Mathematics · Page 8",
+          "title": "Cruising Twenties: 26 to 30",
           "bulletPoints": [
-            "Combining groups and visualizing sums.",
-            "Making tens and friendly number grouping.",
-            "Mental math shortcuts for fast calculation.",
-            "Real-world word problem applications."
+            "26: Twenty-six = 26 letters in the English alphabet!",
+            "27: Twenty-seven = 3 x 3 x 3 cube number.",
+            "28: Twenty-eight = 28 days in the shortest month of February.",
+            "29: Twenty-nine = 2 tens and 9 ones.",
+            "30: Thirty = 3 complete tens and 0 ones (10 + 10 + 10 = 30)!"
           ],
-          "footerText": "Page 8 of 20 \u00b7 Numbers & Counting 1-50"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 8 of 20 · Numbers & Counting 1-50"
         },
         {
           "pageNumber": 9,
           "header": "Numbers & Counting 1-50",
-          "subHeader": "Mathematics \u00b7 Class 1 \u00b7 Part 4",
-          "title": "Subtraction & Difference Models: Topic 4",
+          "subHeader": "Mathematics · Page 9",
+          "title": "Thrilling Thirties: 31 to 35",
           "bulletPoints": [
-            "Taking away, counting backward, and finding differences.",
-            "Regrouping and borrowing techniques.",
-            "Fact families connecting addition and subtraction.",
-            "Checking subtraction using inverse operations."
+            "31: Thirty-one days in January, March, May, July, August, October, December.",
+            "32: Thirty-two teeth in an adult human mouth!",
+            "33: Thirty-three = 3 tens and 3 ones (double threes).",
+            "34: Thirty-four = 30 + 4.",
+            "35: Thirty-five = 7 groups of 5."
           ],
-          "footerText": "Page 9 of 20 \u00b7 Numbers & Counting 1-50"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 9 of 20 · Numbers & Counting 1-50"
         },
         {
           "pageNumber": 10,
           "header": "Numbers & Counting 1-50",
-          "subHeader": "Mathematics \u00b7 Class 1 \u00b7 Part 5",
-          "title": "Subtraction & Difference Models: Topic 5",
+          "subHeader": "Mathematics · Page 10",
+          "title": "High Thirties: 36 to 40",
           "bulletPoints": [
-            "Taking away, counting backward, and finding differences.",
-            "Regrouping and borrowing techniques.",
-            "Fact families connecting addition and subtraction.",
-            "Checking subtraction using inverse operations."
+            "36: Thirty-six inches in one yard, 6 x 6 square.",
+            "37: Thirty-seven degrees Celsius = healthy human body temperature!",
+            "38: Thirty-eight = 30 + 8.",
+            "39: Thirty-nine = 1 less than forty.",
+            "40: Forty = 4 bundles of ten (10 + 10 + 10 + 10 = 40)!"
           ],
-          "footerText": "Page 10 of 20 \u00b7 Numbers & Counting 1-50"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 10 of 20 · Numbers & Counting 1-50"
         },
         {
           "pageNumber": 11,
           "header": "Numbers & Counting 1-50",
-          "subHeader": "Mathematics \u00b7 Class 1 \u00b7 Part 1",
-          "title": "Subtraction & Difference Models: Topic 1",
+          "subHeader": "Mathematics · Page 11",
+          "title": "Fantastic Forties: 41 to 45",
           "bulletPoints": [
-            "Taking away, counting backward, and finding differences.",
-            "Regrouping and borrowing techniques.",
-            "Fact families connecting addition and subtraction.",
-            "Checking subtraction using inverse operations."
+            "41: Forty-one = 4 tens and 1 one.",
+            "42: Forty-two = 6 groups of 7.",
+            "43: Forty-three = 40 + 3.",
+            "44: Forty-four = twin fours (4 tens and 4 ones).",
+            "45: Forty-five minutes in a half of a soccer match!"
           ],
-          "footerText": "Page 11 of 20 \u00b7 Numbers & Counting 1-50"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 11 of 20 · Numbers & Counting 1-50"
         },
         {
           "pageNumber": 12,
           "header": "Numbers & Counting 1-50",
-          "subHeader": "Mathematics \u00b7 Class 1 \u00b7 Part 2",
-          "title": "Subtraction & Difference Models: Topic 2",
+          "subHeader": "Mathematics · Page 12",
+          "title": "Reaching Fifty: 46 to 50",
           "bulletPoints": [
-            "Taking away, counting backward, and finding differences.",
-            "Regrouping and borrowing techniques.",
-            "Fact families connecting addition and subtraction.",
-            "Checking subtraction using inverse operations."
+            "46: Forty-six human chromosomes inside our cells.",
+            "47: Forty-seven = 4 tens and 7 ones.",
+            "48: Forty-eight hours in a two-day weekend.",
+            "49: Forty-nine = 7 x 7 square.",
+            "50: Fifty = 5 whole tens! Halfway to one hundred!"
           ],
-          "footerText": "Page 12 of 20 \u00b7 Numbers & Counting 1-50"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 12 of 20 · Numbers & Counting 1-50"
         },
         {
           "pageNumber": 13,
           "header": "Numbers & Counting 1-50",
-          "subHeader": "Mathematics \u00b7 Class 1 \u00b7 Part 3",
-          "title": "Geometry: Shapes & Spatial Reasoning: Topic 3",
+          "subHeader": "Mathematics · Page 13",
+          "title": "Comparing Numbers: More, Less, and Equal",
           "bulletPoints": [
-            "2D shapes: Circles, triangles, squares, and rectangles.",
-            "Sides, vertices, and symmetry lines.",
-            "3D solid shapes: Spheres, cubes, cylinders, and cones.",
-            "Tessellations and tiling patterns in nature."
+            "Greater than (>): The hungry alligator mouth opens toward the bigger number (45 > 32).",
+            "Less than (<): The sharp point points to the smaller number (18 < 29).",
+            "Equal to (=): Both sides balance identically (25 = 20 + 5).",
+            "Rule: Compare the tens digit first! 41 has 4 tens; 39 has 3 tens; so 41 > 39."
           ],
-          "footerText": "Page 13 of 20 \u00b7 Numbers & Counting 1-50"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 13 of 20 · Numbers & Counting 1-50"
         },
         {
           "pageNumber": 14,
           "header": "Numbers & Counting 1-50",
-          "subHeader": "Mathematics \u00b7 Class 1 \u00b7 Part 4",
-          "title": "Geometry: Shapes & Spatial Reasoning: Topic 4",
+          "subHeader": "Mathematics · Page 14",
+          "title": "Forward & Backward Counting to 50",
           "bulletPoints": [
-            "2D shapes: Circles, triangles, squares, and rectangles.",
-            "Sides, vertices, and symmetry lines.",
-            "3D solid shapes: Spheres, cubes, cylinders, and cones.",
-            "Tessellations and tiling patterns in nature."
+            "Forward rocket launch: 45, 46, 47, 48, 49, 50!",
+            "Backward countdown: 50, 49, 48, 47, 46, 45, 44...",
+            "Before and after: What comes right before 30? 29! What comes right after 49? 50!",
+            "Between numbers: The number between 38 and 40 is 39."
           ],
-          "footerText": "Page 14 of 20 \u00b7 Numbers & Counting 1-50"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 14 of 20 · Numbers & Counting 1-50"
         },
         {
           "pageNumber": 15,
           "header": "Numbers & Counting 1-50",
-          "subHeader": "Mathematics \u00b7 Class 1 \u00b7 Part 5",
-          "title": "Geometry: Shapes & Spatial Reasoning: Topic 5",
+          "subHeader": "Mathematics · Page 15",
+          "title": "Skip Counting by 2s up to 50",
           "bulletPoints": [
-            "2D shapes: Circles, triangles, squares, and rectangles.",
-            "Sides, vertices, and symmetry lines.",
-            "3D solid shapes: Spheres, cubes, cylinders, and cones.",
-            "Tessellations and tiling patterns in nature."
+            "Hop, skip, and jump: 2, 4, 6, 8, 10, 12, 14, 16, 18, 20...",
+            "Through the thirties: 22, 24, 26, 28, 30, 32, 34, 36, 38, 40.",
+            "Reaching fifty: 42, 44, 46, 48, 50!",
+            "Even number secret: All 2s skip numbers end only in 0, 2, 4, 6, or 8."
           ],
-          "footerText": "Page 15 of 20 \u00b7 Numbers & Counting 1-50"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 15 of 20 · Numbers & Counting 1-50"
         },
         {
           "pageNumber": 16,
           "header": "Numbers & Counting 1-50",
-          "subHeader": "Mathematics \u00b7 Class 1 \u00b7 Part 1",
-          "title": "Geometry: Shapes & Spatial Reasoning: Topic 1",
+          "subHeader": "Mathematics · Page 16",
+          "title": "Skip Counting by 5s up to 50",
           "bulletPoints": [
-            "2D shapes: Circles, triangles, squares, and rectangles.",
-            "Sides, vertices, and symmetry lines.",
-            "3D solid shapes: Spheres, cubes, cylinders, and cones.",
-            "Tessellations and tiling patterns in nature."
+            "The rhythm of five: 5, 10, 15, 20, 25, 30, 35, 40, 45, 50.",
+            "Only 10 hops from start to 50!",
+            "Ten hands of fingers: 10 hands x 5 fingers = 50 fingers waving hello.",
+            "Clock minutes: The minute hand at 10 points to 50 minutes past the hour."
           ],
-          "footerText": "Page 16 of 20 \u00b7 Numbers & Counting 1-50"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 16 of 20 · Numbers & Counting 1-50"
         },
         {
           "pageNumber": 17,
           "header": "Numbers & Counting 1-50",
-          "subHeader": "Mathematics \u00b7 Class 1 \u00b7 Part 2",
-          "title": "Measurement: Length, Weight & Time: Topic 2",
+          "subHeader": "Mathematics · Page 17",
+          "title": "Towers of 10 up to 50",
           "bulletPoints": [
-            "Standard units of measurement vs non-standard benchmarks.",
-            "Reading clocks: Hours, half-hours, and elapsed time.",
-            "Measuring weight with balance scales.",
-            "Estimating lengths with rulers and measuring tapes."
+            "10: One tower of ten.",
+            "20: Two towers of ten.",
+            "30: Three towers of ten.",
+            "40: Four towers of ten.",
+            "50: Five towers of ten.",
+            "Notice the pattern: The units place stays locked at 0 while tens increment 1, 2, 3, 4, 5."
           ],
-          "footerText": "Page 17 of 20 \u00b7 Numbers & Counting 1-50"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 17 of 20 · Numbers & Counting 1-50"
         },
         {
           "pageNumber": 18,
           "header": "Numbers & Counting 1-50",
-          "subHeader": "Mathematics \u00b7 Class 1 \u00b7 Part 3",
-          "title": "Measurement: Length, Weight & Time: Topic 3",
+          "subHeader": "Mathematics · Page 18",
+          "title": "Odd and Even Friends to 50",
           "bulletPoints": [
-            "Standard units of measurement vs non-standard benchmarks.",
-            "Reading clocks: Hours, half-hours, and elapsed time.",
-            "Measuring weight with balance scales.",
-            "Estimating lengths with rulers and measuring tapes."
+            "Even numbers: Can be divided into pairs with zero left over (ends in 0, 2, 4, 6, 8).",
+            "Odd numbers: Always have one lonely friend left without a pair (ends in 1, 3, 5, 7, 9).",
+            "27 is odd because it ends in 7; 48 is even because it ends in 8.",
+            "Odd + Odd = Even (3 + 5 = 8); Even + Even = Even (4 + 6 = 10)."
           ],
-          "footerText": "Page 18 of 20 \u00b7 Numbers & Counting 1-50"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 18 of 20 · Numbers & Counting 1-50"
         },
         {
           "pageNumber": 19,
           "header": "Numbers & Counting 1-50",
-          "subHeader": "Mathematics \u00b7 Class 1 \u00b7 Part 4",
-          "title": "Measurement: Length, Weight & Time: Topic 4",
+          "subHeader": "Mathematics · Page 19",
+          "title": "Number Mazes: Finding Missing Numbers",
           "bulletPoints": [
-            "Standard units of measurement vs non-standard benchmarks.",
-            "Reading clocks: Hours, half-hours, and elapsed time.",
-            "Measuring weight with balance scales.",
-            "Estimating lengths with rulers and measuring tapes."
+            "Puzzle 1: 22, 23, __, 25, 26. The missing number is 24!",
+            "Puzzle 2: 35, 40, __, 50. Skip counting by 5s reveals 45!",
+            "Puzzle 3: 50, 40, __, 20, 10. Counting down by 10s reveals 30!",
+            "Pattern detective: Look at the difference between neighbors to unlock any sequence."
           ],
-          "footerText": "Page 19 of 20 \u00b7 Numbers & Counting 1-50"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 19 of 20 · Numbers & Counting 1-50"
         },
         {
           "pageNumber": 20,
           "header": "Numbers & Counting 1-50",
-          "subHeader": "Mathematics \u00b7 Class 1 \u00b7 Part 5",
-          "title": "Measurement: Length, Weight & Time: Topic 5",
+          "subHeader": "Mathematics · Page 20",
+          "title": "The Grand 1 to 50 Champion Certificate",
           "bulletPoints": [
-            "Standard units of measurement vs non-standard benchmarks.",
-            "Reading clocks: Hours, half-hours, and elapsed time.",
-            "Measuring weight with balance scales.",
-            "Estimating lengths with rulers and measuring tapes."
+            "You have conquered all 50 numbers from one little drop of water to fifty ocean waves.",
+            "You understand tens and ones, greater than and less than, and skip counting tracks.",
+            "Math is everywhere: Counting steps, measuring heights, and sharing snacks fairly.",
+            "Wear your champion smile: You are a master of Numbers 1 to 50!"
           ],
-          "footerText": "Page 20 of 20 \u00b7 Numbers & Counting 1-50"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 20 of 20 · Numbers & Counting 1-50"
         }
       ]
     }

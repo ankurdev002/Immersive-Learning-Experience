@@ -10,7 +10,7 @@
   "accentColor": "#fde047",
   "coverImage": "/books/science-exp/cover.png",
   "sourcePdf": null,
-  "icon": "\ud83d\udd2c",
+  "icon": "🔬",
   "isInteractive": true,
   "author": "Distinguished Curators & Academic Press",
   "totalPages": 25,
@@ -23,327 +23,402 @@
         {
           "pageNumber": 1,
           "header": "Hands-on Science Explorations",
-          "subHeader": "Science \u00b7 Class 4 \u00b7 Part 1",
-          "title": "The Scientific Method: Observe & Ask: Topic 1",
+          "subHeader": "Science · Chapter 1 · Section 1",
+          "title": "The Scientific Method: Thinking Like an Investigator",
           "bulletPoints": [
-            "Making careful observations using our five senses.",
-            "Formulating hypotheses and curious questions.",
-            "Designing fair tests and controlling variables.",
-            "Recording data with sketches, tables, and notes."
+            "Observation: Notice interesting phenomena in the world around you and ask a focused question.",
+            "Hypothesis: Propose an educated explanation that can be tested through experimental trials.",
+            "Controlled Experiment: Keep all variables identical except for the single variable you are testing.",
+            "Conclusion: Analyze data honestly; unexpected results often lead to the greatest scientific discoveries."
           ],
-          "footerText": "Page 1 of 25 \u00b7 Hands-on Science Explorations"
+          "formulaOrSummary": "Question -> Hypothesis -> Experiment -> Observation -> Conclusion",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 1 of 25 · Hands-on Science Explorations"
         },
         {
           "pageNumber": 2,
           "header": "Hands-on Science Explorations",
-          "subHeader": "Science \u00b7 Class 4 \u00b7 Part 2",
-          "title": "The Scientific Method: Observe & Ask: Topic 2",
+          "subHeader": "Science · Chapter 1 · Section 2",
+          "title": "Density Tower: The Floating Liquid Mystery",
           "bulletPoints": [
-            "Making careful observations using our five senses.",
-            "Formulating hypotheses and curious questions.",
-            "Designing fair tests and controlling variables.",
-            "Recording data with sketches, tables, and notes."
+            "Density measures how tightly packed the molecules of a substance are in a given volume.",
+            "Layering liquids: Slowly pour honey, dish soap, water with food coloring, and vegetable oil into a tall glass cylinder.",
+            "Floating boundaries: Honey sinks to the bottom because it is densest; vegetable oil floats on top because it is lightest.",
+            "Object buoyancy: Drop a metal bolt, grape, plastic bead, and sponge; observe where each rests in the tower."
           ],
-          "footerText": "Page 2 of 25 \u00b7 Hands-on Science Explorations"
+          "formulaOrSummary": "Density = Mass / Volume (d = m / V)",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 2 of 25 · Hands-on Science Explorations"
         },
         {
           "pageNumber": 3,
           "header": "Hands-on Science Explorations",
-          "subHeader": "Science \u00b7 Class 4 \u00b7 Part 3",
-          "title": "The Scientific Method: Observe & Ask: Topic 3",
+          "subHeader": "Science · Chapter 1 · Section 3",
+          "title": "Dancing Raisins: Buoyancy & Carbon Dioxide",
           "bulletPoints": [
-            "Making careful observations using our five senses.",
-            "Formulating hypotheses and curious questions.",
-            "Designing fair tests and controlling variables.",
-            "Recording data with sketches, tables, and notes."
+            "Drop wrinkly raisins into a glass filled with fresh, bubbly carbonated soda or seltzer water.",
+            "Initial sinking: Raisins are denser than liquid soda, so they immediately sink to the bottom of the glass.",
+            "Bubble elevators: Thousands of tiny carbon dioxide (CO2) gas bubbles cling to the rough surface of the raisins.",
+            "Up and down: The gas bubbles increase buoyancy, lifting raisins to the top; at the surface, bubbles pop and raisins sink again!"
           ],
-          "footerText": "Page 3 of 25 \u00b7 Hands-on Science Explorations"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 3 of 25 · Hands-on Science Explorations"
         },
         {
           "pageNumber": 4,
           "header": "Hands-on Science Explorations",
-          "subHeader": "Science \u00b7 Class 4 \u00b7 Part 4",
-          "title": "The Scientific Method: Observe & Ask: Topic 4",
+          "subHeader": "Science · Chapter 1 · Section 4",
+          "title": "Invisible Ink: Oxidation & Thermal Reveal",
           "bulletPoints": [
-            "Making careful observations using our five senses.",
-            "Formulating hypotheses and curious questions.",
-            "Designing fair tests and controlling variables.",
-            "Recording data with sketches, tables, and notes."
+            "Dip a cotton swab in fresh lemon juice and write a secret message on a sheet of white paper; let it dry completely.",
+            "Invisible message: Once dry, the pale yellow citric acid disappears, leaving the paper seemingly blank.",
+            "Gentle heat reveal: Carefully hold the paper near a warm incandescent light bulb or warm iron with an adult helper.",
+            "Oxidation chemistry: Carbon compounds in lemon juice oxidize and burn at a lower temperature than paper, turning rich brown!"
           ],
-          "footerText": "Page 4 of 25 \u00b7 Hands-on Science Explorations"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 4 of 25 · Hands-on Science Explorations"
         },
         {
           "pageNumber": 5,
           "header": "Hands-on Science Explorations",
-          "subHeader": "Science \u00b7 Class 4 \u00b7 Part 5",
-          "title": "The Scientific Method: Observe & Ask: Topic 5",
+          "subHeader": "Science · Chapter 1 · Section 5",
+          "title": "Bending Water with Static Electricity",
           "bulletPoints": [
-            "Making careful observations using our five senses.",
-            "Formulating hypotheses and curious questions.",
-            "Designing fair tests and controlling variables.",
-            "Recording data with sketches, tables, and notes."
+            "Charge a latex balloon: Rub the balloon briskly against a wool sweater or dry hair for 20 seconds.",
+            "Electron transfer: Negatively charged electrons jump from your hair onto the rubber balloon surface.",
+            "Polar attraction: Bring the charged balloon close to a very thin stream of running tap water without touching it.",
+            "The bend: Water molecules are polar (slightly positive hydrogen ends); the negative balloon pulls water toward itself!"
           ],
-          "footerText": "Page 5 of 25 \u00b7 Hands-on Science Explorations"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 5 of 25 · Hands-on Science Explorations"
         },
         {
           "pageNumber": 6,
           "header": "Hands-on Science Explorations",
-          "subHeader": "Science \u00b7 Class 4 \u00b7 Part 6",
-          "title": "Matter & Materials: Solids, Liquids, Gases: Topic 6",
+          "subHeader": "Science · Chapter 1 · Section 6",
+          "title": "Walking Water: Capillary Action in Action",
           "bulletPoints": [
-            "States of matter and their physical properties.",
-            "Melting, freezing, evaporation, and condensation.",
-            "Mixtures, solutions, and separation techniques.",
-            "Density: Why objects float or sink in water."
+            "Setup: Arrange 5 clear cups in a row; fill cups 1, 3, and 5 with water tinted red, yellow, and blue; leave cups 2 and 4 empty.",
+            "Paper towel bridges: Fold paper towels into strips and place them bridging adjacent cups.",
+            "Capillary action: Water molecules adhere to cellulose plant fibers in paper towels, defying gravity and climbing upward.",
+            "Color mixing: Over two hours, water walks into the empty cups, mixing yellow and blue into green, and red and yellow into orange!"
           ],
-          "footerText": "Page 6 of 25 \u00b7 Hands-on Science Explorations"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 6 of 25 · Hands-on Science Explorations"
         },
         {
           "pageNumber": 7,
           "header": "Hands-on Science Explorations",
-          "subHeader": "Science \u00b7 Class 4 \u00b7 Part 1",
-          "title": "Matter & Materials: Solids, Liquids, Gases: Topic 1",
+          "subHeader": "Science · Chapter 1 · Section 7",
+          "title": "Homemade Lava Lamp: Density & Gas Pressure",
           "bulletPoints": [
-            "States of matter and their physical properties.",
-            "Melting, freezing, evaporation, and condensation.",
-            "Mixtures, solutions, and separation techniques.",
-            "Density: Why objects float or sink in water."
+            "Fill a clear bottle 3/4 with clear vegetable oil and 1/4 with water; add 10 drops of bright food coloring.",
+            "Separation: Colored water sinks below the oil because water is polar and denser than non-polar oil.",
+            "The reaction: Drop in half an effervescent antacid tablet (containing citric acid and sodium bicarbonate).",
+            "Lava bubbles: Carbon dioxide bubbles rise through the oil carrying colorful water blobs; at the top, gas escapes and water drops sink."
           ],
-          "footerText": "Page 7 of 25 \u00b7 Hands-on Science Explorations"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 7 of 25 · Hands-on Science Explorations"
         },
         {
           "pageNumber": 8,
           "header": "Hands-on Science Explorations",
-          "subHeader": "Science \u00b7 Class 4 \u00b7 Part 2",
-          "title": "Matter & Materials: Solids, Liquids, Gases: Topic 2",
+          "subHeader": "Science · Chapter 1 · Section 8",
+          "title": "The Bouncy Naked Egg: Acid-Base Dissolution",
           "bulletPoints": [
-            "States of matter and their physical properties.",
-            "Melting, freezing, evaporation, and condensation.",
-            "Mixtures, solutions, and separation techniques.",
-            "Density: Why objects float or sink in water."
+            "Submerge a raw chicken egg in a glass jar filled with white household vinegar (acetic acid).",
+            "Effervescence: Tiny carbon dioxide bubbles instantly form all over the eggshell as acid reacts with calcium carbonate.",
+            "48 hours later: The hard shell dissolves completely, leaving only the translucent, flexible semi-permeable membrane.",
+            "Osmosis test: Soak the naked egg in corn syrup to shrink it, or in pure water to watch it swell via water osmosis!"
           ],
-          "footerText": "Page 8 of 25 \u00b7 Hands-on Science Explorations"
+          "formulaOrSummary": "CaCO3 (Eggshell) + 2 CH3COOH (Vinegar) -> Ca(CH3COO)2 + H2O + CO2",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 8 of 25 · Hands-on Science Explorations"
         },
         {
           "pageNumber": 9,
           "header": "Hands-on Science Explorations",
-          "subHeader": "Science \u00b7 Class 4 \u00b7 Part 3",
-          "title": "Matter & Materials: Solids, Liquids, Gases: Topic 3",
+          "subHeader": "Science · Chapter 1 · Section 9",
+          "title": "Elephant Toothpaste: Rapid Catalytic Decomposition",
           "bulletPoints": [
-            "States of matter and their physical properties.",
-            "Melting, freezing, evaporation, and condensation.",
-            "Mixtures, solutions, and separation techniques.",
-            "Density: Why objects float or sink in water."
+            "Mix hydrogen peroxide (H2O2) in a flask with liquid dish soap and red food coloring.",
+            "The catalyst: In a small cup, dissolve dry baker’s yeast in warm water; yeast contains the natural enzyme catalase.",
+            "The eruption: Pour yeast into the flask; catalase rapidly tears hydrogen peroxide apart into water and oxygen gas.",
+            "Foam eruption: Trapped oxygen gas creates an erupting column of warm, pillowy foam (an exothermic reaction)!"
           ],
-          "footerText": "Page 9 of 25 \u00b7 Hands-on Science Explorations"
+          "formulaOrSummary": "2 H2O2 (Catalyzed by Catalase) -> 2 H2O + O2 (Gas)",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 9 of 25 · Hands-on Science Explorations"
         },
         {
           "pageNumber": 10,
           "header": "Hands-on Science Explorations",
-          "subHeader": "Science \u00b7 Class 4 \u00b7 Part 4",
-          "title": "Matter & Materials: Solids, Liquids, Gases: Topic 4",
+          "subHeader": "Science · Chapter 1 · Section 10",
+          "title": "DIY Magnetic Compass: Earth's Invisible Field",
           "bulletPoints": [
-            "States of matter and their physical properties.",
-            "Melting, freezing, evaporation, and condensation.",
-            "Mixtures, solutions, and separation techniques.",
-            "Density: Why objects float or sink in water."
+            "Magnetize a steel sewing needle: Stroke the needle 50 times in one direction using the north pole of a bar magnet.",
+            "Floating platform: Cut a small disc of cork or styrofoam and carefully push the needle flat through the center.",
+            "Float in water: Place the cork platform into a shallow bowl of still water away from electronic devices.",
+            "Alignment: The needle rotates freely until it aligns with the magnetic field lines connecting Earth’s North and South poles."
           ],
-          "footerText": "Page 10 of 25 \u00b7 Hands-on Science Explorations"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 10 of 25 · Hands-on Science Explorations"
         },
         {
           "pageNumber": 11,
           "header": "Hands-on Science Explorations",
-          "subHeader": "Science \u00b7 Class 4 \u00b7 Part 5",
-          "title": "Forces, Motion & Simple Machines: Topic 5",
+          "subHeader": "Science · Chapter 1 · Section 11",
+          "title": "Rainbow in a Glass: Sugar Solution Gradients",
           "bulletPoints": [
-            "Pushes and pulls: Understanding friction and gravity.",
-            "Speed, velocity, and acceleration basics.",
-            "Inclined planes, levers, pulleys, and wheels.",
-            "Balanced vs unbalanced forces in daily life."
+            "Prepare 4 cups of warm water with food coloring: red (0 spoons sugar), yellow (2 spoons), green (4 spoons), blue (6 spoons).",
+            "Dissolving sugar: The blue cup contains the highest density of dissolved sucrose molecules, while red has the lowest.",
+            "Careful layering: Using a pipette or dropper, gently release the colors into a narrow tube starting with dense blue on bottom.",
+            "Liquid layers: Because each layer has a distinct density, they rest on top of each other in a brilliant 4-color rainbow!"
           ],
-          "footerText": "Page 11 of 25 \u00b7 Hands-on Science Explorations"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 11 of 25 · Hands-on Science Explorations"
         },
         {
           "pageNumber": 12,
           "header": "Hands-on Science Explorations",
-          "subHeader": "Science \u00b7 Class 4 \u00b7 Part 6",
-          "title": "Forces, Motion & Simple Machines: Topic 6",
+          "subHeader": "Science · Chapter 1 · Section 12",
+          "title": "Balloon Rocket: Newton’s Third Law of Motion",
           "bulletPoints": [
-            "Pushes and pulls: Understanding friction and gravity.",
-            "Speed, velocity, and acceleration basics.",
-            "Inclined planes, levers, pulleys, and wheels.",
-            "Balanced vs unbalanced forces in daily life."
+            "Thread a long piece of fishing line or smooth string through a plastic drinking straw; tie the string tight across a room.",
+            "Inflate a long balloon and pinch the neck shut without tying; tape the balloon securely to the plastic straw.",
+            "Action: Release the balloon neck; high-pressure compressed air rushes backward out of the nozzle.",
+            "Reaction: The equal and opposite reaction force propels the balloon rocket racing forward along the string line at high speed!"
           ],
-          "footerText": "Page 12 of 25 \u00b7 Hands-on Science Explorations"
+          "formulaOrSummary": "For every action, there is an equal and opposite reaction (F_action = -F_reaction)",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 12 of 25 · Hands-on Science Explorations"
         },
         {
           "pageNumber": 13,
           "header": "Hands-on Science Explorations",
-          "subHeader": "Science \u00b7 Class 4 \u00b7 Part 1",
-          "title": "Forces, Motion & Simple Machines: Topic 1",
+          "subHeader": "Science · Chapter 1 · Section 13",
+          "title": "Solar Oven in a Pizza Box: Greenhouse Trapping",
           "bulletPoints": [
-            "Pushes and pulls: Understanding friction and gravity.",
-            "Speed, velocity, and acceleration basics.",
-            "Inclined planes, levers, pulleys, and wheels.",
-            "Balanced vs unbalanced forces in daily life."
+            "Construction: Line the inside flap of an empty pizza box with shiny aluminum foil to create a solar reflector.",
+            "Insulation: Line the bottom of the box with black construction paper and seal the interior with clear plastic wrap.",
+            "Sun alignment: Angle the foil flap toward the midday sun to reflect intense solar radiation through the clear plastic window.",
+            "Greenhouse heating: Black paper absorbs light and radiates thermal infrared; heat cannot escape, melting s’mores to 90°C!"
           ],
-          "footerText": "Page 13 of 25 \u00b7 Hands-on Science Explorations"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 13 of 25 · Hands-on Science Explorations"
         },
         {
           "pageNumber": 14,
           "header": "Hands-on Science Explorations",
-          "subHeader": "Science \u00b7 Class 4 \u00b7 Part 2",
-          "title": "Forces, Motion & Simple Machines: Topic 2",
+          "subHeader": "Science · Chapter 1 · Section 14",
+          "title": "Cloud in a Jar: Condensation & Nucleation",
           "bulletPoints": [
-            "Pushes and pulls: Understanding friction and gravity.",
-            "Speed, velocity, and acceleration basics.",
-            "Inclined planes, levers, pulleys, and wheels.",
-            "Balanced vs unbalanced forces in daily life."
+            "Warm water base: Pour 5cm of warm water into a glass jar and swirl to saturate the air with invisible water vapor.",
+            "Condensation nuclei: Drop a lit match into the jar and quickly place an upside-down metal lid filled with ice cubes on top.",
+            "Rapid cooling: Warm moist air rises and encounters the icy lid, cooling below its dew point.",
+            "Cloud formation: Water vapor condenses onto microscopic smoke particles, creating a swirling miniature white cloud!"
           ],
-          "footerText": "Page 14 of 25 \u00b7 Hands-on Science Explorations"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 14 of 25 · Hands-on Science Explorations"
         },
         {
           "pageNumber": 15,
           "header": "Hands-on Science Explorations",
-          "subHeader": "Science \u00b7 Class 4 \u00b7 Part 3",
-          "title": "Forces, Motion & Simple Machines: Topic 3",
+          "subHeader": "Science · Chapter 1 · Section 15",
+          "title": "Penny Cleaning Chemistry: Acid-Salt Reduction",
           "bulletPoints": [
-            "Pushes and pulls: Understanding friction and gravity.",
-            "Speed, velocity, and acceleration basics.",
-            "Inclined planes, levers, pulleys, and wheels.",
-            "Balanced vs unbalanced forces in daily life."
+            "Old dull pennies are coated with copper oxide (CuO), formed when copper metal reacts with oxygen in the air over years.",
+            "Cleaning solution: Mix 1/4 cup of white vinegar with 1 teaspoon of table salt (NaCl) in a glass bowl.",
+            "Chemical strip: Dip dirty pennies into the solution for 10 seconds; the mild acid-chloride solution dissolves copper oxide.",
+            "Shiny transformation: Rinse half the pennies in fresh water to keep them gleaming; leave the other half unrinsed to see malachite green form!"
           ],
-          "footerText": "Page 15 of 25 \u00b7 Hands-on Science Explorations"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 15 of 25 · Hands-on Science Explorations"
         },
         {
           "pageNumber": 16,
           "header": "Hands-on Science Explorations",
-          "subHeader": "Science \u00b7 Class 4 \u00b7 Part 4",
-          "title": "Energy, Light & Sound Waves: Topic 4",
+          "subHeader": "Science · Chapter 1 · Section 16",
+          "title": "Slime Polymer Chemistry: Cross-Linking Chains",
           "bulletPoints": [
-            "Forms of energy: Kinetic, potential, thermal, electrical.",
-            "Light travel: Reflection, shadows, and prisms.",
-            "Sound vibrations through air, water, and solids.",
-            "Renewable energy: Solar power, wind, and water turbines."
+            "PVA Glue base: White craft glue consists of long, flexible chains of polyvinyl acetate (PVA) polymers sliding past each other.",
+            "The activator: Dissolve sodium borate (borax or saline solution with baking soda) in water.",
+            "Cross-linking: When mixed, borate ions form hydrogen bonds connecting parallel polymer strands together like rungs on a ladder.",
+            "Non-Newtonian fluid: The resulting slime stretches slowly under gentle pulling, but snaps and bounces under sudden shock!"
           ],
-          "footerText": "Page 16 of 25 \u00b7 Hands-on Science Explorations"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 16 of 25 · Hands-on Science Explorations"
         },
         {
           "pageNumber": 17,
           "header": "Hands-on Science Explorations",
-          "subHeader": "Science \u00b7 Class 4 \u00b7 Part 5",
-          "title": "Energy, Light & Sound Waves: Topic 5",
+          "subHeader": "Science · Chapter 1 · Section 17",
+          "title": "DIY Water Filter: Filtration & Adsorption",
           "bulletPoints": [
-            "Forms of energy: Kinetic, potential, thermal, electrical.",
-            "Light travel: Reflection, shadows, and prisms.",
-            "Sound vibrations through air, water, and solids.",
-            "Renewable energy: Solar power, wind, and water turbines."
+            "Layered column: Cut the bottom off an empty plastic bottle; pack the neck with cotton wool, then layers of fine sand, coarse sand, and gravel.",
+            "Activated charcoal: Add a layer of crushed activated charcoal between the sand beds.",
+            "Physical straining: Coarse gravel catches large leaves and twigs; sand layers trap small suspended dirt particles.",
+            "Chemical adsorption: Porous charcoal binds organic impurities and eliminates foul odors, turning murky pond water crystal clear."
           ],
-          "footerText": "Page 17 of 25 \u00b7 Hands-on Science Explorations"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 17 of 25 · Hands-on Science Explorations"
         },
         {
           "pageNumber": 18,
           "header": "Hands-on Science Explorations",
-          "subHeader": "Science \u00b7 Class 4 \u00b7 Part 6",
-          "title": "Energy, Light & Sound Waves: Topic 6",
+          "subHeader": "Science · Chapter 1 · Section 18",
+          "title": "Growing Crystal Gardens: Evaporation & Lattice Growth",
           "bulletPoints": [
-            "Forms of energy: Kinetic, potential, thermal, electrical.",
-            "Light travel: Reflection, shadows, and prisms.",
-            "Sound vibrations through air, water, and solids.",
-            "Renewable energy: Solar power, wind, and water turbines."
+            "Supersaturated solution: Stir Epsom salt (magnesium sulfate) into boiling water until no more crystals will dissolve.",
+            "Suspension: Pour clear solution into a jar and suspend a rough cotton string or pipe cleaner from a wooden pencil.",
+            "Cooling and nucleating: As the hot liquid cools, water can hold fewer solute molecules, forcing them out of solution.",
+            "Crystal lattice: Over 3 days, billions of magnesium and sulfate ions assemble into perfect spiky, hexagonal clear needles!"
           ],
-          "footerText": "Page 18 of 25 \u00b7 Hands-on Science Explorations"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 18 of 25 · Hands-on Science Explorations"
         },
         {
           "pageNumber": 19,
           "header": "Hands-on Science Explorations",
-          "subHeader": "Science \u00b7 Class 4 \u00b7 Part 1",
-          "title": "Energy, Light & Sound Waves: Topic 1",
+          "subHeader": "Science · Chapter 1 · Section 19",
+          "title": "Magic Milk: Surface Tension & Molecular Dance",
           "bulletPoints": [
-            "Forms of energy: Kinetic, potential, thermal, electrical.",
-            "Light travel: Reflection, shadows, and prisms.",
-            "Sound vibrations through air, water, and solids.",
-            "Renewable energy: Solar power, wind, and water turbines."
+            "Pour whole milk into a shallow dinner plate and add spaced drops of four different liquid food colorings.",
+            "Surface tension: Milk has high surface tension held by cohesive water molecules and suspended fat globules.",
+            "Soap magic: Touch a cotton swab dipped in liquid dishwashing soap right into the center of the milk plate.",
+            "Explosive color burst: Soap molecules have hydrophobic tails that race to attach to milk fat, tearing surface tension apart in swirls!"
           ],
-          "footerText": "Page 19 of 25 \u00b7 Hands-on Science Explorations"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 19 of 25 · Hands-on Science Explorations"
         },
         {
           "pageNumber": 20,
           "header": "Hands-on Science Explorations",
-          "subHeader": "Science \u00b7 Class 4 \u00b7 Part 2",
-          "title": "Energy, Light & Sound Waves: Topic 2",
+          "subHeader": "Science · Chapter 1 · Section 20",
+          "title": "Potato Clock: Electrochemical Redox Cells",
           "bulletPoints": [
-            "Forms of energy: Kinetic, potential, thermal, electrical.",
-            "Light travel: Reflection, shadows, and prisms.",
-            "Sound vibrations through air, water, and solids.",
-            "Renewable energy: Solar power, wind, and water turbines."
+            "Electrode setup: Insert a clean copper coin (positive cathode) and a zinc-galvanized nail (negative anode) into a raw russet potato.",
+            "Electrolyte bridge: Phosphoric acid and moisture inside the potato tissue act as a conductive electrolyte solution.",
+            "Redox reaction: Zinc metal oxidizes and releases electrons (Zn -> Zn2+ + 2e-); electrons travel through wires to power a digital clock.",
+            "Clean circuit: Two potatoes connected in series produce approximately 1.5 volts, matching a standard AA battery!"
           ],
-          "footerText": "Page 20 of 25 \u00b7 Hands-on Science Explorations"
+          "formulaOrSummary": "Zinc Anode (Oxidation) -> Electron Flow -> Copper Cathode (Reduction)",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 20 of 25 · Hands-on Science Explorations"
         },
         {
           "pageNumber": 21,
           "header": "Hands-on Science Explorations",
-          "subHeader": "Science \u00b7 Class 4 \u00b7 Part 3",
-          "title": "Earth & Space Explorations: Topic 3",
+          "subHeader": "Science · Chapter 1 · Section 21",
+          "title": "Sundial Timekeeper: Tracking the Sun’s Journey",
           "bulletPoints": [
-            "Earth's layers: Crust, mantle, outer core, inner core.",
-            "The solar system: Planets orbiting our bright Sun.",
-            "Constellations and mapping the night sky.",
-            "Conserving natural resources and caring for Earth."
+            "Gnomon setup: Mount a straight vertical dowel or triangular shadow caster in the center of a flat wooden baseplate.",
+            "Solar noon: At exactly local solar noon, the shadow of the gnomon points due true North in the Northern Hemisphere.",
+            "Hourly markings: Mark the position and length of the tip of the shadow on the hour every hour from morning to dusk.",
+            "Earth’s rotation: The shadow rotates 15 degrees per hour across the circular face, directly reflecting Earth’s 360° daily spin!"
           ],
-          "footerText": "Page 21 of 25 \u00b7 Hands-on Science Explorations"
+          "formulaOrSummary": "360 degrees / 24 hours = 15 degrees of solar shadow rotation per hour",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 21 of 25 · Hands-on Science Explorations"
         },
         {
           "pageNumber": 22,
           "header": "Hands-on Science Explorations",
-          "subHeader": "Science \u00b7 Class 4 \u00b7 Part 4",
-          "title": "Earth & Space Explorations: Topic 4",
+          "subHeader": "Science · Chapter 1 · Section 22",
+          "title": "Celery Xylem: Visualizing Capillary Plant Flow",
           "bulletPoints": [
-            "Earth's layers: Crust, mantle, outer core, inner core.",
-            "The solar system: Planets orbiting our bright Sun.",
-            "Constellations and mapping the night sky.",
-            "Conserving natural resources and caring for Earth."
+            "Fresh celery: Place freshly cut stalks of leafy green celery into jars containing deep red and deep blue food coloring.",
+            "Vascular bundles: Plants do not have hearts to pump fluids; they rely on specialized microscopic tubular conduits called xylem.",
+            "Transpiration pull: As sun warms leaves, water evaporates through tiny stomata pores, pulling water up like a drinking straw.",
+            "Coloring leaves: After 6 hours, slice the celery cross-section to see tiny colored xylem dots; leaf veins turn vivid red and blue!"
           ],
-          "footerText": "Page 22 of 25 \u00b7 Hands-on Science Explorations"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 22 of 25 · Hands-on Science Explorations"
         },
         {
           "pageNumber": 23,
           "header": "Hands-on Science Explorations",
-          "subHeader": "Science \u00b7 Class 4 \u00b7 Part 5",
-          "title": "Earth & Space Explorations: Topic 5",
+          "subHeader": "Science · Chapter 1 · Section 23",
+          "title": "Baking Soda Volcano: Acid-Base Gas Expansion",
           "bulletPoints": [
-            "Earth's layers: Crust, mantle, outer core, inner core.",
-            "The solar system: Planets orbiting our bright Sun.",
-            "Constellations and mapping the night sky.",
-            "Conserving natural resources and caring for Earth."
+            "Construct a papier-mâché or modeling clay mountain around an empty 250ml plastic bottle.",
+            "Volcano magma mix: Add 2 tablespoons of sodium bicarbonate (baking soda), warm water, dish soap, and red food coloring into the crater.",
+            "The trigger: Pour in 1/2 cup of white vinegar; acetic acid instantly reacts with sodium bicarbonate.",
+            "Carbonic acid foam: The reaction creates unstable carbonic acid, which instantly decomposes into a frothy eruption of carbon dioxide lava!"
           ],
-          "footerText": "Page 23 of 25 \u00b7 Hands-on Science Explorations"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 23 of 25 · Hands-on Science Explorations"
         },
         {
           "pageNumber": 24,
           "header": "Hands-on Science Explorations",
-          "subHeader": "Science \u00b7 Class 4 \u00b7 Part 6",
-          "title": "Earth & Space Explorations: Topic 6",
+          "subHeader": "Science · Chapter 1 · Section 24",
+          "title": "Parachute Physics: Air Resistance & Terminal Velocity",
           "bulletPoints": [
-            "Earth's layers: Crust, mantle, outer core, inner core.",
-            "The solar system: Planets orbiting our bright Sun.",
-            "Constellations and mapping the night sky.",
-            "Conserving natural resources and caring for Earth."
+            "Canopy construction: Cut squares of light plastic (grocery bags) in three sizes: small (20cm), medium (40cm), and large (60cm).",
+            "Suspension lines: Tie equal-length cotton strings to each corner and attach a toy figurine payload to the center.",
+            "Gravity vs Drag: As gravity pulls the parachute down, air pushes against the broad canopy, generating aerodynamic drag.",
+            "Terminal velocity: The larger canopy traps more air molecules, reaching terminal velocity at a much slower, safer landing speed."
           ],
-          "footerText": "Page 24 of 25 \u00b7 Hands-on Science Explorations"
+          "formulaOrSummary": "Drag Force = 0.5 * Air_Density * Velocity^2 * Drag_Coefficient * Area",
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 24 of 25 · Hands-on Science Explorations"
         },
         {
           "pageNumber": 25,
           "header": "Hands-on Science Explorations",
-          "subHeader": "Science \u00b7 Class 4 \u00b7 Part 1",
-          "title": "Earth & Space Explorations: Topic 1",
+          "subHeader": "Science · Chapter 1 · Section 25",
+          "title": "The Young Scientist Laboratory Notebook",
           "bulletPoints": [
-            "Earth's layers: Crust, mantle, outer core, inner core.",
-            "The solar system: Planets orbiting our bright Sun.",
-            "Constellations and mapping the night sky.",
-            "Conserving natural resources and caring for Earth."
+            "Record everything: Maintain accurate dates, diagrams, measurements, temperatures, and unexpected observations.",
+            "Repeatable results: Good scientific experiments can be repeated by anyone anywhere with the same results.",
+            "Safety first: Always wear eye protection, work with adult supervision, and handle glass and heat sources carefully.",
+            "Lifelong curiosity: Wonder why the sky is blue, how birds fly, and never stop experimenting with the wonders of nature!"
           ],
-          "footerText": "Page 25 of 25 \u00b7 Hands-on Science Explorations"
+          "formulaOrSummary": null,
+          "diagramType": null,
+          "imageUrl": null,
+          "footerText": "Page 25 of 25 · Hands-on Science Explorations"
         }
       ]
     }
