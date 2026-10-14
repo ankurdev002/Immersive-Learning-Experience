@@ -2,16 +2,17 @@
   "id": "ncert-c1-english",
   "classGrade": 1,
   "classLevel": 1,
-  "subject": "English",
-  "title": "Marigold (Class 1)",
+  "tier": 1,
+  "subject": "English & Language",
+  "title": "Mridang 1",
   "subtitle": "NCERT English Stories & Rhymes",
-  "author": "NCERT",
-  "coverColor": "#c2410c",
-  "accentColor": "#fb923c",
+  "coverColor": "#7c3aed",
+  "accentColor": "#c084fc",
   "coverImage": "/books/ncert-c1-english/cover.png",
   "sourcePdf": "/books/ncert-c1-english/ncert_class1_marigold.pdf",
-  "icon": "🌸",
+  "icon": "\ud83c\udf38",
   "isInteractive": true,
+  "author": "NCERT",
   "totalPages": 15,
   "chapters": [
     {
@@ -22,7 +23,7 @@
         {
           "pageNumber": 1,
           "header": "Marigold (Class 1)",
-          "subHeader": "NCERT · English",
+          "subHeader": "NCERT \u00b7 English",
           "title": "1",
           "bulletPoints": [
             "A  Happy  Child My house is r ed - a little house;",
@@ -30,49 +31,49 @@
             "I have a tree, a green, green tree, To shade me from the sun; And under it I often sit,",
             "When all my play is done. reddaycry sun New words"
           ],
-          "footerText": "Page 1 of 15 · Marigold (Class 1)"
+          "footerText": "Page 1 of 15 \u00b7 Marigold (Class 1)"
         },
         {
           "pageNumber": 2,
           "header": "Marigold (Class 1)",
-          "subHeader": "NCERT · English",
+          "subHeader": "NCERT \u00b7 English",
           "title": "2",
           "bulletPoints": [
             "Read and match the words with the pictures. Draw a line. I am a boy. I am a girl. Fun with colours",
             "Fill in the box with the right colour. What is the colour",
-            "of the happy child’s house? What is the colour of your house? What is the colour of the tree?",
+            "of the happy child\u2019s house? What is the colour of your house? What is the colour of the tree?",
             "What is the colour of the sun? /c52 /c52"
           ],
-          "footerText": "Page 2 of 15 · Marigold (Class 1)"
+          "footerText": "Page 2 of 15 \u00b7 Marigold (Class 1)"
         },
         {
           "pageNumber": 3,
           "header": "Marigold (Class 1)",
-          "subHeader": "NCERT · English",
+          "subHeader": "NCERT \u00b7 English",
           "title": "3",
           "bulletPoints": [
             "/c52 /c52 /c52",
-            "/c52 Let’s share Ther",
+            "/c52 Let\u2019s share Ther",
             "e are many kinds of houses. Circle the ones you have seen. hut",
             "igloo flat bungalow"
           ],
-          "footerText": "Page 3 of 15 · Marigold (Class 1)"
+          "footerText": "Page 3 of 15 \u00b7 Marigold (Class 1)"
         },
         {
           "pageNumber": 4,
           "header": "Marigold (Class 1)",
-          "subHeader": "NCERT · English",
+          "subHeader": "NCERT \u00b7 English",
           "title": "4",
           "bulletPoints": [
             "How many people live in your house? Write her e. ____________ people live in my house.",
             "Sing 2020-21"
           ],
-          "footerText": "Page 4 of 15 · Marigold (Class 1)"
+          "footerText": "Page 4 of 15 \u00b7 Marigold (Class 1)"
         },
         {
           "pageNumber": 5,
           "header": "Marigold (Class 1)",
-          "subHeader": "NCERT · English",
+          "subHeader": "NCERT \u00b7 English",
           "title": "5",
           "bulletPoints": [
             "Look in a mirror. What do you see? Draw your face in this circle.",
@@ -80,25 +81,25 @@
             "Write: a, b, c. a",
             "a a a a 2020-21"
           ],
-          "footerText": "Page 5 of 15 · Marigold (Class 1)"
+          "footerText": "Page 5 of 15 \u00b7 Marigold (Class 1)"
         },
         {
           "pageNumber": 6,
           "header": "Marigold (Class 1)",
-          "subHeader": "NCERT · English",
+          "subHeader": "NCERT \u00b7 English",
           "title": "6",
           "bulletPoints": [
             "Collect pictures of a cat, a cow, a dog and a sheep",
             "from old books or newspapers and paste them below.",
-            "Trace over the dotted lines and complete the monkey’s tail.",
+            "Trace over the dotted lines and complete the monkey\u2019s tail.",
             "Monkey, monkey on a tree, Swing, swing, swing, swing. Sing"
           ],
-          "footerText": "Page 6 of 15 · Marigold (Class 1)"
+          "footerText": "Page 6 of 15 \u00b7 Marigold (Class 1)"
         },
         {
           "pageNumber": 7,
           "header": "Marigold (Class 1)",
-          "subHeader": "NCERT · English",
+          "subHeader": "NCERT \u00b7 English",
           "title": "7",
           "bulletPoints": [
             "The following have lost their babies. Trace along the maze using different colours and find them. One has been done for you.",
@@ -106,64 +107,64 @@
             "duck lion kangaroo",
             "butterfly Sing 2020-21"
           ],
-          "footerText": "Page 7 of 15 · Marigold (Class 1)"
+          "footerText": "Page 7 of 15 \u00b7 Marigold (Class 1)"
         },
         {
           "pageNumber": 8,
           "header": "Marigold (Class 1)",
-          "subHeader": "NCERT · English",
+          "subHeader": "NCERT \u00b7 English",
           "title": "8",
           "bulletPoints": [
             "Listen and enjoy this story Once there were three little pigs,",
             "Sonu, Monu and Gonu. Sonu lived in a house of straw.",
-            "Monu lived in a house of sticks and Gonu lived in a house of bricks. One day a big bad wolf came to Sonu’s house.",
-            "He said, “I will huff and puff and I will blow your house down. So he huffed and he puffed and he blew the house"
+            "Monu lived in a house of sticks and Gonu lived in a house of bricks. One day a big bad wolf came to Sonu\u2019s house.",
+            "He said, \u201cI will huff and puff and I will blow your house down. So he huffed and he puffed and he blew the house"
           ],
-          "footerText": "Page 8 of 15 · Marigold (Class 1)"
+          "footerText": "Page 8 of 15 \u00b7 Marigold (Class 1)"
         },
         {
           "pageNumber": 9,
           "header": "Marigold (Class 1)",
-          "subHeader": "NCERT · English",
+          "subHeader": "NCERT \u00b7 English",
           "title": "9",
           "bulletPoints": [
-            "Sonu and Monu ran to Gonu’s house. ” The wolf came",
-            "to Gonu’s house. He said, “I will huff and puff and I will blow your house down. So he huffed and he puffed but he could not blow the brick house down. It was",
+            "Sonu and Monu ran to Gonu\u2019s house. \u201d The wolf came",
+            "to Gonu\u2019s house. He said, \u201cI will huff and puff and I will blow your house down. So he huffed and he puffed but he could not blow the brick house down. It was",
             "very strong. The wolf went away and Sonu, Monu and Gonu",
             "lived happily together in the red brick house. Three  Little  Pigs"
           ],
-          "footerText": "Page 9 of 15 · Marigold (Class 1)"
+          "footerText": "Page 9 of 15 \u00b7 Marigold (Class 1)"
         },
         {
           "pageNumber": 10,
           "header": "Marigold (Class 1)",
-          "subHeader": "NCERT · English",
-          "title": "Let’s share",
+          "subHeader": "NCERT \u00b7 English",
+          "title": "Let\u2019s share",
           "bulletPoints": [
             "10 Reading is fun How many pigs",
             "were there? What did the big wolf say to the pigs?",
             "/c52 /c52 Was the wolf good or bad?",
             "What is your house made of? /c52"
           ],
-          "footerText": "Page 10 of 15 · Marigold (Class 1)"
+          "footerText": "Page 10 of 15 \u00b7 Marigold (Class 1)"
         },
         {
           "pageNumber": 11,
           "header": "Marigold (Class 1)",
-          "subHeader": "NCERT · English",
+          "subHeader": "NCERT \u00b7 English",
           "title": "/c52",
           "bulletPoints": [
             "/c52 /c52 /c52",
             "/c52 /c52 /c52",
             "/c52 11 Join the dots from 1 to 10 to make the house. Then",
-            "colour the pictur e. Let’s draw"
+            "colour the pictur e. Let\u2019s draw"
           ],
-          "footerText": "Page 11 of 15 · Marigold (Class 1)"
+          "footerText": "Page 11 of 15 \u00b7 Marigold (Class 1)"
         },
         {
           "pageNumber": 12,
           "header": "Marigold (Class 1)",
-          "subHeader": "NCERT · English",
+          "subHeader": "NCERT \u00b7 English",
           "title": "12",
           "bulletPoints": [
             "There are farm animals, water animals and jungle animals in this picture. Help the animals reach their",
@@ -171,46 +172,46 @@
             "crocodile hen horse",
             "dog buffalo FARM"
           ],
-          "footerText": "Page 12 of 15 · Marigold (Class 1)"
+          "footerText": "Page 12 of 15 \u00b7 Marigold (Class 1)"
         },
         {
           "pageNumber": 13,
           "header": "Marigold (Class 1)",
-          "subHeader": "NCERT · English",
+          "subHeader": "NCERT \u00b7 English",
           "title": "13",
           "bulletPoints": [
             "rhinoceros monkey cow",
-            "giraffe JUNGLE ‘Bow wow’, says the dog,",
-            "‘Mew mew’, says the cat, ‘Bleat bleat’, says the goat, ‘Roar roar’, says the lion,",
-            "‘Hello, hello’, says the child. Sing WATER"
+            "giraffe JUNGLE \u2018Bow wow\u2019, says the dog,",
+            "\u2018Mew mew\u2019, says the cat, \u2018Bleat bleat\u2019, says the goat, \u2018Roar roar\u2019, says the lion,",
+            "\u2018Hello, hello\u2019, says the child. Sing WATER"
           ],
-          "footerText": "Page 13 of 15 · Marigold (Class 1)"
+          "footerText": "Page 13 of 15 \u00b7 Marigold (Class 1)"
         },
         {
           "pageNumber": 14,
           "header": "Marigold (Class 1)",
-          "subHeader": "NCERT · English",
+          "subHeader": "NCERT \u00b7 English",
           "title": "14",
           "bulletPoints": [
-            "The emphasis in this book is on developing language skills by using the mother tongue in the initial stages. The teacher’s encouragement and",
+            "The emphasis in this book is on developing language skills by using the mother tongue in the initial stages. The teacher\u2019s encouragement and",
             "motivation are very important. Children are curious and love to try things in their own little ways. Do not correct their mistakes. Focus on the process of learning and remember that the child needs to be given activities that are",
             "exciting and stimulating. The is about introducing the child to a process of learning following the concept . Allow them to talk and help them to",
             "express their thoughts by use of their mother tongue, visuals, pictures, sketches, single word questions and answers. As you introduce the text (both the poem and the story), encourage all the children to participate."
           ],
-          "footerText": "Page 14 of 15 · Marigold (Class 1)"
+          "footerText": "Page 14 of 15 \u00b7 Marigold (Class 1)"
         },
         {
           "pageNumber": 15,
           "header": "Marigold (Class 1)",
-          "subHeader": "NCERT · English",
+          "subHeader": "NCERT \u00b7 English",
           "title": "/c52",
           "bulletPoints": [
             "/c52 /c52 /c52",
             "Teacher's Pages 1 15",
             "small groups. It will promote interaction, togetherness and team spirit besides encouragementfor natural expressions.",
-            "3. Conversation based on ‘Role play’ Divide your class into four groups: , , , Let each group make a house."
+            "3. Conversation based on \u2018Role play\u2019 Divide your class into four groups: , , , Let each group make a house."
           ],
-          "footerText": "Page 15 of 15 · Marigold (Class 1)"
+          "footerText": "Page 15 of 15 \u00b7 Marigold (Class 1)"
         }
       ]
     }

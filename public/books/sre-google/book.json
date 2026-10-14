@@ -1,0 +1,351 @@
+{
+  "id": "sre-google",
+  "classGrade": 3,
+  "classLevel": 3,
+  "tier": 3,
+  "subject": "DevOps & Reliability",
+  "title": "Site Reliability Engineering",
+  "subtitle": "How Google Runs Production Systems",
+  "coverColor": "#1e3a8a",
+  "accentColor": "#60a5fa",
+  "coverImage": "/books/sre-google/cover.png",
+  "sourcePdf": null,
+  "icon": "\ud83d\udee1\ufe0f",
+  "isInteractive": true,
+  "author": "Distinguished Faculty & Academic Press",
+  "totalPages": 25,
+  "chapters": [
+    {
+      "chapterNumber": 1,
+      "title": "Site Reliability Engineering",
+      "description": "Comprehensive master curriculum in DevOps & Reliability",
+      "pages": [
+        {
+          "pageNumber": 1,
+          "header": "Site Reliability Engineering",
+          "subHeader": "DevOps & Reliability \u00b7 Class 3 \u00b7 Section 1",
+          "title": "Site Reliability Engineering: Module 1",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of DevOps & Reliability (Section 1).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Site Reliability Engineering.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 1: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 1 of 25 \u00b7 Site Reliability Engineering"
+        },
+        {
+          "pageNumber": 2,
+          "header": "Site Reliability Engineering",
+          "subHeader": "DevOps & Reliability \u00b7 Class 3 \u00b7 Section 2",
+          "title": "Site Reliability Engineering: Module 2",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of DevOps & Reliability (Section 2).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Site Reliability Engineering.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 2: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 2 of 25 \u00b7 Site Reliability Engineering"
+        },
+        {
+          "pageNumber": 3,
+          "header": "Site Reliability Engineering",
+          "subHeader": "DevOps & Reliability \u00b7 Class 3 \u00b7 Section 3",
+          "title": "Site Reliability Engineering: Module 3",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of DevOps & Reliability (Section 3).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Site Reliability Engineering.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 3: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 3 of 25 \u00b7 Site Reliability Engineering"
+        },
+        {
+          "pageNumber": 4,
+          "header": "Site Reliability Engineering",
+          "subHeader": "DevOps & Reliability \u00b7 Class 3 \u00b7 Section 4",
+          "title": "Site Reliability Engineering: Module 4",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of DevOps & Reliability (Section 4).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Site Reliability Engineering.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 4: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 4 of 25 \u00b7 Site Reliability Engineering"
+        },
+        {
+          "pageNumber": 5,
+          "header": "Site Reliability Engineering",
+          "subHeader": "DevOps & Reliability \u00b7 Class 3 \u00b7 Section 5",
+          "title": "Site Reliability Engineering: Module 5",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of DevOps & Reliability (Section 5).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Site Reliability Engineering.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 5: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 5 of 25 \u00b7 Site Reliability Engineering"
+        },
+        {
+          "pageNumber": 6,
+          "header": "Site Reliability Engineering",
+          "subHeader": "DevOps & Reliability \u00b7 Class 3 \u00b7 Section 6",
+          "title": "Site Reliability Engineering: Module 6",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of DevOps & Reliability (Section 6).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Site Reliability Engineering.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 6: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 6 of 25 \u00b7 Site Reliability Engineering"
+        },
+        {
+          "pageNumber": 7,
+          "header": "Site Reliability Engineering",
+          "subHeader": "DevOps & Reliability \u00b7 Class 3 \u00b7 Section 7",
+          "title": "Site Reliability Engineering: Module 7",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of DevOps & Reliability (Section 7).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Site Reliability Engineering.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 7: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 7 of 25 \u00b7 Site Reliability Engineering"
+        },
+        {
+          "pageNumber": 8,
+          "header": "Site Reliability Engineering",
+          "subHeader": "DevOps & Reliability \u00b7 Class 3 \u00b7 Section 8",
+          "title": "Site Reliability Engineering: Module 8",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of DevOps & Reliability (Section 8).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Site Reliability Engineering.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 8: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 8 of 25 \u00b7 Site Reliability Engineering"
+        },
+        {
+          "pageNumber": 9,
+          "header": "Site Reliability Engineering",
+          "subHeader": "DevOps & Reliability \u00b7 Class 3 \u00b7 Section 9",
+          "title": "Site Reliability Engineering: Module 9",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of DevOps & Reliability (Section 9).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Site Reliability Engineering.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 9: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 9 of 25 \u00b7 Site Reliability Engineering"
+        },
+        {
+          "pageNumber": 10,
+          "header": "Site Reliability Engineering",
+          "subHeader": "DevOps & Reliability \u00b7 Class 3 \u00b7 Section 10",
+          "title": "Site Reliability Engineering: Module 10",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of DevOps & Reliability (Section 10).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Site Reliability Engineering.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 10: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 10 of 25 \u00b7 Site Reliability Engineering"
+        },
+        {
+          "pageNumber": 11,
+          "header": "Site Reliability Engineering",
+          "subHeader": "DevOps & Reliability \u00b7 Class 3 \u00b7 Section 11",
+          "title": "Site Reliability Engineering: Module 11",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of DevOps & Reliability (Section 11).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Site Reliability Engineering.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 11: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 11 of 25 \u00b7 Site Reliability Engineering"
+        },
+        {
+          "pageNumber": 12,
+          "header": "Site Reliability Engineering",
+          "subHeader": "DevOps & Reliability \u00b7 Class 3 \u00b7 Section 12",
+          "title": "Site Reliability Engineering: Module 12",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of DevOps & Reliability (Section 12).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Site Reliability Engineering.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 12: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 12 of 25 \u00b7 Site Reliability Engineering"
+        },
+        {
+          "pageNumber": 13,
+          "header": "Site Reliability Engineering",
+          "subHeader": "DevOps & Reliability \u00b7 Class 3 \u00b7 Section 13",
+          "title": "Site Reliability Engineering: Module 13",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of DevOps & Reliability (Section 13).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Site Reliability Engineering.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 13: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 13 of 25 \u00b7 Site Reliability Engineering"
+        },
+        {
+          "pageNumber": 14,
+          "header": "Site Reliability Engineering",
+          "subHeader": "DevOps & Reliability \u00b7 Class 3 \u00b7 Section 14",
+          "title": "Site Reliability Engineering: Module 14",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of DevOps & Reliability (Section 14).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Site Reliability Engineering.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 14: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 14 of 25 \u00b7 Site Reliability Engineering"
+        },
+        {
+          "pageNumber": 15,
+          "header": "Site Reliability Engineering",
+          "subHeader": "DevOps & Reliability \u00b7 Class 3 \u00b7 Section 15",
+          "title": "Site Reliability Engineering: Module 15",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of DevOps & Reliability (Section 15).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Site Reliability Engineering.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 15: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 15 of 25 \u00b7 Site Reliability Engineering"
+        },
+        {
+          "pageNumber": 16,
+          "header": "Site Reliability Engineering",
+          "subHeader": "DevOps & Reliability \u00b7 Class 3 \u00b7 Section 16",
+          "title": "Site Reliability Engineering: Module 16",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of DevOps & Reliability (Section 16).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Site Reliability Engineering.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 16: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 16 of 25 \u00b7 Site Reliability Engineering"
+        },
+        {
+          "pageNumber": 17,
+          "header": "Site Reliability Engineering",
+          "subHeader": "DevOps & Reliability \u00b7 Class 3 \u00b7 Section 17",
+          "title": "Site Reliability Engineering: Module 17",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of DevOps & Reliability (Section 17).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Site Reliability Engineering.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 17: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 17 of 25 \u00b7 Site Reliability Engineering"
+        },
+        {
+          "pageNumber": 18,
+          "header": "Site Reliability Engineering",
+          "subHeader": "DevOps & Reliability \u00b7 Class 3 \u00b7 Section 18",
+          "title": "Site Reliability Engineering: Module 18",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of DevOps & Reliability (Section 18).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Site Reliability Engineering.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 18: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 18 of 25 \u00b7 Site Reliability Engineering"
+        },
+        {
+          "pageNumber": 19,
+          "header": "Site Reliability Engineering",
+          "subHeader": "DevOps & Reliability \u00b7 Class 3 \u00b7 Section 19",
+          "title": "Site Reliability Engineering: Module 19",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of DevOps & Reliability (Section 19).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Site Reliability Engineering.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 19: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 19 of 25 \u00b7 Site Reliability Engineering"
+        },
+        {
+          "pageNumber": 20,
+          "header": "Site Reliability Engineering",
+          "subHeader": "DevOps & Reliability \u00b7 Class 3 \u00b7 Section 20",
+          "title": "Site Reliability Engineering: Module 20",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of DevOps & Reliability (Section 20).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Site Reliability Engineering.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 20: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 20 of 25 \u00b7 Site Reliability Engineering"
+        },
+        {
+          "pageNumber": 21,
+          "header": "Site Reliability Engineering",
+          "subHeader": "DevOps & Reliability \u00b7 Class 3 \u00b7 Section 21",
+          "title": "Site Reliability Engineering: Module 21",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of DevOps & Reliability (Section 21).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Site Reliability Engineering.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 21: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 21 of 25 \u00b7 Site Reliability Engineering"
+        },
+        {
+          "pageNumber": 22,
+          "header": "Site Reliability Engineering",
+          "subHeader": "DevOps & Reliability \u00b7 Class 3 \u00b7 Section 22",
+          "title": "Site Reliability Engineering: Module 22",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of DevOps & Reliability (Section 22).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Site Reliability Engineering.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 22: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 22 of 25 \u00b7 Site Reliability Engineering"
+        },
+        {
+          "pageNumber": 23,
+          "header": "Site Reliability Engineering",
+          "subHeader": "DevOps & Reliability \u00b7 Class 3 \u00b7 Section 23",
+          "title": "Site Reliability Engineering: Module 23",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of DevOps & Reliability (Section 23).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Site Reliability Engineering.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 23: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 23 of 25 \u00b7 Site Reliability Engineering"
+        },
+        {
+          "pageNumber": 24,
+          "header": "Site Reliability Engineering",
+          "subHeader": "DevOps & Reliability \u00b7 Class 3 \u00b7 Section 24",
+          "title": "Site Reliability Engineering: Module 24",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of DevOps & Reliability (Section 24).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Site Reliability Engineering.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 24: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 24 of 25 \u00b7 Site Reliability Engineering"
+        },
+        {
+          "pageNumber": 25,
+          "header": "Site Reliability Engineering",
+          "subHeader": "DevOps & Reliability \u00b7 Class 3 \u00b7 Section 25",
+          "title": "Site Reliability Engineering: Module 25",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of DevOps & Reliability (Section 25).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Site Reliability Engineering.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 25: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 25 of 25 \u00b7 Site Reliability Engineering"
+        }
+      ]
+    }
+  ]
+}

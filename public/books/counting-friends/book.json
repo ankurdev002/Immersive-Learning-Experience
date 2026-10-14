@@ -1,0 +1,286 @@
+{
+  "id": "counting-friends",
+  "classGrade": 1,
+  "classLevel": 1,
+  "tier": 1,
+  "subject": "Numbers",
+  "title": "Counting with Animal Friends",
+  "subtitle": "Visual Math & Animal Quantities",
+  "coverColor": "#ca8a04",
+  "accentColor": "#fde047",
+  "coverImage": "/books/counting-friends/cover.png",
+  "sourcePdf": null,
+  "icon": "\ud83d\udc31",
+  "isInteractive": true,
+  "author": "Distinguished Faculty & Academic Press",
+  "totalPages": 20,
+  "chapters": [
+    {
+      "chapterNumber": 1,
+      "title": "Counting with Animal Friends",
+      "description": "Comprehensive master curriculum in Numbers",
+      "pages": [
+        {
+          "pageNumber": 1,
+          "header": "Counting with Animal Friends",
+          "subHeader": "Numbers \u00b7 Class 1 \u00b7 Section 1",
+          "title": "Counting with Animal Friends: Module 1",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Numbers (Section 1).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Counting with Animal Friends.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 1: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 1 of 20 \u00b7 Counting with Animal Friends"
+        },
+        {
+          "pageNumber": 2,
+          "header": "Counting with Animal Friends",
+          "subHeader": "Numbers \u00b7 Class 1 \u00b7 Section 2",
+          "title": "Counting with Animal Friends: Module 2",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Numbers (Section 2).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Counting with Animal Friends.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 2: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 2 of 20 \u00b7 Counting with Animal Friends"
+        },
+        {
+          "pageNumber": 3,
+          "header": "Counting with Animal Friends",
+          "subHeader": "Numbers \u00b7 Class 1 \u00b7 Section 3",
+          "title": "Counting with Animal Friends: Module 3",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Numbers (Section 3).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Counting with Animal Friends.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 3: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 3 of 20 \u00b7 Counting with Animal Friends"
+        },
+        {
+          "pageNumber": 4,
+          "header": "Counting with Animal Friends",
+          "subHeader": "Numbers \u00b7 Class 1 \u00b7 Section 4",
+          "title": "Counting with Animal Friends: Module 4",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Numbers (Section 4).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Counting with Animal Friends.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 4: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 4 of 20 \u00b7 Counting with Animal Friends"
+        },
+        {
+          "pageNumber": 5,
+          "header": "Counting with Animal Friends",
+          "subHeader": "Numbers \u00b7 Class 1 \u00b7 Section 5",
+          "title": "Counting with Animal Friends: Module 5",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Numbers (Section 5).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Counting with Animal Friends.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 5: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 5 of 20 \u00b7 Counting with Animal Friends"
+        },
+        {
+          "pageNumber": 6,
+          "header": "Counting with Animal Friends",
+          "subHeader": "Numbers \u00b7 Class 1 \u00b7 Section 6",
+          "title": "Counting with Animal Friends: Module 6",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Numbers (Section 6).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Counting with Animal Friends.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 6: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 6 of 20 \u00b7 Counting with Animal Friends"
+        },
+        {
+          "pageNumber": 7,
+          "header": "Counting with Animal Friends",
+          "subHeader": "Numbers \u00b7 Class 1 \u00b7 Section 7",
+          "title": "Counting with Animal Friends: Module 7",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Numbers (Section 7).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Counting with Animal Friends.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 7: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 7 of 20 \u00b7 Counting with Animal Friends"
+        },
+        {
+          "pageNumber": 8,
+          "header": "Counting with Animal Friends",
+          "subHeader": "Numbers \u00b7 Class 1 \u00b7 Section 8",
+          "title": "Counting with Animal Friends: Module 8",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Numbers (Section 8).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Counting with Animal Friends.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 8: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 8 of 20 \u00b7 Counting with Animal Friends"
+        },
+        {
+          "pageNumber": 9,
+          "header": "Counting with Animal Friends",
+          "subHeader": "Numbers \u00b7 Class 1 \u00b7 Section 9",
+          "title": "Counting with Animal Friends: Module 9",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Numbers (Section 9).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Counting with Animal Friends.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 9: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 9 of 20 \u00b7 Counting with Animal Friends"
+        },
+        {
+          "pageNumber": 10,
+          "header": "Counting with Animal Friends",
+          "subHeader": "Numbers \u00b7 Class 1 \u00b7 Section 10",
+          "title": "Counting with Animal Friends: Module 10",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Numbers (Section 10).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Counting with Animal Friends.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 10: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 10 of 20 \u00b7 Counting with Animal Friends"
+        },
+        {
+          "pageNumber": 11,
+          "header": "Counting with Animal Friends",
+          "subHeader": "Numbers \u00b7 Class 1 \u00b7 Section 11",
+          "title": "Counting with Animal Friends: Module 11",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Numbers (Section 11).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Counting with Animal Friends.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 11: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 11 of 20 \u00b7 Counting with Animal Friends"
+        },
+        {
+          "pageNumber": 12,
+          "header": "Counting with Animal Friends",
+          "subHeader": "Numbers \u00b7 Class 1 \u00b7 Section 12",
+          "title": "Counting with Animal Friends: Module 12",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Numbers (Section 12).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Counting with Animal Friends.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 12: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 12 of 20 \u00b7 Counting with Animal Friends"
+        },
+        {
+          "pageNumber": 13,
+          "header": "Counting with Animal Friends",
+          "subHeader": "Numbers \u00b7 Class 1 \u00b7 Section 13",
+          "title": "Counting with Animal Friends: Module 13",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Numbers (Section 13).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Counting with Animal Friends.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 13: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 13 of 20 \u00b7 Counting with Animal Friends"
+        },
+        {
+          "pageNumber": 14,
+          "header": "Counting with Animal Friends",
+          "subHeader": "Numbers \u00b7 Class 1 \u00b7 Section 14",
+          "title": "Counting with Animal Friends: Module 14",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Numbers (Section 14).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Counting with Animal Friends.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 14: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 14 of 20 \u00b7 Counting with Animal Friends"
+        },
+        {
+          "pageNumber": 15,
+          "header": "Counting with Animal Friends",
+          "subHeader": "Numbers \u00b7 Class 1 \u00b7 Section 15",
+          "title": "Counting with Animal Friends: Module 15",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Numbers (Section 15).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Counting with Animal Friends.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 15: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 15 of 20 \u00b7 Counting with Animal Friends"
+        },
+        {
+          "pageNumber": 16,
+          "header": "Counting with Animal Friends",
+          "subHeader": "Numbers \u00b7 Class 1 \u00b7 Section 16",
+          "title": "Counting with Animal Friends: Module 16",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Numbers (Section 16).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Counting with Animal Friends.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 16: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 16 of 20 \u00b7 Counting with Animal Friends"
+        },
+        {
+          "pageNumber": 17,
+          "header": "Counting with Animal Friends",
+          "subHeader": "Numbers \u00b7 Class 1 \u00b7 Section 17",
+          "title": "Counting with Animal Friends: Module 17",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Numbers (Section 17).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Counting with Animal Friends.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 17: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 17 of 20 \u00b7 Counting with Animal Friends"
+        },
+        {
+          "pageNumber": 18,
+          "header": "Counting with Animal Friends",
+          "subHeader": "Numbers \u00b7 Class 1 \u00b7 Section 18",
+          "title": "Counting with Animal Friends: Module 18",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Numbers (Section 18).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Counting with Animal Friends.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 18: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 18 of 20 \u00b7 Counting with Animal Friends"
+        },
+        {
+          "pageNumber": 19,
+          "header": "Counting with Animal Friends",
+          "subHeader": "Numbers \u00b7 Class 1 \u00b7 Section 19",
+          "title": "Counting with Animal Friends: Module 19",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Numbers (Section 19).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Counting with Animal Friends.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 19: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 19 of 20 \u00b7 Counting with Animal Friends"
+        },
+        {
+          "pageNumber": 20,
+          "header": "Counting with Animal Friends",
+          "subHeader": "Numbers \u00b7 Class 1 \u00b7 Section 20",
+          "title": "Counting with Animal Friends: Module 20",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Numbers (Section 20).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Counting with Animal Friends.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 20: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 20 of 20 \u00b7 Counting with Animal Friends"
+        }
+      ]
+    }
+  ]
+}

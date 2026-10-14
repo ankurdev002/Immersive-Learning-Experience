@@ -1,0 +1,286 @@
+{
+  "id": "weather-seasons",
+  "classGrade": 2,
+  "classLevel": 2,
+  "tier": 2,
+  "subject": "Earth Science",
+  "title": "Weather, Rain & Seasons",
+  "subtitle": "Atmosphere, Wind & Seasonal Cycles",
+  "coverColor": "#0284c7",
+  "accentColor": "#38bdf8",
+  "coverImage": "/books/weather-seasons/cover.png",
+  "sourcePdf": null,
+  "icon": "\u26c5",
+  "isInteractive": true,
+  "author": "Distinguished Faculty & Academic Press",
+  "totalPages": 20,
+  "chapters": [
+    {
+      "chapterNumber": 1,
+      "title": "Weather, Rain & Seasons",
+      "description": "Comprehensive master curriculum in Earth Science",
+      "pages": [
+        {
+          "pageNumber": 1,
+          "header": "Weather, Rain & Seasons",
+          "subHeader": "Earth Science \u00b7 Class 2 \u00b7 Section 1",
+          "title": "Weather, Rain & Seasons: Module 1",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Earth Science (Section 1).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Weather, Rain & Seasons.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 1: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 1 of 20 \u00b7 Weather, Rain & Seasons"
+        },
+        {
+          "pageNumber": 2,
+          "header": "Weather, Rain & Seasons",
+          "subHeader": "Earth Science \u00b7 Class 2 \u00b7 Section 2",
+          "title": "Weather, Rain & Seasons: Module 2",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Earth Science (Section 2).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Weather, Rain & Seasons.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 2: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 2 of 20 \u00b7 Weather, Rain & Seasons"
+        },
+        {
+          "pageNumber": 3,
+          "header": "Weather, Rain & Seasons",
+          "subHeader": "Earth Science \u00b7 Class 2 \u00b7 Section 3",
+          "title": "Weather, Rain & Seasons: Module 3",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Earth Science (Section 3).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Weather, Rain & Seasons.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 3: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 3 of 20 \u00b7 Weather, Rain & Seasons"
+        },
+        {
+          "pageNumber": 4,
+          "header": "Weather, Rain & Seasons",
+          "subHeader": "Earth Science \u00b7 Class 2 \u00b7 Section 4",
+          "title": "Weather, Rain & Seasons: Module 4",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Earth Science (Section 4).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Weather, Rain & Seasons.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 4: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 4 of 20 \u00b7 Weather, Rain & Seasons"
+        },
+        {
+          "pageNumber": 5,
+          "header": "Weather, Rain & Seasons",
+          "subHeader": "Earth Science \u00b7 Class 2 \u00b7 Section 5",
+          "title": "Weather, Rain & Seasons: Module 5",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Earth Science (Section 5).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Weather, Rain & Seasons.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 5: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 5 of 20 \u00b7 Weather, Rain & Seasons"
+        },
+        {
+          "pageNumber": 6,
+          "header": "Weather, Rain & Seasons",
+          "subHeader": "Earth Science \u00b7 Class 2 \u00b7 Section 6",
+          "title": "Weather, Rain & Seasons: Module 6",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Earth Science (Section 6).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Weather, Rain & Seasons.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 6: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 6 of 20 \u00b7 Weather, Rain & Seasons"
+        },
+        {
+          "pageNumber": 7,
+          "header": "Weather, Rain & Seasons",
+          "subHeader": "Earth Science \u00b7 Class 2 \u00b7 Section 7",
+          "title": "Weather, Rain & Seasons: Module 7",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Earth Science (Section 7).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Weather, Rain & Seasons.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 7: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 7 of 20 \u00b7 Weather, Rain & Seasons"
+        },
+        {
+          "pageNumber": 8,
+          "header": "Weather, Rain & Seasons",
+          "subHeader": "Earth Science \u00b7 Class 2 \u00b7 Section 8",
+          "title": "Weather, Rain & Seasons: Module 8",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Earth Science (Section 8).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Weather, Rain & Seasons.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 8: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 8 of 20 \u00b7 Weather, Rain & Seasons"
+        },
+        {
+          "pageNumber": 9,
+          "header": "Weather, Rain & Seasons",
+          "subHeader": "Earth Science \u00b7 Class 2 \u00b7 Section 9",
+          "title": "Weather, Rain & Seasons: Module 9",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Earth Science (Section 9).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Weather, Rain & Seasons.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 9: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 9 of 20 \u00b7 Weather, Rain & Seasons"
+        },
+        {
+          "pageNumber": 10,
+          "header": "Weather, Rain & Seasons",
+          "subHeader": "Earth Science \u00b7 Class 2 \u00b7 Section 10",
+          "title": "Weather, Rain & Seasons: Module 10",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Earth Science (Section 10).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Weather, Rain & Seasons.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 10: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 10 of 20 \u00b7 Weather, Rain & Seasons"
+        },
+        {
+          "pageNumber": 11,
+          "header": "Weather, Rain & Seasons",
+          "subHeader": "Earth Science \u00b7 Class 2 \u00b7 Section 11",
+          "title": "Weather, Rain & Seasons: Module 11",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Earth Science (Section 11).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Weather, Rain & Seasons.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 11: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 11 of 20 \u00b7 Weather, Rain & Seasons"
+        },
+        {
+          "pageNumber": 12,
+          "header": "Weather, Rain & Seasons",
+          "subHeader": "Earth Science \u00b7 Class 2 \u00b7 Section 12",
+          "title": "Weather, Rain & Seasons: Module 12",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Earth Science (Section 12).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Weather, Rain & Seasons.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 12: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 12 of 20 \u00b7 Weather, Rain & Seasons"
+        },
+        {
+          "pageNumber": 13,
+          "header": "Weather, Rain & Seasons",
+          "subHeader": "Earth Science \u00b7 Class 2 \u00b7 Section 13",
+          "title": "Weather, Rain & Seasons: Module 13",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Earth Science (Section 13).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Weather, Rain & Seasons.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 13: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 13 of 20 \u00b7 Weather, Rain & Seasons"
+        },
+        {
+          "pageNumber": 14,
+          "header": "Weather, Rain & Seasons",
+          "subHeader": "Earth Science \u00b7 Class 2 \u00b7 Section 14",
+          "title": "Weather, Rain & Seasons: Module 14",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Earth Science (Section 14).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Weather, Rain & Seasons.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 14: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 14 of 20 \u00b7 Weather, Rain & Seasons"
+        },
+        {
+          "pageNumber": 15,
+          "header": "Weather, Rain & Seasons",
+          "subHeader": "Earth Science \u00b7 Class 2 \u00b7 Section 15",
+          "title": "Weather, Rain & Seasons: Module 15",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Earth Science (Section 15).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Weather, Rain & Seasons.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 15: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 15 of 20 \u00b7 Weather, Rain & Seasons"
+        },
+        {
+          "pageNumber": 16,
+          "header": "Weather, Rain & Seasons",
+          "subHeader": "Earth Science \u00b7 Class 2 \u00b7 Section 16",
+          "title": "Weather, Rain & Seasons: Module 16",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Earth Science (Section 16).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Weather, Rain & Seasons.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 16: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 16 of 20 \u00b7 Weather, Rain & Seasons"
+        },
+        {
+          "pageNumber": 17,
+          "header": "Weather, Rain & Seasons",
+          "subHeader": "Earth Science \u00b7 Class 2 \u00b7 Section 17",
+          "title": "Weather, Rain & Seasons: Module 17",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Earth Science (Section 17).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Weather, Rain & Seasons.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 17: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 17 of 20 \u00b7 Weather, Rain & Seasons"
+        },
+        {
+          "pageNumber": 18,
+          "header": "Weather, Rain & Seasons",
+          "subHeader": "Earth Science \u00b7 Class 2 \u00b7 Section 18",
+          "title": "Weather, Rain & Seasons: Module 18",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Earth Science (Section 18).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Weather, Rain & Seasons.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 18: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 18 of 20 \u00b7 Weather, Rain & Seasons"
+        },
+        {
+          "pageNumber": 19,
+          "header": "Weather, Rain & Seasons",
+          "subHeader": "Earth Science \u00b7 Class 2 \u00b7 Section 19",
+          "title": "Weather, Rain & Seasons: Module 19",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Earth Science (Section 19).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Weather, Rain & Seasons.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 19: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 19 of 20 \u00b7 Weather, Rain & Seasons"
+        },
+        {
+          "pageNumber": 20,
+          "header": "Weather, Rain & Seasons",
+          "subHeader": "Earth Science \u00b7 Class 2 \u00b7 Section 20",
+          "title": "Weather, Rain & Seasons: Module 20",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Earth Science (Section 20).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Weather, Rain & Seasons.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 20: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 20 of 20 \u00b7 Weather, Rain & Seasons"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,351 @@
+{
+  "id": "sicp",
+  "classGrade": 5,
+  "classLevel": 5,
+  "tier": 4,
+  "subject": "Computer Science",
+  "title": "Structure & Interpretation (SICP)",
+  "subtitle": "Abstractions, Metalinguistic & Functional Systems",
+  "coverColor": "#4a044e",
+  "accentColor": "#c084fc",
+  "coverImage": "/books/sicp/cover.png",
+  "sourcePdf": null,
+  "icon": "\u03bb",
+  "isInteractive": true,
+  "author": "Distinguished Faculty & Academic Press",
+  "totalPages": 25,
+  "chapters": [
+    {
+      "chapterNumber": 1,
+      "title": "Structure & Interpretation (SICP)",
+      "description": "Comprehensive master curriculum in Computer Science",
+      "pages": [
+        {
+          "pageNumber": 1,
+          "header": "Structure & Interpretation (SICP)",
+          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Section 1",
+          "title": "Structure & Interpretation (SICP): Module 1",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Computer Science (Section 1).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Structure & Interpretation (SICP).",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 1: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 1 of 25 \u00b7 Structure & Interpretation (SICP)"
+        },
+        {
+          "pageNumber": 2,
+          "header": "Structure & Interpretation (SICP)",
+          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Section 2",
+          "title": "Structure & Interpretation (SICP): Module 2",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Computer Science (Section 2).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Structure & Interpretation (SICP).",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 2: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 2 of 25 \u00b7 Structure & Interpretation (SICP)"
+        },
+        {
+          "pageNumber": 3,
+          "header": "Structure & Interpretation (SICP)",
+          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Section 3",
+          "title": "Structure & Interpretation (SICP): Module 3",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Computer Science (Section 3).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Structure & Interpretation (SICP).",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 3: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 3 of 25 \u00b7 Structure & Interpretation (SICP)"
+        },
+        {
+          "pageNumber": 4,
+          "header": "Structure & Interpretation (SICP)",
+          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Section 4",
+          "title": "Structure & Interpretation (SICP): Module 4",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Computer Science (Section 4).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Structure & Interpretation (SICP).",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 4: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 4 of 25 \u00b7 Structure & Interpretation (SICP)"
+        },
+        {
+          "pageNumber": 5,
+          "header": "Structure & Interpretation (SICP)",
+          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Section 5",
+          "title": "Structure & Interpretation (SICP): Module 5",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Computer Science (Section 5).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Structure & Interpretation (SICP).",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 5: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 5 of 25 \u00b7 Structure & Interpretation (SICP)"
+        },
+        {
+          "pageNumber": 6,
+          "header": "Structure & Interpretation (SICP)",
+          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Section 6",
+          "title": "Structure & Interpretation (SICP): Module 6",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Computer Science (Section 6).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Structure & Interpretation (SICP).",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 6: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 6 of 25 \u00b7 Structure & Interpretation (SICP)"
+        },
+        {
+          "pageNumber": 7,
+          "header": "Structure & Interpretation (SICP)",
+          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Section 7",
+          "title": "Structure & Interpretation (SICP): Module 7",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Computer Science (Section 7).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Structure & Interpretation (SICP).",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 7: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 7 of 25 \u00b7 Structure & Interpretation (SICP)"
+        },
+        {
+          "pageNumber": 8,
+          "header": "Structure & Interpretation (SICP)",
+          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Section 8",
+          "title": "Structure & Interpretation (SICP): Module 8",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Computer Science (Section 8).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Structure & Interpretation (SICP).",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 8: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 8 of 25 \u00b7 Structure & Interpretation (SICP)"
+        },
+        {
+          "pageNumber": 9,
+          "header": "Structure & Interpretation (SICP)",
+          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Section 9",
+          "title": "Structure & Interpretation (SICP): Module 9",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Computer Science (Section 9).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Structure & Interpretation (SICP).",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 9: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 9 of 25 \u00b7 Structure & Interpretation (SICP)"
+        },
+        {
+          "pageNumber": 10,
+          "header": "Structure & Interpretation (SICP)",
+          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Section 10",
+          "title": "Structure & Interpretation (SICP): Module 10",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Computer Science (Section 10).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Structure & Interpretation (SICP).",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 10: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 10 of 25 \u00b7 Structure & Interpretation (SICP)"
+        },
+        {
+          "pageNumber": 11,
+          "header": "Structure & Interpretation (SICP)",
+          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Section 11",
+          "title": "Structure & Interpretation (SICP): Module 11",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Computer Science (Section 11).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Structure & Interpretation (SICP).",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 11: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 11 of 25 \u00b7 Structure & Interpretation (SICP)"
+        },
+        {
+          "pageNumber": 12,
+          "header": "Structure & Interpretation (SICP)",
+          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Section 12",
+          "title": "Structure & Interpretation (SICP): Module 12",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Computer Science (Section 12).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Structure & Interpretation (SICP).",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 12: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 12 of 25 \u00b7 Structure & Interpretation (SICP)"
+        },
+        {
+          "pageNumber": 13,
+          "header": "Structure & Interpretation (SICP)",
+          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Section 13",
+          "title": "Structure & Interpretation (SICP): Module 13",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Computer Science (Section 13).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Structure & Interpretation (SICP).",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 13: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 13 of 25 \u00b7 Structure & Interpretation (SICP)"
+        },
+        {
+          "pageNumber": 14,
+          "header": "Structure & Interpretation (SICP)",
+          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Section 14",
+          "title": "Structure & Interpretation (SICP): Module 14",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Computer Science (Section 14).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Structure & Interpretation (SICP).",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 14: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 14 of 25 \u00b7 Structure & Interpretation (SICP)"
+        },
+        {
+          "pageNumber": 15,
+          "header": "Structure & Interpretation (SICP)",
+          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Section 15",
+          "title": "Structure & Interpretation (SICP): Module 15",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Computer Science (Section 15).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Structure & Interpretation (SICP).",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 15: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 15 of 25 \u00b7 Structure & Interpretation (SICP)"
+        },
+        {
+          "pageNumber": 16,
+          "header": "Structure & Interpretation (SICP)",
+          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Section 16",
+          "title": "Structure & Interpretation (SICP): Module 16",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Computer Science (Section 16).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Structure & Interpretation (SICP).",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 16: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 16 of 25 \u00b7 Structure & Interpretation (SICP)"
+        },
+        {
+          "pageNumber": 17,
+          "header": "Structure & Interpretation (SICP)",
+          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Section 17",
+          "title": "Structure & Interpretation (SICP): Module 17",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Computer Science (Section 17).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Structure & Interpretation (SICP).",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 17: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 17 of 25 \u00b7 Structure & Interpretation (SICP)"
+        },
+        {
+          "pageNumber": 18,
+          "header": "Structure & Interpretation (SICP)",
+          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Section 18",
+          "title": "Structure & Interpretation (SICP): Module 18",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Computer Science (Section 18).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Structure & Interpretation (SICP).",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 18: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 18 of 25 \u00b7 Structure & Interpretation (SICP)"
+        },
+        {
+          "pageNumber": 19,
+          "header": "Structure & Interpretation (SICP)",
+          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Section 19",
+          "title": "Structure & Interpretation (SICP): Module 19",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Computer Science (Section 19).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Structure & Interpretation (SICP).",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 19: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 19 of 25 \u00b7 Structure & Interpretation (SICP)"
+        },
+        {
+          "pageNumber": 20,
+          "header": "Structure & Interpretation (SICP)",
+          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Section 20",
+          "title": "Structure & Interpretation (SICP): Module 20",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Computer Science (Section 20).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Structure & Interpretation (SICP).",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 20: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 20 of 25 \u00b7 Structure & Interpretation (SICP)"
+        },
+        {
+          "pageNumber": 21,
+          "header": "Structure & Interpretation (SICP)",
+          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Section 21",
+          "title": "Structure & Interpretation (SICP): Module 21",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Computer Science (Section 21).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Structure & Interpretation (SICP).",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 21: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 21 of 25 \u00b7 Structure & Interpretation (SICP)"
+        },
+        {
+          "pageNumber": 22,
+          "header": "Structure & Interpretation (SICP)",
+          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Section 22",
+          "title": "Structure & Interpretation (SICP): Module 22",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Computer Science (Section 22).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Structure & Interpretation (SICP).",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 22: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 22 of 25 \u00b7 Structure & Interpretation (SICP)"
+        },
+        {
+          "pageNumber": 23,
+          "header": "Structure & Interpretation (SICP)",
+          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Section 23",
+          "title": "Structure & Interpretation (SICP): Module 23",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Computer Science (Section 23).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Structure & Interpretation (SICP).",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 23: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 23 of 25 \u00b7 Structure & Interpretation (SICP)"
+        },
+        {
+          "pageNumber": 24,
+          "header": "Structure & Interpretation (SICP)",
+          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Section 24",
+          "title": "Structure & Interpretation (SICP): Module 24",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Computer Science (Section 24).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Structure & Interpretation (SICP).",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 24: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 24 of 25 \u00b7 Structure & Interpretation (SICP)"
+        },
+        {
+          "pageNumber": 25,
+          "header": "Structure & Interpretation (SICP)",
+          "subHeader": "Computer Science \u00b7 Class 5 \u00b7 Section 25",
+          "title": "Structure & Interpretation (SICP): Module 25",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Computer Science (Section 25).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Structure & Interpretation (SICP).",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 25: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 25 of 25 \u00b7 Structure & Interpretation (SICP)"
+        }
+      ]
+    }
+  ]
+}

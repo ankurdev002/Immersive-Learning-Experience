@@ -2,16 +2,17 @@
   "id": "ncert-c2-math",
   "classGrade": 2,
   "classLevel": 2,
+  "tier": 2,
   "subject": "Mathematics",
-  "title": "Math-Magic (Class 2)",
-  "subtitle": "NCERT Addition, Counting & Shapes",
-  "author": "NCERT",
-  "coverColor": "#0369a1",
+  "title": "Joyful Mathematics 2",
+  "subtitle": "NCERT Numbers, Shapes & Playful Addition",
+  "coverColor": "#0284c7",
   "accentColor": "#38bdf8",
   "coverImage": "/books/ncert-c2-math/cover.png",
   "sourcePdf": "/books/ncert-c2-math/ncert_class2_math_magic.pdf",
-  "icon": "➕",
+  "icon": "\u2795",
   "isInteractive": true,
+  "author": "NCERT",
   "totalPages": 8,
   "chapters": [
     {
@@ -22,30 +23,30 @@
         {
           "pageNumber": 1,
           "header": "Math-Magic (Class 2)",
-          "subHeader": "NCERT · Mathematics",
+          "subHeader": "NCERT \u00b7 Mathematics",
           "title": "2019-20",
           "bulletPoints": [
             "Curriculum concepts from Math-Magic (Class 2)."
           ],
-          "footerText": "Page 1 of 8 · Math-Magic (Class 2)"
+          "footerText": "Page 1 of 8 \u00b7 Math-Magic (Class 2)"
         },
         {
           "pageNumber": 2,
           "header": "Math-Magic (Class 2)",
-          "subHeader": "NCERT · Mathematics",
-          "title": "Team A says — pencil.",
+          "subHeader": "NCERT \u00b7 Mathematics",
+          "title": "Team A says \u2014 pencil.",
           "bulletPoints": [
             "Now you think of a differ ent answer for Meeku question. _____________",
             "Do you also think so? Uncle 's !",
             "Pointed at one end, flat at the other, but round like a pipe.",
             "Guess what it is? Now it is the turn of team A to touch and guess. Everybody sings:"
           ],
-          "footerText": "Page 2 of 8 · Math-Magic (Class 2)"
+          "footerText": "Page 2 of 8 \u00b7 Math-Magic (Class 2)"
         },
         {
           "pageNumber": 3,
           "header": "Math-Magic (Class 2)",
-          "subHeader": "NCERT · Mathematics",
+          "subHeader": "NCERT \u00b7 Mathematics",
           "title": "Pointed at one end,",
           "bulletPoints": [
             "flat at the other, but round like a pipe. Guess what it is?",
@@ -53,25 +54,25 @@
             "Guess what is it ? Then is the turn of team B to feel and guess. And so the game goes",
             "on ... Now you play this game in teams. Put different things in a bag. A cloth is tied on one child's eyes. She puts her"
           ],
-          "footerText": "Page 3 of 8 · Math-Magic (Class 2)"
+          "footerText": "Page 3 of 8 \u00b7 Math-Magic (Class 2)"
         },
         {
           "pageNumber": 4,
           "header": "Math-Magic (Class 2)",
-          "subHeader": "NCERT · Mathematics",
+          "subHeader": "NCERT \u00b7 Mathematics",
           "title": "Hurry Up! Be Quick!",
           "bulletPoints": [
             "Children ar e sitting in a circle in the class. They are playing this game by clapping and singing.",
-            "What is long ........ what is round? ....... Look around ........ look around ......... Reena says —",
-            "And the game goes on. Now you play this game in your class. Take turns to name two things — one long and one round. Do not",
+            "What is long ........ what is round? ....... Look around ........ look around ......... Reena says \u2014",
+            "And the game goes on. Now you play this game in your class. Take turns to name two things \u2014 one long and one round. Do not",
             "repeat things which others have named. ! A bottle is long,"
           ],
-          "footerText": "Page 4 of 8 · Math-Magic (Class 2)"
+          "footerText": "Page 4 of 8 \u00b7 Math-Magic (Class 2)"
         },
         {
           "pageNumber": 5,
           "header": "Math-Magic (Class 2)",
-          "subHeader": "NCERT · Mathematics",
+          "subHeader": "NCERT \u00b7 Mathematics",
           "title": "Hurry Up! Be Quick!",
           "bulletPoints": [
             "A bottle is long, a cap is round. Look around,",
@@ -79,12 +80,12 @@
             "are sliding things in a park. There are some things which can roll and some which can slide.",
             "There are things which both roll and slide. Start a discussion in the class on things in the child's environment which roll and slide. Help children to"
           ],
-          "footerText": "Page 5 of 8 · Math-Magic (Class 2)"
+          "footerText": "Page 5 of 8 \u00b7 Math-Magic (Class 2)"
         },
         {
           "pageNumber": 6,
           "header": "Math-Magic (Class 2)",
-          "subHeader": "NCERT · Mathematics",
+          "subHeader": "NCERT \u00b7 Mathematics",
           "title": "Look at things around you.",
           "bulletPoints": [
             "Write below: My Tiny Tree 1.",
@@ -92,12 +93,12 @@
             "Use glue or tape to stick it. 4. Using scissors, cut strips at one end of the paper pipe. Make 7 or 8 cuts.",
             "5. Turn down the cut ends. Your tree is ready! Colour it. The Tallest Tower"
           ],
-          "footerText": "Page 6 of 8 · Math-Magic (Class 2)"
+          "footerText": "Page 6 of 8 \u00b7 Math-Magic (Class 2)"
         },
         {
           "pageNumber": 7,
           "header": "Math-Magic (Class 2)",
-          "subHeader": "NCERT · Mathematics",
+          "subHeader": "NCERT \u00b7 Mathematics",
           "title": "My Tiny Tree",
           "bulletPoints": [
             "The Tallest Tower Start a discussion in the class about which shapes can be stacked one over another and which cannot",
@@ -105,12 +106,12 @@
             "playing games like ' ' (seven stones) in which they need to make stable stacks of irregular stones as fast as possible, while the other team runs for the ball. pitthoo",
             "! ! Collect different boxes of different"
           ],
-          "footerText": "Page 7 of 8 · Math-Magic (Class 2)"
+          "footerText": "Page 7 of 8 \u00b7 Math-Magic (Class 2)"
         },
         {
           "pageNumber": 8,
           "header": "Math-Magic (Class 2)",
-          "subHeader": "NCERT · Mathematics",
+          "subHeader": "NCERT \u00b7 Mathematics",
           "title": "Coin Play",
           "bulletPoints": [
             "Try doing these with your coin. Hold the coin like this.C C",
@@ -118,7 +119,7 @@
             "Can you make a 1-rupee coin stand like this?________ Try doing",
             "the same using a 2-rupee coin and a 5-rupee coin. 8"
           ],
-          "footerText": "Page 8 of 8 · Math-Magic (Class 2)"
+          "footerText": "Page 8 of 8 \u00b7 Math-Magic (Class 2)"
         }
       ]
     }

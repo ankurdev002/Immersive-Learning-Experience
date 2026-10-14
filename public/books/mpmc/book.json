@@ -2,17 +2,18 @@
   "id": "mpmc",
   "classGrade": 5,
   "classLevel": 5,
+  "tier": 4,
   "subject": "Microprocessors",
   "title": "Microprocessors & Microcontrollers",
-  "subtitle": "8086, 8051 & ARM System Architecture",
-  "author": "A.P. Godse & D.A. Godse",
+  "subtitle": "8085, 8086 & 8051 Architectures",
   "coverColor": "#9a3412",
   "accentColor": "#fb923c",
   "coverImage": "/books/mpmc/cover.png",
   "sourcePdf": "/books/mpmc/mpmc_textbook_godse.pdf",
-  "icon": "⚡",
+  "icon": "\u26a1",
   "isInteractive": true,
-  "totalPages": 606,
+  "author": "A.P. Godse & D.A. Godse",
+  "totalPages": 50,
   "chapters": [
     {
       "chapterNumber": 1,
@@ -22,602 +23,602 @@
         {
           "pageNumber": 1,
           "header": "Microprocessors & Microcontrollers",
-          "subHeader": "A.P. Godse & D.A. Godse · Microprocessors",
+          "subHeader": "A.P. Godse & D.A. Godse \u00b7 Microprocessors",
           "title": "Chapter 1",
           "bulletPoints": [
             "Page 1 from Microprocessors & Microcontrollers.",
             "Read through illustrations, tables, and exercises.",
             "Turn pages using Next / Previous or click the open book."
           ],
-          "footerText": "Page 1 of 606 · Microprocessors & Microcontrollers"
+          "footerText": "Page 1 of 606 \u00b7 Microprocessors & Microcontrollers"
         },
         {
           "pageNumber": 2,
           "header": "Microprocessors & Microcontrollers",
-          "subHeader": "A.P. Godse & D.A. Godse · Microprocessors",
+          "subHeader": "A.P. Godse & D.A. Godse \u00b7 Microprocessors",
           "title": "Chapter 2",
           "bulletPoints": [
             "Page 2 from Microprocessors & Microcontrollers.",
             "Read through illustrations, tables, and exercises.",
             "Turn pages using Next / Previous or click the open book."
           ],
-          "footerText": "Page 2 of 606 · Microprocessors & Microcontrollers"
+          "footerText": "Page 2 of 606 \u00b7 Microprocessors & Microcontrollers"
         },
         {
           "pageNumber": 3,
           "header": "Microprocessors & Microcontrollers",
-          "subHeader": "A.P. Godse & D.A. Godse · Microprocessors",
+          "subHeader": "A.P. Godse & D.A. Godse \u00b7 Microprocessors",
           "title": "Chapter 3",
           "bulletPoints": [
             "Page 3 from Microprocessors & Microcontrollers.",
             "Read through illustrations, tables, and exercises.",
             "Turn pages using Next / Previous or click the open book."
           ],
-          "footerText": "Page 3 of 606 · Microprocessors & Microcontrollers"
+          "footerText": "Page 3 of 606 \u00b7 Microprocessors & Microcontrollers"
         },
         {
           "pageNumber": 4,
           "header": "Microprocessors & Microcontrollers",
-          "subHeader": "A.P. Godse & D.A. Godse · Microprocessors",
+          "subHeader": "A.P. Godse & D.A. Godse \u00b7 Microprocessors",
           "title": "Chapter 4",
           "bulletPoints": [
             "Page 4 from Microprocessors & Microcontrollers.",
             "Read through illustrations, tables, and exercises.",
             "Turn pages using Next / Previous or click the open book."
           ],
-          "footerText": "Page 4 of 606 · Microprocessors & Microcontrollers"
+          "footerText": "Page 4 of 606 \u00b7 Microprocessors & Microcontrollers"
         },
         {
           "pageNumber": 5,
           "header": "Microprocessors & Microcontrollers",
-          "subHeader": "A.P. Godse & D.A. Godse · Microprocessors",
+          "subHeader": "A.P. Godse & D.A. Godse \u00b7 Microprocessors",
           "title": "Chapter 5",
           "bulletPoints": [
             "Page 5 from Microprocessors & Microcontrollers.",
             "Read through illustrations, tables, and exercises.",
             "Turn pages using Next / Previous or click the open book."
           ],
-          "footerText": "Page 5 of 606 · Microprocessors & Microcontrollers"
+          "footerText": "Page 5 of 606 \u00b7 Microprocessors & Microcontrollers"
         },
         {
           "pageNumber": 6,
           "header": "Microprocessors & Microcontrollers",
-          "subHeader": "A.P. Godse & D.A. Godse · Microprocessors",
+          "subHeader": "A.P. Godse & D.A. Godse \u00b7 Microprocessors",
           "title": "Chapter 6",
           "bulletPoints": [
             "Page 6 from Microprocessors & Microcontrollers.",
             "Read through illustrations, tables, and exercises.",
             "Turn pages using Next / Previous or click the open book."
           ],
-          "footerText": "Page 6 of 606 · Microprocessors & Microcontrollers"
+          "footerText": "Page 6 of 606 \u00b7 Microprocessors & Microcontrollers"
         },
         {
           "pageNumber": 7,
           "header": "Microprocessors & Microcontrollers",
-          "subHeader": "A.P. Godse & D.A. Godse · Microprocessors",
+          "subHeader": "A.P. Godse & D.A. Godse \u00b7 Microprocessors",
           "title": "Chapter 7",
           "bulletPoints": [
             "Page 7 from Microprocessors & Microcontrollers.",
             "Read through illustrations, tables, and exercises.",
             "Turn pages using Next / Previous or click the open book."
           ],
-          "footerText": "Page 7 of 606 · Microprocessors & Microcontrollers"
+          "footerText": "Page 7 of 606 \u00b7 Microprocessors & Microcontrollers"
         },
         {
           "pageNumber": 8,
           "header": "Microprocessors & Microcontrollers",
-          "subHeader": "A.P. Godse & D.A. Godse · Microprocessors",
+          "subHeader": "A.P. Godse & D.A. Godse \u00b7 Microprocessors",
           "title": "Chapter 8",
           "bulletPoints": [
             "Page 8 from Microprocessors & Microcontrollers.",
             "Read through illustrations, tables, and exercises.",
             "Turn pages using Next / Previous or click the open book."
           ],
-          "footerText": "Page 8 of 606 · Microprocessors & Microcontrollers"
+          "footerText": "Page 8 of 606 \u00b7 Microprocessors & Microcontrollers"
         },
         {
           "pageNumber": 9,
           "header": "Microprocessors & Microcontrollers",
-          "subHeader": "A.P. Godse & D.A. Godse · Microprocessors",
+          "subHeader": "A.P. Godse & D.A. Godse \u00b7 Microprocessors",
           "title": "Chapter 9",
           "bulletPoints": [
             "Page 9 from Microprocessors & Microcontrollers.",
             "Read through illustrations, tables, and exercises.",
             "Turn pages using Next / Previous or click the open book."
           ],
-          "footerText": "Page 9 of 606 · Microprocessors & Microcontrollers"
+          "footerText": "Page 9 of 606 \u00b7 Microprocessors & Microcontrollers"
         },
         {
           "pageNumber": 10,
           "header": "Microprocessors & Microcontrollers",
-          "subHeader": "A.P. Godse & D.A. Godse · Microprocessors",
+          "subHeader": "A.P. Godse & D.A. Godse \u00b7 Microprocessors",
           "title": "Chapter 10",
           "bulletPoints": [
             "Page 10 from Microprocessors & Microcontrollers.",
             "Read through illustrations, tables, and exercises.",
             "Turn pages using Next / Previous or click the open book."
           ],
-          "footerText": "Page 10 of 606 · Microprocessors & Microcontrollers"
+          "footerText": "Page 10 of 606 \u00b7 Microprocessors & Microcontrollers"
         },
         {
           "pageNumber": 11,
           "header": "Microprocessors & Microcontrollers",
-          "subHeader": "A.P. Godse & D.A. Godse · Microprocessors",
+          "subHeader": "A.P. Godse & D.A. Godse \u00b7 Microprocessors",
           "title": "Chapter 11",
           "bulletPoints": [
             "Page 11 from Microprocessors & Microcontrollers.",
             "Read through illustrations, tables, and exercises.",
             "Turn pages using Next / Previous or click the open book."
           ],
-          "footerText": "Page 11 of 606 · Microprocessors & Microcontrollers"
+          "footerText": "Page 11 of 606 \u00b7 Microprocessors & Microcontrollers"
         },
         {
           "pageNumber": 12,
           "header": "Microprocessors & Microcontrollers",
-          "subHeader": "A.P. Godse & D.A. Godse · Microprocessors",
+          "subHeader": "A.P. Godse & D.A. Godse \u00b7 Microprocessors",
           "title": "Chapter 12",
           "bulletPoints": [
             "Page 12 from Microprocessors & Microcontrollers.",
             "Read through illustrations, tables, and exercises.",
             "Turn pages using Next / Previous or click the open book."
           ],
-          "footerText": "Page 12 of 606 · Microprocessors & Microcontrollers"
+          "footerText": "Page 12 of 606 \u00b7 Microprocessors & Microcontrollers"
         },
         {
           "pageNumber": 13,
           "header": "Microprocessors & Microcontrollers",
-          "subHeader": "A.P. Godse & D.A. Godse · Microprocessors",
+          "subHeader": "A.P. Godse & D.A. Godse \u00b7 Microprocessors",
           "title": "Chapter 13",
           "bulletPoints": [
             "Page 13 from Microprocessors & Microcontrollers.",
             "Read through illustrations, tables, and exercises.",
             "Turn pages using Next / Previous or click the open book."
           ],
-          "footerText": "Page 13 of 606 · Microprocessors & Microcontrollers"
+          "footerText": "Page 13 of 606 \u00b7 Microprocessors & Microcontrollers"
         },
         {
           "pageNumber": 14,
           "header": "Microprocessors & Microcontrollers",
-          "subHeader": "A.P. Godse & D.A. Godse · Microprocessors",
+          "subHeader": "A.P. Godse & D.A. Godse \u00b7 Microprocessors",
           "title": "Chapter 14",
           "bulletPoints": [
             "Page 14 from Microprocessors & Microcontrollers.",
             "Read through illustrations, tables, and exercises.",
             "Turn pages using Next / Previous or click the open book."
           ],
-          "footerText": "Page 14 of 606 · Microprocessors & Microcontrollers"
+          "footerText": "Page 14 of 606 \u00b7 Microprocessors & Microcontrollers"
         },
         {
           "pageNumber": 15,
           "header": "Microprocessors & Microcontrollers",
-          "subHeader": "A.P. Godse & D.A. Godse · Microprocessors",
+          "subHeader": "A.P. Godse & D.A. Godse \u00b7 Microprocessors",
           "title": "Chapter 15",
           "bulletPoints": [
             "Page 15 from Microprocessors & Microcontrollers.",
             "Read through illustrations, tables, and exercises.",
             "Turn pages using Next / Previous or click the open book."
           ],
-          "footerText": "Page 15 of 606 · Microprocessors & Microcontrollers"
+          "footerText": "Page 15 of 606 \u00b7 Microprocessors & Microcontrollers"
         },
         {
           "pageNumber": 16,
           "header": "Microprocessors & Microcontrollers",
-          "subHeader": "A.P. Godse & D.A. Godse · Microprocessors",
+          "subHeader": "A.P. Godse & D.A. Godse \u00b7 Microprocessors",
           "title": "Chapter 16",
           "bulletPoints": [
             "Page 16 from Microprocessors & Microcontrollers.",
             "Read through illustrations, tables, and exercises.",
             "Turn pages using Next / Previous or click the open book."
           ],
-          "footerText": "Page 16 of 606 · Microprocessors & Microcontrollers"
+          "footerText": "Page 16 of 606 \u00b7 Microprocessors & Microcontrollers"
         },
         {
           "pageNumber": 17,
           "header": "Microprocessors & Microcontrollers",
-          "subHeader": "A.P. Godse & D.A. Godse · Microprocessors",
+          "subHeader": "A.P. Godse & D.A. Godse \u00b7 Microprocessors",
           "title": "Chapter 17",
           "bulletPoints": [
             "Page 17 from Microprocessors & Microcontrollers.",
             "Read through illustrations, tables, and exercises.",
             "Turn pages using Next / Previous or click the open book."
           ],
-          "footerText": "Page 17 of 606 · Microprocessors & Microcontrollers"
+          "footerText": "Page 17 of 606 \u00b7 Microprocessors & Microcontrollers"
         },
         {
           "pageNumber": 18,
           "header": "Microprocessors & Microcontrollers",
-          "subHeader": "A.P. Godse & D.A. Godse · Microprocessors",
+          "subHeader": "A.P. Godse & D.A. Godse \u00b7 Microprocessors",
           "title": "Chapter 18",
           "bulletPoints": [
             "Page 18 from Microprocessors & Microcontrollers.",
             "Read through illustrations, tables, and exercises.",
             "Turn pages using Next / Previous or click the open book."
           ],
-          "footerText": "Page 18 of 606 · Microprocessors & Microcontrollers"
+          "footerText": "Page 18 of 606 \u00b7 Microprocessors & Microcontrollers"
         },
         {
           "pageNumber": 19,
           "header": "Microprocessors & Microcontrollers",
-          "subHeader": "A.P. Godse & D.A. Godse · Microprocessors",
+          "subHeader": "A.P. Godse & D.A. Godse \u00b7 Microprocessors",
           "title": "Chapter 19",
           "bulletPoints": [
             "Page 19 from Microprocessors & Microcontrollers.",
             "Read through illustrations, tables, and exercises.",
             "Turn pages using Next / Previous or click the open book."
           ],
-          "footerText": "Page 19 of 606 · Microprocessors & Microcontrollers"
+          "footerText": "Page 19 of 606 \u00b7 Microprocessors & Microcontrollers"
         },
         {
           "pageNumber": 20,
           "header": "Microprocessors & Microcontrollers",
-          "subHeader": "A.P. Godse & D.A. Godse · Microprocessors",
+          "subHeader": "A.P. Godse & D.A. Godse \u00b7 Microprocessors",
           "title": "Chapter 20",
           "bulletPoints": [
             "Page 20 from Microprocessors & Microcontrollers.",
             "Read through illustrations, tables, and exercises.",
             "Turn pages using Next / Previous or click the open book."
           ],
-          "footerText": "Page 20 of 606 · Microprocessors & Microcontrollers"
+          "footerText": "Page 20 of 606 \u00b7 Microprocessors & Microcontrollers"
         },
         {
           "pageNumber": 21,
           "header": "Microprocessors & Microcontrollers",
-          "subHeader": "A.P. Godse & D.A. Godse · Microprocessors",
+          "subHeader": "A.P. Godse & D.A. Godse \u00b7 Microprocessors",
           "title": "Chapter 21",
           "bulletPoints": [
             "Page 21 from Microprocessors & Microcontrollers.",
             "Read through illustrations, tables, and exercises.",
             "Turn pages using Next / Previous or click the open book."
           ],
-          "footerText": "Page 21 of 606 · Microprocessors & Microcontrollers"
+          "footerText": "Page 21 of 606 \u00b7 Microprocessors & Microcontrollers"
         },
         {
           "pageNumber": 22,
           "header": "Microprocessors & Microcontrollers",
-          "subHeader": "A.P. Godse & D.A. Godse · Microprocessors",
+          "subHeader": "A.P. Godse & D.A. Godse \u00b7 Microprocessors",
           "title": "Chapter 22",
           "bulletPoints": [
             "Page 22 from Microprocessors & Microcontrollers.",
             "Read through illustrations, tables, and exercises.",
             "Turn pages using Next / Previous or click the open book."
           ],
-          "footerText": "Page 22 of 606 · Microprocessors & Microcontrollers"
+          "footerText": "Page 22 of 606 \u00b7 Microprocessors & Microcontrollers"
         },
         {
           "pageNumber": 23,
           "header": "Microprocessors & Microcontrollers",
-          "subHeader": "A.P. Godse & D.A. Godse · Microprocessors",
+          "subHeader": "A.P. Godse & D.A. Godse \u00b7 Microprocessors",
           "title": "Chapter 23",
           "bulletPoints": [
             "Page 23 from Microprocessors & Microcontrollers.",
             "Read through illustrations, tables, and exercises.",
             "Turn pages using Next / Previous or click the open book."
           ],
-          "footerText": "Page 23 of 606 · Microprocessors & Microcontrollers"
+          "footerText": "Page 23 of 606 \u00b7 Microprocessors & Microcontrollers"
         },
         {
           "pageNumber": 24,
           "header": "Microprocessors & Microcontrollers",
-          "subHeader": "A.P. Godse & D.A. Godse · Microprocessors",
+          "subHeader": "A.P. Godse & D.A. Godse \u00b7 Microprocessors",
           "title": "Chapter 24",
           "bulletPoints": [
             "Page 24 from Microprocessors & Microcontrollers.",
             "Read through illustrations, tables, and exercises.",
             "Turn pages using Next / Previous or click the open book."
           ],
-          "footerText": "Page 24 of 606 · Microprocessors & Microcontrollers"
+          "footerText": "Page 24 of 606 \u00b7 Microprocessors & Microcontrollers"
         },
         {
           "pageNumber": 25,
           "header": "Microprocessors & Microcontrollers",
-          "subHeader": "A.P. Godse & D.A. Godse · Microprocessors",
+          "subHeader": "A.P. Godse & D.A. Godse \u00b7 Microprocessors",
           "title": "Chapter 25",
           "bulletPoints": [
             "Page 25 from Microprocessors & Microcontrollers.",
             "Read through illustrations, tables, and exercises.",
             "Turn pages using Next / Previous or click the open book."
           ],
-          "footerText": "Page 25 of 606 · Microprocessors & Microcontrollers"
+          "footerText": "Page 25 of 606 \u00b7 Microprocessors & Microcontrollers"
         },
         {
           "pageNumber": 26,
           "header": "Microprocessors & Microcontrollers",
-          "subHeader": "A.P. Godse & D.A. Godse · Microprocessors",
+          "subHeader": "A.P. Godse & D.A. Godse \u00b7 Microprocessors",
           "title": "Chapter 26",
           "bulletPoints": [
             "Page 26 from Microprocessors & Microcontrollers.",
             "Read through illustrations, tables, and exercises.",
             "Turn pages using Next / Previous or click the open book."
           ],
-          "footerText": "Page 26 of 606 · Microprocessors & Microcontrollers"
+          "footerText": "Page 26 of 606 \u00b7 Microprocessors & Microcontrollers"
         },
         {
           "pageNumber": 27,
           "header": "Microprocessors & Microcontrollers",
-          "subHeader": "A.P. Godse & D.A. Godse · Microprocessors",
+          "subHeader": "A.P. Godse & D.A. Godse \u00b7 Microprocessors",
           "title": "Chapter 27",
           "bulletPoints": [
             "Page 27 from Microprocessors & Microcontrollers.",
             "Read through illustrations, tables, and exercises.",
             "Turn pages using Next / Previous or click the open book."
           ],
-          "footerText": "Page 27 of 606 · Microprocessors & Microcontrollers"
+          "footerText": "Page 27 of 606 \u00b7 Microprocessors & Microcontrollers"
         },
         {
           "pageNumber": 28,
           "header": "Microprocessors & Microcontrollers",
-          "subHeader": "A.P. Godse & D.A. Godse · Microprocessors",
+          "subHeader": "A.P. Godse & D.A. Godse \u00b7 Microprocessors",
           "title": "Chapter 28",
           "bulletPoints": [
             "Page 28 from Microprocessors & Microcontrollers.",
             "Read through illustrations, tables, and exercises.",
             "Turn pages using Next / Previous or click the open book."
           ],
-          "footerText": "Page 28 of 606 · Microprocessors & Microcontrollers"
+          "footerText": "Page 28 of 606 \u00b7 Microprocessors & Microcontrollers"
         },
         {
           "pageNumber": 29,
           "header": "Microprocessors & Microcontrollers",
-          "subHeader": "A.P. Godse & D.A. Godse · Microprocessors",
+          "subHeader": "A.P. Godse & D.A. Godse \u00b7 Microprocessors",
           "title": "Chapter 29",
           "bulletPoints": [
             "Page 29 from Microprocessors & Microcontrollers.",
             "Read through illustrations, tables, and exercises.",
             "Turn pages using Next / Previous or click the open book."
           ],
-          "footerText": "Page 29 of 606 · Microprocessors & Microcontrollers"
+          "footerText": "Page 29 of 606 \u00b7 Microprocessors & Microcontrollers"
         },
         {
           "pageNumber": 30,
           "header": "Microprocessors & Microcontrollers",
-          "subHeader": "A.P. Godse & D.A. Godse · Microprocessors",
+          "subHeader": "A.P. Godse & D.A. Godse \u00b7 Microprocessors",
           "title": "Chapter 30",
           "bulletPoints": [
             "Page 30 from Microprocessors & Microcontrollers.",
             "Read through illustrations, tables, and exercises.",
             "Turn pages using Next / Previous or click the open book."
           ],
-          "footerText": "Page 30 of 606 · Microprocessors & Microcontrollers"
+          "footerText": "Page 30 of 606 \u00b7 Microprocessors & Microcontrollers"
         },
         {
           "pageNumber": 31,
           "header": "Microprocessors & Microcontrollers",
-          "subHeader": "A.P. Godse & D.A. Godse · Microprocessors",
+          "subHeader": "A.P. Godse & D.A. Godse \u00b7 Microprocessors",
           "title": "Chapter 31",
           "bulletPoints": [
             "Page 31 from Microprocessors & Microcontrollers.",
             "Read through illustrations, tables, and exercises.",
             "Turn pages using Next / Previous or click the open book."
           ],
-          "footerText": "Page 31 of 606 · Microprocessors & Microcontrollers"
+          "footerText": "Page 31 of 606 \u00b7 Microprocessors & Microcontrollers"
         },
         {
           "pageNumber": 32,
           "header": "Microprocessors & Microcontrollers",
-          "subHeader": "A.P. Godse & D.A. Godse · Microprocessors",
+          "subHeader": "A.P. Godse & D.A. Godse \u00b7 Microprocessors",
           "title": "Chapter 32",
           "bulletPoints": [
             "Page 32 from Microprocessors & Microcontrollers.",
             "Read through illustrations, tables, and exercises.",
             "Turn pages using Next / Previous or click the open book."
           ],
-          "footerText": "Page 32 of 606 · Microprocessors & Microcontrollers"
+          "footerText": "Page 32 of 606 \u00b7 Microprocessors & Microcontrollers"
         },
         {
           "pageNumber": 33,
           "header": "Microprocessors & Microcontrollers",
-          "subHeader": "A.P. Godse & D.A. Godse · Microprocessors",
+          "subHeader": "A.P. Godse & D.A. Godse \u00b7 Microprocessors",
           "title": "Chapter 33",
           "bulletPoints": [
             "Page 33 from Microprocessors & Microcontrollers.",
             "Read through illustrations, tables, and exercises.",
             "Turn pages using Next / Previous or click the open book."
           ],
-          "footerText": "Page 33 of 606 · Microprocessors & Microcontrollers"
+          "footerText": "Page 33 of 606 \u00b7 Microprocessors & Microcontrollers"
         },
         {
           "pageNumber": 34,
           "header": "Microprocessors & Microcontrollers",
-          "subHeader": "A.P. Godse & D.A. Godse · Microprocessors",
+          "subHeader": "A.P. Godse & D.A. Godse \u00b7 Microprocessors",
           "title": "Chapter 34",
           "bulletPoints": [
             "Page 34 from Microprocessors & Microcontrollers.",
             "Read through illustrations, tables, and exercises.",
             "Turn pages using Next / Previous or click the open book."
           ],
-          "footerText": "Page 34 of 606 · Microprocessors & Microcontrollers"
+          "footerText": "Page 34 of 606 \u00b7 Microprocessors & Microcontrollers"
         },
         {
           "pageNumber": 35,
           "header": "Microprocessors & Microcontrollers",
-          "subHeader": "A.P. Godse & D.A. Godse · Microprocessors",
+          "subHeader": "A.P. Godse & D.A. Godse \u00b7 Microprocessors",
           "title": "Chapter 35",
           "bulletPoints": [
             "Page 35 from Microprocessors & Microcontrollers.",
             "Read through illustrations, tables, and exercises.",
             "Turn pages using Next / Previous or click the open book."
           ],
-          "footerText": "Page 35 of 606 · Microprocessors & Microcontrollers"
+          "footerText": "Page 35 of 606 \u00b7 Microprocessors & Microcontrollers"
         },
         {
           "pageNumber": 36,
           "header": "Microprocessors & Microcontrollers",
-          "subHeader": "A.P. Godse & D.A. Godse · Microprocessors",
+          "subHeader": "A.P. Godse & D.A. Godse \u00b7 Microprocessors",
           "title": "Chapter 36",
           "bulletPoints": [
             "Page 36 from Microprocessors & Microcontrollers.",
             "Read through illustrations, tables, and exercises.",
             "Turn pages using Next / Previous or click the open book."
           ],
-          "footerText": "Page 36 of 606 · Microprocessors & Microcontrollers"
+          "footerText": "Page 36 of 606 \u00b7 Microprocessors & Microcontrollers"
         },
         {
           "pageNumber": 37,
           "header": "Microprocessors & Microcontrollers",
-          "subHeader": "A.P. Godse & D.A. Godse · Microprocessors",
+          "subHeader": "A.P. Godse & D.A. Godse \u00b7 Microprocessors",
           "title": "Chapter 37",
           "bulletPoints": [
             "Page 37 from Microprocessors & Microcontrollers.",
             "Read through illustrations, tables, and exercises.",
             "Turn pages using Next / Previous or click the open book."
           ],
-          "footerText": "Page 37 of 606 · Microprocessors & Microcontrollers"
+          "footerText": "Page 37 of 606 \u00b7 Microprocessors & Microcontrollers"
         },
         {
           "pageNumber": 38,
           "header": "Microprocessors & Microcontrollers",
-          "subHeader": "A.P. Godse & D.A. Godse · Microprocessors",
+          "subHeader": "A.P. Godse & D.A. Godse \u00b7 Microprocessors",
           "title": "Chapter 38",
           "bulletPoints": [
             "Page 38 from Microprocessors & Microcontrollers.",
             "Read through illustrations, tables, and exercises.",
             "Turn pages using Next / Previous or click the open book."
           ],
-          "footerText": "Page 38 of 606 · Microprocessors & Microcontrollers"
+          "footerText": "Page 38 of 606 \u00b7 Microprocessors & Microcontrollers"
         },
         {
           "pageNumber": 39,
           "header": "Microprocessors & Microcontrollers",
-          "subHeader": "A.P. Godse & D.A. Godse · Microprocessors",
+          "subHeader": "A.P. Godse & D.A. Godse \u00b7 Microprocessors",
           "title": "Chapter 39",
           "bulletPoints": [
             "Page 39 from Microprocessors & Microcontrollers.",
             "Read through illustrations, tables, and exercises.",
             "Turn pages using Next / Previous or click the open book."
           ],
-          "footerText": "Page 39 of 606 · Microprocessors & Microcontrollers"
+          "footerText": "Page 39 of 606 \u00b7 Microprocessors & Microcontrollers"
         },
         {
           "pageNumber": 40,
           "header": "Microprocessors & Microcontrollers",
-          "subHeader": "A.P. Godse & D.A. Godse · Microprocessors",
+          "subHeader": "A.P. Godse & D.A. Godse \u00b7 Microprocessors",
           "title": "Chapter 40",
           "bulletPoints": [
             "Page 40 from Microprocessors & Microcontrollers.",
             "Read through illustrations, tables, and exercises.",
             "Turn pages using Next / Previous or click the open book."
           ],
-          "footerText": "Page 40 of 606 · Microprocessors & Microcontrollers"
+          "footerText": "Page 40 of 606 \u00b7 Microprocessors & Microcontrollers"
         },
         {
           "pageNumber": 41,
           "header": "Microprocessors & Microcontrollers",
-          "subHeader": "A.P. Godse & D.A. Godse · Microprocessors",
+          "subHeader": "A.P. Godse & D.A. Godse \u00b7 Microprocessors",
           "title": "Chapter 41",
           "bulletPoints": [
             "Page 41 from Microprocessors & Microcontrollers.",
             "Read through illustrations, tables, and exercises.",
             "Turn pages using Next / Previous or click the open book."
           ],
-          "footerText": "Page 41 of 606 · Microprocessors & Microcontrollers"
+          "footerText": "Page 41 of 606 \u00b7 Microprocessors & Microcontrollers"
         },
         {
           "pageNumber": 42,
           "header": "Microprocessors & Microcontrollers",
-          "subHeader": "A.P. Godse & D.A. Godse · Microprocessors",
+          "subHeader": "A.P. Godse & D.A. Godse \u00b7 Microprocessors",
           "title": "Chapter 42",
           "bulletPoints": [
             "Page 42 from Microprocessors & Microcontrollers.",
             "Read through illustrations, tables, and exercises.",
             "Turn pages using Next / Previous or click the open book."
           ],
-          "footerText": "Page 42 of 606 · Microprocessors & Microcontrollers"
+          "footerText": "Page 42 of 606 \u00b7 Microprocessors & Microcontrollers"
         },
         {
           "pageNumber": 43,
           "header": "Microprocessors & Microcontrollers",
-          "subHeader": "A.P. Godse & D.A. Godse · Microprocessors",
+          "subHeader": "A.P. Godse & D.A. Godse \u00b7 Microprocessors",
           "title": "Chapter 43",
           "bulletPoints": [
             "Page 43 from Microprocessors & Microcontrollers.",
             "Read through illustrations, tables, and exercises.",
             "Turn pages using Next / Previous or click the open book."
           ],
-          "footerText": "Page 43 of 606 · Microprocessors & Microcontrollers"
+          "footerText": "Page 43 of 606 \u00b7 Microprocessors & Microcontrollers"
         },
         {
           "pageNumber": 44,
           "header": "Microprocessors & Microcontrollers",
-          "subHeader": "A.P. Godse & D.A. Godse · Microprocessors",
+          "subHeader": "A.P. Godse & D.A. Godse \u00b7 Microprocessors",
           "title": "Chapter 44",
           "bulletPoints": [
             "Page 44 from Microprocessors & Microcontrollers.",
             "Read through illustrations, tables, and exercises.",
             "Turn pages using Next / Previous or click the open book."
           ],
-          "footerText": "Page 44 of 606 · Microprocessors & Microcontrollers"
+          "footerText": "Page 44 of 606 \u00b7 Microprocessors & Microcontrollers"
         },
         {
           "pageNumber": 45,
           "header": "Microprocessors & Microcontrollers",
-          "subHeader": "A.P. Godse & D.A. Godse · Microprocessors",
+          "subHeader": "A.P. Godse & D.A. Godse \u00b7 Microprocessors",
           "title": "Chapter 45",
           "bulletPoints": [
             "Page 45 from Microprocessors & Microcontrollers.",
             "Read through illustrations, tables, and exercises.",
             "Turn pages using Next / Previous or click the open book."
           ],
-          "footerText": "Page 45 of 606 · Microprocessors & Microcontrollers"
+          "footerText": "Page 45 of 606 \u00b7 Microprocessors & Microcontrollers"
         },
         {
           "pageNumber": 46,
           "header": "Microprocessors & Microcontrollers",
-          "subHeader": "A.P. Godse & D.A. Godse · Microprocessors",
+          "subHeader": "A.P. Godse & D.A. Godse \u00b7 Microprocessors",
           "title": "Chapter 46",
           "bulletPoints": [
             "Page 46 from Microprocessors & Microcontrollers.",
             "Read through illustrations, tables, and exercises.",
             "Turn pages using Next / Previous or click the open book."
           ],
-          "footerText": "Page 46 of 606 · Microprocessors & Microcontrollers"
+          "footerText": "Page 46 of 606 \u00b7 Microprocessors & Microcontrollers"
         },
         {
           "pageNumber": 47,
           "header": "Microprocessors & Microcontrollers",
-          "subHeader": "A.P. Godse & D.A. Godse · Microprocessors",
+          "subHeader": "A.P. Godse & D.A. Godse \u00b7 Microprocessors",
           "title": "Chapter 47",
           "bulletPoints": [
             "Page 47 from Microprocessors & Microcontrollers.",
             "Read through illustrations, tables, and exercises.",
             "Turn pages using Next / Previous or click the open book."
           ],
-          "footerText": "Page 47 of 606 · Microprocessors & Microcontrollers"
+          "footerText": "Page 47 of 606 \u00b7 Microprocessors & Microcontrollers"
         },
         {
           "pageNumber": 48,
           "header": "Microprocessors & Microcontrollers",
-          "subHeader": "A.P. Godse & D.A. Godse · Microprocessors",
+          "subHeader": "A.P. Godse & D.A. Godse \u00b7 Microprocessors",
           "title": "Chapter 48",
           "bulletPoints": [
             "Page 48 from Microprocessors & Microcontrollers.",
             "Read through illustrations, tables, and exercises.",
             "Turn pages using Next / Previous or click the open book."
           ],
-          "footerText": "Page 48 of 606 · Microprocessors & Microcontrollers"
+          "footerText": "Page 48 of 606 \u00b7 Microprocessors & Microcontrollers"
         },
         {
           "pageNumber": 49,
           "header": "Microprocessors & Microcontrollers",
-          "subHeader": "A.P. Godse & D.A. Godse · Microprocessors",
+          "subHeader": "A.P. Godse & D.A. Godse \u00b7 Microprocessors",
           "title": "Chapter 49",
           "bulletPoints": [
             "Page 49 from Microprocessors & Microcontrollers.",
             "Read through illustrations, tables, and exercises.",
             "Turn pages using Next / Previous or click the open book."
           ],
-          "footerText": "Page 49 of 606 · Microprocessors & Microcontrollers"
+          "footerText": "Page 49 of 606 \u00b7 Microprocessors & Microcontrollers"
         },
         {
           "pageNumber": 50,
           "header": "Microprocessors & Microcontrollers",
-          "subHeader": "A.P. Godse & D.A. Godse · Microprocessors",
+          "subHeader": "A.P. Godse & D.A. Godse \u00b7 Microprocessors",
           "title": "Chapter 50",
           "bulletPoints": [
             "Page 50 from Microprocessors & Microcontrollers.",
             "Read through illustrations, tables, and exercises.",
             "Turn pages using Next / Previous or click the open book."
           ],
-          "footerText": "Page 50 of 606 · Microprocessors & Microcontrollers"
+          "footerText": "Page 50 of 606 \u00b7 Microprocessors & Microcontrollers"
         }
       ]
     }

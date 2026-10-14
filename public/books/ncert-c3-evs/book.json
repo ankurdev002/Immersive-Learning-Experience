@@ -2,16 +2,17 @@
   "id": "ncert-c3-evs",
   "classGrade": 3,
   "classLevel": 3,
+  "tier": 3,
   "subject": "Environmental Studies",
-  "title": "Looking Around (Class 3)",
-  "subtitle": "NCERT Science, Nature & Plants",
-  "author": "NCERT",
-  "coverColor": "#047857",
+  "title": "Looking Around 3",
+  "subtitle": "NCERT Living Organisms, Water & Neighborhood",
+  "coverColor": "#059669",
   "accentColor": "#34d399",
   "coverImage": "/books/ncert-c3-evs/cover.png",
   "sourcePdf": "/books/ncert-c3-evs/ncert_class3_looking_around.pdf",
-  "icon": "🌿",
+  "icon": "\ud83c\udf3f",
   "isInteractive": true,
+  "author": "NCERT",
   "totalPages": 9,
   "chapters": [
     {
@@ -22,33 +23,33 @@
         {
           "pageNumber": 1,
           "header": "Looking Around (Class 3)",
-          "subHeader": "NCERT · Environmental Studies",
+          "subHeader": "NCERT \u00b7 Environmental Studies",
           "title": "1",
           "bulletPoints": [
-            "Ma, please let me go to school today, I have been at home for the past two days. I am getting bored – said Poonam. But you still have fever. Go outside and lie down on the cot – replied Ma.",
-            "Poonam fell asleep on the cot. Suddenly, something fell on her face. Poonam woke up at once and touched her cheek. Oh no, whose mischief is this? Is it the crow’s or the pigeon’s? It seems",
-            "it’s the crow's. 11111 Children lear n a lot fr om people and things in their envir onment.",
-            "Through this lesson children should be given an opportunity  to observe nature — not just sit in the class and read their lesson. Poonam’s Day Out"
+            "Ma, please let me go to school today, I have been at home for the past two days. I am getting bored \u2013 said Poonam. But you still have fever. Go outside and lie down on the cot \u2013 replied Ma.",
+            "Poonam fell asleep on the cot. Suddenly, something fell on her face. Poonam woke up at once and touched her cheek. Oh no, whose mischief is this? Is it the crow\u2019s or the pigeon\u2019s? It seems",
+            "it\u2019s the crow's. 11111 Children lear n a lot fr om people and things in their envir onment.",
+            "Through this lesson children should be given an opportunity  to observe nature \u2014 not just sit in the class and read their lesson. Poonam\u2019s Day Out"
           ],
-          "footerText": "Page 1 of 9 · Looking Around (Class 3)"
+          "footerText": "Page 1 of 9 \u00b7 Looking Around (Class 3)"
         },
         {
           "pageNumber": 2,
           "header": "Looking Around (Class 3)",
-          "subHeader": "NCERT · Environmental Studies",
+          "subHeader": "NCERT \u00b7 Environmental Studies",
           "title": "2",
           "bulletPoints": [
             "Which animals did Poonam see at the pond? Look at the picture and write their names. _______________ _______________ _______________",
             "_______________ ______________ _ _______________ Poonam looked up. She saw many animals on the tree. Which animals can you spot on the tr ee in the picture?",
             "Write down their names. ____________ ____________ ____________ ____________",
-            "____________ ____________ ____________ ____________ In the book the word ‘animal’ is used for insects, birds, reptiles and mammals. At this age, children cannot classify animals into different"
+            "____________ ____________ ____________ ____________ In the book the word \u2018animal\u2019 is used for insects, birds, reptiles and mammals. At this age, children cannot classify animals into different"
           ],
-          "footerText": "Page 2 of 9 · Looking Around (Class 3)"
+          "footerText": "Page 2 of 9 \u00b7 Looking Around (Class 3)"
         },
         {
           "pageNumber": 3,
           "header": "Looking Around (Class 3)",
-          "subHeader": "NCERT · Environmental Studies",
+          "subHeader": "NCERT \u00b7 Environmental Studies",
           "title": "3",
           "bulletPoints": [
             "Can you act like the animals seen at the pond? Which animal makes what kind of sounds and movements? Try to make similar sounds.",
@@ -56,23 +57,23 @@
             "_____________ _____________ can hop _____________ _____________ _____________ have wings _____________ _____________ _____________",
             "have feet _____________ _____________ _____________ have a tail _____________ _____________ _____________ You must have seen many animals too. W rite which of"
           ],
-          "footerText": "Page 3 of 9 · Looking Around (Class 3)"
+          "footerText": "Page 3 of 9 \u00b7 Looking Around (Class 3)"
         },
         {
           "pageNumber": 4,
           "header": "Looking Around (Class 3)",
-          "subHeader": "NCERT · Environmental Studies",
+          "subHeader": "NCERT \u00b7 Environmental Studies",
           "title": "4",
           "bulletPoints": [
             "D Look at the pictures given below. Colour the animals that do not live in your house. 4",
             "2020-21"
           ],
-          "footerText": "Page 4 of 9 · Looking Around (Class 3)"
+          "footerText": "Page 4 of 9 \u00b7 Looking Around (Class 3)"
         },
         {
           "pageNumber": 5,
           "header": "Looking Around (Class 3)",
-          "subHeader": "NCERT · Environmental Studies",
+          "subHeader": "NCERT \u00b7 Environmental Studies",
           "title": "5",
           "bulletPoints": [
             "1. Banana is what I love eating, I spend my time jumping and leaping. 2. On the walls, webs I weave,",
@@ -80,12 +81,12 @@
             "4. Croak, croak, croak is my sound, In water or on land I am found. 5. I appear after rainfall,",
             "Have no feet so I crawl. 6. Slow and steady is my pace, I always win when there is a race."
           ],
-          "footerText": "Page 5 of 9 · Looking Around (Class 3)"
+          "footerText": "Page 5 of 9 \u00b7 Looking Around (Class 3)"
         },
         {
           "pageNumber": 6,
           "header": "Looking Around (Class 3)",
-          "subHeader": "NCERT · Environmental Studies",
+          "subHeader": "NCERT \u00b7 Environmental Studies",
           "title": "6",
           "bulletPoints": [
             "D Magic with fingersMagic with fingersMagic with fingersMagic with fingersMagic with fingers Take a look at the picture. Can you distinguish the thumb prints from the other finger prints.",
@@ -93,12 +94,12 @@
             "made to decorate your school and home. Children like to do cr eative activities such as making pictures with fingers and thumb prints. Encourage them to make their own designs.",
             "2020-21"
           ],
-          "footerText": "Page 6 of 9 · Looking Around (Class 3)"
+          "footerText": "Page 6 of 9 \u00b7 Looking Around (Class 3)"
         },
         {
           "pageNumber": 7,
           "header": "Looking Around (Class 3)",
-          "subHeader": "NCERT · Environmental Studies",
+          "subHeader": "NCERT \u00b7 Environmental Studies",
           "title": "7",
           "bulletPoints": [
             "D Let us have some funLet us have some funLet us have some funLet us have some funLet us have some fun In your notebook o Draw a picture of an animal that",
@@ -106,32 +107,32 @@
             "1. In each group, one child will draw the face and neck of an animal at the top of the paper",
             "and hide it by folding this part. 2. The second child will draw the body of another animal in the"
           ],
-          "footerText": "Page 7 of 9 · Looking Around (Class 3)"
+          "footerText": "Page 7 of 9 \u00b7 Looking Around (Class 3)"
         },
         {
           "pageNumber": 8,
           "header": "Looking Around (Class 3)",
-          "subHeader": "NCERT · Environmental Studies",
+          "subHeader": "NCERT \u00b7 Environmental Studies",
           "title": "8",
           "bulletPoints": [
             "Spend some time under a tree. Observe the animals carefully. Name the animals which can be seen on the branches",
             "on the leaves on the trunk on the ground",
             "around the tree Jigsaw puzzleJigsaw puzzleJigsaw puzzleJigsaw puzzleJigsaw puzzle In a jigsaw puzzle, a picture is cut in such a way that one has",
-            "to really think hard to fit the pictur e together. Now arrange these animals in the order of their size — smallest being the first."
+            "to really think hard to fit the pictur e together. Now arrange these animals in the order of their size \u2014 smallest being the first."
           ],
-          "footerText": "Page 8 of 9 · Looking Around (Class 3)"
+          "footerText": "Page 8 of 9 \u00b7 Looking Around (Class 3)"
         },
         {
           "pageNumber": 9,
           "header": "Looking Around (Class 3)",
-          "subHeader": "NCERT · Environmental Studies",
+          "subHeader": "NCERT \u00b7 Environmental Studies",
           "title": "9",
           "bulletPoints": [
             "Now, make a jigsaw puzzle using a picture of any animal. Paste the picture on a cardboard. Now, cut the cardboard along the edges of the picture. Cut this cardboard into unequal pieces.",
             "Give these pieces to your friends. Ask them to put the pieces together and identify the animal. The jigsaw should be cut in such a manner that it is a challenge for the",
             "child. It should not be so simple that it can be put together too easily. Encourage more such activities and appreciate their work. 2020-21"
           ],
-          "footerText": "Page 9 of 9 · Looking Around (Class 3)"
+          "footerText": "Page 9 of 9 \u00b7 Looking Around (Class 3)"
         }
       ]
     }

@@ -1,0 +1,286 @@
+{
+  "id": "storyland-2",
+  "classGrade": 2,
+  "classLevel": 2,
+  "tier": 2,
+  "subject": "Literature",
+  "title": "Tales from Storyland",
+  "subtitle": "Classic Bedtime Fables & Tales",
+  "coverColor": "#be185d",
+  "accentColor": "#f472b6",
+  "coverImage": "/books/storyland-2/cover.png",
+  "sourcePdf": null,
+  "icon": "\u2728",
+  "isInteractive": true,
+  "author": "Distinguished Faculty & Academic Press",
+  "totalPages": 20,
+  "chapters": [
+    {
+      "chapterNumber": 1,
+      "title": "Tales from Storyland",
+      "description": "Comprehensive master curriculum in Literature",
+      "pages": [
+        {
+          "pageNumber": 1,
+          "header": "Tales from Storyland",
+          "subHeader": "Literature \u00b7 Class 2 \u00b7 Section 1",
+          "title": "Tales from Storyland: Module 1",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Literature (Section 1).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Tales from Storyland.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 1: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 1 of 20 \u00b7 Tales from Storyland"
+        },
+        {
+          "pageNumber": 2,
+          "header": "Tales from Storyland",
+          "subHeader": "Literature \u00b7 Class 2 \u00b7 Section 2",
+          "title": "Tales from Storyland: Module 2",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Literature (Section 2).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Tales from Storyland.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 2: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 2 of 20 \u00b7 Tales from Storyland"
+        },
+        {
+          "pageNumber": 3,
+          "header": "Tales from Storyland",
+          "subHeader": "Literature \u00b7 Class 2 \u00b7 Section 3",
+          "title": "Tales from Storyland: Module 3",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Literature (Section 3).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Tales from Storyland.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 3: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 3 of 20 \u00b7 Tales from Storyland"
+        },
+        {
+          "pageNumber": 4,
+          "header": "Tales from Storyland",
+          "subHeader": "Literature \u00b7 Class 2 \u00b7 Section 4",
+          "title": "Tales from Storyland: Module 4",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Literature (Section 4).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Tales from Storyland.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 4: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 4 of 20 \u00b7 Tales from Storyland"
+        },
+        {
+          "pageNumber": 5,
+          "header": "Tales from Storyland",
+          "subHeader": "Literature \u00b7 Class 2 \u00b7 Section 5",
+          "title": "Tales from Storyland: Module 5",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Literature (Section 5).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Tales from Storyland.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 5: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 5 of 20 \u00b7 Tales from Storyland"
+        },
+        {
+          "pageNumber": 6,
+          "header": "Tales from Storyland",
+          "subHeader": "Literature \u00b7 Class 2 \u00b7 Section 6",
+          "title": "Tales from Storyland: Module 6",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Literature (Section 6).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Tales from Storyland.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 6: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 6 of 20 \u00b7 Tales from Storyland"
+        },
+        {
+          "pageNumber": 7,
+          "header": "Tales from Storyland",
+          "subHeader": "Literature \u00b7 Class 2 \u00b7 Section 7",
+          "title": "Tales from Storyland: Module 7",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Literature (Section 7).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Tales from Storyland.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 7: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 7 of 20 \u00b7 Tales from Storyland"
+        },
+        {
+          "pageNumber": 8,
+          "header": "Tales from Storyland",
+          "subHeader": "Literature \u00b7 Class 2 \u00b7 Section 8",
+          "title": "Tales from Storyland: Module 8",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Literature (Section 8).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Tales from Storyland.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 8: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 8 of 20 \u00b7 Tales from Storyland"
+        },
+        {
+          "pageNumber": 9,
+          "header": "Tales from Storyland",
+          "subHeader": "Literature \u00b7 Class 2 \u00b7 Section 9",
+          "title": "Tales from Storyland: Module 9",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Literature (Section 9).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Tales from Storyland.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 9: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 9 of 20 \u00b7 Tales from Storyland"
+        },
+        {
+          "pageNumber": 10,
+          "header": "Tales from Storyland",
+          "subHeader": "Literature \u00b7 Class 2 \u00b7 Section 10",
+          "title": "Tales from Storyland: Module 10",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Literature (Section 10).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Tales from Storyland.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 10: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 10 of 20 \u00b7 Tales from Storyland"
+        },
+        {
+          "pageNumber": 11,
+          "header": "Tales from Storyland",
+          "subHeader": "Literature \u00b7 Class 2 \u00b7 Section 11",
+          "title": "Tales from Storyland: Module 11",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Literature (Section 11).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Tales from Storyland.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 11: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 11 of 20 \u00b7 Tales from Storyland"
+        },
+        {
+          "pageNumber": 12,
+          "header": "Tales from Storyland",
+          "subHeader": "Literature \u00b7 Class 2 \u00b7 Section 12",
+          "title": "Tales from Storyland: Module 12",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Literature (Section 12).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Tales from Storyland.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 12: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 12 of 20 \u00b7 Tales from Storyland"
+        },
+        {
+          "pageNumber": 13,
+          "header": "Tales from Storyland",
+          "subHeader": "Literature \u00b7 Class 2 \u00b7 Section 13",
+          "title": "Tales from Storyland: Module 13",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Literature (Section 13).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Tales from Storyland.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 13: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 13 of 20 \u00b7 Tales from Storyland"
+        },
+        {
+          "pageNumber": 14,
+          "header": "Tales from Storyland",
+          "subHeader": "Literature \u00b7 Class 2 \u00b7 Section 14",
+          "title": "Tales from Storyland: Module 14",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Literature (Section 14).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Tales from Storyland.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 14: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 14 of 20 \u00b7 Tales from Storyland"
+        },
+        {
+          "pageNumber": 15,
+          "header": "Tales from Storyland",
+          "subHeader": "Literature \u00b7 Class 2 \u00b7 Section 15",
+          "title": "Tales from Storyland: Module 15",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Literature (Section 15).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Tales from Storyland.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 15: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 15 of 20 \u00b7 Tales from Storyland"
+        },
+        {
+          "pageNumber": 16,
+          "header": "Tales from Storyland",
+          "subHeader": "Literature \u00b7 Class 2 \u00b7 Section 16",
+          "title": "Tales from Storyland: Module 16",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Literature (Section 16).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Tales from Storyland.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 16: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 16 of 20 \u00b7 Tales from Storyland"
+        },
+        {
+          "pageNumber": 17,
+          "header": "Tales from Storyland",
+          "subHeader": "Literature \u00b7 Class 2 \u00b7 Section 17",
+          "title": "Tales from Storyland: Module 17",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Literature (Section 17).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Tales from Storyland.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 17: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 17 of 20 \u00b7 Tales from Storyland"
+        },
+        {
+          "pageNumber": 18,
+          "header": "Tales from Storyland",
+          "subHeader": "Literature \u00b7 Class 2 \u00b7 Section 18",
+          "title": "Tales from Storyland: Module 18",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Literature (Section 18).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Tales from Storyland.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 18: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 18 of 20 \u00b7 Tales from Storyland"
+        },
+        {
+          "pageNumber": 19,
+          "header": "Tales from Storyland",
+          "subHeader": "Literature \u00b7 Class 2 \u00b7 Section 19",
+          "title": "Tales from Storyland: Module 19",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Literature (Section 19).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Tales from Storyland.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 19: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 19 of 20 \u00b7 Tales from Storyland"
+        },
+        {
+          "pageNumber": 20,
+          "header": "Tales from Storyland",
+          "subHeader": "Literature \u00b7 Class 2 \u00b7 Section 20",
+          "title": "Tales from Storyland: Module 20",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Literature (Section 20).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Tales from Storyland.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 20: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 20 of 20 \u00b7 Tales from Storyland"
+        }
+      ]
+    }
+  ]
+}

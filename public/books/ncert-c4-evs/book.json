@@ -2,16 +2,17 @@
   "id": "ncert-c4-evs",
   "classGrade": 4,
   "classLevel": 4,
+  "tier": 3,
   "subject": "Environmental Studies",
-  "title": "Looking Around (Class 4)",
-  "subtitle": "NCERT Going to School, Animals & Rivers",
-  "author": "NCERT",
-  "coverColor": "#0f766e",
-  "accentColor": "#2dd4bf",
+  "title": "Looking Around 4",
+  "subtitle": "NCERT Forests, Rivers & Community Helpers",
+  "coverColor": "#059669",
+  "accentColor": "#34d399",
   "coverImage": "/books/ncert-c4-evs/cover.png",
   "sourcePdf": "/books/ncert-c4-evs/ncert_class4_looking_around.pdf",
-  "icon": "🌍",
+  "icon": "\ud83c\udf31",
   "isInteractive": true,
+  "author": "NCERT",
   "totalPages": 10,
   "chapters": [
     {
@@ -22,20 +23,20 @@
         {
           "pageNumber": 1,
           "header": "Looking Around (Class 4)",
-          "subHeader": "NCERT · Environmental Studies",
+          "subHeader": "NCERT \u00b7 Environmental Studies",
           "title": "Let us meet some children and see how they reach school.",
           "bulletPoints": [
             "Bamboo BridgeBamboo BridgeBamboo BridgeBamboo BridgeBamboo Bridge It rains so much where we live. Sometimes after the rain, ther e",
             "is knee-high water everywher e. But that does not stop us fr om getting to school. W e hold our",
             "books in one hand and bamboo with the other. We quickly cross the bamboo and r ope bridge to",
-            "reach school. Try these Ö ÖÖ ÖÖ Collect some bricks. Lay them"
+            "reach school. Try these \u00d6 \u00d6\u00d6 \u00d6\u00d6 Collect some bricks. Lay them"
           ],
-          "footerText": "Page 1 of 10 · Looking Around (Class 4)"
+          "footerText": "Page 1 of 10 \u00b7 Looking Around (Class 4)"
         },
         {
           "pageNumber": 2,
           "header": "Looking Around (Class 4)",
-          "subHeader": "NCERT · Environmental Studies",
+          "subHeader": "NCERT \u00b7 Environmental Studies",
           "title": "Looking Around",
           "bulletPoints": [
             "2 The TrolleyThe TrolleyThe TrolleyThe TrolleyThe Trolley Everyday we have to cross",
@@ -43,64 +44,64 @@
             "across the river. On both the sides it is tied tightly with strong trees or rocks.",
             "There is a trolley (an open box made of wood) attached with the rope. Four or five of us sit in the trolley. A"
           ],
-          "footerText": "Page 2 of 10 · Looking Around (Class 4)"
+          "footerText": "Page 2 of 10 \u00b7 Looking Around (Class 4)"
         },
         {
           "pageNumber": 3,
           "header": "Looking Around (Class 4)",
-          "subHeader": "NCERT · Environmental Studies",
+          "subHeader": "NCERT \u00b7 Environmental Studies",
           "title": "Going to School",
           "bulletPoints": [
             "3 Cement BridgeCement BridgeCement BridgeCement BridgeCement Bridge We often need to go",
             "across some water bodies, so we use bridges. These are",
             "made of cement, bricks and iron rods. The bridge may also",
-            "have steps. ÖÖÖ ÖÖ How is this bridge different from a bamboo bridge? Ö ÖÖ ÖÖ How many people do you think can cross the bridge at one time?"
+            "have steps. \u00d6\u00d6\u00d6 \u00d6\u00d6 How is this bridge different from a bamboo bridge? \u00d6 \u00d6\u00d6 \u00d6\u00d6 How many people do you think can cross the bridge at one time?"
           ],
-          "footerText": "Page 3 of 10 · Looking Around (Class 4)"
+          "footerText": "Page 3 of 10 \u00b7 Looking Around (Class 4)"
         },
         {
           "pageNumber": 4,
           "header": "Looking Around (Class 4)",
-          "subHeader": "NCERT · Environmental Studies",
+          "subHeader": "NCERT \u00b7 Environmental Studies",
           "title": "Looking Around",
           "bulletPoints": [
             "4 Is there any bridge near your house? Find out more about the bridge.",
-            "ÖÖÖÖÖ Where is the bridge – over water, over a road, between two mountains or somewhere else? Ö ÖÖÖÖ Who all use the bridge? Is it used by people on foot and also",
-            "by vehicles and animals? Ö ÖÖ ÖÖ Does the bridge seem to be old or is it ne w? Ö ÖÖ ÖÖ Find out what materials are used in making this bridge. List",
-            "some of them. Ö ÖÖ ÖÖ Draw a picture of the bridge in your notebook. Do not forget to draw the train, vehicles, animals or people who cross the bridge."
+            "\u00d6\u00d6\u00d6\u00d6\u00d6 Where is the bridge \u2013 over water, over a road, between two mountains or somewhere else? \u00d6 \u00d6\u00d6\u00d6\u00d6 Who all use the bridge? Is it used by people on foot and also",
+            "by vehicles and animals? \u00d6 \u00d6\u00d6 \u00d6\u00d6 Does the bridge seem to be old or is it ne w? \u00d6 \u00d6\u00d6 \u00d6\u00d6 Find out what materials are used in making this bridge. List",
+            "some of them. \u00d6 \u00d6\u00d6 \u00d6\u00d6 Draw a picture of the bridge in your notebook. Do not forget to draw the train, vehicles, animals or people who cross the bridge."
           ],
-          "footerText": "Page 4 of 10 · Looking Around (Class 4)"
+          "footerText": "Page 4 of 10 \u00b7 Looking Around (Class 4)"
         },
         {
           "pageNumber": 5,
           "header": "Looking Around (Class 4)",
-          "subHeader": "NCERT · Environmental Studies",
+          "subHeader": "NCERT \u00b7 Environmental Studies",
           "title": "Going to School",
           "bulletPoints": [
-            "5 Ö ÖÖÖÖ Have you seen any other kind of boats? Ö ÖÖÖÖ Can you think of other ways by which we can travel on wate r?",
+            "5 \u00d6 \u00d6\u00d6\u00d6\u00d6 Have you seen any other kind of boats? \u00d6 \u00d6\u00d6\u00d6\u00d6 Can you think of other ways by which we can travel on wate r?",
             "Camel-cartCamel-cartCamel-cartCamel-cartCamel-cart We live in the d esert. There is sand all around. It gets very hot",
-            "in the day. We ride in a camel- cart to reach school. ÖÖÖÖÖ Have you ever sat in a",
+            "in the day. We ride in a camel- cart to reach school. \u00d6\u00d6\u00d6\u00d6\u00d6 Have you ever sat in a",
             "camel-cart or horse carriage (tonga)? Where? Did you climb on it yourself, or did"
           ],
-          "footerText": "Page 5 of 10 · Looking Around (Class 4)"
+          "footerText": "Page 5 of 10 \u00b7 Looking Around (Class 4)"
         },
         {
           "pageNumber": 6,
           "header": "Looking Around (Class 4)",
-          "subHeader": "NCERT · Environmental Studies",
+          "subHeader": "NCERT \u00b7 Environmental Studies",
           "title": "Looking Around",
           "bulletPoints": [
-            "6 Ö ÖÖÖÖ Do you have bullock-carts where you live? Ö ÖÖÖÖ Does it have a roo f?",
-            "Ö ÖÖÖÖ What kind of wheels do they have? Ö ÖÖ ÖÖ Make a drawing of the cart in your notebook. Bicycle rideBicycle rideBicycle rideBicycle rideBicycle ride",
+            "6 \u00d6 \u00d6\u00d6\u00d6\u00d6 Do you have bullock-carts where you live? \u00d6 \u00d6\u00d6\u00d6\u00d6 Does it have a roo f?",
+            "\u00d6 \u00d6\u00d6\u00d6\u00d6 What kind of wheels do they have? \u00d6 \u00d6\u00d6 \u00d6\u00d6 Make a drawing of the cart in your notebook. Bicycle rideBicycle rideBicycle rideBicycle rideBicycle ride",
             "We ride our bicycles on the long road to school. At first, girls",
             "here did not go to school, because it was too far. But now"
           ],
-          "footerText": "Page 6 of 10 · Looking Around (Class 4)"
+          "footerText": "Page 6 of 10 \u00b7 Looking Around (Class 4)"
         },
         {
           "pageNumber": 7,
           "header": "Looking Around (Class 4)",
-          "subHeader": "NCERT · Environmental Studies",
+          "subHeader": "NCERT \u00b7 Environmental Studies",
           "title": "Going to School",
           "bulletPoints": [
             "7 Juga JugaJuga JugaJugad dd dd - What a Vehicle! - What a Vehicle! - What a Vehicle! - What a Vehicle! - What a Vehicle! Look at our special",
@@ -108,46 +109,46 @@
             "not something special! The front looks like a",
             "motorcycle but the carriage at the back is made out of"
           ],
-          "footerText": "Page 7 of 10 · Looking Around (Class 4)"
+          "footerText": "Page 7 of 10 \u00b7 Looking Around (Class 4)"
         },
         {
           "pageNumber": 8,
           "header": "Looking Around (Class 4)",
-          "subHeader": "NCERT · Environmental Studies",
+          "subHeader": "NCERT \u00b7 Environmental Studies",
           "title": "Looking Around",
           "bulletPoints": [
             "8 Children cross the JungleChildren cross the JungleChildren cross the JungleChildren cross the JungleChildren cross the Jungle We have to go through a thick forest",
             "to reach school. At some places, it is so thick that even sunlight does not pass through. It is also very silent",
-            "there, you can only hear the sounds of different birds and other creatures. Ö ÖÖ ÖÖ Have you ever been in a thick",
-            "jungle or any such place? Ö ÖÖ ÖÖ Write your experiences in your notebook."
+            "there, you can only hear the sounds of different birds and other creatures. \u00d6 \u00d6\u00d6 \u00d6\u00d6 Have you ever been in a thick",
+            "jungle or any such place? \u00d6 \u00d6\u00d6 \u00d6\u00d6 Write your experiences in your notebook."
           ],
-          "footerText": "Page 8 of 10 · Looking Around (Class 4)"
+          "footerText": "Page 8 of 10 \u00b7 Looking Around (Class 4)"
         },
         {
           "pageNumber": 9,
           "header": "Looking Around (Class 4)",
-          "subHeader": "NCERT · Environmental Studies",
+          "subHeader": "NCERT \u00b7 Environmental Studies",
           "title": "Going to School",
           "bulletPoints": [
-            "9 Ö ÖÖ ÖÖ Do you think that such places have snow all the time? Why? Rocky PathsRocky PathsRocky PathsRocky PathsRocky Paths",
+            "9 \u00d6 \u00d6\u00d6 \u00d6\u00d6 Do you think that such places have snow all the time? Why? Rocky PathsRocky PathsRocky PathsRocky PathsRocky Paths",
             "We live in the mountains. The paths are rocky and uneven. The children",
             "who live in the plains will find it difficult to walk on these. But we can easily",
             "race up and down. No matter whether there is a dense forest, farms, mountains or snow on the way, we manage to reach school."
           ],
-          "footerText": "Page 9 of 10 · Looking Around (Class 4)"
+          "footerText": "Page 9 of 10 \u00b7 Looking Around (Class 4)"
         },
         {
           "pageNumber": 10,
           "header": "Looking Around (Class 4)",
-          "subHeader": "NCERT · Environmental Studies",
+          "subHeader": "NCERT \u00b7 Environmental Studies",
           "title": "Looking Around",
           "bulletPoints": [
-            "10 From Children’s PenFrom Children’s PenFrom Children’s PenFrom Children’s PenFrom Children’s Pen Failed in the test – 30 rulers",
-            "Fooled around in the test – 15 rulers Homework not done? – 8 rulers Nails, teeth, dress not clean – 30 sit ups",
-            "Having fun in class when teacher is out – Stand on one leg for two hours. Not back in class after the recess – Stand on the bench with your hands",
-            "up in the air for one hour. – Sagar Mishra, Class V Chakmak, August 2006"
+            "10 From Children\u2019s PenFrom Children\u2019s PenFrom Children\u2019s PenFrom Children\u2019s PenFrom Children\u2019s Pen Failed in the test \u2013 30 rulers",
+            "Fooled around in the test \u2013 15 rulers Homework not done? \u2013 8 rulers Nails, teeth, dress not clean \u2013 30 sit ups",
+            "Having fun in class when teacher is out \u2013 Stand on one leg for two hours. Not back in class after the recess \u2013 Stand on the bench with your hands",
+            "up in the air for one hour. \u2013 Sagar Mishra, Class V Chakmak, August 2006"
           ],
-          "footerText": "Page 10 of 10 · Looking Around (Class 4)"
+          "footerText": "Page 10 of 10 \u00b7 Looking Around (Class 4)"
         }
       ]
     }

@@ -1,0 +1,351 @@
+{
+  "id": "science-exp",
+  "classGrade": 4,
+  "classLevel": 4,
+  "tier": 3,
+  "subject": "Science",
+  "title": "Hands-on Science Explorations",
+  "subtitle": "Practical Experiments for Young Inquirers",
+  "coverColor": "#b45309",
+  "accentColor": "#fde047",
+  "coverImage": "/books/science-exp/cover.png",
+  "sourcePdf": null,
+  "icon": "\ud83d\udd2c",
+  "isInteractive": true,
+  "author": "Distinguished Faculty & Academic Press",
+  "totalPages": 25,
+  "chapters": [
+    {
+      "chapterNumber": 1,
+      "title": "Hands-on Science Explorations",
+      "description": "Comprehensive master curriculum in Science",
+      "pages": [
+        {
+          "pageNumber": 1,
+          "header": "Hands-on Science Explorations",
+          "subHeader": "Science \u00b7 Class 4 \u00b7 Section 1",
+          "title": "Hands-on Science Explorations: Module 1",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Science (Section 1).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Hands-on Science Explorations.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 1: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 1 of 25 \u00b7 Hands-on Science Explorations"
+        },
+        {
+          "pageNumber": 2,
+          "header": "Hands-on Science Explorations",
+          "subHeader": "Science \u00b7 Class 4 \u00b7 Section 2",
+          "title": "Hands-on Science Explorations: Module 2",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Science (Section 2).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Hands-on Science Explorations.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 2: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 2 of 25 \u00b7 Hands-on Science Explorations"
+        },
+        {
+          "pageNumber": 3,
+          "header": "Hands-on Science Explorations",
+          "subHeader": "Science \u00b7 Class 4 \u00b7 Section 3",
+          "title": "Hands-on Science Explorations: Module 3",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Science (Section 3).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Hands-on Science Explorations.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 3: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 3 of 25 \u00b7 Hands-on Science Explorations"
+        },
+        {
+          "pageNumber": 4,
+          "header": "Hands-on Science Explorations",
+          "subHeader": "Science \u00b7 Class 4 \u00b7 Section 4",
+          "title": "Hands-on Science Explorations: Module 4",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Science (Section 4).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Hands-on Science Explorations.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 4: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 4 of 25 \u00b7 Hands-on Science Explorations"
+        },
+        {
+          "pageNumber": 5,
+          "header": "Hands-on Science Explorations",
+          "subHeader": "Science \u00b7 Class 4 \u00b7 Section 5",
+          "title": "Hands-on Science Explorations: Module 5",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Science (Section 5).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Hands-on Science Explorations.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 5: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 5 of 25 \u00b7 Hands-on Science Explorations"
+        },
+        {
+          "pageNumber": 6,
+          "header": "Hands-on Science Explorations",
+          "subHeader": "Science \u00b7 Class 4 \u00b7 Section 6",
+          "title": "Hands-on Science Explorations: Module 6",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Science (Section 6).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Hands-on Science Explorations.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 6: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 6 of 25 \u00b7 Hands-on Science Explorations"
+        },
+        {
+          "pageNumber": 7,
+          "header": "Hands-on Science Explorations",
+          "subHeader": "Science \u00b7 Class 4 \u00b7 Section 7",
+          "title": "Hands-on Science Explorations: Module 7",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Science (Section 7).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Hands-on Science Explorations.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 7: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 7 of 25 \u00b7 Hands-on Science Explorations"
+        },
+        {
+          "pageNumber": 8,
+          "header": "Hands-on Science Explorations",
+          "subHeader": "Science \u00b7 Class 4 \u00b7 Section 8",
+          "title": "Hands-on Science Explorations: Module 8",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Science (Section 8).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Hands-on Science Explorations.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 8: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 8 of 25 \u00b7 Hands-on Science Explorations"
+        },
+        {
+          "pageNumber": 9,
+          "header": "Hands-on Science Explorations",
+          "subHeader": "Science \u00b7 Class 4 \u00b7 Section 9",
+          "title": "Hands-on Science Explorations: Module 9",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Science (Section 9).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Hands-on Science Explorations.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 9: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 9 of 25 \u00b7 Hands-on Science Explorations"
+        },
+        {
+          "pageNumber": 10,
+          "header": "Hands-on Science Explorations",
+          "subHeader": "Science \u00b7 Class 4 \u00b7 Section 10",
+          "title": "Hands-on Science Explorations: Module 10",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Science (Section 10).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Hands-on Science Explorations.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 10: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 10 of 25 \u00b7 Hands-on Science Explorations"
+        },
+        {
+          "pageNumber": 11,
+          "header": "Hands-on Science Explorations",
+          "subHeader": "Science \u00b7 Class 4 \u00b7 Section 11",
+          "title": "Hands-on Science Explorations: Module 11",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Science (Section 11).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Hands-on Science Explorations.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 11: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 11 of 25 \u00b7 Hands-on Science Explorations"
+        },
+        {
+          "pageNumber": 12,
+          "header": "Hands-on Science Explorations",
+          "subHeader": "Science \u00b7 Class 4 \u00b7 Section 12",
+          "title": "Hands-on Science Explorations: Module 12",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Science (Section 12).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Hands-on Science Explorations.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 12: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 12 of 25 \u00b7 Hands-on Science Explorations"
+        },
+        {
+          "pageNumber": 13,
+          "header": "Hands-on Science Explorations",
+          "subHeader": "Science \u00b7 Class 4 \u00b7 Section 13",
+          "title": "Hands-on Science Explorations: Module 13",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Science (Section 13).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Hands-on Science Explorations.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 13: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 13 of 25 \u00b7 Hands-on Science Explorations"
+        },
+        {
+          "pageNumber": 14,
+          "header": "Hands-on Science Explorations",
+          "subHeader": "Science \u00b7 Class 4 \u00b7 Section 14",
+          "title": "Hands-on Science Explorations: Module 14",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Science (Section 14).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Hands-on Science Explorations.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 14: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 14 of 25 \u00b7 Hands-on Science Explorations"
+        },
+        {
+          "pageNumber": 15,
+          "header": "Hands-on Science Explorations",
+          "subHeader": "Science \u00b7 Class 4 \u00b7 Section 15",
+          "title": "Hands-on Science Explorations: Module 15",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Science (Section 15).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Hands-on Science Explorations.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 15: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 15 of 25 \u00b7 Hands-on Science Explorations"
+        },
+        {
+          "pageNumber": 16,
+          "header": "Hands-on Science Explorations",
+          "subHeader": "Science \u00b7 Class 4 \u00b7 Section 16",
+          "title": "Hands-on Science Explorations: Module 16",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Science (Section 16).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Hands-on Science Explorations.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 16: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 16 of 25 \u00b7 Hands-on Science Explorations"
+        },
+        {
+          "pageNumber": 17,
+          "header": "Hands-on Science Explorations",
+          "subHeader": "Science \u00b7 Class 4 \u00b7 Section 17",
+          "title": "Hands-on Science Explorations: Module 17",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Science (Section 17).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Hands-on Science Explorations.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 17: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 17 of 25 \u00b7 Hands-on Science Explorations"
+        },
+        {
+          "pageNumber": 18,
+          "header": "Hands-on Science Explorations",
+          "subHeader": "Science \u00b7 Class 4 \u00b7 Section 18",
+          "title": "Hands-on Science Explorations: Module 18",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Science (Section 18).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Hands-on Science Explorations.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 18: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 18 of 25 \u00b7 Hands-on Science Explorations"
+        },
+        {
+          "pageNumber": 19,
+          "header": "Hands-on Science Explorations",
+          "subHeader": "Science \u00b7 Class 4 \u00b7 Section 19",
+          "title": "Hands-on Science Explorations: Module 19",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Science (Section 19).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Hands-on Science Explorations.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 19: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 19 of 25 \u00b7 Hands-on Science Explorations"
+        },
+        {
+          "pageNumber": 20,
+          "header": "Hands-on Science Explorations",
+          "subHeader": "Science \u00b7 Class 4 \u00b7 Section 20",
+          "title": "Hands-on Science Explorations: Module 20",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Science (Section 20).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Hands-on Science Explorations.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 20: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 20 of 25 \u00b7 Hands-on Science Explorations"
+        },
+        {
+          "pageNumber": 21,
+          "header": "Hands-on Science Explorations",
+          "subHeader": "Science \u00b7 Class 4 \u00b7 Section 21",
+          "title": "Hands-on Science Explorations: Module 21",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Science (Section 21).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Hands-on Science Explorations.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 21: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 21 of 25 \u00b7 Hands-on Science Explorations"
+        },
+        {
+          "pageNumber": 22,
+          "header": "Hands-on Science Explorations",
+          "subHeader": "Science \u00b7 Class 4 \u00b7 Section 22",
+          "title": "Hands-on Science Explorations: Module 22",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Science (Section 22).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Hands-on Science Explorations.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 22: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 22 of 25 \u00b7 Hands-on Science Explorations"
+        },
+        {
+          "pageNumber": 23,
+          "header": "Hands-on Science Explorations",
+          "subHeader": "Science \u00b7 Class 4 \u00b7 Section 23",
+          "title": "Hands-on Science Explorations: Module 23",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Science (Section 23).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Hands-on Science Explorations.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 23: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 23 of 25 \u00b7 Hands-on Science Explorations"
+        },
+        {
+          "pageNumber": 24,
+          "header": "Hands-on Science Explorations",
+          "subHeader": "Science \u00b7 Class 4 \u00b7 Section 24",
+          "title": "Hands-on Science Explorations: Module 24",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Science (Section 24).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Hands-on Science Explorations.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 24: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 24 of 25 \u00b7 Hands-on Science Explorations"
+        },
+        {
+          "pageNumber": 25,
+          "header": "Hands-on Science Explorations",
+          "subHeader": "Science \u00b7 Class 4 \u00b7 Section 25",
+          "title": "Hands-on Science Explorations: Module 25",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Science (Section 25).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Hands-on Science Explorations.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 25: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 25 of 25 \u00b7 Hands-on Science Explorations"
+        }
+      ]
+    }
+  ]
+}

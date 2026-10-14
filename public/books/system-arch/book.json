@@ -2,17 +2,18 @@
   "id": "system-arch",
   "classGrade": 5,
   "classLevel": 5,
+  "tier": 4,
   "subject": "System Architecture",
   "title": "Systems Architecting",
   "subtitle": "A Business-Enabling Engineering Discipline",
-  "author": "Gerrit Muller",
   "coverColor": "#1e3a8a",
   "accentColor": "#60a5fa",
   "coverImage": "/books/system-arch/cover.png",
   "sourcePdf": "/books/system-arch/SystemArchitectureBook.pdf",
-  "icon": "🏛️",
+  "icon": "\ud83c\udfdb\ufe0f",
   "isInteractive": true,
-  "totalPages": 218,
+  "author": "Gerrit Muller",
+  "totalPages": 50,
   "chapters": [
     {
       "chapterNumber": 1,
@@ -22,7 +23,7 @@
         {
           "pageNumber": 1,
           "header": "Systems Architecting",
-          "subHeader": "Gerrit Muller · System Architecture",
+          "subHeader": "Gerrit Muller \u00b7 System Architecture",
           "title": "System Architecting",
           "bulletPoints": [
             "Collect facts Integrate facts, create visionCommunicate",
@@ -30,25 +31,25 @@
             "USN-SE Hasbergsvei 36 P.O. Box 235, NO-3603 Kongsberg Norway gaudisite@gmail.com",
             "Abstract This book addresses the role of the system architect and the role of the system architecting process within the business:"
           ],
-          "footerText": "Page 1 of 218 · Systems Architecting"
+          "footerText": "Page 1 of 218 \u00b7 Systems Architecting"
         },
         {
           "pageNumber": 2,
           "header": "Systems Architecting",
-          "subHeader": "Gerrit Muller · System Architecture",
+          "subHeader": "Gerrit Muller \u00b7 System Architecture",
           "title": "Introduction",
           "bulletPoints": [
-            "This book bundles the articles and intermezzo’s produced by the Gaudí project. At this moment the book is in its early infancy. Most articles are updated based on feedback from readers and students. The most up to date version of the",
+            "This book bundles the articles and intermezzo\u2019s produced by the Gaud\u00ed project. At this moment the book is in its early infancy. Most articles are updated based on feedback from readers and students. The most up to date version of the",
             "articles can always be found at [16]. The same information can be found here in presentation format. Chapters can be read as autonomous units. The sequence choosen here is more",
             "or less top down, hopping from one viewpoint to the next. On a regular base a sidestep (\"Intermezzo\") is being made, either to describe a more fundamental notion, or to propose a more challenging point of view.",
             "Note: this book is likely to be refactored in smaller books in the future."
           ],
-          "footerText": "Page 2 of 218 · Systems Architecting"
+          "footerText": "Page 2 of 218 \u00b7 Systems Architecting"
         },
         {
           "pageNumber": 3,
           "header": "Systems Architecting",
-          "subHeader": "Gerrit Muller · System Architecture",
+          "subHeader": "Gerrit Muller \u00b7 System Architecture",
           "title": "System Architecture: The Silver",
           "bulletPoints": [
             "Bullet? Avoid nasty Surprises Certainty",
@@ -56,12 +57,12 @@
             "Schedules Avoid risks 0.1 Introduction",
             "The expectation level with respect to processes in general and the system archi- tecture process in particular can vary from skeptical to blind faith. The skeptics have experienced that horrible specifications and designs can be pursued under the"
           ],
-          "footerText": "Page 3 of 218 · Systems Architecting"
+          "footerText": "Page 3 of 218 \u00b7 Systems Architecting"
         },
         {
           "pageNumber": 4,
           "header": "Systems Architecting",
-          "subHeader": "Gerrit Muller · System Architecture",
+          "subHeader": "Gerrit Muller \u00b7 System Architecture",
           "title": "Unfortunately System Architecting will never remove all uncertainties, see",
           "bulletPoints": [
             "subsection 0.2.2. The application of a system architecture process can help in the risk management, amongst others by prevention, and by minimizing impact. Successful application of system architecture is far from trivial, section 0.3",
@@ -69,74 +70,74 @@
             "This section provides a caricatural view on human behavior based on a free inter- pretation of the Maslow Hierarchy of Needs, as discussed for instance in [7]. This exaggerated view matches with the security needs in the lower Maslow Hierarchy.",
             "Note that less defensive behavior can be triggered by needs in the higher layers, were words such as adventurous en explorative are being used. The majority of people, including managers and engineers, have a need for"
           ],
-          "footerText": "Page 4 of 218 · Systems Architecting"
+          "footerText": "Page 4 of 218 \u00b7 Systems Architecting"
         },
         {
           "pageNumber": 5,
           "header": "Systems Architecting",
-          "subHeader": "Gerrit Muller · System Architecture",
+          "subHeader": "Gerrit Muller \u00b7 System Architecture",
           "title": "Avoid nasty",
           "bulletPoints": [
             "Surprises Certainty Unchangeable Specifications",
             "Unchangeable Schedules Avoid risks",
-            "Figure 1: Personal key driver to avoid nasty surprises 0.2.2 Disclaimer; Setting the Expectations to a realistic level The Gaudí Project will not deliver a Plug-and-Play System Architecture Process.",
-            "System architects which have read all the articles and followed the course will not automatically be successful. The Gaudí project will deliver a large set of consistent background material for"
+            "Figure 1: Personal key driver to avoid nasty surprises 0.2.2 Disclaimer; Setting the Expectations to a realistic level The Gaud\u00ed Project will not deliver a Plug-and-Play System Architecture Process.",
+            "System architects which have read all the articles and followed the course will not automatically be successful. The Gaud\u00ed project will deliver a large set of consistent background material for"
           ],
-          "footerText": "Page 5 of 218 · Systems Architecting"
+          "footerText": "Page 5 of 218 \u00b7 Systems Architecting"
         },
         {
           "pageNumber": 6,
           "header": "Systems Architecting",
-          "subHeader": "Gerrit Muller · System Architecture",
-          "title": "• Know-How",
+          "subHeader": "Gerrit Muller \u00b7 System Architecture",
+          "title": "\u2022 Know-How",
           "bulletPoints": [
-            "• Common Sense • Pragmatics • Critical attitude",
-            "• Social skills • Drive • Vision",
+            "\u2022 Common Sense \u2022 Pragmatics \u2022 Critical attitude",
+            "\u2022 Social skills \u2022 Drive \u2022 Vision",
             "Table 2: Critical Success Factors for an effective application of a System Archi- tecture Process 0.3.2 Common Sense",
             "Most problems encountered during Product Creation require common sense to solve them. Mechanistic approaches severely limit the solution space, resulting in complex solutions. System architects are capable of \"lateral\" thinking, allowing"
           ],
-          "footerText": "Page 6 of 218 · Systems Architecting"
+          "footerText": "Page 6 of 218 \u00b7 Systems Architecting"
         },
         {
           "pageNumber": 7,
           "header": "Systems Architecting",
-          "subHeader": "Gerrit Muller · System Architecture",
-          "title": "• Do we address the right problem or requirement?",
+          "subHeader": "Gerrit Muller \u00b7 System Architecture",
+          "title": "\u2022 Do we address the right problem or requirement?",
           "bulletPoints": [
-            "• Is the customer/user on-board? • Is this design adequate? • Consists the input data from facts, wishes or ideas?",
-            "• Do we need so many people for the implementation? • Does this process or organization fit the problem? Table 3: Critical Attitude: Examples of questions to be asked by the System",
+            "\u2022 Is the customer/user on-board? \u2022 Is this design adequate? \u2022 Consists the input data from facts, wishes or ideas?",
+            "\u2022 Do we need so many people for the implementation? \u2022 Does this process or organization fit the problem? Table 3: Critical Attitude: Examples of questions to be asked by the System",
             "Architect 0.3.6 Vision The system architect needs to have a vision to be able to provide direction. A vision",
             "enables an evolution of existing architectures to desired architectures. Having vision is not trivial, it requires a good understanding of needs (the problem) and means (the solution) plus the trends (opportunities and threats) in both needs and"
           ],
-          "footerText": "Page 7 of 218 · Systems Architecting"
+          "footerText": "Page 7 of 218 \u00b7 Systems Architecting"
         },
         {
           "pageNumber": 8,
           "header": "Systems Architecting",
-          "subHeader": "Gerrit Muller · System Architecture",
+          "subHeader": "Gerrit Muller \u00b7 System Architecture",
           "title": "finally. Adriaan van den Brand pointed out the forgotten change of golden into",
           "bulletPoints": [
             "silver. Eugene Ivanov pointed out that evolution aspects were missing. The result is the addition of vision as critical success factor.",
-            "Steve R. Nanning indicated unclarity in the abstract and criticized the too negative phrasing of the Quest for Certainty. Stephen Boggess added a question to the list in Section ”Critical Attitude”. Ning Lu added more surprises and critical",
+            "Steve R. Nanning indicated unclarity in the abstract and criticized the too negative phrasing of the Quest for Certainty. Stephen Boggess added a question to the list in Section \u201dCritical Attitude\u201d. Ning Lu added more surprises and critical",
             "success factors. Gerrit Muller System Architecting",
             "May 31, 2026 version: 1.8 University of South-Eastern Norway-NISE page: viii"
           ],
-          "footerText": "Page 8 of 218 · Systems Architecting"
+          "footerText": "Page 8 of 218 \u00b7 Systems Architecting"
         },
         {
           "pageNumber": 9,
           "header": "Systems Architecting",
-          "subHeader": "Gerrit Muller · System Architecture",
+          "subHeader": "Gerrit Muller \u00b7 System Architecture",
           "title": "Part I",
           "bulletPoints": [
             "Processes"
           ],
-          "footerText": "Page 9 of 218 · Systems Architecting"
+          "footerText": "Page 9 of 218 \u00b7 Systems Architecting"
         },
         {
           "pageNumber": 10,
           "header": "Systems Architecting",
-          "subHeader": "Gerrit Muller · System Architecture",
+          "subHeader": "Gerrit Muller \u00b7 System Architecture",
           "title": "Chapter 1",
           "bulletPoints": [
             "Process Decomposition of a Business customer",
@@ -144,12 +145,12 @@
             "Product Creation Process Policy and Planning Process",
             "People, Process, and Technology Management Process Business Drivers"
           ],
-          "footerText": "Page 10 of 218 · Systems Architecting"
+          "footerText": "Page 10 of 218 \u00b7 Systems Architecting"
         },
         {
           "pageNumber": 11,
           "header": "Systems Architecting",
-          "subHeader": "Gerrit Muller · System Architecture",
+          "subHeader": "Gerrit Muller \u00b7 System Architecture",
           "title": "customer",
           "bulletPoints": [
             "Customer-Oriented Process $$ sales logisticsproduction servicepresales",
@@ -157,12 +158,12 @@
             "People, Process, and Technology Management Process Business Drivers",
             "Customer Roadmap Budget, plan"
           ],
-          "footerText": "Page 11 of 218 · Systems Architecting"
+          "footerText": "Page 11 of 218 \u00b7 Systems Architecting"
         },
         {
           "pageNumber": 12,
           "header": "Systems Architecting",
-          "subHeader": "Gerrit Muller · System Architecture",
+          "subHeader": "Gerrit Muller \u00b7 System Architecture",
           "title": "direction for the other processes. Roadmaps give direction to the Product",
           "bulletPoints": [
             "Creation Process and the People, Process and Technology Management Process. For the medium term these roadmaps are transformed in budgets and plans, which are committal for all stakeholders.",
@@ -170,25 +171,25 @@
             "Product Creation Process Policy and Planning Process",
             "People and Technology Management Process Business Drivers"
           ],
-          "footerText": "Page 12 of 218 · Systems Architecting"
+          "footerText": "Page 12 of 218 \u00b7 Systems Architecting"
         },
         {
           "pageNumber": 13,
           "header": "Systems Architecting",
-          "subHeader": "Gerrit Muller · System Architecture",
+          "subHeader": "Gerrit Muller \u00b7 System Architecture",
           "title": "Policy and Planning Process: One per business. This is the pro-active integratin",
           "bulletPoints": [
             "process. The evolutionary developments of product variants and new releases are seen as individual instances of the Product Creation Process. For example the development",
             "of a single new feature for an existing product is performed by following the entire Product Creation Process. Of course some steps in the process will be (nearly) empty, which does not cause any harm.",
-            "1.3 Process versus Organization This process decomposition is not an organization, see Intermezzo “What is a Process”. A single person can (and often will) fulfill several roles in different",
+            "1.3 Process versus Organization This process decomposition is not an organization, see Intermezzo \u201cWhat is a Process\u201d. A single person can (and often will) fulfill several roles in different",
             "processes. System architects specifically spend most of their time in Product Creation Process (circa. 75%), a considerable amount of time in the Policy and Planning"
           ],
-          "footerText": "Page 13 of 218 · Systems Architecting"
+          "footerText": "Page 13 of 218 \u00b7 Systems Architecting"
         },
         {
           "pageNumber": 14,
           "header": "Systems Architecting",
-          "subHeader": "Gerrit Muller · System Architecture",
+          "subHeader": "Gerrit Muller \u00b7 System Architecture",
           "title": "The value chain in these processes starts at the assets in the People, Process,",
           "bulletPoints": [
             "and Technology Management Process. The assets are transformed into potential money by the Product Creation Process. The Customer Oriented Process finally turns it into real money. Figure 1.3 shows the value chain.",
@@ -196,12 +197,12 @@
             "service people. Needs and complaints are filtered by the reporting system before the information reaches Product Creation Teams. Only a small part of the customer feedback reaches the People, Process, and Technology management.",
             "This simple model explains why the knowledge about the customer gets less deeper in the organization. The consequence is that internal technology and process provides show to little concern for urgent customer or business challenges; the"
           ],
-          "footerText": "Page 14 of 218 · Systems Architecting"
+          "footerText": "Page 14 of 218 \u00b7 Systems Architecting"
         },
         {
           "pageNumber": 15,
           "header": "Systems Architecting",
-          "subHeader": "Gerrit Muller · System Architecture",
+          "subHeader": "Gerrit Muller \u00b7 System Architecture",
           "title": "1.6 Extended Process Decomposition; Generic Develop-",
           "bulletPoints": [
             "ments customer Customer-Oriented Process",
@@ -209,12 +210,12 @@
             "Planning Process People, Process, and Technology Management Process Generic Developments",
             "Creation Process generics People Technology"
           ],
-          "footerText": "Page 15 of 218 · Systems Architecting"
+          "footerText": "Page 15 of 218 \u00b7 Systems Architecting"
         },
         {
           "pageNumber": 16,
           "header": "Systems Architecting",
-          "subHeader": "Gerrit Muller · System Architecture",
+          "subHeader": "Gerrit Muller \u00b7 System Architecture",
           "title": "Chapter 2",
           "bulletPoints": [
             "What is a Process? principle process procedure tool formalism",
@@ -222,12 +223,12 @@
             "is elaborated in",
             "is supported by"
           ],
-          "footerText": "Page 16 of 218 · Systems Architecting"
+          "footerText": "Page 16 of 218 \u00b7 Systems Architecting"
         },
         {
           "pageNumber": 17,
           "header": "Systems Architecting",
-          "subHeader": "Gerrit Muller · System Architecture",
+          "subHeader": "Gerrit Muller \u00b7 System Architecture",
           "title": "Purpose What is to be achieved and why",
           "bulletPoints": [
             "Structure How will the goal be achieved Rationale What is the reasoning behind this process Roles What roles are present, what responsibilities are",
@@ -235,25 +236,25 @@
             "Figure 2.1: Process Attributes principle process procedure tool formalism",
             "template abstract specific and executable drives"
           ],
-          "footerText": "Page 17 of 218 · Systems Architecting"
+          "footerText": "Page 17 of 218 \u00b7 Systems Architecting"
         },
         {
           "pageNumber": 18,
           "header": "Systems Architecting",
-          "subHeader": "Gerrit Muller · System Architecture",
+          "subHeader": "Gerrit Muller \u00b7 System Architecture",
           "title": "2.3 The relation between Processes and Organizations",
           "bulletPoints": [
-            "Traditional management is focused on “organizations”. Where organization are characterized by the attributes shown in Figure 2.3. What functions are needed?",
+            "Traditional management is focused on \u201corganizations\u201d. Where organization are characterized by the attributes shown in Figure 2.3. What functions are needed?",
             "Who is responsible for this function? What is the hierarchical relation between the functions? What meeting structure is required?",
-            "Figure 2.3: Organization Attributes This management views is insufficient in today’s fast moving complex world. The weak spots of the organizational view are shown in Figure 2.4.",
+            "Figure 2.3: Organization Attributes This management views is insufficient in today\u2019s fast moving complex world. The weak spots of the organizational view are shown in Figure 2.4.",
             "Many activities cut arbitrarily through the 1-dimensional hierarchy, causing lack of ownership, unclear responsibilities"
           ],
-          "footerText": "Page 18 of 218 · Systems Architecting"
+          "footerText": "Page 18 of 218 \u00b7 Systems Architecting"
         },
         {
           "pageNumber": 19,
           "header": "Systems Architecting",
-          "subHeader": "Gerrit Muller · System Architecture",
+          "subHeader": "Gerrit Muller \u00b7 System Architecture",
           "title": "All important activities will be covered by a process, requiring the definition ",
           "bulletPoints": [
             "ownership, relation with other processes et cetera. The allocation of roles to people is much more dynamic than in conventional hierarchies. More dynamic allocation enables a better match between personal capabilities and required skills. In practice",
@@ -261,12 +262,12 @@
             "by the processes, while 20% requires independent creative behavior. An organi- zation without processes drowns in chaos, while an organization which blindly implements them will be killed by its own inertia, its inability to adapt to the fast",
             "changing world. For reasons of continuity and stability an hierarchical organization will remain. The slowest evolving dimension is mostly used as a basis for this hierarchy. This"
           ],
-          "footerText": "Page 19 of 218 · Systems Architecting"
+          "footerText": "Page 19 of 218 \u00b7 Systems Architecting"
         },
         {
           "pageNumber": 20,
           "header": "Systems Architecting",
-          "subHeader": "Gerrit Muller · System Architecture",
+          "subHeader": "Gerrit Muller \u00b7 System Architecture",
           "title": "strategy",
           "bulletPoints": [
             "shared value staff",
@@ -274,12 +275,12 @@
             "skills responsibilities accountabilities",
             "systems procedures norms"
           ],
-          "footerText": "Page 20 of 218 · Systems Architecting"
+          "footerText": "Page 20 of 218 \u00b7 Systems Architecting"
         },
         {
           "pageNumber": 21,
           "header": "Systems Architecting",
-          "subHeader": "Gerrit Muller · System Architecture",
+          "subHeader": "Gerrit Muller \u00b7 System Architecture",
           "title": "Chapter 3",
           "bulletPoints": [
             "The Product Creation Process needs design",
@@ -287,25 +288,25 @@
             "in draft 50% most information available in",
             "concept information is stable enough to use"
           ],
-          "footerText": "Page 21 of 218 · Systems Architecting"
+          "footerText": "Page 21 of 218 \u00b7 Systems Architecting"
         },
         {
           "pageNumber": 22,
           "header": "Systems Architecting",
-          "subHeader": "Gerrit Muller · System Architecture",
-          "title": "• Design of the logistics flow and structure",
+          "subHeader": "Gerrit Muller \u00b7 System Architecture",
+          "title": "\u2022 Design of the logistics flow and structure",
           "bulletPoints": [
-            "• Development of required services • Market announcement • Market introduction",
+            "\u2022 Development of required services \u2022 Market announcement \u2022 Market introduction",
             "In other words the Product Creation Process is a synchronized effort of nearly all business disciplines within a company. The term Product Creation is not only used for the development of entirely new",
             "products, but applies also to the development of variations of existing products or the development of upgrades or add-on products. The implementation of the Product Creation Process can vary, depending on the product being developed; a",
             "small add-on product will use a different organization than the development of a large new complex product. 3.3 Phases of the Product Creation Process"
           ],
-          "footerText": "Page 22 of 218 · Systems Architecting"
+          "footerText": "Page 22 of 218 \u00b7 Systems Architecting"
         },
         {
           "pageNumber": 23,
           "header": "Systems Architecting",
-          "subHeader": "Gerrit Muller · System Architecture",
+          "subHeader": "Gerrit Muller \u00b7 System Architecture",
           "title": "Figure 3.2 zooms in on the expected progress for the design deliverables. We",
           "bulletPoints": [
             "use the term work flows for the horizontal classes of activities: needs analysis, product specification, design, verification and validation , and engineering. Note that needs analysis, product specification, and design progress concurrently. Also",
@@ -313,12 +314,12 @@
             "needs design verification",
             "engineering core information in draft 50%"
           ],
-          "footerText": "Page 23 of 218 · Systems Architecting"
+          "footerText": "Page 23 of 218 \u00b7 Systems Architecting"
         },
         {
           "pageNumber": 24,
           "header": "Systems Architecting",
-          "subHeader": "Gerrit Muller · System Architecture",
+          "subHeader": "Gerrit Muller \u00b7 System Architecture",
           "title": "benefits",
           "bulletPoints": [
             "blueprint: how to work reuse of experience employees know what and when",
@@ -326,12 +327,12 @@
             "too bureaucratic transitions treated black and white Figure 3.3: Advantages and Disadvantages of a phased approach",
             "project. This kind of interference can be very counterproductive. See section 3.5 for a better management method with respect to milestones. needs"
           ],
-          "footerText": "Page 24 of 218 · Systems Architecting"
+          "footerText": "Page 24 of 218 \u00b7 Systems Architecting"
         },
         {
           "pageNumber": 25,
           "header": "Systems Architecting",
-          "subHeader": "Gerrit Muller · System Architecture",
+          "subHeader": "Gerrit Muller \u00b7 System Architecture",
           "title": "3.4 Evolutionary models for Product Creation",
           "bulletPoints": [
             "The phase model stresses and supports concurrent activities, see also [8]. A common pitfall is a waterfall interpretation of a phased approach. Following a strict top- down approach can be a very costly mistake, because feedback from implemen-",
@@ -339,12 +340,12 @@
             "requirements specification designbuild",
             "test and evaluate cycle time"
           ],
-          "footerText": "Page 25 of 218 · Systems Architecting"
+          "footerText": "Page 25 of 218 \u00b7 Systems Architecting"
         },
         {
           "pageNumber": 26,
           "header": "Systems Architecting",
-          "subHeader": "Gerrit Muller · System Architecture",
+          "subHeader": "Gerrit Muller \u00b7 System Architecture",
           "title": "3.5 Milestones and Decisions",
           "bulletPoints": [
             "The project team is faced with a limited number of large impact decisions during the creation process. The decision in general engage the organization with a commitment somewhere in the future. For example:",
@@ -352,12 +353,12 @@
             "Ordering of expensive materials where changes in plan, specification or design might obsolete the ordered materials. Product announcement can not be reversed once the outside world has seen the",
             "announcement. Note that announcing a new product often impacts the order intake of existing products. Announcing a new product late might cause competitive risks."
           ],
-          "footerText": "Page 26 of 218 · Systems Architecting"
+          "footerText": "Page 26 of 218 \u00b7 Systems Architecting"
         },
         {
           "pageNumber": 27,
           "header": "Systems Architecting",
-          "subHeader": "Gerrit Muller · System Architecture",
+          "subHeader": "Gerrit Muller \u00b7 System Architecture",
           "title": "3.6.1 Hierarchical decomposition",
           "bulletPoints": [
             "subsystem single product",
@@ -365,12 +366,12 @@
             "portfolio developersmodule portfolio",
             "operational manager family"
           ],
-          "footerText": "Page 27 of 218 · Systems Architecting"
+          "footerText": "Page 27 of 218 \u00b7 Systems Architecting"
         },
         {
           "pageNumber": 28,
           "header": "Systems Architecting",
-          "subHeader": "Gerrit Muller · System Architecture",
+          "subHeader": "Gerrit Muller \u00b7 System Architecture",
           "title": "Product Creation Process",
           "bulletPoints": [
             "Operational Management Design",
@@ -378,25 +379,25 @@
             "budget time technical profitability",
             "saleability needs specification"
           ],
-          "footerText": "Page 28 of 218 · Systems Architecting"
+          "footerText": "Page 28 of 218 \u00b7 Systems Architecting"
         },
         {
           "pageNumber": 29,
           "header": "Systems Architecting",
-          "subHeader": "Gerrit Muller · System Architecture",
+          "subHeader": "Gerrit Muller \u00b7 System Architecture",
           "title": "The design control process itself is further decomposed, also shown in figure 3.",
           "bulletPoints": [
-            "• Needs • Specification • Design",
-            "• Engineering • Verification The needs express what the stakeholders of the system need, not yet constrained",
+            "\u2022 Needs \u2022 Specification \u2022 Design",
+            "\u2022 Engineering \u2022 Verification The needs express what the stakeholders of the system need, not yet constrained",
             "by business or technical considerations. Most development engineers tend to forget the original needs after several iterations of commercial and technical trade-offs. The specification describes what will be realized, in terms of functionality",
             "and performance. This specification is the agreement with all stakeholders. The difference between the needs and the specification is that in the specification all trade-offs have been made. See also Chapter 15 where we elaborate the process of"
           ],
-          "footerText": "Page 29 of 218 · Systems Architecting"
+          "footerText": "Page 29 of 218 \u00b7 Systems Architecting"
         },
         {
           "pageNumber": 30,
           "header": "Systems Architecting",
-          "subHeader": "Gerrit Muller · System Architecture",
+          "subHeader": "Gerrit Muller \u00b7 System Architecture",
           "title": "assess risks",
           "bulletPoints": [
             "determine feasibility define project update project",
@@ -404,12 +405,12 @@
             "execute project within normal quality rules",
             "accept Figure 3.9: Commitment of the operational leader to the project charter Resources Time"
           ],
-          "footerText": "Page 30 of 218 · Systems Architecting"
+          "footerText": "Page 30 of 218 \u00b7 Systems Architecting"
         },
         {
           "pageNumber": 31,
           "header": "Systems Architecting",
-          "subHeader": "Gerrit Muller · System Architecture",
+          "subHeader": "Gerrit Muller \u00b7 System Architecture",
           "title": "3.6.6 Product Creation Teams",
           "bulletPoints": [
             "Operational Leader (project leader) Operational Support",
@@ -417,12 +418,12 @@
             "Architect Application Manager",
             "Test Engineer Service Manufacturing LogisticsSalesManager Quality"
           ],
-          "footerText": "Page 31 of 218 · Systems Architecting"
+          "footerText": "Page 31 of 218 \u00b7 Systems Architecting"
         },
         {
           "pageNumber": 32,
           "header": "Systems Architecting",
-          "subHeader": "Gerrit Muller · System Architecture",
+          "subHeader": "Gerrit Muller \u00b7 System Architecture",
           "title": "Chapter 4",
           "bulletPoints": [
             "The Importance of Feedback for Architecture deviation of",
@@ -430,12 +431,12 @@
             "acceptable deviation level",
             "time sampling interval"
           ],
-          "footerText": "Page 32 of 218 · Systems Architecting"
+          "footerText": "Page 32 of 218 \u00b7 Systems Architecting"
         },
         {
           "pageNumber": 33,
           "header": "Systems Architecting",
-          "subHeader": "Gerrit Muller · System Architecture",
+          "subHeader": "Gerrit Muller \u00b7 System Architecture",
           "title": "deviation of",
           "bulletPoints": [
             "direction without feedback with feedback",
@@ -443,12 +444,12 @@
             "time sampling interval",
             "Figure 4.1: The deviation of the actual direction of product development with respect to the desired direction as function of the time in products that are out of specification (too late, too slow, too expensive, too heavy"
           ],
-          "footerText": "Page 33 of 218 · Systems Architecting"
+          "footerText": "Page 33 of 218 \u00b7 Systems Architecting"
         },
         {
           "pageNumber": 34,
           "header": "Systems Architecting",
-          "subHeader": "Gerrit Muller · System Architecture",
+          "subHeader": "Gerrit Muller \u00b7 System Architecture",
           "title": "Figure 4.2 shows an example of a development with three different feedback",
           "bulletPoints": [
             "cycle times, respectively three, two, and one months. The three month feedback cycle results in an project duration of 25 months. Decreasing the feedback cycle to 2 months brings the total project duration down to 12 months. One month feedback",
@@ -456,36 +457,36 @@
             "Policy and Planning",
             "0. feasibility 1."
           ],
-          "footerText": "Page 34 of 218 · Systems Architecting"
+          "footerText": "Page 34 of 218 \u00b7 Systems Architecting"
         },
         {
           "pageNumber": 35,
           "header": "Systems Architecting",
-          "subHeader": "Gerrit Muller · System Architecture",
-          "title": "Figure 4.4 shows the amount of “theoretical” work and the amount of “practical”",
+          "subHeader": "Gerrit Muller \u00b7 System Architecture",
+          "title": "Figure 4.4 shows the amount of \u201ctheoretical\u201d work and the amount of \u201cpractical\u201d",
           "bulletPoints": [
-            "work also as function of the process phase. Where we use the term “theoretical” for concepts in presentations or specifications that have not been exposed to the physical world. Similarly, “practical” is used for work where the design is realized",
+            "work also as function of the process phase. Where we use the term \u201ctheoretical\u201d for concepts in presentations or specifications that have not been exposed to the physical world. Similarly, \u201cpractical\u201d is used for work where the design is realized",
             "and tested. A number of feedback loops can be closed during the Product Creation Process. Normally the next phase in the process provides feedback to the previous phase in",
             "the process. This phase transition feedback is often applied. However, feedback from the next phase is a rather indirect measure for the desired direction. The next step provides feedback on the usefulness of the input to continue the work, but the",
             "user satisfaction and market success can not be measured by the next step. specification technology effort"
           ],
-          "footerText": "Page 35 of 218 · Systems Architecting"
+          "footerText": "Page 35 of 218 \u00b7 Systems Architecting"
         },
         {
           "pageNumber": 36,
           "header": "Systems Architecting",
-          "subHeader": "Gerrit Muller · System Architecture",
+          "subHeader": "Gerrit Muller \u00b7 System Architecture",
           "title": "6. System architects can have fantastic dreams, feedback is required to prevent",
           "bulletPoints": [
             "that dreams turn into a nightmares. Gerrit Muller System Architecting",
             "May 31, 2026 version: 2.3 USN-SE page: 28"
           ],
-          "footerText": "Page 36 of 218 · Systems Architecting"
+          "footerText": "Page 36 of 218 \u00b7 Systems Architecting"
         },
         {
           "pageNumber": 37,
           "header": "Systems Architecting",
-          "subHeader": "Gerrit Muller · System Architecture",
+          "subHeader": "Gerrit Muller \u00b7 System Architecture",
           "title": "Chapter 5",
           "bulletPoints": [
             "The System Architecture Process customer Customer-Oriented Process",
@@ -493,12 +494,12 @@
             "People, Process, and Technology Management Process Business Drivers",
             "Customer Roadmap Budget, plan"
           ],
-          "footerText": "Page 37 of 218 · Systems Architecting"
+          "footerText": "Page 37 of 218 \u00b7 Systems Architecting"
         },
         {
           "pageNumber": 38,
           "header": "Systems Architecting",
-          "subHeader": "Gerrit Muller · System Architecture",
+          "subHeader": "Gerrit Muller \u00b7 System Architecture",
           "title": "customer",
           "bulletPoints": [
             "Customer-Oriented Process $$ sales logistics production servicepresales",
@@ -506,12 +507,12 @@
             "Drivers Customer Roadmap",
             "Budget, plan Product roadmap"
           ],
-          "footerText": "Page 38 of 218 · Systems Architecting"
+          "footerText": "Page 38 of 218 \u00b7 Systems Architecting"
         },
         {
           "pageNumber": 39,
           "header": "Systems Architecting",
-          "subHeader": "Gerrit Muller · System Architecture",
+          "subHeader": "Gerrit Muller \u00b7 System Architecture",
           "title": "Policy and Planning",
           "bulletPoints": [
             "People and Technology Product Creation Marketing",
@@ -519,51 +520,51 @@
             "Business Road- mappingBudget",
             "requirements specification design"
           ],
-          "footerText": "Page 39 of 218 · Systems Architecting"
+          "footerText": "Page 39 of 218 \u00b7 Systems Architecting"
         },
         {
           "pageNumber": 40,
           "header": "Systems Architecting",
-          "subHeader": "Gerrit Muller · System Architecture",
-          "title": "• Short term needs and long term interests",
+          "subHeader": "Gerrit Muller \u00b7 System Architecture",
+          "title": "\u2022 Short term needs and long term interests",
           "bulletPoints": [
-            "• Efforts and risks from requirements to verification • Mutual influence of detailed designs • Value and costs",
+            "\u2022 Efforts and risks from requirements to verification \u2022 Mutual influence of detailed designs \u2022 Value and costs",
             "Such a balance is obtained by making trade-offs, for example performance versus qualities versus functionality, or synergy versus specific solution It is the purpose of the System Architecting Process to maintain the consistency",
             "throughout the entire system, from roadmap and requirement to implementation and verification. On top of this consistency the integrity in time must be ensured. An enabling factor for an optimal result is simplicity of all technical aspects.",
             "Any unnecessary complexity is a risk for the final result and lowers the overall efficiency. 5.4 The System Architect as Process Owner"
           ],
-          "footerText": "Page 40 of 218 · Systems Architecting"
+          "footerText": "Page 40 of 218 \u00b7 Systems Architecting"
         },
         {
           "pageNumber": 41,
           "header": "Systems Architecting",
-          "subHeader": "Gerrit Muller · System Architecture",
+          "subHeader": "Gerrit Muller \u00b7 System Architecture",
           "title": "Consecutive decisions can be in contradiction with previous decisions. For insta",
           "bulletPoints": [
             "a decision is taken to add memory to the product to increase performance, while one month later the amount of memory is decreased to lower the cost. The Systems Architecting Process maintains the integrity over time, by looking at decisions from",
-            "a broader perspective. 5.6 Acknowledgements Discussions with and critical comments from Rard de Leeuw, Jürgen Müller, Henk",
+            "a broader perspective. 5.6 Acknowledgements Discussions with and critical comments from Rard de Leeuw, J\u00fcrgen M\u00fcller, Henk",
             "Obbink, Ben Pronk and Jan Statius Muller helped to shape, to improve the structure and to sharpen the contents of the article \"Positioning the System Architecture Process\". This article is based on the last sections of this article. I am grateful for",
-            "their contribution. Jürgen Müller spotted hiccups in the flow of the new article, enabling a stream- lining and extension of this article. Robert Deckers analyzed the text and pointed"
+            "their contribution. J\u00fcrgen M\u00fcller spotted hiccups in the flow of the new article, enabling a stream- lining and extension of this article. Robert Deckers analyzed the text and pointed"
           ],
-          "footerText": "Page 41 of 218 · Systems Architecting"
+          "footerText": "Page 41 of 218 \u00b7 Systems Architecting"
         },
         {
           "pageNumber": 42,
           "header": "Systems Architecting",
-          "subHeader": "Gerrit Muller · System Architecture",
+          "subHeader": "Gerrit Muller \u00b7 System Architecture",
           "title": "Chapter 6",
           "bulletPoints": [
             "Products, Projects, and Services; similarities and differences in architecting",
             "logo TBD 6.1 Introduction",
-            "We have focused on the product creation of “box” like products: products that have a clear physical part; the product is a box that is created and the products are sold as boxes by sales. In the twentieth century this was one of the dominating models",
+            "We have focused on the product creation of \u201cbox\u201d like products: products that have a clear physical part; the product is a box that is created and the products are sold as boxes by sales. In the twentieth century this was one of the dominating models",
             "in industry. Another business model isproject delivery: customers order a turn-key solution to be delivered by the supplier. At the end of the century, several other types of systems and related business"
           ],
-          "footerText": "Page 42 of 218 · Systems Architecting"
+          "footerText": "Page 42 of 218 \u00b7 Systems Architecting"
         },
         {
           "pageNumber": 43,
           "header": "Systems Architecting",
-          "subHeader": "Gerrit Muller · System Architecture",
+          "subHeader": "Gerrit Muller \u00b7 System Architecture",
           "title": "6.2 Products and Projects",
           "bulletPoints": [
             "project product unique customer specific",
@@ -571,12 +572,12 @@
             "mass production economy of scale investment in product design",
             "tender-contract-execution cost ~= project hours investment by customer"
           ],
-          "footerText": "Page 43 of 218 · Systems Architecting"
+          "footerText": "Page 43 of 218 \u00b7 Systems Architecting"
         },
         {
           "pageNumber": 44,
           "header": "Systems Architecting",
-          "subHeader": "Gerrit Muller · System Architecture",
+          "subHeader": "Gerrit Muller \u00b7 System Architecture",
           "title": "project product",
           "bulletPoints": [
             "unique customer specific catalogue",
@@ -584,12 +585,12 @@
             "configuration and customization customer specific at customer site Figure 6.2: Convergence of Projects and Products",
             "contractor systems architecting/ engineering"
           ],
-          "footerText": "Page 44 of 218 · Systems Architecting"
+          "footerText": "Page 44 of 218 \u00b7 Systems Architecting"
         },
         {
           "pageNumber": 45,
           "header": "Systems Architecting",
-          "subHeader": "Gerrit Muller · System Architecture",
+          "subHeader": "Gerrit Muller \u00b7 System Architecture",
           "title": "contentcontent",
           "bulletPoints": [
             "contenttelecom appl device",
@@ -597,25 +598,25 @@
             "tools telecom infrastructure",
             "telecom service content"
           ],
-          "footerText": "Page 45 of 218 · Systems Architecting"
+          "footerText": "Page 45 of 218 \u00b7 Systems Architecting"
         },
         {
           "pageNumber": 46,
           "header": "Systems Architecting",
-          "subHeader": "Gerrit Muller · System Architecture",
+          "subHeader": "Gerrit Muller \u00b7 System Architecture",
           "title": "by a facilitation or technical department. E.g. in hospitals the radiology equip",
           "bulletPoints": [
             "is supported by technical hospital staff. The actual operation of the system is done by application experts, in the hospital example the radiology equipment is run by dedicated clinical staff and radiologists. The radiology department provides an",
-            "imaging and diagnosis capability to the referring physicians. The equipment manufacturer can shift their support “upwards” to offer: Facility management a technical working and prepared system.",
+            "imaging and diagnosis capability to the referring physicians. The equipment manufacturer can shift their support \u201cupwards\u201d to offer: Facility management a technical working and prepared system.",
             "Capability management where the whole capability, such as diagnostic imaging, is offered. The consequence of this shift is that the supplier creates a recurring revenue stream.",
             "The integral consequence for customer and supplier is that incentives are changing. For example, when the supplier is responsible for a constant performance, then the supplier might decide to upgrade the equipment much more regular. The"
           ],
-          "footerText": "Page 46 of 218 · Systems Architecting"
+          "footerText": "Page 46 of 218 \u00b7 Systems Architecting"
         },
         {
           "pageNumber": 47,
           "header": "Systems Architecting",
-          "subHeader": "Gerrit Muller · System Architecture",
+          "subHeader": "Gerrit Muller \u00b7 System Architecture",
           "title": "Health care treatment room , e.g. operating theater or catherization laboratory,",
           "bulletPoints": [
             "where respiratory and physiology monitors, surgical tools, clinical support systems, nurses, surgeons, et cetera collectively perform the treatment function. The individual systems in a System of Systems can operate autonomously.",
@@ -623,22 +624,22 @@
             "cost, re-usable, disposable, fragile, robust, et cetera). Every system has its own human machine interface and its own control paradigm. The geographical location of the systems can be distributed and may change.",
             "These characteristics have several consequences. The most dominant conse- quence is that the super system is so complex that nobody has the understanding and the overview of the whole. Hence nobody can predict what will happen and"
           ],
-          "footerText": "Page 47 of 218 · Systems Architecting"
+          "footerText": "Page 47 of 218 \u00b7 Systems Architecting"
         },
         {
           "pageNumber": 48,
           "header": "Systems Architecting",
-          "subHeader": "Gerrit Muller · System Architecture",
+          "subHeader": "Gerrit Muller \u00b7 System Architecture",
           "title": "Part II",
           "bulletPoints": [
             "The System Architect as a Person"
           ],
-          "footerText": "Page 48 of 218 · Systems Architecting"
+          "footerText": "Page 48 of 218 \u00b7 Systems Architecting"
         },
         {
           "pageNumber": 49,
           "header": "Systems Architecting",
-          "subHeader": "Gerrit Muller · System Architecture",
+          "subHeader": "Gerrit Muller \u00b7 System Architecture",
           "title": "Chapter 7",
           "bulletPoints": [
             "The Awakening of a System Architect root",
@@ -646,12 +647,12 @@
             "technical knowledge business,",
             "application insight process insight psychosocial"
           ],
-          "footerText": "Page 49 of 218 · Systems Architecting"
+          "footerText": "Page 49 of 218 \u00b7 Systems Architecting"
         },
         {
           "pageNumber": 50,
           "header": "Systems Architecting",
-          "subHeader": "Gerrit Muller · System Architecture",
+          "subHeader": "Gerrit Muller \u00b7 System Architecture",
           "title": "broadening of the technical scope. Section 7.3 describes the path from a mono-",
           "bulletPoints": [
             "disciplinary specialist to a multi-disciplinary system architect with broad techno- logical knowledge. When the awakening system architect has reached technological breadth, then",
@@ -659,7 +660,7 @@
             "aspects The process side: who is doing what and why, necessitated by the amount of involved stakeholders",
             "During this phase the system architect will broaden in these two dimensions. The system architect will view these dimensions from a technological perspective. Again when a sufficient level of understanding is attained an awareness starts to"
           ],
-          "footerText": "Page 50 of 218 · Systems Architecting"
+          "footerText": "Page 50 of 218 \u00b7 Systems Architecting"
         }
       ]
     }

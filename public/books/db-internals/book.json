@@ -1,0 +1,351 @@
+{
+  "id": "db-internals",
+  "classGrade": 3,
+  "classLevel": 3,
+  "tier": 3,
+  "subject": "Databases",
+  "title": "Database Internals",
+  "subtitle": "B-Trees, LSM-Trees & Storage Engines",
+  "coverColor": "#1e1b4b",
+  "accentColor": "#818cf8",
+  "coverImage": "/books/db-internals/cover.png",
+  "sourcePdf": null,
+  "icon": "\ud83d\udcbe",
+  "isInteractive": true,
+  "author": "Distinguished Faculty & Academic Press",
+  "totalPages": 25,
+  "chapters": [
+    {
+      "chapterNumber": 1,
+      "title": "Database Internals",
+      "description": "Comprehensive master curriculum in Databases",
+      "pages": [
+        {
+          "pageNumber": 1,
+          "header": "Database Internals",
+          "subHeader": "Databases \u00b7 Class 3 \u00b7 Section 1",
+          "title": "Database Internals: Module 1",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Databases (Section 1).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Database Internals.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 1: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 1 of 25 \u00b7 Database Internals"
+        },
+        {
+          "pageNumber": 2,
+          "header": "Database Internals",
+          "subHeader": "Databases \u00b7 Class 3 \u00b7 Section 2",
+          "title": "Database Internals: Module 2",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Databases (Section 2).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Database Internals.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 2: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 2 of 25 \u00b7 Database Internals"
+        },
+        {
+          "pageNumber": 3,
+          "header": "Database Internals",
+          "subHeader": "Databases \u00b7 Class 3 \u00b7 Section 3",
+          "title": "Database Internals: Module 3",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Databases (Section 3).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Database Internals.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 3: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 3 of 25 \u00b7 Database Internals"
+        },
+        {
+          "pageNumber": 4,
+          "header": "Database Internals",
+          "subHeader": "Databases \u00b7 Class 3 \u00b7 Section 4",
+          "title": "Database Internals: Module 4",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Databases (Section 4).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Database Internals.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 4: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 4 of 25 \u00b7 Database Internals"
+        },
+        {
+          "pageNumber": 5,
+          "header": "Database Internals",
+          "subHeader": "Databases \u00b7 Class 3 \u00b7 Section 5",
+          "title": "Database Internals: Module 5",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Databases (Section 5).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Database Internals.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 5: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 5 of 25 \u00b7 Database Internals"
+        },
+        {
+          "pageNumber": 6,
+          "header": "Database Internals",
+          "subHeader": "Databases \u00b7 Class 3 \u00b7 Section 6",
+          "title": "Database Internals: Module 6",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Databases (Section 6).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Database Internals.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 6: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 6 of 25 \u00b7 Database Internals"
+        },
+        {
+          "pageNumber": 7,
+          "header": "Database Internals",
+          "subHeader": "Databases \u00b7 Class 3 \u00b7 Section 7",
+          "title": "Database Internals: Module 7",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Databases (Section 7).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Database Internals.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 7: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 7 of 25 \u00b7 Database Internals"
+        },
+        {
+          "pageNumber": 8,
+          "header": "Database Internals",
+          "subHeader": "Databases \u00b7 Class 3 \u00b7 Section 8",
+          "title": "Database Internals: Module 8",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Databases (Section 8).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Database Internals.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 8: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 8 of 25 \u00b7 Database Internals"
+        },
+        {
+          "pageNumber": 9,
+          "header": "Database Internals",
+          "subHeader": "Databases \u00b7 Class 3 \u00b7 Section 9",
+          "title": "Database Internals: Module 9",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Databases (Section 9).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Database Internals.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 9: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 9 of 25 \u00b7 Database Internals"
+        },
+        {
+          "pageNumber": 10,
+          "header": "Database Internals",
+          "subHeader": "Databases \u00b7 Class 3 \u00b7 Section 10",
+          "title": "Database Internals: Module 10",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Databases (Section 10).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Database Internals.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 10: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 10 of 25 \u00b7 Database Internals"
+        },
+        {
+          "pageNumber": 11,
+          "header": "Database Internals",
+          "subHeader": "Databases \u00b7 Class 3 \u00b7 Section 11",
+          "title": "Database Internals: Module 11",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Databases (Section 11).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Database Internals.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 11: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 11 of 25 \u00b7 Database Internals"
+        },
+        {
+          "pageNumber": 12,
+          "header": "Database Internals",
+          "subHeader": "Databases \u00b7 Class 3 \u00b7 Section 12",
+          "title": "Database Internals: Module 12",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Databases (Section 12).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Database Internals.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 12: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 12 of 25 \u00b7 Database Internals"
+        },
+        {
+          "pageNumber": 13,
+          "header": "Database Internals",
+          "subHeader": "Databases \u00b7 Class 3 \u00b7 Section 13",
+          "title": "Database Internals: Module 13",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Databases (Section 13).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Database Internals.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 13: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 13 of 25 \u00b7 Database Internals"
+        },
+        {
+          "pageNumber": 14,
+          "header": "Database Internals",
+          "subHeader": "Databases \u00b7 Class 3 \u00b7 Section 14",
+          "title": "Database Internals: Module 14",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Databases (Section 14).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Database Internals.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 14: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 14 of 25 \u00b7 Database Internals"
+        },
+        {
+          "pageNumber": 15,
+          "header": "Database Internals",
+          "subHeader": "Databases \u00b7 Class 3 \u00b7 Section 15",
+          "title": "Database Internals: Module 15",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Databases (Section 15).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Database Internals.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 15: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 15 of 25 \u00b7 Database Internals"
+        },
+        {
+          "pageNumber": 16,
+          "header": "Database Internals",
+          "subHeader": "Databases \u00b7 Class 3 \u00b7 Section 16",
+          "title": "Database Internals: Module 16",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Databases (Section 16).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Database Internals.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 16: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 16 of 25 \u00b7 Database Internals"
+        },
+        {
+          "pageNumber": 17,
+          "header": "Database Internals",
+          "subHeader": "Databases \u00b7 Class 3 \u00b7 Section 17",
+          "title": "Database Internals: Module 17",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Databases (Section 17).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Database Internals.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 17: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 17 of 25 \u00b7 Database Internals"
+        },
+        {
+          "pageNumber": 18,
+          "header": "Database Internals",
+          "subHeader": "Databases \u00b7 Class 3 \u00b7 Section 18",
+          "title": "Database Internals: Module 18",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Databases (Section 18).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Database Internals.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 18: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 18 of 25 \u00b7 Database Internals"
+        },
+        {
+          "pageNumber": 19,
+          "header": "Database Internals",
+          "subHeader": "Databases \u00b7 Class 3 \u00b7 Section 19",
+          "title": "Database Internals: Module 19",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Databases (Section 19).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Database Internals.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 19: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 19 of 25 \u00b7 Database Internals"
+        },
+        {
+          "pageNumber": 20,
+          "header": "Database Internals",
+          "subHeader": "Databases \u00b7 Class 3 \u00b7 Section 20",
+          "title": "Database Internals: Module 20",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Databases (Section 20).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Database Internals.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 20: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 20 of 25 \u00b7 Database Internals"
+        },
+        {
+          "pageNumber": 21,
+          "header": "Database Internals",
+          "subHeader": "Databases \u00b7 Class 3 \u00b7 Section 21",
+          "title": "Database Internals: Module 21",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Databases (Section 21).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Database Internals.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 21: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 21 of 25 \u00b7 Database Internals"
+        },
+        {
+          "pageNumber": 22,
+          "header": "Database Internals",
+          "subHeader": "Databases \u00b7 Class 3 \u00b7 Section 22",
+          "title": "Database Internals: Module 22",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Databases (Section 22).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Database Internals.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 22: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 22 of 25 \u00b7 Database Internals"
+        },
+        {
+          "pageNumber": 23,
+          "header": "Database Internals",
+          "subHeader": "Databases \u00b7 Class 3 \u00b7 Section 23",
+          "title": "Database Internals: Module 23",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Databases (Section 23).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Database Internals.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 23: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 23 of 25 \u00b7 Database Internals"
+        },
+        {
+          "pageNumber": 24,
+          "header": "Database Internals",
+          "subHeader": "Databases \u00b7 Class 3 \u00b7 Section 24",
+          "title": "Database Internals: Module 24",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Databases (Section 24).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Database Internals.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 24: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 24 of 25 \u00b7 Database Internals"
+        },
+        {
+          "pageNumber": 25,
+          "header": "Database Internals",
+          "subHeader": "Databases \u00b7 Class 3 \u00b7 Section 25",
+          "title": "Database Internals: Module 25",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Databases (Section 25).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Database Internals.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 25: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 25 of 25 \u00b7 Database Internals"
+        }
+      ]
+    }
+  ]
+}

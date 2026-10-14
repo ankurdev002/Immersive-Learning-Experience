@@ -1,0 +1,351 @@
+{
+  "id": "comp-org",
+  "classGrade": 5,
+  "classLevel": 5,
+  "tier": 4,
+  "subject": "Hardware",
+  "title": "Computer Organization & Design",
+  "subtitle": "The Hardware/Software Interface",
+  "coverColor": "#0369a1",
+  "accentColor": "#38bdf8",
+  "coverImage": "/books/comp-org/cover.png",
+  "sourcePdf": null,
+  "icon": "\ud83d\udcbe",
+  "isInteractive": true,
+  "author": "David A. Patterson & John L. Hennessy",
+  "totalPages": 25,
+  "chapters": [
+    {
+      "chapterNumber": 1,
+      "title": "Computer Organization & Design",
+      "description": "Comprehensive master curriculum in Hardware",
+      "pages": [
+        {
+          "pageNumber": 1,
+          "header": "Computer Organization & Design",
+          "subHeader": "Hardware \u00b7 Class 5 \u00b7 Section 1",
+          "title": "Overview: Abstraction & Technology",
+          "bulletPoints": [
+            "Computer generations: From vacuum tubes and discrete transistors to VLSI and multi-core SoCs.",
+            "The Great Architecture Ideas: Abstraction, Moore's law, common-case acceleration, pipelining, and parallelism.",
+            "Performance metrics: Latency (execution time) vs throughput (bandwidth), MIPS, FLOPS, and CPU clock cycles.",
+            "Classic CPU performance equation: CPU Time = Instruction Count \u00d7 CPI \u00d7 Clock Cycle Time."
+          ],
+          "footerText": "Page 1 of 25 \u00b7 Computer Organization & Design"
+        },
+        {
+          "pageNumber": 2,
+          "header": "Computer Organization & Design",
+          "subHeader": "Hardware \u00b7 Class 5 \u00b7 Section 2",
+          "title": "Instructions: Language of the Computer",
+          "bulletPoints": [
+            "Instruction Set Architecture (ISA) as the fundamental hardware/software abstraction boundary.",
+            "RISC vs CISC principles: Fixed-width 32-bit instructions vs variable-length microcoded encodings.",
+            "Registers, immediate operands, and data transfer instructions (Load/Store architecture).",
+            "Logical operations, bitwise manipulation, shifts (logical vs arithmetic), and conditional branch evaluation."
+          ],
+          "footerText": "Page 2 of 25 \u00b7 Computer Organization & Design"
+        },
+        {
+          "pageNumber": 3,
+          "header": "Computer Organization & Design",
+          "subHeader": "Hardware \u00b7 Class 5 \u00b7 Section 3",
+          "title": "Arithmetic for Computers",
+          "bulletPoints": [
+            "Signed and unsigned representations, Two's complement arithmetic, and sign extension.",
+            "High-speed binary addition: Carry-Ripple Adder vs Carry-Lookahead Adder (CLA) hierarchy.",
+            "Sequential and Booth's multiplication algorithms, Wallace tree multipliers, and array dividers.",
+            "IEEE 754 Floating-Point Standard: Sign, exponent bias, normalized mantissa, denormals, NaNs, and infinities."
+          ],
+          "footerText": "Page 3 of 25 \u00b7 Computer Organization & Design"
+        },
+        {
+          "pageNumber": 4,
+          "header": "Computer Organization & Design",
+          "subHeader": "Hardware \u00b7 Class 5 \u00b7 Section 4",
+          "title": "The Processor: Datapath & Control",
+          "bulletPoints": [
+            "Single-cycle datapath design: Program counter (PC), instruction memory, register file, ALU, and data memory.",
+            "Control unit synthesis: Generating control signals (RegWrite, ALUSrc, MemtoReg, Branch) from opcodes and funct fields.",
+            "Critical path timing analysis: Why single-cycle implementations are constrained by the slowest instruction (Load Word).",
+            "Multi-cycle execution concepts: Breaking instruction latency into balanced clock stages."
+          ],
+          "footerText": "Page 4 of 25 \u00b7 Computer Organization & Design"
+        },
+        {
+          "pageNumber": 5,
+          "header": "Computer Organization & Design",
+          "subHeader": "Hardware \u00b7 Class 5 \u00b7 Section 5",
+          "title": "Pipelining Architecture & Throughput",
+          "bulletPoints": [
+            "The classic 5-stage RISC pipeline: IF (Fetch), ID (Decode), EX (Execute), MEM (Memory), and WB (Writeback).",
+            "Pipeline throughput scaling: Speedup = Pipeline Depth / (1 + Pipeline Stall Cycles).",
+            "Pipeline registers: Storing intermediate results, control signals, and destination register indices between clock cycles.",
+            "Balanced stage latency: Resolving pipeline clock frequency limitations caused by ALU or cache memory access."
+          ],
+          "footerText": "Page 5 of 25 \u00b7 Computer Organization & Design"
+        },
+        {
+          "pageNumber": 6,
+          "header": "Computer Organization & Design",
+          "subHeader": "Hardware \u00b7 Class 5 \u00b7 Section 6",
+          "title": "Pipeline Hazards & Forwarding",
+          "bulletPoints": [
+            "Structural hazards: Resolving memory port contention using separate Harvard L1 I-cache and D-cache.",
+            "Data hazards: Read-After-Write (RAW) dependencies and pipeline stalling (bubbles).",
+            "Hardware forwarding (bypassing): Routing ALU output directly from EX/MEM and MEM/WB registers back to ALU inputs.",
+            "Load-use data hazards: Why a 1-cycle stall is architecturally unavoidable before forwarding can supply loaded data."
+          ],
+          "footerText": "Page 6 of 25 \u00b7 Computer Organization & Design"
+        },
+        {
+          "pageNumber": 7,
+          "header": "Computer Organization & Design",
+          "subHeader": "Hardware \u00b7 Class 5 \u00b7 Section 7",
+          "title": "Branch Hazards & Prediction",
+          "bulletPoints": [
+            "Control hazards: Penalty of delayed branch resolution in deep execution pipelines.",
+            "Static branch prediction: Branch-Taken vs Branch-Not-Taken assumptions and compiler delayed branching.",
+            "Dynamic 1-bit and 2-bit saturating counter branch prediction schemes.",
+            "Branch Target Buffers (BTB), correlation (two-level adaptive) predictors, and modern TAGE predictor engines."
+          ],
+          "footerText": "Page 7 of 25 \u00b7 Computer Organization & Design"
+        },
+        {
+          "pageNumber": 8,
+          "header": "Computer Organization & Design",
+          "subHeader": "Hardware \u00b7 Class 5 \u00b7 Section 8",
+          "title": "Memory Hierarchy & Locality",
+          "bulletPoints": [
+            "The Memory Wall: Widening performance gap between processor clock frequencies and DRAM access latencies.",
+            "Principle of Temporal Locality: If a memory location is referenced, it will likely be referenced again soon.",
+            "Principle of Spatial Locality: Memory locations near recently referenced addresses are likely to be accessed next.",
+            "Hierarchy levels: CPU registers (sub-nanosecond) -> L1 -> L2 -> L3 caches -> Main DRAM -> NVMe SSDs."
+          ],
+          "footerText": "Page 8 of 25 \u00b7 Computer Organization & Design"
+        },
+        {
+          "pageNumber": 9,
+          "header": "Computer Organization & Design",
+          "subHeader": "Hardware \u00b7 Class 5 \u00b7 Section 9",
+          "title": "Cache Organization & Placement",
+          "bulletPoints": [
+            "Direct-mapped caches: Mapping memory addresses to cache lines using Tag, Index, and Block Offset fields.",
+            "Set-associative caches: Reducing conflict misses through N-way set organization.",
+            "Fully associative caches: Highest hit rate with parallel content-addressable memory (CAM) tag matching.",
+            "Cache block replacement policies: Least Recently Used (LRU), pseudo-LRU, FIFO, and Random eviction."
+          ],
+          "footerText": "Page 9 of 25 \u00b7 Computer Organization & Design"
+        },
+        {
+          "pageNumber": 10,
+          "header": "Computer Organization & Design",
+          "subHeader": "Hardware \u00b7 Class 5 \u00b7 Section 10",
+          "title": "Cache Performance & Optimization",
+          "bulletPoints": [
+            "Average Memory Access Time: AMAT = Hit Time + (Miss Rate \u00d7 Miss Penalty).",
+            "The 3 C's of Cache Misses: Compulsory (cold), Capacity (cache size limits), and Conflict (collision) misses.",
+            "Multi-level cache design: Fast L1 for hit time, large inclusive/exclusive L2/L3 for miss rate reduction.",
+            "Write policies: Write-Through with write buffers vs Write-Back with dirty bits; Write-Allocate vs No-Write-Allocate."
+          ],
+          "footerText": "Page 10 of 25 \u00b7 Computer Organization & Design"
+        },
+        {
+          "pageNumber": 11,
+          "header": "Computer Organization & Design",
+          "subHeader": "Hardware \u00b7 Class 5 \u00b7 Section 11",
+          "title": "Virtual Memory & Address Translation",
+          "bulletPoints": [
+            "Virtual address space: Providing process memory isolation, protection, and boundless virtual illusion.",
+            "Page tables: Mapping virtual page numbers (VPN) to physical frame numbers (PFN) with protection flags.",
+            "Multi-level hierarchical page tables: Compacting sparse address space representation.",
+            "Translation Lookaside Buffer (TLB): High-speed hardware cache for virtual-to-physical address mappings."
+          ],
+          "footerText": "Page 11 of 25 \u00b7 Computer Organization & Design"
+        },
+        {
+          "pageNumber": 12,
+          "header": "Computer Organization & Design",
+          "subHeader": "Hardware \u00b7 Class 5 \u00b7 Section 12",
+          "title": "TLB Misses & Page Fault Handling",
+          "bulletPoints": [
+            "Hardware-managed TLB vs software-managed TLB traps and page table walk latency.",
+            "Page faults: Trapping to the operating system kernel when a requested page is not present in physical RAM.",
+            "Swap space management: Bringing page frames from NVMe disk and updating page table entries.",
+            "Virtual memory aliasing, page colouring, and virtually indexed physically tagged (VIPT) caches."
+          ],
+          "footerText": "Page 12 of 25 \u00b7 Computer Organization & Design"
+        },
+        {
+          "pageNumber": 13,
+          "header": "Computer Organization & Design",
+          "subHeader": "Hardware \u00b7 Class 5 \u00b7 Section 13",
+          "title": "Instruction-Level Parallelism (ILP)",
+          "bulletPoints": [
+            "Overcoming scalar pipeline limits: Superscalar architectures fetching and executing multiple instructions per cycle.",
+            "Static multiple issue: Very Long Instruction Word (VLIW) architectures and compiler scheduling.",
+            "Dynamic multiple issue: Hardware scheduling of independent instructions into execution reservation stations.",
+            "True dependencies vs false dependencies: Name dependencies (Anti-dependence WAR, Output dependence WAW)."
+          ],
+          "footerText": "Page 13 of 25 \u00b7 Computer Organization & Design"
+        },
+        {
+          "pageNumber": 14,
+          "header": "Computer Organization & Design",
+          "subHeader": "Hardware \u00b7 Class 5 \u00b7 Section 14",
+          "title": "Out-of-Order Execution & Tomasulo's Algorithm",
+          "bulletPoints": [
+            "Tomasulo's dynamic scheduling algorithm: Distributing reservation stations across functional execution units.",
+            "Common Data Bus (CDB): Broadcasting execution results directly to waiting reservation stations and register files.",
+            "Register Renaming: Eliminating WAR and WAW hazards by mapping architectural registers to physical rename registers.",
+            "Reorder Buffer (ROB): Guaranteeing in-order instruction retirement and precise interrupt handling."
+          ],
+          "footerText": "Page 14 of 25 \u00b7 Computer Organization & Design"
+        },
+        {
+          "pageNumber": 15,
+          "header": "Computer Organization & Design",
+          "subHeader": "Hardware \u00b7 Class 5 \u00b7 Section 15",
+          "title": "Parallel Processors & Multicores",
+          "bulletPoints": [
+            "Flynn's Classical Taxonomy: SISD, SIMD, MISD, and MIMD computational models.",
+            "Shared-memory multiprocessors (SMP) vs distributed-memory clusters (NUMA architectures).",
+            "Interconnection networks: Crossbars, 2D mesh, torus, and ring topologies.",
+            "Amdahl's Law and Gustafson's Law: Realistic limits on speedup as processing cores scale."
+          ],
+          "footerText": "Page 15 of 25 \u00b7 Computer Organization & Design"
+        },
+        {
+          "pageNumber": 16,
+          "header": "Computer Organization & Design",
+          "subHeader": "Hardware \u00b7 Class 5 \u00b7 Section 16",
+          "title": "Cache Coherence & Memory Consistency",
+          "bulletPoints": [
+            "The cache coherence problem in multi-core systems: Inconsistent cached values across CPU cores.",
+            "Snooping bus protocols: The MSI, MESI, and MOESI state transition automata.",
+            "Directory-based cache coherence: Scalable coherence tracking for large NUMA architectures.",
+            "Memory consistency models: Strict consistency, sequential consistency, relaxed consistency, and memory fences."
+          ],
+          "footerText": "Page 16 of 25 \u00b7 Computer Organization & Design"
+        },
+        {
+          "pageNumber": 17,
+          "header": "Computer Organization & Design",
+          "subHeader": "Hardware \u00b7 Class 5 \u00b7 Section 17",
+          "title": "Vector Architecture & SIMD",
+          "bulletPoints": [
+            "Vector registers, vector length registers, and vector stride control.",
+            "SIMD extensions in modern processors: Intel AVX-512, ARM Neon, and RISC-V Vector (RVV).",
+            "Loop vectorization: Transforming scalar loops into parallel vector arithmetic operations.",
+            "Vector gather/scatter instructions and masked execution for conditional vector lanes."
+          ],
+          "footerText": "Page 17 of 25 \u00b7 Computer Organization & Design"
+        },
+        {
+          "pageNumber": 18,
+          "header": "Computer Organization & Design",
+          "subHeader": "Hardware \u00b7 Class 5 \u00b7 Section 18",
+          "title": "Graphics Processing Units (GPUs)",
+          "bulletPoints": [
+            "Heterogeneous computing: High-throughput massively parallel architectures vs low-latency CPU cores.",
+            "Single Instruction, Multiple Threads (SIMT) execution model and warp/wavefront scheduling.",
+            "GPU memory hierarchy: Global device memory, shared memory scratchpads, constant caches, and register files.",
+            "Divergent branch execution in SIMT: Serialization and masked inactive thread execution."
+          ],
+          "footerText": "Page 18 of 25 \u00b7 Computer Organization & Design"
+        },
+        {
+          "pageNumber": 19,
+          "header": "Computer Organization & Design",
+          "subHeader": "Hardware \u00b7 Class 5 \u00b7 Section 19",
+          "title": "Storage & Input/Output Systems",
+          "bulletPoints": [
+            "Bus protocols: Synchronous vs asynchronous buses, PCIe lanes, and packet-based switched fabrics.",
+            "Direct Memory Access (DMA): Relieving the CPU from high-volume data block transfers.",
+            "Interrupt handling: Polling vs vectored interrupts, interrupt service routines, and priority levels.",
+            "RAID architectures: Striping (RAID 0), Mirroring (RAID 1), Distributed Parity (RAID 5/6)."
+          ],
+          "footerText": "Page 19 of 25 \u00b7 Computer Organization & Design"
+        },
+        {
+          "pageNumber": 20,
+          "header": "Computer Organization & Design",
+          "subHeader": "Hardware \u00b7 Class 5 \u00b7 Section 20",
+          "title": "Domain-Specific Architectures & Accelerators",
+          "bulletPoints": [
+            "The end of Dennard scaling and slowdown of Moore's Law: The rise of specialized hardware accelerators.",
+            "Google Tensor Processing Unit (TPU): Systolic array architectures for matrix multiplication.",
+            "Quantization in deep learning: FP32 to FP16, Bfloat16, and INT8 inference pipelines.",
+            "Zero-copy DMA and unified memory architectures in modern mobile and datacenter silicon."
+          ],
+          "footerText": "Page 20 of 25 \u00b7 Computer Organization & Design"
+        },
+        {
+          "pageNumber": 21,
+          "header": "Computer Organization & Design",
+          "subHeader": "Hardware \u00b7 Class 5 \u00b7 Section 21",
+          "title": "Energy, Power & Thermal Constraints",
+          "bulletPoints": [
+            "Dynamic power equation: P_dynamic = 1/2 \u00d7 Capacitance \u00d7 Voltage^2 \u00d7 Frequency.",
+            "Static leakage power: Sub-threshold leakage currents in deep sub-micron process nodes.",
+            "Dynamic Voltage and Frequency Scaling (DVFS) and power gating techniques.",
+            "Dark Silicon phenomenon: Inability to power all silicon areas simultaneously under thermal design power (TDP)."
+          ],
+          "footerText": "Page 21 of 25 \u00b7 Computer Organization & Design"
+        },
+        {
+          "pageNumber": 22,
+          "header": "Computer Organization & Design",
+          "subHeader": "Hardware \u00b7 Class 5 \u00b7 Section 22",
+          "title": "Fault Tolerance & Dependability",
+          "bulletPoints": [
+            "Metrics: Mean Time Between Failures (MTBF), Mean Time to Repair (MTTR), and Availability.",
+            "Error detection and correction: Parity bits, Hamming codes (SECDED), and Cyclic Redundancy Checks (CRC).",
+            "Soft errors caused by alpha particles and cosmic rays in dense SRAM cache cells.",
+            "Triple Modular Redundancy (TMR) and lockstep execution in mission-critical aerospace hardware."
+          ],
+          "footerText": "Page 22 of 25 \u00b7 Computer Organization & Design"
+        },
+        {
+          "pageNumber": 23,
+          "header": "Computer Organization & Design",
+          "subHeader": "Hardware \u00b7 Class 5 \u00b7 Section 23",
+          "title": "Modern SoC Integration & Interconnects",
+          "bulletPoints": [
+            "System-on-Chip (SoC) convergence: Integrating CPU, GPU, NPU, ISP, and memory controllers on single dies.",
+            "Network-on-Chip (NoC): Packet-routed on-chip communications replacing shared hierarchical buses.",
+            "2.5D and 3D packaging technologies: Silicon interposers, TSVs (Through-Silicon Vias), and chiplet modularity.",
+            "High-Bandwidth Memory (HBM): Stacking DRAM dies with thousands of wide interface interconnects."
+          ],
+          "footerText": "Page 23 of 25 \u00b7 Computer Organization & Design"
+        },
+        {
+          "pageNumber": 24,
+          "header": "Computer Organization & Design",
+          "subHeader": "Hardware \u00b7 Class 5 \u00b7 Section 24",
+          "title": "Security at the Hardware Level",
+          "bulletPoints": [
+            "Microarchitectural side-channel attacks: Meltdown, Spectre, and transient execution vulnerabilities.",
+            "Cache timing attacks: Measuring cache hit vs miss latency to infer secret cryptographic keys.",
+            "Hardware Root of Trust: Secure enclaves, TPMs, signed bootloaders, and cryptographic coprocessors.",
+            "Memory protection: Pointer authentication codes (PAC), shadow call stacks, and memory tagging."
+          ],
+          "footerText": "Page 24 of 25 \u00b7 Computer Organization & Design"
+        },
+        {
+          "pageNumber": 25,
+          "header": "Computer Organization & Design",
+          "subHeader": "Hardware \u00b7 Class 5 \u00b7 Section 25",
+          "title": "Future Directions in Computer Architecture",
+          "bulletPoints": [
+            "Neuromorphic computing: Spiking neural networks mimicking biological synaptic structures.",
+            "Quantum computing interfaces: Cryogenic CMOS controllers interfacing with superconducting qubits.",
+            "Near-memory computing and processing-in-memory (PIM) to eliminate the Von Neumann memory bottleneck.",
+            "Open-source silicon revolution: The global impact and extensible future of RISC-V."
+          ],
+          "footerText": "Page 25 of 25 \u00b7 Computer Organization & Design"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,286 @@
+{
+  "id": "lullabies-music",
+  "classGrade": 1,
+  "classLevel": 1,
+  "tier": 1,
+  "subject": "Music",
+  "title": "Gentle Music & Songs",
+  "subtitle": "Gentle Music & Peaceful Night Songs",
+  "coverColor": "#7c2d12",
+  "accentColor": "#fb923c",
+  "coverImage": "/books/lullabies-music/cover.png",
+  "sourcePdf": null,
+  "icon": "\ud83c\udf19",
+  "isInteractive": true,
+  "author": "Distinguished Faculty & Academic Press",
+  "totalPages": 20,
+  "chapters": [
+    {
+      "chapterNumber": 1,
+      "title": "Gentle Music & Songs",
+      "description": "Comprehensive master curriculum in Music",
+      "pages": [
+        {
+          "pageNumber": 1,
+          "header": "Gentle Music & Songs",
+          "subHeader": "Music \u00b7 Class 1 \u00b7 Section 1",
+          "title": "Gentle Music & Songs: Module 1",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Music (Section 1).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Gentle Music & Songs.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 1: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 1 of 20 \u00b7 Gentle Music & Songs"
+        },
+        {
+          "pageNumber": 2,
+          "header": "Gentle Music & Songs",
+          "subHeader": "Music \u00b7 Class 1 \u00b7 Section 2",
+          "title": "Gentle Music & Songs: Module 2",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Music (Section 2).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Gentle Music & Songs.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 2: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 2 of 20 \u00b7 Gentle Music & Songs"
+        },
+        {
+          "pageNumber": 3,
+          "header": "Gentle Music & Songs",
+          "subHeader": "Music \u00b7 Class 1 \u00b7 Section 3",
+          "title": "Gentle Music & Songs: Module 3",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Music (Section 3).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Gentle Music & Songs.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 3: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 3 of 20 \u00b7 Gentle Music & Songs"
+        },
+        {
+          "pageNumber": 4,
+          "header": "Gentle Music & Songs",
+          "subHeader": "Music \u00b7 Class 1 \u00b7 Section 4",
+          "title": "Gentle Music & Songs: Module 4",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Music (Section 4).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Gentle Music & Songs.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 4: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 4 of 20 \u00b7 Gentle Music & Songs"
+        },
+        {
+          "pageNumber": 5,
+          "header": "Gentle Music & Songs",
+          "subHeader": "Music \u00b7 Class 1 \u00b7 Section 5",
+          "title": "Gentle Music & Songs: Module 5",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Music (Section 5).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Gentle Music & Songs.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 5: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 5 of 20 \u00b7 Gentle Music & Songs"
+        },
+        {
+          "pageNumber": 6,
+          "header": "Gentle Music & Songs",
+          "subHeader": "Music \u00b7 Class 1 \u00b7 Section 6",
+          "title": "Gentle Music & Songs: Module 6",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Music (Section 6).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Gentle Music & Songs.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 6: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 6 of 20 \u00b7 Gentle Music & Songs"
+        },
+        {
+          "pageNumber": 7,
+          "header": "Gentle Music & Songs",
+          "subHeader": "Music \u00b7 Class 1 \u00b7 Section 7",
+          "title": "Gentle Music & Songs: Module 7",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Music (Section 7).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Gentle Music & Songs.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 7: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 7 of 20 \u00b7 Gentle Music & Songs"
+        },
+        {
+          "pageNumber": 8,
+          "header": "Gentle Music & Songs",
+          "subHeader": "Music \u00b7 Class 1 \u00b7 Section 8",
+          "title": "Gentle Music & Songs: Module 8",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Music (Section 8).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Gentle Music & Songs.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 8: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 8 of 20 \u00b7 Gentle Music & Songs"
+        },
+        {
+          "pageNumber": 9,
+          "header": "Gentle Music & Songs",
+          "subHeader": "Music \u00b7 Class 1 \u00b7 Section 9",
+          "title": "Gentle Music & Songs: Module 9",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Music (Section 9).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Gentle Music & Songs.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 9: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 9 of 20 \u00b7 Gentle Music & Songs"
+        },
+        {
+          "pageNumber": 10,
+          "header": "Gentle Music & Songs",
+          "subHeader": "Music \u00b7 Class 1 \u00b7 Section 10",
+          "title": "Gentle Music & Songs: Module 10",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Music (Section 10).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Gentle Music & Songs.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 10: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 10 of 20 \u00b7 Gentle Music & Songs"
+        },
+        {
+          "pageNumber": 11,
+          "header": "Gentle Music & Songs",
+          "subHeader": "Music \u00b7 Class 1 \u00b7 Section 11",
+          "title": "Gentle Music & Songs: Module 11",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Music (Section 11).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Gentle Music & Songs.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 11: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 11 of 20 \u00b7 Gentle Music & Songs"
+        },
+        {
+          "pageNumber": 12,
+          "header": "Gentle Music & Songs",
+          "subHeader": "Music \u00b7 Class 1 \u00b7 Section 12",
+          "title": "Gentle Music & Songs: Module 12",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Music (Section 12).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Gentle Music & Songs.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 12: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 12 of 20 \u00b7 Gentle Music & Songs"
+        },
+        {
+          "pageNumber": 13,
+          "header": "Gentle Music & Songs",
+          "subHeader": "Music \u00b7 Class 1 \u00b7 Section 13",
+          "title": "Gentle Music & Songs: Module 13",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Music (Section 13).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Gentle Music & Songs.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 13: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 13 of 20 \u00b7 Gentle Music & Songs"
+        },
+        {
+          "pageNumber": 14,
+          "header": "Gentle Music & Songs",
+          "subHeader": "Music \u00b7 Class 1 \u00b7 Section 14",
+          "title": "Gentle Music & Songs: Module 14",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Music (Section 14).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Gentle Music & Songs.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 14: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 14 of 20 \u00b7 Gentle Music & Songs"
+        },
+        {
+          "pageNumber": 15,
+          "header": "Gentle Music & Songs",
+          "subHeader": "Music \u00b7 Class 1 \u00b7 Section 15",
+          "title": "Gentle Music & Songs: Module 15",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Music (Section 15).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Gentle Music & Songs.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 15: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 15 of 20 \u00b7 Gentle Music & Songs"
+        },
+        {
+          "pageNumber": 16,
+          "header": "Gentle Music & Songs",
+          "subHeader": "Music \u00b7 Class 1 \u00b7 Section 16",
+          "title": "Gentle Music & Songs: Module 16",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Music (Section 16).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Gentle Music & Songs.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 16: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 16 of 20 \u00b7 Gentle Music & Songs"
+        },
+        {
+          "pageNumber": 17,
+          "header": "Gentle Music & Songs",
+          "subHeader": "Music \u00b7 Class 1 \u00b7 Section 17",
+          "title": "Gentle Music & Songs: Module 17",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Music (Section 17).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Gentle Music & Songs.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 17: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 17 of 20 \u00b7 Gentle Music & Songs"
+        },
+        {
+          "pageNumber": 18,
+          "header": "Gentle Music & Songs",
+          "subHeader": "Music \u00b7 Class 1 \u00b7 Section 18",
+          "title": "Gentle Music & Songs: Module 18",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Music (Section 18).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Gentle Music & Songs.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 18: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 18 of 20 \u00b7 Gentle Music & Songs"
+        },
+        {
+          "pageNumber": 19,
+          "header": "Gentle Music & Songs",
+          "subHeader": "Music \u00b7 Class 1 \u00b7 Section 19",
+          "title": "Gentle Music & Songs: Module 19",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Music (Section 19).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Gentle Music & Songs.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 19: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 19 of 20 \u00b7 Gentle Music & Songs"
+        },
+        {
+          "pageNumber": 20,
+          "header": "Gentle Music & Songs",
+          "subHeader": "Music \u00b7 Class 1 \u00b7 Section 20",
+          "title": "Gentle Music & Songs: Module 20",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Music (Section 20).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Gentle Music & Songs.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 20: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 20 of 20 \u00b7 Gentle Music & Songs"
+        }
+      ]
+    }
+  ]
+}

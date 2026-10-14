@@ -1,0 +1,286 @@
+{
+  "id": "nursery-melodies",
+  "classGrade": 1,
+  "classLevel": 1,
+  "tier": 1,
+  "subject": "Poetry & Music",
+  "title": "Nursery Rhymes & Poems",
+  "subtitle": "Musical Songs, Chants & Poetry",
+  "coverColor": "#8b5cf6",
+  "accentColor": "#c4b5fd",
+  "coverImage": "/books/nursery-melodies/cover.png",
+  "sourcePdf": null,
+  "icon": "\ud83c\udfb5",
+  "isInteractive": true,
+  "author": "Distinguished Faculty & Academic Press",
+  "totalPages": 20,
+  "chapters": [
+    {
+      "chapterNumber": 1,
+      "title": "Nursery Rhymes & Poems",
+      "description": "Comprehensive master curriculum in Poetry & Music",
+      "pages": [
+        {
+          "pageNumber": 1,
+          "header": "Nursery Rhymes & Poems",
+          "subHeader": "Poetry & Music \u00b7 Class 1 \u00b7 Section 1",
+          "title": "Nursery Rhymes & Poems: Module 1",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Poetry & Music (Section 1).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Nursery Rhymes & Poems.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 1: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 1 of 20 \u00b7 Nursery Rhymes & Poems"
+        },
+        {
+          "pageNumber": 2,
+          "header": "Nursery Rhymes & Poems",
+          "subHeader": "Poetry & Music \u00b7 Class 1 \u00b7 Section 2",
+          "title": "Nursery Rhymes & Poems: Module 2",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Poetry & Music (Section 2).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Nursery Rhymes & Poems.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 2: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 2 of 20 \u00b7 Nursery Rhymes & Poems"
+        },
+        {
+          "pageNumber": 3,
+          "header": "Nursery Rhymes & Poems",
+          "subHeader": "Poetry & Music \u00b7 Class 1 \u00b7 Section 3",
+          "title": "Nursery Rhymes & Poems: Module 3",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Poetry & Music (Section 3).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Nursery Rhymes & Poems.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 3: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 3 of 20 \u00b7 Nursery Rhymes & Poems"
+        },
+        {
+          "pageNumber": 4,
+          "header": "Nursery Rhymes & Poems",
+          "subHeader": "Poetry & Music \u00b7 Class 1 \u00b7 Section 4",
+          "title": "Nursery Rhymes & Poems: Module 4",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Poetry & Music (Section 4).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Nursery Rhymes & Poems.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 4: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 4 of 20 \u00b7 Nursery Rhymes & Poems"
+        },
+        {
+          "pageNumber": 5,
+          "header": "Nursery Rhymes & Poems",
+          "subHeader": "Poetry & Music \u00b7 Class 1 \u00b7 Section 5",
+          "title": "Nursery Rhymes & Poems: Module 5",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Poetry & Music (Section 5).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Nursery Rhymes & Poems.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 5: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 5 of 20 \u00b7 Nursery Rhymes & Poems"
+        },
+        {
+          "pageNumber": 6,
+          "header": "Nursery Rhymes & Poems",
+          "subHeader": "Poetry & Music \u00b7 Class 1 \u00b7 Section 6",
+          "title": "Nursery Rhymes & Poems: Module 6",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Poetry & Music (Section 6).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Nursery Rhymes & Poems.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 6: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 6 of 20 \u00b7 Nursery Rhymes & Poems"
+        },
+        {
+          "pageNumber": 7,
+          "header": "Nursery Rhymes & Poems",
+          "subHeader": "Poetry & Music \u00b7 Class 1 \u00b7 Section 7",
+          "title": "Nursery Rhymes & Poems: Module 7",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Poetry & Music (Section 7).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Nursery Rhymes & Poems.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 7: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 7 of 20 \u00b7 Nursery Rhymes & Poems"
+        },
+        {
+          "pageNumber": 8,
+          "header": "Nursery Rhymes & Poems",
+          "subHeader": "Poetry & Music \u00b7 Class 1 \u00b7 Section 8",
+          "title": "Nursery Rhymes & Poems: Module 8",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Poetry & Music (Section 8).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Nursery Rhymes & Poems.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 8: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 8 of 20 \u00b7 Nursery Rhymes & Poems"
+        },
+        {
+          "pageNumber": 9,
+          "header": "Nursery Rhymes & Poems",
+          "subHeader": "Poetry & Music \u00b7 Class 1 \u00b7 Section 9",
+          "title": "Nursery Rhymes & Poems: Module 9",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Poetry & Music (Section 9).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Nursery Rhymes & Poems.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 9: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 9 of 20 \u00b7 Nursery Rhymes & Poems"
+        },
+        {
+          "pageNumber": 10,
+          "header": "Nursery Rhymes & Poems",
+          "subHeader": "Poetry & Music \u00b7 Class 1 \u00b7 Section 10",
+          "title": "Nursery Rhymes & Poems: Module 10",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Poetry & Music (Section 10).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Nursery Rhymes & Poems.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 10: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 10 of 20 \u00b7 Nursery Rhymes & Poems"
+        },
+        {
+          "pageNumber": 11,
+          "header": "Nursery Rhymes & Poems",
+          "subHeader": "Poetry & Music \u00b7 Class 1 \u00b7 Section 11",
+          "title": "Nursery Rhymes & Poems: Module 11",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Poetry & Music (Section 11).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Nursery Rhymes & Poems.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 11: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 11 of 20 \u00b7 Nursery Rhymes & Poems"
+        },
+        {
+          "pageNumber": 12,
+          "header": "Nursery Rhymes & Poems",
+          "subHeader": "Poetry & Music \u00b7 Class 1 \u00b7 Section 12",
+          "title": "Nursery Rhymes & Poems: Module 12",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Poetry & Music (Section 12).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Nursery Rhymes & Poems.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 12: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 12 of 20 \u00b7 Nursery Rhymes & Poems"
+        },
+        {
+          "pageNumber": 13,
+          "header": "Nursery Rhymes & Poems",
+          "subHeader": "Poetry & Music \u00b7 Class 1 \u00b7 Section 13",
+          "title": "Nursery Rhymes & Poems: Module 13",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Poetry & Music (Section 13).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Nursery Rhymes & Poems.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 13: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 13 of 20 \u00b7 Nursery Rhymes & Poems"
+        },
+        {
+          "pageNumber": 14,
+          "header": "Nursery Rhymes & Poems",
+          "subHeader": "Poetry & Music \u00b7 Class 1 \u00b7 Section 14",
+          "title": "Nursery Rhymes & Poems: Module 14",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Poetry & Music (Section 14).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Nursery Rhymes & Poems.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 14: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 14 of 20 \u00b7 Nursery Rhymes & Poems"
+        },
+        {
+          "pageNumber": 15,
+          "header": "Nursery Rhymes & Poems",
+          "subHeader": "Poetry & Music \u00b7 Class 1 \u00b7 Section 15",
+          "title": "Nursery Rhymes & Poems: Module 15",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Poetry & Music (Section 15).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Nursery Rhymes & Poems.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 15: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 15 of 20 \u00b7 Nursery Rhymes & Poems"
+        },
+        {
+          "pageNumber": 16,
+          "header": "Nursery Rhymes & Poems",
+          "subHeader": "Poetry & Music \u00b7 Class 1 \u00b7 Section 16",
+          "title": "Nursery Rhymes & Poems: Module 16",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Poetry & Music (Section 16).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Nursery Rhymes & Poems.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 16: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 16 of 20 \u00b7 Nursery Rhymes & Poems"
+        },
+        {
+          "pageNumber": 17,
+          "header": "Nursery Rhymes & Poems",
+          "subHeader": "Poetry & Music \u00b7 Class 1 \u00b7 Section 17",
+          "title": "Nursery Rhymes & Poems: Module 17",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Poetry & Music (Section 17).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Nursery Rhymes & Poems.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 17: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 17 of 20 \u00b7 Nursery Rhymes & Poems"
+        },
+        {
+          "pageNumber": 18,
+          "header": "Nursery Rhymes & Poems",
+          "subHeader": "Poetry & Music \u00b7 Class 1 \u00b7 Section 18",
+          "title": "Nursery Rhymes & Poems: Module 18",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Poetry & Music (Section 18).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Nursery Rhymes & Poems.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 18: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 18 of 20 \u00b7 Nursery Rhymes & Poems"
+        },
+        {
+          "pageNumber": 19,
+          "header": "Nursery Rhymes & Poems",
+          "subHeader": "Poetry & Music \u00b7 Class 1 \u00b7 Section 19",
+          "title": "Nursery Rhymes & Poems: Module 19",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Poetry & Music (Section 19).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Nursery Rhymes & Poems.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 19: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 19 of 20 \u00b7 Nursery Rhymes & Poems"
+        },
+        {
+          "pageNumber": 20,
+          "header": "Nursery Rhymes & Poems",
+          "subHeader": "Poetry & Music \u00b7 Class 1 \u00b7 Section 20",
+          "title": "Nursery Rhymes & Poems: Module 20",
+          "bulletPoints": [
+            "Core theoretical foundations and structural principles of Poetry & Music (Section 20).",
+            "In-depth analysis of methodologies, core formulas, and systemic patterns in Nursery Rhymes & Poems.",
+            "Practical engineering applications, diagnostic workflows, and real-world case evaluations.",
+            "Mastery checkpoint 20: Conceptual review, synthesis, and practice problem sets."
+          ],
+          "footerText": "Page 20 of 20 \u00b7 Nursery Rhymes & Poems"
+        }
+      ]
+    }
+  ]
+}

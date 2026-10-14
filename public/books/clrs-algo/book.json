@@ -1,0 +1,416 @@
+{
+  "id": "clrs-algo",
+  "classGrade": 5,
+  "classLevel": 5,
+  "tier": 4,
+  "subject": "Algorithms",
+  "title": "Introduction to Algorithms (CLRS)",
+  "subtitle": "Comprehensive Graph, Dynamic & Tree Algorithms",
+  "coverColor": "#14532d",
+  "accentColor": "#4ade80",
+  "coverImage": "/books/clrs-algo/cover.png",
+  "sourcePdf": null,
+  "icon": "\ud83d\udcca",
+  "isInteractive": true,
+  "author": "Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest & Clifford Stein",
+  "totalPages": 30,
+  "chapters": [
+    {
+      "chapterNumber": 1,
+      "title": "Introduction to Algorithms (CLRS)",
+      "description": "Comprehensive master curriculum in Algorithms",
+      "pages": [
+        {
+          "pageNumber": 1,
+          "header": "Introduction to Algorithms (CLRS)",
+          "subHeader": "Algorithms \u00b7 Class 5 \u00b7 Section 1",
+          "title": "Foundations & The Role of Algorithms",
+          "bulletPoints": [
+            "Definition of computational algorithm: Transforming valid input instances into well-defined output sets.",
+            "Efficiency as a bounded computational resource: Comparing insertion sort and merge sort scaling.",
+            "Correctness verification: Loop invariants (Initialization, Maintenance, and Termination proof steps).",
+            "Analyzing worst-case, average-case, and best-case execution bounds."
+          ],
+          "footerText": "Page 1 of 30 \u00b7 Introduction to Algorithms (CLRS)"
+        },
+        {
+          "pageNumber": 2,
+          "header": "Introduction to Algorithms (CLRS)",
+          "subHeader": "Algorithms \u00b7 Class 5 \u00b7 Section 2",
+          "title": "Growth of Functions & Asymptotic Analysis",
+          "bulletPoints": [
+            "Big-O notation (asymptotic upper bound) and Big-Omega notation (asymptotic lower bound).",
+            "Big-Theta notation (asymptotically tight bound) and small-o / small-omega strict bounds.",
+            "Standard mathematical properties: Transitivity, reflexivity, symmetry, and transpose symmetry.",
+            "Common asymptotic orders: O(1) < O(log n) < O(n) < O(n log n) < O(n^2) < O(2^n) < O(n!)."
+          ],
+          "footerText": "Page 2 of 30 \u00b7 Introduction to Algorithms (CLRS)"
+        },
+        {
+          "pageNumber": 3,
+          "header": "Introduction to Algorithms (CLRS)",
+          "subHeader": "Algorithms \u00b7 Class 5 \u00b7 Section 3",
+          "title": "Divide-and-Conquer Paradigm",
+          "bulletPoints": [
+            "Divide, Conquer, and Combine algorithmic formulation.",
+            "Recurrence relations: Formulating execution time as T(n) = a T(n/b) + f(n).",
+            "The Substitution Method: Guessing inductive forms and establishing mathematical induction.",
+            "The Recursion-Tree Method: Visualizing per-level computational cost and total tree depth."
+          ],
+          "footerText": "Page 3 of 30 \u00b7 Introduction to Algorithms (CLRS)"
+        },
+        {
+          "pageNumber": 4,
+          "header": "Introduction to Algorithms (CLRS)",
+          "subHeader": "Algorithms \u00b7 Class 5 \u00b7 Section 4",
+          "title": "The Master Theorem & Analysis",
+          "bulletPoints": [
+            "The Master Method: Solving recurrences of the form T(n) = a T(n/b) + f(n).",
+            "Case 1: f(n) = O(n^(log_b a - epsilon)) -> T(n) = Theta(n^(log_b a)).",
+            "Case 2: f(n) = Theta(n^(log_b a) log^k n) -> T(n) = Theta(n^(log_b a) log^(k+1) n).",
+            "Case 3: f(n) = Omega(n^(log_b a + epsilon)) with regularity condition -> T(n) = Theta(f(n))."
+          ],
+          "footerText": "Page 4 of 30 \u00b7 Introduction to Algorithms (CLRS)"
+        },
+        {
+          "pageNumber": 5,
+          "header": "Introduction to Algorithms (CLRS)",
+          "subHeader": "Algorithms \u00b7 Class 5 \u00b7 Section 5",
+          "title": "Heapsort & Priority Queues",
+          "bulletPoints": [
+            "Binary Heap data structure: Array-based representation with left child (2i) and right child (2i+1).",
+            "The Max-Heap property: Parent key greater than or equal to children keys.",
+            "Max-Heapify procedure: O(log n) sinking operation restoring heap invariant.",
+            "Build-Max-Heap: Linear-time O(n) construction through bottom-up heapification."
+          ],
+          "footerText": "Page 5 of 30 \u00b7 Introduction to Algorithms (CLRS)"
+        },
+        {
+          "pageNumber": 6,
+          "header": "Introduction to Algorithms (CLRS)",
+          "subHeader": "Algorithms \u00b7 Class 5 \u00b7 Section 6",
+          "title": "Priority Queue Operations",
+          "bulletPoints": [
+            "Extract-Max: Removing top element and re-heapifying in O(log n).",
+            "Heap-Increase-Key: Bubbling modified keys up to the root in O(log n).",
+            "Heap-Insert: Appending element and maintaining max-heap structural invariants.",
+            "Applications: CPU job scheduling, Dijkstra's shortest path, and Huffman coding trees."
+          ],
+          "footerText": "Page 6 of 30 \u00b7 Introduction to Algorithms (CLRS)"
+        },
+        {
+          "pageNumber": 7,
+          "header": "Introduction to Algorithms (CLRS)",
+          "subHeader": "Algorithms \u00b7 Class 5 \u00b7 Section 7",
+          "title": "Quicksort & Partitioning",
+          "bulletPoints": [
+            "Divide-and-conquer strategy: In-place array sorting without auxiliary memory allocations.",
+            "Lomuto and Hoare partitioning schemes: Invariant maintenance and pivot element placement.",
+            "Worst-case O(n^2) behavior on already sorted arrays and deep recursion stack depths.",
+            "Average-case O(n log n) analysis: Proving expected linearithmic time across random permutations."
+          ],
+          "footerText": "Page 7 of 30 \u00b7 Introduction to Algorithms (CLRS)"
+        },
+        {
+          "pageNumber": 8,
+          "header": "Introduction to Algorithms (CLRS)",
+          "subHeader": "Algorithms \u00b7 Class 5 \u00b7 Section 8",
+          "title": "Randomized Quicksort & Analysis",
+          "bulletPoints": [
+            "Randomized pivot selection: Preventing adversarial input degradations.",
+            "Indicator random variables in algorithm analysis.",
+            "Expected running time proof: Summing pairwise comparison probabilities across sorted ranks.",
+            "Stack depth optimization: Tail-recursion elimination bounding auxiliary stack space to O(log n)."
+          ],
+          "footerText": "Page 8 of 30 \u00b7 Introduction to Algorithms (CLRS)"
+        },
+        {
+          "pageNumber": 9,
+          "header": "Introduction to Algorithms (CLRS)",
+          "subHeader": "Algorithms \u00b7 Class 5 \u00b7 Section 9",
+          "title": "Sorting in Linear Time",
+          "bulletPoints": [
+            "Lower bounds for comparison sorting: Decision-tree model proving Omega(n log n) comparisons.",
+            "Counting Sort: Stable integer sorting in O(n + k) using prefix-sum frequency arrays.",
+            "Radix Sort: Multi-pass digit-by-digit stable sorting running in O(d(n + k)) time.",
+            "Bucket Sort: Distributing elements across uniform intervals for expected O(n) performance."
+          ],
+          "footerText": "Page 9 of 30 \u00b7 Introduction to Algorithms (CLRS)"
+        },
+        {
+          "pageNumber": 10,
+          "header": "Introduction to Algorithms (CLRS)",
+          "subHeader": "Algorithms \u00b7 Class 5 \u00b7 Section 10",
+          "title": "Medians and Order Statistics",
+          "bulletPoints": [
+            "The Selection Problem: Finding the i-th smallest element in an unordered set of n keys.",
+            "Randomized-Select: Expected linear time O(n) algorithm based on quicksort partitioning.",
+            "Worst-case linear time: The Median-of-Medians (BFPRT) algorithm partitioning into groups of 5.",
+            "Recurrence analysis of Median-of-Medians: T(n) <= T(ceil(n/5)) + T(7n/10 + 6) + O(n) -> O(n)."
+          ],
+          "footerText": "Page 10 of 30 \u00b7 Introduction to Algorithms (CLRS)"
+        },
+        {
+          "pageNumber": 11,
+          "header": "Introduction to Algorithms (CLRS)",
+          "subHeader": "Algorithms \u00b7 Class 5 \u00b7 Section 11",
+          "title": "Elementary Data Structures & Hash Tables",
+          "bulletPoints": [
+            "Stacks, queues, linked lists (singly, doubly, and circular variants).",
+            "Direct-address tables vs Hash tables: Resolving large key-space mappings.",
+            "Collision resolution: Chaining with linked lists vs Open Addressing (linear, quadratic, double hashing).",
+            "Hash functions: Division method, multiplication method, and Universal Hashing guarantees."
+          ],
+          "footerText": "Page 11 of 30 \u00b7 Introduction to Algorithms (CLRS)"
+        },
+        {
+          "pageNumber": 12,
+          "header": "Introduction to Algorithms (CLRS)",
+          "subHeader": "Algorithms \u00b7 Class 5 \u00b7 Section 12",
+          "title": "Binary Search Trees (BST)",
+          "bulletPoints": [
+            "The BST property: Key(left child) <= Key(parent) <= Key(right child).",
+            "In-order, pre-order, and post-order tree traversals in O(n) time.",
+            "Search, Minimum, Maximum, Successor, and Predecessor operations in O(h) time.",
+            "Insertion and node deletion with structural re-linking (handling 0, 1, or 2 children cases)."
+          ],
+          "footerText": "Page 12 of 30 \u00b7 Introduction to Algorithms (CLRS)"
+        },
+        {
+          "pageNumber": 13,
+          "header": "Introduction to Algorithms (CLRS)",
+          "subHeader": "Algorithms \u00b7 Class 5 \u00b7 Section 13",
+          "title": "Red-Black Trees: Balanced Search",
+          "bulletPoints": [
+            "Red-Black structural properties: Color rule, root rule, leaf rule, red rule, and black-height rule.",
+            "Bounding tree height: A Red-Black tree with n internal nodes has height h <= 2 log(n + 1).",
+            "Tree rotations: Left-Rotate and Right-Rotate maintaining the binary search tree property.",
+            "Insertion rebalancing: Handling three color/rotation cases to restore black-height invariants."
+          ],
+          "footerText": "Page 13 of 30 \u00b7 Introduction to Algorithms (CLRS)"
+        },
+        {
+          "pageNumber": 14,
+          "header": "Introduction to Algorithms (CLRS)",
+          "subHeader": "Algorithms \u00b7 Class 5 \u00b7 Section 14",
+          "title": "Red-Black Tree Deletion & Augmentation",
+          "bulletPoints": [
+            "Node removal in Red-Black trees: Tracking displaced node colors and introducing double-black tokens.",
+            "Four deletion fixup cases: Sibling colors, nephew colors, and rotation sequences.",
+            "Augmenting data structures: Storing sub-tree sizes to create dynamic Order-Statistic Trees.",
+            "Interval Trees: Storing intervals [low, high] and querying overlapping segments in O(log n) time."
+          ],
+          "footerText": "Page 14 of 30 \u00b7 Introduction to Algorithms (CLRS)"
+        },
+        {
+          "pageNumber": 15,
+          "header": "Introduction to Algorithms (CLRS)",
+          "subHeader": "Algorithms \u00b7 Class 5 \u00b7 Section 15",
+          "title": "Dynamic Programming Paradigm",
+          "bulletPoints": [
+            "Two core ingredients: Optimal Substructure and Overlapping Subproblems.",
+            "Top-down memoization vs Bottom-up iterative table construction.",
+            "Reconstructing optimal solutions: Backtracking through decision matrix pointers.",
+            "Rod Cutting Problem: Formulating recurrence r_n = max_{1<=i<=n}(p_i + r_{n-i})."
+          ],
+          "footerText": "Page 15 of 30 \u00b7 Introduction to Algorithms (CLRS)"
+        },
+        {
+          "pageNumber": 16,
+          "header": "Introduction to Algorithms (CLRS)",
+          "subHeader": "Algorithms \u00b7 Class 5 \u00b7 Section 16",
+          "title": "Classic Dynamic Programming Algorithms",
+          "bulletPoints": [
+            "Matrix-Chain Multiplication: Minimizing scalar multiplications via optimal parenthesization.",
+            "Longest Common Subsequence (LCS): Substring matching in O(m n) time and space.",
+            "0/1 Knapsack Problem: Dynamic programming table construction over capacity constraints.",
+            "Optimal Binary Search Trees: Minimizing expected search cost given key access probabilities."
+          ],
+          "footerText": "Page 16 of 30 \u00b7 Introduction to Algorithms (CLRS)"
+        },
+        {
+          "pageNumber": 17,
+          "header": "Introduction to Algorithms (CLRS)",
+          "subHeader": "Algorithms \u00b7 Class 5 \u00b7 Section 17",
+          "title": "Greedy Algorithms & Matroids",
+          "bulletPoints": [
+            "Greedy-choice property: A globally optimal solution can be arrived at by making locally optimal choices.",
+            "Activity Selection Problem: Proving the earliest finish-time greedy choice is optimal.",
+            "Huffman Codes: Optimal prefix-free character encodings constructed via greedy min-heaps.",
+            "Theoretical foundations: Matroid theory, independent sets, and the greedy guarantee."
+          ],
+          "footerText": "Page 17 of 30 \u00b7 Introduction to Algorithms (CLRS)"
+        },
+        {
+          "pageNumber": 18,
+          "header": "Introduction to Algorithms (CLRS)",
+          "subHeader": "Algorithms \u00b7 Class 5 \u00b7 Section 18",
+          "title": "Amortized Analysis Techniques",
+          "bulletPoints": [
+            "Aggregate analysis: Computing average cost per operation over a sequence of n operations.",
+            "The Accounting Method: Assigning artificial charges (credits) to lightweight operations to pay for expensive ones.",
+            "The Potential Method: Defining state energy Phi(D) such that amortized cost c_i' = c_i + Phi(D_i) - Phi(D_{i-1}).",
+            "Case studies: Dynamic array resizing (doubling strategy) and binary counter increment sequences."
+          ],
+          "footerText": "Page 18 of 30 \u00b7 Introduction to Algorithms (CLRS)"
+        },
+        {
+          "pageNumber": 19,
+          "header": "Introduction to Algorithms (CLRS)",
+          "subHeader": "Algorithms \u00b7 Class 5 \u00b7 Section 19",
+          "title": "B-Trees & Multiway Search",
+          "bulletPoints": [
+            "Disk-based storage considerations: Minimizing disk block I/O operations through multi-way branching.",
+            "B-Tree properties: Minimum degree t, node capacity [t-1, 2t-1], and uniform leaf depth.",
+            "Search and insertion: Proactive root splitting during downward traversal.",
+            "B-Tree node deletion: Merging underflowing sibling nodes and borrowing keys."
+          ],
+          "footerText": "Page 19 of 30 \u00b7 Introduction to Algorithms (CLRS)"
+        },
+        {
+          "pageNumber": 20,
+          "header": "Introduction to Algorithms (CLRS)",
+          "subHeader": "Algorithms \u00b7 Class 5 \u00b7 Section 20",
+          "title": "Fibonacci Heaps & Mergeable Heaps",
+          "bulletPoints": [
+            "Structure of Fibonacci Heaps: Collections of min-heap-ordered trees with lazy structural consolidation.",
+            "Asymptotic bounds: O(1) amortized insertion, find-minimum, decrease-key, and union operations.",
+            "Bounding maximum degree: Proving tree sizes grow exponentially with golden ratio phi.",
+            "Cascading cuts: Maintaining structural balance during repeated decrease-key invocations."
+          ],
+          "footerText": "Page 20 of 30 \u00b7 Introduction to Algorithms (CLRS)"
+        },
+        {
+          "pageNumber": 21,
+          "header": "Introduction to Algorithms (CLRS)",
+          "subHeader": "Algorithms \u00b7 Class 5 \u00b7 Section 21",
+          "title": "Graph Representations & Traversals",
+          "bulletPoints": [
+            "Adjacency matrix vs Adjacency list: Space complexity and edge lookup trade-offs.",
+            "Breadth-First Search (BFS): Queue-based level exploration, discovery tree, and shortest path in unweighted graphs.",
+            "Depth-First Search (DFS): Stack/recursion traversal, discovery and finish timestamping.",
+            "Parenthesis theorem, classification of edges (Tree, Back, Forward, Cross), and Topological Sorting."
+          ],
+          "footerText": "Page 21 of 30 \u00b7 Introduction to Algorithms (CLRS)"
+        },
+        {
+          "pageNumber": 22,
+          "header": "Introduction to Algorithms (CLRS)",
+          "subHeader": "Algorithms \u00b7 Class 5 \u00b7 Section 22",
+          "title": "Strongly Connected Components & Decomposition",
+          "bulletPoints": [
+            "Directed graph connectivity: Mutual reachability between vertex pairs.",
+            "Kosaraju-Sharir Algorithm: Utilizing two DFS passes on graph G and transpose G^T in O(V + E).",
+            "Tarjan's strongly connected components algorithm: Single DFS pass tracking lowlink values.",
+            "Component DAG condensation: Transforming cyclic networks into topological dependency graphs."
+          ],
+          "footerText": "Page 22 of 30 \u00b7 Introduction to Algorithms (CLRS)"
+        },
+        {
+          "pageNumber": 23,
+          "header": "Introduction to Algorithms (CLRS)",
+          "subHeader": "Algorithms \u00b7 Class 5 \u00b7 Section 23",
+          "title": "Minimum Spanning Trees (MST)",
+          "bulletPoints": [
+            "The MST problem: Connecting all vertices with minimum total edge weight without introducing cycles.",
+            "The Cut Property: A light edge crossing a cut that respects an MST subset belongs to the MST.",
+            "Kruskal's Algorithm: Greedy edge sorting and Disjoint-Set (Union-Find) cycle detection in O(E log E).",
+            "Prim's Algorithm: Growing a single tree using priority queues in O(E + V log V) with Fibonacci heaps."
+          ],
+          "footerText": "Page 23 of 30 \u00b7 Introduction to Algorithms (CLRS)"
+        },
+        {
+          "pageNumber": 24,
+          "header": "Introduction to Algorithms (CLRS)",
+          "subHeader": "Algorithms \u00b7 Class 5 \u00b7 Section 24",
+          "title": "Single-Source Shortest Paths: Dijkstra",
+          "bulletPoints": [
+            "Relaxation technique: Maintaining d[v] upper bounds and updating d[v] = min(d[v], d[u] + w(u,v)).",
+            "Dijkstra's Algorithm: Greedy shortest path discovery for non-negative edge weights.",
+            "Correctness proof: Inductive verification that extracted vertices have reached exact shortest paths.",
+            "Implementation complexity: O(V^2) with array, O(E log V) with binary heap, O(E + V log V) with Fibonacci heap."
+          ],
+          "footerText": "Page 24 of 30 \u00b7 Introduction to Algorithms (CLRS)"
+        },
+        {
+          "pageNumber": 25,
+          "header": "Introduction to Algorithms (CLRS)",
+          "subHeader": "Algorithms \u00b7 Class 5 \u00b7 Section 25",
+          "title": "Shortest Paths: Bellman-Ford & DAGs",
+          "bulletPoints": [
+            "Bellman-Ford Algorithm: Handling arbitrary edge weights and detecting negative-weight cycles.",
+            "Execution mechanics: Relaxing all |V|-1 edges iteratively across |V| rounds in O(V E) time.",
+            "Shortest paths in Directed Acyclic Graphs (DAGs): Single topological pass solving shortest paths in O(V + E).",
+            "Critical Path Method (CPM): Finding longest paths in DAGs for project scheduling."
+          ],
+          "footerText": "Page 25 of 30 \u00b7 Introduction to Algorithms (CLRS)"
+        },
+        {
+          "pageNumber": 26,
+          "header": "Introduction to Algorithms (CLRS)",
+          "subHeader": "Algorithms \u00b7 Class 5 \u00b7 Section 26",
+          "title": "All-Pairs Shortest Paths",
+          "bulletPoints": [
+            "Matrix multiplication formulation: Extending paths via dynamic programming in O(V^3 log V).",
+            "Floyd-Warshall Algorithm: Dynamic programming over intermediate vertices k running in Theta(V^3).",
+            "Transitive Closure of directed graphs using Warshall's boolean matrix formulation.",
+            "Johnson's Algorithm: Reweighting graphs via Bellman-Ford and running Dijkstra from each vertex in O(V E log V)."
+          ],
+          "footerText": "Page 26 of 30 \u00b7 Introduction to Algorithms (CLRS)"
+        },
+        {
+          "pageNumber": 27,
+          "header": "Introduction to Algorithms (CLRS)",
+          "subHeader": "Algorithms \u00b7 Class 5 \u00b7 Section 27",
+          "title": "Maximum Flow & Network Optimization",
+          "bulletPoints": [
+            "Flow networks: Source s, sink t, capacity constraints c(u,v), and flow conservation laws.",
+            "Residual networks, augmenting paths, and residual capacity definitions.",
+            "Ford-Fulkerson Method: Iteratively augmenting flow along residual paths.",
+            "Max-Flow Min-Cut Theorem: Maximum flow through a network equals the minimum capacity across all s-t cuts."
+          ],
+          "footerText": "Page 27 of 30 \u00b7 Introduction to Algorithms (CLRS)"
+        },
+        {
+          "pageNumber": 28,
+          "header": "Introduction to Algorithms (CLRS)",
+          "subHeader": "Algorithms \u00b7 Class 5 \u00b7 Section 28",
+          "title": "Edmonds-Karp & Push-Relabel Algorithms",
+          "bulletPoints": [
+            "Edmonds-Karp Algorithm: Implementing Ford-Fulkerson using BFS for augmenting paths in O(V E^2).",
+            "Maximum Bipartite Matching: Transforming matching problems into unit-capacity max-flow instances.",
+            "Push-Relabel (Preflow-Push) framework: Replacing global augmenting paths with local vertex operations.",
+            "Height functions, overflowing vertices, discharge operations, and O(V^3) relabel-to-front complexity."
+          ],
+          "footerText": "Page 28 of 30 \u00b7 Introduction to Algorithms (CLRS)"
+        },
+        {
+          "pageNumber": 29,
+          "header": "Introduction to Algorithms (CLRS)",
+          "subHeader": "Algorithms \u00b7 Class 5 \u00b7 Section 29",
+          "title": "NP-Completeness & Tractability",
+          "bulletPoints": [
+            "Complexity classes: P (polynomial-time solvable) and NP (polynomial-time verifiable).",
+            "Polynomial-time reductions: Transforming problem A to problem B in polynomial time (A <=_p B).",
+            "Cook-Levin Theorem: Proving Satisfiability (SAT) is NP-Complete via non-deterministic Turing machine encoding.",
+            "Classic NP-Complete problems: 3-SAT, Clique, Vertex Cover, Hamiltonian Cycle, and Traveling Salesperson (TSP)."
+          ],
+          "footerText": "Page 29 of 30 \u00b7 Introduction to Algorithms (CLRS)"
+        },
+        {
+          "pageNumber": 30,
+          "header": "Introduction to Algorithms (CLRS)",
+          "subHeader": "Algorithms \u00b7 Class 5 \u00b7 Section 30",
+          "title": "Approximation Algorithms & Randomized Methods",
+          "bulletPoints": [
+            "Approximation ratio: Bounding the sub-optimality factor rho(n) = max(C/C*, C*/C).",
+            "Vertex Cover 2-approximation: Maximal matching greedy strategy.",
+            "Traveling Salesperson Problem (TSP): Triangle inequality 2-approximation using MST preorder traversal.",
+            "Christofides 1.5-approximation algorithm using Minimum Weight Perfect Matching on odd-degree vertices."
+          ],
+          "footerText": "Page 30 of 30 \u00b7 Introduction to Algorithms (CLRS)"
+        }
+      ]
+    }
+  ]
+}
