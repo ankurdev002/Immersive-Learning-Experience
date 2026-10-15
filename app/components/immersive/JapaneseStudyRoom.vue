@@ -138,6 +138,9 @@ const handleKeyDown = (e: KeyboardEvent) => {
 
 onMounted(() => {
   window.addEventListener('keydown', handleKeyDown)
+  window.addEventListener('click', () => {
+    isChamberMenuOpen.value = false
+  })
 
   // Drive smooth zen loading sequence
   let currentProg = 20
@@ -420,6 +423,32 @@ const handleToggleActiveLight = () => {
   }
 }
 
+const isChamberMenuOpen = ref(false)
+
+const getCurrentRoomIcon = (): string => {
+  const found = customRoomsList.value.find(r => r.id === currentZone.value)
+  return found?.icon || '⛩️'
+}
+
+const getRoomSubtitle = (id: string): string => {
+  if (id === 'study-room') return 'Class 1-5 Archive · 44 Volumes'
+  if (id === 'hallway') return '28m Cedar & Tatami Pavilion'
+  if (id === 'room-lib') return 'Academic Literature & Reading'
+  if (id === 'room-zen') return 'Zen Bonsai & Tea Pavilion'
+  const found = customRoomsList.value.find(r => r.id === id)
+  return found?.name || 'Custom Chamber'
+}
+
+const handleSelectChamberFromMenu = (zoneId: string) => {
+  isChamberMenuOpen.value = false
+  handleTeleportToZone(zoneId)
+}
+
+const handleOpenCreateModalFromMenu = () => {
+  isChamberMenuOpen.value = false
+  handleOpenCreateModal()
+}
+
 const handleTeleportToZone = (zoneId: string) => {
   if (roomService) {
     if (!isExploreMode.value) {
@@ -577,18 +606,7 @@ const handleExitRoom = () => {
         </button>
       </div>
 
-      <!-- Class Shelf Tabs (Class 1 to 5) -->
-      <div class="class-shelf-pills">
-        <button
-          v-for="c in classTabs"
-          :key="c.id"
-          class="shelf-pill"
-          :class="{ 'is-active': selectedClass === c.id }"
-          @click="handleSelectClass(c.id)"
-        >
-          {{ c.label }}
-        </button>
-      </div>
+<!-- Class pills removed as requested -->
     </header>
 
     <!-- Floating 3D Interactive Tooltips Anchored to Objects -->
@@ -820,22 +838,59 @@ const handleExitRoom = () => {
         </div>
       </transition>
 
-      <!-- Corridor Chamber Fast-Navigator (Bottom-Right) -->
-      <div class="corridor-nav-dock">
-        <span class="dock-title">CHAMBERS</span>
-        <div class="dock-chips">
-          <button
-            v-for="rm in customRoomsList"
-            :key="rm.id"
-            class="dock-chip-btn"
-            :class="{ 'is-current': currentZone === rm.id }"
-            :title="`Walk or teleport to ${rm.name}`"
-            @click="handleTeleportToZone(rm.id)"
-          >
-            <span class="chip-emoji">{{ rm.icon }}</span>
-            <span class="chip-name">{{ rm.name }}</span>
-          </button>
-        </div>
+      <!-- Vertical Drop-Up Chamber Navigator (Bottom-Right) -->
+      <div class="chamber-dropup-container">
+        <!-- Floating Dropup Menu that expands vertically UP -->
+        <transition name="dropup-pop">
+          <div v-if="isChamberMenuOpen" class="chamber-dropup-menu" @click.stop>
+            <div class="dropup-header">
+              <div class="dh-title-row">
+                <span class="dh-glyph">⛩️</span>
+                <span class="dh-title">CHAMBERS &amp; ROOMS</span>
+              </div>
+              <span class="dh-count-pill">{{ customRoomsList.length }}</span>
+            </div>
+
+            <div class="dropup-list custom-scroll">
+              <button
+                v-for="rm in customRoomsList"
+                :key="rm.id"
+                class="dropup-chamber-item"
+                :class="{ 'is-active': currentZone === rm.id }"
+                @click="handleSelectChamberFromMenu(rm.id)"
+              >
+                <div class="dci-icon-box">{{ rm.icon }}</div>
+                <div class="dci-info">
+                  <span class="dci-name">{{ rm.name }}</span>
+                  <span class="dci-theme">{{ getRoomSubtitle(rm.id) }}</span>
+                </div>
+                <div v-if="currentZone === rm.id" class="dci-active-badge">
+                  <span class="active-dot" />
+                  <span>Here</span>
+                </div>
+              </button>
+            </div>
+
+            <div class="dropup-footer">
+              <button class="dropup-add-room-btn" @click="handleOpenCreateModalFromMenu">
+                <span>✨ + Construct New Chamber</span>
+              </button>
+            </div>
+          </div>
+        </transition>
+
+        <!-- Dropup Trigger Button (Displays Current Location, Expands Upward) -->
+        <button
+          class="chamber-dropup-trigger"
+          :class="{ 'is-open': isChamberMenuOpen }"
+          aria-label="Toggle Chambers Navigation Menu"
+          @click.stop="isChamberMenuOpen = !isChamberMenuOpen"
+        >
+          <span class="trigger-glyph">{{ getCurrentRoomIcon() }}</span>
+          <span class="trigger-label">Chambers:</span>
+          <span class="trigger-name">{{ currentZoneName }}</span>
+          <span class="trigger-arrow">{{ isChamberMenuOpen ? '▾' : '▴' }}</span>
+        </button>
       </div>
 
       <!-- On-Screen Touch & Click D-pad Controls -->
@@ -1910,58 +1965,259 @@ const handleExitRoom = () => {
   box-shadow: 0 6px 18px rgba(16, 185, 129, 0.6) !important;
 }
 
-/* Corridor Chamber Dock in Bottom-Right */
-.corridor-nav-dock {
+/* Vertical Drop-Up Chamber Navigator */
+.chamber-dropup-container {
   position: absolute;
-  bottom: 32px;
-  right: 32px;
-  background: rgba(15, 23, 42, 0.82);
-  backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 14px;
-  padding: 10px 16px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
+  bottom: 28px;
+  right: 28px;
+  z-index: 55;
   pointer-events: auto;
 }
 
-.dock-title {
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 0.1em;
-  color: #64748b;
+.chamber-dropup-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(15, 23, 42, 0.88);
+  backdrop-filter: blur(16px);
+  border: 1.5px solid rgba(56, 189, 248, 0.45);
+  border-radius: 28px;
+  padding: 10px 20px;
+  color: #f8fafc;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 16px rgba(56, 189, 248, 0.25);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.dock-chips {
+.chamber-dropup-trigger:hover {
+  transform: translateY(-2px);
+  background: rgba(30, 41, 59, 0.95);
+  border-color: rgba(56, 189, 248, 0.7);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6), 0 0 24px rgba(56, 189, 248, 0.4);
+}
+
+.chamber-dropup-trigger.is-open {
+  border-color: #38bdf8;
+  background: rgba(14, 116, 144, 0.4);
+  box-shadow: 0 0 24px rgba(56, 189, 248, 0.5);
+}
+
+.trigger-glyph {
+  font-size: 16px;
+}
+
+.trigger-label {
+  color: #94a3b8;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+}
+
+.trigger-name {
+  color: #ffffff;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.trigger-arrow {
+  color: #38bdf8;
+  font-size: 14px;
+  margin-left: 2px;
+  transition: transform 0.2s ease;
+}
+
+/* Floating Vertical Dropup Menu (Expands Upwards) */
+.chamber-dropup-menu {
+  position: absolute;
+  bottom: calc(100% + 12px);
+  right: 0;
+  width: 320px;
+  max-height: 440px;
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(24px);
+  border: 1.5px solid rgba(56, 189, 248, 0.35);
+  border-radius: 20px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.75), 0 0 30px rgba(56, 189, 248, 0.2);
   display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  pointer-events: auto;
+}
+
+.dropup-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.dh-title-row {
+  display: flex;
+  align-items: center;
   gap: 8px;
 }
 
-.dock-chip-btn {
+.dh-glyph {
+  font-size: 14px;
+}
+
+.dh-title {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #94a3b8;
+  text-transform: uppercase;
+}
+
+.dh-count-pill {
+  font-size: 10px;
+  font-weight: 700;
+  background: rgba(56, 189, 248, 0.15);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  border-radius: 12px;
+  padding: 2px 8px;
+}
+
+.dropup-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 12px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.dropup-chamber-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid transparent;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  width: 100%;
+}
+
+.dropup-chamber-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(56, 189, 248, 0.3);
+  transform: translateX(3px);
+}
+
+.dropup-chamber-item.is-active {
+  background: linear-gradient(135deg, rgba(14, 116, 144, 0.35), rgba(30, 41, 59, 0.6));
+  border-color: rgba(56, 189, 248, 0.55);
+}
+
+.dci-icon-box {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.dropup-chamber-item.is-active .dci-icon-box {
+  background: rgba(56, 189, 248, 0.2);
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.35);
+}
+
+.dci-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.dci-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: #f1f5f9;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dci-theme {
+  font-size: 10.5px;
+  color: #94a3b8;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dci-active-badge {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: 20px;
-  padding: 6px 12px;
-  font-size: 12px;
-  color: #e2e8f0;
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.15);
+  border-radius: 10px;
+  padding: 2px 7px;
+  flex-shrink: 0;
+}
+
+.active-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #38bdf8;
+  box-shadow: 0 0 6px #38bdf8;
+}
+
+.dropup-footer {
+  padding: 10px 14px 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(10, 15, 30, 0.4);
+}
+
+.dropup-add-room-btn {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(168, 85, 247, 0.25));
+  border: 1px dashed rgba(168, 85, 247, 0.5);
+  color: #e9d5ff;
+  font-size: 11.5px;
+  font-weight: 700;
   cursor: pointer;
   transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.dock-chip-btn:hover {
-  background: rgba(255, 255, 255, 0.18);
-  border-color: rgba(255, 255, 255, 0.3);
+.dropup-add-room-btn:hover {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.35), rgba(168, 85, 247, 0.4));
+  border-color: rgba(168, 85, 247, 0.8);
+  transform: translateY(-1px);
 }
 
-.dock-chip-btn.is-current {
-  background: rgba(2, 132, 199, 0.35);
-  border-color: #38bdf8;
-  color: #38bdf8;
-  font-weight: 700;
+/* Dropup Transition */
+.dropup-pop-enter-active,
+.dropup-pop-leave-active {
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dropup-pop-enter-from,
+.dropup-pop-leave-to {
+  opacity: 0;
+  transform: translateY(14px) scale(0.96);
 }
 
 /* Mobile D-pad */

@@ -3192,15 +3192,15 @@ export class JapaneseRoomService {
     gardenBackdrop.rotation.y = Math.PI
     this.hallwayGroup.add(gardenBackdrop)
 
-    // 6. Hallway Lighting System
-    const hallAmbient = new THREE.AmbientLight('#1e293b', 0.45)
+    // 6. Hallway Lighting System (Warm Japanese Ryokan Illumination)
+    const hallAmbient = new THREE.AmbientLight('#fff1e6', 0.65)
     this.hallwayLights.push(hallAmbient)
     this.hallwayGroup.add(hallAmbient)
 
     // Recessed ceiling LED spotlights down the corridor
-    const spotPositions = [-9.5, -4.0, 0, 4.0, 9.5]
+    const spotPositions = [-11.0, -7.5, -4.0, 0, 4.0, 7.5, 11.0]
     for (const sx of spotPositions) {
-      const spot = new THREE.SpotLight('#fed7aa', 1.35, 12, Math.PI / 3.5, 0.45, 1.2)
+      const spot = new THREE.SpotLight('#fed7aa', 1.45, 14, Math.PI / 3.2, 0.45, 1.2)
       spot.position.set(sx, 3.8, 5.59)
       spot.target.position.set(sx, 0, 5.59)
       this.hallwayGroup.add(spot)
@@ -3214,6 +3214,33 @@ export class JapaneseRoomService {
       fixture.position.set(sx, 3.88, 5.59)
       this.hallwayGroup.add(fixture)
     }
+
+    // Illuminated Cedar & Washi Wall Sconces on Left and Right End Walls
+    const lanternGeo = new THREE.BoxGeometry(0.18, 0.45, 0.28)
+    const lanternMat = new THREE.MeshStandardMaterial({
+      color: '#fff7ed',
+      emissive: '#fed7aa',
+      emissiveIntensity: 0.9,
+      roughness: 0.3,
+    })
+
+    const leftLantern = new THREE.Mesh(lanternGeo, lanternMat)
+    leftLantern.position.set(-13.88, 2.2, 5.59)
+    this.hallwayGroup.add(leftLantern)
+
+    const leftEndLight = new THREE.PointLight('#fed7aa', 1.4, 9, 1.2)
+    leftEndLight.position.set(-13.5, 2.2, 5.59)
+    this.hallwayLights.push(leftEndLight)
+    this.hallwayGroup.add(leftEndLight)
+
+    const rightLantern = new THREE.Mesh(lanternGeo, lanternMat)
+    rightLantern.position.set(13.88, 2.2, 5.59)
+    this.hallwayGroup.add(rightLantern)
+
+    const rightEndLight = new THREE.PointLight('#fed7aa', 1.4, 9, 1.2)
+    rightEndLight.position.set(13.5, 2.2, 5.59)
+    this.hallwayLights.push(rightEndLight)
+    this.hallwayGroup.add(rightEndLight)
 
     // Hallway Light Switch (Beside Study Room door in the hallway)
     const switchTex = createLightSwitchTexture(this.isHallwayLightOn)
@@ -3863,12 +3890,20 @@ export class JapaneseRoomService {
 
   private checkAllowedPosition(nextX: number, nextZ: number): { allowed: boolean; newZone?: string } {
     if (this.currentZone === 'study-room') {
-      // Study Room Bounds: X [-2.85, 2.85], Z [-2.4, 3.88]
-      // Desk Obstacle: X [-1.2, 1.2], Z [-0.95, -0.05]
-      if (Math.abs(nextX) < 1.15 && nextZ > -0.95 && nextZ < -0.05) {
+      // Study Room Bounds: X [-2.85, 2.85], Z [-2.15, 3.88]
+      // 1. Desk Obstacle: X [-1.25, 1.25], Z [-1.15, 0.15]
+      if (Math.abs(nextX) < 1.25 && nextZ > -1.15 && nextZ < 0.15) {
         return { allowed: false }
       }
-      // Doorway passage to hallway at X [-0.8, 0.8], Z = 3.88
+      // 2. Front Bookshelf Obstacle: Z < -2.15
+      if (nextZ < -2.15) {
+        return { allowed: false }
+      }
+      // 3. Side Walls: X < -2.85 or X > 2.85
+      if (nextX < -2.85 || nextX > 2.85) {
+        return { allowed: false }
+      }
+      // 4. Doorway passage to hallway at X [-0.8, 0.8], Z = 3.88
       if (nextZ > 3.75) {
         const isDoor = Math.abs(nextX) < 0.8
         if (isDoor && this.isStudyDoorOpen) {
@@ -3879,16 +3914,14 @@ export class JapaneseRoomService {
         }
         return { allowed: false }
       }
-      if (nextX < -2.85 || nextX > 2.85 || nextZ < -2.4) {
-        return { allowed: false }
-      }
       return { allowed: true }
     } else if (this.currentZone === 'hallway') {
-      // Hallway Bounds: X [-13.5, 13.5], Z [4.05, 7.05]
-      if (nextX < -13.5 || nextX > 13.5 || nextZ > 7.05) {
+      // Hallway Bounds: X [-13.6, 13.6], Z [4.05, 7.05]
+      // 1. Outer Glass Shoji Wall & End Walls
+      if (nextX < -13.6 || nextX > 13.6 || nextZ > 7.05) {
         return { allowed: false }
       }
-      // Inner wall doors at Z = 3.88
+      // 2. Inner Partition Wall along Z = 3.88
       if (nextZ < 4.1) {
         // Study Room Door (X: 0)
         if (Math.abs(nextX) < 0.8) {
@@ -3900,7 +3933,7 @@ export class JapaneseRoomService {
           }
           return { allowed: false }
         }
-        // Custom Room Doors (Meditation Dojo at -5.5, Library Chamber at 5.5)
+        // Custom Room Doors (Meditation Dojo at -5.5, Library Chamber at 5.5, etc.)
         for (const room of this.customRooms.values()) {
           if (Math.abs(nextX - room.doorX) < 0.8) {
             if (room.isDoorOpen) {
@@ -3920,9 +3953,50 @@ export class JapaneseRoomService {
       const room = this.customRooms.get(this.currentZone)
       if (room) {
         const rx = room.doorX
-        if (nextX < rx - 2.3 || nextX > rx + 2.3 || nextZ < -0.15) {
+
+        // 1. Outer Room Boundary Walls
+        if (nextX < rx - 2.3 || nextX > rx + 2.3 || nextZ < 0.0) {
           return { allowed: false }
         }
+
+        // 2. Object Colliders for Chamber Furnishings
+        if (room.theme === 'library') {
+          // Back Bookshelf (occupies X: [rx - 1.9, rx + 1.9], Z: [0.0, 0.35])
+          if (Math.abs(nextX - rx) < 1.9 && nextZ < 0.35) {
+            return { allowed: false }
+          }
+          // Reading Armchair (at rx + 1.2, Z: 1.2)
+          const chairX = rx + 1.2
+          const chairZ = 1.2
+          if (Math.abs(nextX - chairX) < 0.55 && Math.abs(nextZ - chairZ) < 0.55) {
+            return { allowed: false }
+          }
+        } else if (room.theme === 'meditation') {
+          // Zen Stone Lantern (at rx - 1.3, Z: 1.2)
+          const lanternX = rx - 1.3
+          const lanternZ = 1.2
+          if (Math.abs(nextX - lanternX) < 0.45 && Math.abs(nextZ - lanternZ) < 0.45) {
+            return { allowed: false }
+          }
+          // Bonsai Pedestal Table (at rx + 1.4, Z: 0.8)
+          const tableX = rx + 1.4
+          const tableZ = 0.8
+          if (Math.abs(nextX - tableX) < 0.45 && Math.abs(nextZ - tableZ) < 0.45) {
+            return { allowed: false }
+          }
+        } else if (room.theme === 'gallery') {
+          // Art Easel (at rx, Z: 1.35)
+          if (Math.abs(nextX - rx) < 0.7 && Math.abs(nextZ - 1.35) < 0.45) {
+            return { allowed: false }
+          }
+        } else {
+          // Science / Observatory Bench (at rx, Z: 0.6)
+          if (Math.abs(nextX - rx) < 1.3 && Math.abs(nextZ - 0.6) < 0.55) {
+            return { allowed: false }
+          }
+        }
+
+        // 3. Doorway passage back to hallway
         if (nextZ > 3.75) {
           if (Math.abs(nextX - rx) < 0.8 && room.isDoorOpen) {
             if (nextZ > 4.0) {
