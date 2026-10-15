@@ -585,6 +585,9 @@ export class JapaneseRoomService {
     // Compile every shader now (behind the loading screen) instead of mid-interaction
     this.warmUpShaders()
     this.startLoop()
+    if (typeof window !== 'undefined' && window.location.search.includes('roomDebug=1')) {
+      ;(window as any).__ireRoom = { service: this, gsap } // TEMP-DEBUG
+    }
   }
 
   // =========================================================
