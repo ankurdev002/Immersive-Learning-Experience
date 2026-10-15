@@ -8,7 +8,6 @@ import { HandRig, type HandPose } from './room/HandRig'
 import { CurvedStack, CurvedSheet, stackSurfaceHeight, gutterShade } from './room/BookGeometry'
 import {
   createSeatedMonk,
-  createSleeveDrape,
   getRakusuTexture,
   type SeatedMonk,
   projectWoodUVs,
@@ -5654,30 +5653,40 @@ export class JapaneseRoomService {
   }
 
   /**
-   * Sleeve tube with cloth behaviour: soft lengthwise folds, gathered creases near the elbow and a
-   * slight sag toward the floor, instead of a smooth pipe.
+   * One continuous koromo sleeve along `points` (shoulder → elbow → wrist): radius follows
+   * `radiusAt(t)`, with soft lengthwise folds, a gentle gather at the elbow and the forearm part
+   * sagging into the wide hanging sleeve. A single smooth tube means no seams at the joints.
    */
-  private clothSleeve(points: THREE.Vector3[], radius: number, seed: number): THREE.BufferGeometry {
-    const curve = new THREE.CatmullRomCurve3(points)
-    const tubularSegments = 36
-    const radial = 20
-    const g = new THREE.TubeGeometry(curve, tubularSegments, radius, radial, false)
+  private clothSleeve(
+    points: THREE.Vector3[],
+    radiusAt: (t: number) => number,
+    elbowT: number,
+    seed: number
+  ): THREE.BufferGeometry {
+    const curve = new THREE.CatmullRomCurve3(points, false, 'centripetal')
+    const tubularSegments = 64
+    const radial = 24
+    const g = new THREE.TubeGeometry(curve, tubularSegments, 1, radial, false)
     const pos = g.getAttribute('position') as THREE.BufferAttribute
     const frames = curve.computeFrenetFrames(tubularSegments, false)
     const v = new THREE.Vector3()
+    const dir = new THREE.Vector3()
     for (let i = 0; i <= tubularSegments; i++) {
       const t = i / tubularSegments
       const center = curve.getPointAt(t)
+      const radius = radiusAt(t)
+      const forearm = THREE.MathUtils.smoothstep(t, elbowT - 0.05, elbowT + 0.15)
+      const atElbow = Math.exp(-Math.pow((t - elbowT) / 0.07, 2))
       for (let j = 0; j <= radial; j++) {
         const idx = i * (radial + 1) + j
         const a = (j / radial) * Math.PI * 2
-        v.fromBufferAttribute(pos, idx).sub(center)
-        const folds = 0.08 * Math.sin(a * 5 + t * 4 + seed) + 0.045 * Math.sin(a * 9 - t * 7 + seed * 2)
-        // Soft creases gathering toward the elbow end
-        const creases = t > 0.65 ? 0.035 * Math.sin(t * 38 + a * 2) * (t - 0.65) * 2.8 : 0
-        // Fabric hangs: the underside sits further out than the top
-        const sag = 0.18 * Math.max(0, -frames.normals[i]!.clone().multiplyScalar(Math.cos(a)).addScaledVector(frames.binormals[i]!, Math.sin(a)).y)
-        v.multiplyScalar(1 + folds + creases + sag)
+        v.fromBufferAttribute(pos, idx).sub(center) // unit-radius offset
+        const folds = 0.05 * Math.sin(a * 5 + t * 5 + seed) + 0.03 * Math.sin(a * 9 - t * 9 + seed * 2)
+        const gather = 0.04 * atElbow * Math.sin(a * 7 + seed)
+        // The forearm hangs as a wide sleeve: the underside drops away from the arm
+        dir.copy(frames.normals[i]!).multiplyScalar(-Math.cos(a)).addScaledVector(frames.binormals[i]!, Math.sin(a))
+        const sag = (0.08 + 0.5 * forearm) * Math.max(0, -dir.y)
+        v.multiplyScalar(radius * (1 + folds + gather + sag))
         pos.setXYZ(idx, center.x + v.x, center.y + v.y, center.z + v.z)
       }
     }
@@ -5691,7 +5700,7 @@ export class JapaneseRoomService {
     void this.loadMonkHead().then((template) => {
       if (!template) return
       const head = template.clone()
-      // Neck trim (-1.75 scan units ≈ -7cm) lands just inside the robe collar
+      // Neck trim (-1.62 scan units ≈ -7cm) lands just inside the robe collar
       monk.head.add(head)
       if (standInHead) standInHead.visible = false
       if (standInNeck) standInNeck.visible = false
@@ -5700,31 +5709,49 @@ export class JapaneseRoomService {
 
     // Slightly deeper than the face's average albedo: hands read pinker than faces under the same light
     const skin = new THREE.MeshStandardMaterial({ color: '#a97f6c', roughness: 0.6, name: 'monk-hand-skin' })
-    const arm = { forearmLength: 0.12, sleeveLength: 0.14, sleeveRadius: [0.048, 0.058] as [number, number] }
     const loads = monk.handPoses.map((pose) =>
-      HandRig.load(`/models/hands/hand_${pose.side}.glb`, skin, robe, this.loadingManager, arm).then((rig) => {
+      HandRig.load(`/models/hands/hand_${pose.side}.glb`, skin, robe, this.loadingManager, { none: true }).then((rig) => {
         if (!rig) return false
+        const side = pose.side === 'left' ? -1 : 1
         const fingerDir = pose.tip.clone().sub(pose.elbow).normalize()
         rig.root.visible = true
         monk.torso.add(rig.root)
         rig.place(pose.tip, fingerDir, new THREE.Vector3(0, -1, 0))
         rig.setPose({ thumb: 0.12, index: 0.14, middle: 0.16, ring: 0.18, pinky: 0.2 })
 
-        // Wide upper sleeve hanging from the shoulder to meet the forearm sleeve
-        const shoulder = pose.side === 'left' ? monk.shoulders.left : monk.shoulders.right
-        const elbow = rig.sleeveEnd(fingerDir)
-        const side = pose.side === 'left' ? -1 : 1
-        const mid = shoulder.clone().lerp(elbow, 0.5).add(new THREE.Vector3(side * 0.035, -0.015, -0.01))
-        const upper = new THREE.Mesh(this.clothSleeve([shoulder, mid, elbow], 0.058, side), robe)
-        upper.castShadow = true
-        monk.torso.add(upper)
-        // Rounded elbow so the upper sleeve meets the cuff like cloth (the shoulder end starts inside the robe)
-        const joint = new THREE.Mesh(new THREE.SphereGeometry(0.058, 18, 14), robe)
-        joint.position.copy(elbow)
-        monk.torso.add(joint)
-        // The koromo's wide sleeve hangs from the forearm toward the knee
-        const wrist = pose.tip.clone().addScaledVector(fingerDir, -0.17)
-        monk.torso.add(createSleeveDrape(elbow, wrist, side, robeSheet))
+        // One continuous sleeve: rooted inside the shoulder under the collar, over the shoulder
+        // point, down the upper arm, a soft bend at the elbow, and a flared cuff just past the wrist
+        // that the real hand emerges from
+        const wrist = rig.wristPoint()
+        const cuff = wrist.clone().addScaledVector(fingerDir, 0.018)
+        const elbow = pose.elbow.clone()
+        const forearmMid = elbow.clone().lerp(cuff, 0.5)
+        forearmMid.y -= 0.012
+        const points = [
+          new THREE.Vector3(side * 0.07, 0.47, 0.01),
+          new THREE.Vector3(side * 0.16, 0.435, 0.0),
+          new THREE.Vector3(side * 0.205, 0.37, 0.0),
+          new THREE.Vector3(side * 0.225, 0.27, 0.01),
+          elbow,
+          forearmMid,
+          cuff,
+        ]
+        // Elbow's position along the path, for the radius profile and elbow gather
+        const lengths = [0]
+        for (let i = 1; i < points.length; i++) lengths.push(lengths[i - 1]! + points[i]!.distanceTo(points[i - 1]!))
+        const total = lengths[lengths.length - 1]!
+        const elbowT = lengths[4]! / total
+        const radiusAt = (t: number) => {
+          const s = THREE.MathUtils.smoothstep
+          const shoulder = 0.05 + 0.015 * s(t, 0.02, 0.18) // grows out of the torso
+          const toElbow = -0.009 * s(t, 0.3, elbowT) // narrows a little toward the elbow
+          const cuffFlare = 0.012 * s(t, 0.8, 1) // opens at the cuff
+          return shoulder + toElbow + cuffFlare
+        }
+        const sleeve = new THREE.Mesh(this.clothSleeve(points, radiusAt, elbowT, side * 1.7), robeSheet)
+        sleeve.castShadow = true
+        sleeve.receiveShadow = true
+        monk.torso.add(sleeve)
         return true
       })
     )

@@ -45,6 +45,8 @@ type FingerName = keyof typeof FINGER_CHAINS
 export type HandPose = Record<FingerName, number>
 
 export interface ArmOptions {
+  /** Skip the built-in forearm and sleeve (the caller dresses the arm itself) */
+  none?: boolean
   forearmLength?: number
   sleeveLength?: number
   /** Sleeve radius at the cuff and at the far end */
@@ -102,6 +104,11 @@ export class HandRig {
     const armBasis = new THREE.Matrix4().makeBasis(side, finger.clone().negate(), back)
     const armQuat = new THREE.Quaternion().setFromRotationMatrix(armBasis)
 
+    this.armLength = 0.11 + (arm.sleeveLength ?? 0.32)
+    if (arm.none) {
+      this.root.visible = false
+      return
+    }
     const forearmLength = arm.forearmLength ?? 0.2
     const forearm = new THREE.Mesh(new THREE.CylinderGeometry(0.023, 0.03, forearmLength, 18, 1, true), skin)
     forearm.scale.set(1.3, 1, 0.82)
@@ -112,7 +119,6 @@ export class HandRig {
 
     const sleeveLength = arm.sleeveLength ?? 0.32
     const [cuffR, farR] = arm.sleeveRadius ?? [0.042, 0.05]
-    this.armLength = 0.11 + sleeveLength
     const sleeveMesh = new THREE.Mesh(new THREE.CylinderGeometry(cuffR, farR, sleeveLength, 20), sleeve)
     sleeveMesh.scale.set(1.2, 1, 0.9)
     sleeveMesh.quaternion.copy(armQuat)
@@ -141,6 +147,12 @@ export class HandRig {
 
   private restPosition(name: string): THREE.Vector3 {
     return this.rest.get(name)?.p.clone() ?? new THREE.Vector3()
+  }
+
+  /** Wrist joint in the parent's space (after {@link place}). */
+  wristPoint(): THREE.Vector3 {
+    const wrist = (this.bones.get('wrist')?.position ?? new THREE.Vector3()).clone()
+    return wrist.applyQuaternion(this.root.quaternion).add(this.root.position)
   }
 
   /** Far end of the sleeve (where an upper arm should meet it), in the parent's space. */

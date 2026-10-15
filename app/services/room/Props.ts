@@ -836,8 +836,8 @@ export interface MonkMaterials {
  * Zen monk in full lotus on a zafu and zabuton. Faces +Z; origin on the floor under the cushion.
  * Silhouette follows a real seated figure: knees spread wide in a triangular lotus base, upright
  * torso with sloping shoulders, layered collar and rakusu. The scanned head and real hands are
- * attached by the caller (to `head` and the lap `handPoses`), along with hanging sleeves
- * ({@link createSleeveDrape}); `fallback` holds stand-ins shown only until those assets arrive.
+ * attached by the caller (to `head` and the lap `handPoses`), together with continuous sleeves;
+ * `fallback` holds stand-ins shown only until those assets arrive.
  */
 export function createSeatedMonk(m: MonkMaterials): SeatedMonk {
   const group = new THREE.Group()
@@ -994,55 +994,4 @@ export function createSeatedMonk(m: MonkMaterials): SeatedMonk {
   group.add(hitBox)
 
   return { group, torso, head, fallback, handPoses, shoulders, hitBox }
-}
-
-/**
- * Wide koromo sleeve hanging from the forearm: a sheet of cloth whose top edge runs along the
- * forearm (elbow → wrist) and whose hem falls toward the knee, flaring out in soft folds.
- * Points are in the monk's torso space; `side` is +1 for the right arm, -1 for the left.
- */
-export function createSleeveDrape(
-  elbow: THREE.Vector3,
-  wrist: THREE.Vector3,
-  side: number,
-  material: THREE.Material,
-  hemY = -0.03
-): THREE.Mesh {
-  const cols = 14
-  const rows = 10
-  const positions: number[] = []
-  const uvs: number[] = []
-  const indices: number[] = []
-  for (let j = 0; j <= rows; j++) {
-    const v = j / rows
-    for (let i = 0; i <= cols; i++) {
-      const u = i / cols
-      // Top edge follows the underside of the forearm, ending a little short of the wrist
-      const top = elbow.clone().lerp(wrist, u * 0.82)
-      top.y -= 0.035
-      top.x += side * 0.012
-      const drop = top.y - hemY
-      const p = top.clone()
-      p.y -= drop * v
-      // Fabric bellies outward and gathers into soft vertical folds toward the hem
-      p.x += side * (0.05 * Math.sin(v * Math.PI * 0.85) + 0.035 * v)
-      p.x += side * 0.012 * Math.sin(u * Math.PI * 4 + v * 2) * v
-      p.z += 0.01 * Math.sin(u * Math.PI * 3) * v - 0.02 * v
-      positions.push(p.x, p.y, p.z)
-      uvs.push(u * 1.5, v * 1.5)
-      if (i < cols && j < rows) {
-        const a = j * (cols + 1) + i
-        indices.push(a, a + cols + 1, a + 1, a + 1, a + cols + 1, a + cols + 2)
-      }
-    }
-  }
-  const g = new THREE.BufferGeometry()
-  g.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3))
-  g.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2))
-  g.setIndex(indices)
-  g.computeVertexNormals()
-  const mesh = new THREE.Mesh(g, material)
-  mesh.castShadow = true
-  mesh.receiveShadow = true
-  return mesh
 }
