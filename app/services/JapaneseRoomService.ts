@@ -5157,16 +5157,32 @@ export class JapaneseRoomService {
     return this.customRooms.get(targetId)?.isLightOn ?? true
   }
 
+  /**
+   * Returns true if the player is looking towards target position (within horizontal field of view)
+   */
+  public isPlayerFacing(targetX: number, targetZ: number, minDot = 0.25): boolean {
+    const forwardX = -Math.sin(this.playerYaw)
+    const forwardZ = -Math.cos(this.playerYaw)
+    const toTargetX = targetX - this.playerPos.x
+    const toTargetZ = targetZ - this.playerPos.z
+    const dist = Math.hypot(toTargetX, toTargetZ)
+    if (dist < 0.15) return true
+    const dot = (forwardX * toTargetX + forwardZ * toTargetZ) / dist
+    return dot > minDot
+  }
+
   /** Shows "turn the light on/off" when standing next to a switch in the current zone. */
   private checkSwitchProximity(force = false) {
     let prompt: SwitchPromptData = { show: false, targetId: '', zoneName: '', isOn: true }
-    if (this.isExploreMode) {
-      let best = 1.6
+    // Only detect switch if not currently near or facing a door
+    if (this.isExploreMode && !this.currentNearPrompt?.show) {
+      let best = 1.35
       for (const sw of this.wallSwitches) {
         if (sw.zone !== this.currentZone) continue
         const p = sw.mesh.getWorldPosition(this._gripA)
         const d = Math.hypot(p.x - this.playerPos.x, p.z - this.playerPos.z)
-        if (d < best) {
+        // Must be close AND looking directly at the switch plate
+        if (d < best && this.isPlayerFacing(p.x, p.z, 0.45)) {
           best = d
           prompt = { show: true, targetId: sw.targetId, zoneName: this.getZoneName(sw.targetId), isOn: this.lightStateOf(sw.targetId) }
         }
@@ -5534,7 +5550,7 @@ export class JapaneseRoomService {
       for (const monk of this.monks) {
         if (monk.roomId !== this.currentZone) continue
         const d = Math.hypot(monk.group.position.x - this.playerPos.x, monk.group.position.z - this.playerPos.z)
-        if (d < 2.1) near = monk.roomId
+        if (d < 2.1 && this.isPlayerFacing(monk.group.position.x, monk.group.position.z, 0.25)) near = monk.roomId
       }
     }
     if (near !== this.nearMonkRoomId) {
@@ -5959,39 +5975,46 @@ export class JapaneseRoomService {
     let nearPrompt: DoorPromptData = { show: false, text: '', roomId: '', isOpen: false }
 
     // Check Study Room Door (X: 0, Z: 3.87)
-    const dxStudy = this.playerPos.x - 0
-    const dzStudy = this.playerPos.z - 3.87
-    const distToStudy = Math.sqrt(dxStudy * dxStudy + dzStudy * dzStudy)
+    const dxStudy = 0 - this.playerPos.x
+    const dzStudy = 3.87 - this.playerPos.z
+    const distToStudy = Math.hypot(dxStudy, dzStudy)
 
-    if (distToStudy < 1.35) {
+    // Only prompt when close AND looking towards the door (prevents prompting when facing desk/bookshelf)
+    if (distToStudy < 1.85 && this.isPlayerFacing(0, 3.87, 0.25)) {
       const isInside = this.playerPos.z < 3.87
-      const dest = isInside ? 'Hallway' : 'Study Room'
-      const action = this.isStudyDoorOpen ? 'Close Door' : `Open Door to ${dest}`
+      const dest = isInside ? 'Grand Corridor' : 'Study Room'
+      const action = this.isStudyDoorOpen ? 'Close Chamber Door' : `Open Door to ${dest}`
       nearPrompt = {
         show: true,
-        text: `Press [E] or Click to ${action}`,
+        text: action,
         roomId: 'study-room',
         isOpen: this.isStudyDoorOpen,
       }
     } else {
       // Check Custom Room Doors (doorX, Z: 3.87)
       for (const room of this.customRooms.values()) {
-        const dx = this.playerPos.x - room.doorX
-        const dz = this.playerPos.z - 3.87
-        const dist = Math.sqrt(dx * dx + dz * dz)
-        if (dist < 1.35) {
+        const dx = room.doorX - this.playerPos.x
+        const dz = 3.87 - this.playerPos.z
+        const dist = Math.hypot(dx, dz)
+        if (dist < 1.85 && this.isPlayerFacing(room.doorX, 3.87, 0.25)) {
           const isInside = this.playerPos.z < 3.87
-          const dest = isInside ? 'Hallway' : room.name
-          const action = room.isDoorOpen ? 'Close Door' : `Open Door to ${dest}`
+          const dest = isInside ? 'Grand Corridor' : room.name
+          const action = room.isDoorOpen ? 'Close Chamber Door' : `Open Door to ${dest}`
           nearPrompt = {
             show: true,
-            text: `Press [E] or Click to ${action}`,
+            text: action,
             roomId: room.id,
             isOpen: room.isDoorOpen,
           }
           break
         }
       }
+    }
+
+    // Mutual exclusivity: if door prompt is active, suppress switch prompt
+    if (nearPrompt.show && this.currentSwitchPrompt.show) {
+      this.currentSwitchPrompt = { show: false, targetId: '', zoneName: '', isOn: true }
+      this.callbacks.onNearSwitchPrompt?.(this.currentSwitchPrompt)
     }
 
     if (nearPrompt.show !== this.currentNearPrompt.show || nearPrompt.text !== this.currentNearPrompt.text) {

@@ -231,6 +231,7 @@ const nearDoorPrompt = ref<{ show: boolean; text: string; roomId: string; isOpen
   isOpen: false,
 })
 const nearSwitchPrompt = ref<SwitchPromptData>({ show: false, targetId: '', zoneName: '', isOn: true })
+const isControlsCollapsed = ref(false)
 const isCreateRoomModalOpen = ref(false)
 const newRoomName = ref('')
 const newRoomSubtitle = ref('')
@@ -1037,27 +1038,37 @@ const handleExitRoom = () => {
         <div class="ch-line ch-right" />
       </div>
 
-      <!-- Controls Helper Badge in Bottom-Left -->
-      <div v-show="!isMeditating" class="explore-controls-card">
-        <div class="ctrl-header">
+      <!-- Controls Helper Badge in Bottom-Left (Collapsible) -->
+      <div v-show="!isMeditating" class="explore-controls-card" :class="{ 'is-collapsed': isControlsCollapsed }">
+        <div class="ctrl-header" @click="isControlsCollapsed = !isControlsCollapsed">
           <span class="ctrl-badge-dot" />
-          <span class="ctrl-mode-text">EXPLORE MODE ACTIVE</span>
+          <span class="ctrl-mode-text">{{ isControlsCollapsed ? 'CONTROLS (WASD)' : 'EXPLORE CONTROLS' }}</span>
+          <button
+            class="ctrl-collapse-btn"
+            type="button"
+            :title="isControlsCollapsed ? 'Expand controls guide' : 'Minimize controls guide'"
+            @click.stop="isControlsCollapsed = !isControlsCollapsed"
+          >
+            {{ isControlsCollapsed ? '▲ Guide' : '✕ Hide' }}
+          </button>
         </div>
-        <div class="ctrl-row">
-          <span class="key-cap">W</span>
-          <span class="key-cap">S</span>
-          <span class="ctrl-label">Walk</span>
-          <span class="key-cap">A</span>
-          <span class="key-cap">D</span>
-          <span class="ctrl-label">Turn</span>
-          <span class="key-cap key-wide">Shift</span>
-          <span class="ctrl-label">Run</span>
-        </div>
-        <div class="ctrl-row sub-row">
-          <span class="key-cap key-mouse">Drag Mouse</span>
-          <span class="ctrl-label">Look 360°</span>
-          <span class="key-cap">E</span>
-          <span class="ctrl-label">Open / Close Door</span>
+        <div v-show="!isControlsCollapsed" class="ctrl-body">
+          <div class="ctrl-row">
+            <span class="key-cap">W</span>
+            <span class="key-cap">S</span>
+            <span class="ctrl-label">Walk</span>
+            <span class="key-cap">A</span>
+            <span class="key-cap">D</span>
+            <span class="ctrl-label">Turn</span>
+            <span class="key-cap key-wide">Shift</span>
+            <span class="ctrl-label">Run</span>
+          </div>
+          <div class="ctrl-row sub-row">
+            <span class="key-cap key-mouse">Drag Mouse</span>
+            <span class="ctrl-label">Look 360°</span>
+            <span class="key-cap">E</span>
+            <span class="ctrl-label">Door</span>
+          </div>
         </div>
       </div>
 
@@ -1165,43 +1176,52 @@ const handleExitRoom = () => {
         <div v-if="monkFarewell" class="monk-farewell">{{ monkFarewell }}</div>
       </transition>
 
+      <!-- Light Switch Proximity Chip (Appears only when looking directly at switch) -->
       <transition name="pop-fade">
         <div
-          v-if="nearSwitchPrompt.show && !isMeditating && !nearMonk && !monkDialog"
+          v-if="nearSwitchPrompt.show && !nearDoorPrompt.show && !isMeditating && !nearMonk && !monkDialog"
           class="floating-door-prompt switch-prompt"
-          :class="{ 'is-stacked': nearDoorPrompt.show }"
           @click="handleToggleSwitchPrompt"
         >
-          <div class="fd-icon-box">{{ nearSwitchPrompt.isOn ? '💡' : '🌙' }}</div>
-          <div class="fd-content">
-            <span class="fd-title">{{ nearSwitchPrompt.zoneName }} light · {{ nearSwitchPrompt.isOn ? 'ON' : 'OFF' }}</span>
-            <span class="fd-sub">Press [L] or click the wall switch</span>
+          <div class="fd-badge-wrap">
+            <span class="fd-icon-emoji">{{ nearSwitchPrompt.isOn ? '💡' : '🌙' }}</span>
+            <span class="fd-key-badge fd-key-amber">L</span>
           </div>
-          <div class="fd-btn-group">
-            <button class="fd-btn fd-toggle-btn" @click.stop="handleToggleSwitchPrompt">
+          <div class="fd-content">
+            <span class="fd-title">{{ nearSwitchPrompt.zoneName }} Light · {{ nearSwitchPrompt.isOn ? 'ON' : 'OFF' }}</span>
+            <span class="fd-sub">Press [L] or click switch</span>
+          </div>
+          <div class="fd-btn-group" @click.stop>
+            <button class="fd-btn fd-toggle-btn fd-switch-btn" type="button" @click="handleToggleSwitchPrompt">
               {{ nearSwitchPrompt.isOn ? 'Turn Off' : 'Turn On' }}
             </button>
           </div>
         </div>
       </transition>
 
+      <!-- Door Proximity Action Banner (Center-Bottom Floating HUD Pill) -->
       <transition name="pop-fade">
         <div
           v-if="nearDoorPrompt.show && !isMeditating && !nearMonk && !monkDialog"
           class="floating-door-prompt"
+          @click="handleInteractDoor"
         >
-          <div class="fd-icon-box" @click="handleInteractDoor">🚪</div>
-          <div class="fd-content" @click="handleInteractDoor">
-            <span class="fd-title">{{ nearDoorPrompt.text }}</span>
-            <span class="fd-sub">{{ nearDoorPrompt.isOpen ? 'Door open · Walk forward with W or click button' : 'Click Slide Open or press [E] key' }}</span>
+          <div class="fd-badge-wrap">
+            <span class="fd-icon-emoji">🚪</span>
+            <span class="fd-key-badge">E</span>
           </div>
-          <div class="fd-btn-group">
-            <button class="fd-btn fd-toggle-btn" @click="handleInteractDoor">
+          <div class="fd-content">
+            <span class="fd-title">{{ nearDoorPrompt.isOpen ? 'Close Chamber Door' : nearDoorPrompt.text }}</span>
+            <span class="fd-sub">{{ nearDoorPrompt.isOpen ? 'Door open · Step through [W] or press [E]' : 'Press [E] or click button to slide open' }}</span>
+          </div>
+          <div class="fd-btn-group" @click.stop>
+            <button class="fd-btn fd-toggle-btn" type="button" @click="handleInteractDoor">
               {{ nearDoorPrompt.isOpen ? 'Slide Shut' : 'Slide Open' }}
             </button>
             <button
               v-if="nearDoorPrompt.isOpen"
               class="fd-btn fd-walk-btn"
+              type="button"
               title="Walk through doorway"
               @click="handleWalkThroughDoor"
             >
@@ -2180,32 +2200,49 @@ const handleExitRoom = () => {
   height: 1px;
 }
 
-/* Controls Guide Card in Bottom-Left */
+/* Controls Guide Card in Bottom-Left (Collapsible & Compact) */
 .explore-controls-card {
   position: absolute;
-  bottom: 32px;
-  left: 32px;
-  background: rgba(15, 23, 42, 0.82);
-  backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 14px;
-  padding: 12px 18px;
+  bottom: 28px;
+  left: 28px;
+  background: rgba(15, 23, 42, 0.88);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(56, 189, 248, 0.28);
+  border-radius: 16px;
+  padding: 10px 16px;
   display: flex;
   flex-direction: column;
   gap: 8px;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.55), 0 0 16px rgba(56, 189, 248, 0.12);
   pointer-events: auto;
+  z-index: 45;
+  transition: all 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+}
+
+.explore-controls-card.is-collapsed {
+  padding: 8px 14px;
+  cursor: pointer;
+  background: rgba(15, 23, 42, 0.78);
+  border-color: rgba(56, 189, 248, 0.2);
+}
+
+.explore-controls-card.is-collapsed:hover {
+  background: rgba(30, 41, 59, 0.92);
+  border-color: rgba(56, 189, 248, 0.5);
+  transform: translateY(-2px);
 }
 
 .ctrl-header {
   display: flex;
   align-items: center;
   gap: 8px;
+  cursor: pointer;
 }
 
 .ctrl-badge-dot {
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   background: #38bdf8;
   box-shadow: 0 0 8px #38bdf8;
@@ -2214,9 +2251,35 @@ const handleExitRoom = () => {
 
 .ctrl-mode-text {
   font-size: 11px;
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: 0.08em;
   color: #7dd3fc;
+  text-transform: uppercase;
+}
+
+.ctrl-collapse-btn {
+  margin-left: auto;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  padding: 2px 7px;
+  font-size: 10px;
+  font-weight: 700;
+  color: #94a3b8;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.ctrl-collapse-btn:hover {
+  background: rgba(56, 189, 248, 0.2);
+  color: #38bdf8;
+  border-color: rgba(56, 189, 248, 0.4);
+}
+
+.ctrl-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
 .ctrl-row {
@@ -2233,53 +2296,57 @@ const handleExitRoom = () => {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 26px;
-  height: 26px;
+  min-width: 24px;
+  height: 24px;
   padding: 0 6px;
   background: rgba(255, 255, 255, 0.12);
   border: 1px solid rgba(255, 255, 255, 0.22);
   border-radius: 6px;
   font-size: 11px;
-  font-weight: 700;
+  font-weight: 800;
   color: #ffffff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.35);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
 .key-wide {
-  min-width: 48px;
+  min-width: 44px;
 }
 
 .key-mouse {
-  min-width: 74px;
+  min-width: 72px;
 }
 
 .ctrl-label {
-  font-size: 12px;
+  font-size: 11px;
+  font-weight: 600;
   color: #94a3b8;
-  margin-right: 10px;
+  margin-right: 8px;
 }
 
-/* Floating Door Proximity Prompt */
+/* Center-Bottom Floating Interaction Prompt */
 .floating-door-prompt {
-  /* Bottom-left, stacked above the Explore Mode guide card, out of the centre of the view */
   position: absolute;
-  left: 32px;
-  bottom: 158px;
-  max-width: min(440px, calc(100% - 64px));
-  transform: none;
-  transform-origin: left bottom;
-  background: rgba(15, 23, 42, 0.92);
-  backdrop-filter: blur(16px);
-  border: 1.5px solid rgba(56, 189, 248, 0.6);
-  border-radius: 36px;
-  padding: 10px 24px;
+  left: 50%;
+  bottom: 34px;
+  transform: translateX(-50%);
+  transform-origin: center bottom;
+  min-width: 320px;
+  max-width: min(560px, calc(100% - 32px));
+  background: rgba(15, 23, 42, 0.94);
+  backdrop-filter: blur(20px);
+  border: 1.5px solid rgba(56, 189, 248, 0.55);
+  border-radius: 9999px;
+  padding: 8px 14px 8px 12px;
   display: flex;
   align-items: center;
-  gap: 14px;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 24px rgba(56, 189, 248, 0.35);
+  gap: 12px;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.65), 0 0 24px rgba(56, 189, 248, 0.25);
   pointer-events: auto;
   cursor: pointer;
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
+  z-index: 50;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, border-color 0.2s ease;
+  user-select: none;
 }
 
 .floating-door-prompt.switch-prompt {
@@ -2552,58 +2619,107 @@ const handleExitRoom = () => {
   }
 }
 
-/* Switches hang beside doorways: sit above the door prompt when both apply */
-.floating-door-prompt.switch-prompt.is-stacked {
-  bottom: 234px;
-}
-
 .floating-door-prompt:hover {
-  transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.7), 0 0 32px rgba(56, 189, 248, 0.55);
+  transform: translateX(-50%) translateY(-2px);
+  box-shadow: 0 24px 56px rgba(0, 0, 0, 0.75), 0 0 32px rgba(56, 189, 248, 0.4);
+  border-color: rgba(56, 189, 248, 0.8);
 }
 
-.fd-icon-box {
-  font-size: 24px;
+.fd-badge-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.fd-icon-emoji {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.fd-key-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 7px;
+  background: rgba(56, 189, 248, 0.18);
+  border: 1.5px solid rgba(56, 189, 248, 0.6);
+  color: #38bdf8;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 12px;
+  font-weight: 800;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.fd-key-badge.fd-key-amber {
+  background: rgba(251, 191, 36, 0.18);
+  border-color: rgba(251, 191, 36, 0.7);
+  color: #fbbf24;
 }
 
 .fd-content {
   display: flex;
   flex-direction: column;
+  min-width: 0;
+  flex: 1;
+  gap: 2px;
 }
 
 .fd-title {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
   color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .fd-sub {
   font-size: 11px;
+  font-weight: 500;
   color: #94a3b8;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .fd-btn-group {
   display: flex;
   align-items: center;
   gap: 8px;
+  flex-shrink: 0;
+  margin-left: auto;
 }
 
 .fd-btn {
+  white-space: nowrap;
+  flex-shrink: 0;
   background: #0284c7;
   color: #ffffff;
   border: none;
-  border-radius: 20px;
-  padding: 6px 16px;
+  border-radius: 9999px;
+  padding: 7px 16px;
   font-size: 12px;
   font-weight: 700;
+  line-height: 1.2;
   cursor: pointer;
   box-shadow: 0 4px 12px rgba(2, 132, 199, 0.4);
-  transition: all 0.2s ease;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .fd-btn:hover {
   transform: translateY(-1px);
-  filter: brightness(1.12);
+  filter: brightness(1.15);
+  box-shadow: 0 6px 16px rgba(2, 132, 199, 0.6);
+}
+
+.fd-btn:active {
+  transform: translateY(0);
 }
 
 .fd-walk-btn {
@@ -2613,7 +2729,27 @@ const handleExitRoom = () => {
 }
 
 .fd-walk-btn:hover {
-  box-shadow: 0 6px 18px rgba(16, 185, 129, 0.6) !important;
+  box-shadow: 0 6px 18px rgba(16, 185, 129, 0.65) !important;
+}
+
+.floating-door-prompt.switch-prompt {
+  border-color: rgba(251, 191, 36, 0.55);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.65), 0 0 24px rgba(251, 191, 36, 0.25);
+}
+
+.floating-door-prompt.switch-prompt:hover {
+  border-color: rgba(251, 191, 36, 0.85);
+  box-shadow: 0 24px 56px rgba(0, 0, 0, 0.75), 0 0 32px rgba(251, 191, 36, 0.4);
+}
+
+.fd-switch-btn {
+  background: #d97706 !important;
+  box-shadow: 0 4px 12px rgba(217, 119, 6, 0.4) !important;
+}
+
+.fd-switch-btn:hover {
+  background: #f59e0b !important;
+  box-shadow: 0 6px 16px rgba(245, 158, 11, 0.6) !important;
 }
 
 /* Vertical Drop-Up Chamber Navigator */
