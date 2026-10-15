@@ -674,3 +674,127 @@ export function createTelescope(p: RoomPalette): THREE.Group {
   g.add(scope)
   return g
 }
+
+// ---------------------------------------------------------------------------
+// Meditation dojo: seated zen monk
+// ---------------------------------------------------------------------------
+
+export interface SeatedMonk {
+  group: THREE.Group
+  /** Breathes (scaled on Y) and carries the head and arms */
+  torso: THREE.Group
+  head: THREE.Group
+  /** Invisible box used for click / proximity interaction */
+  hitBox: THREE.Mesh
+}
+
+/**
+ * Zen monk in full lotus on a zabuton, hands in the cosmic mudra, eyes closed. Faces +Z; origin at
+ * the floor under the cushion. Built from a dozen light primitives (one shared skin and robe material).
+ */
+export function createSeatedMonk(
+  cushion: THREE.Material,
+  robe: THREE.Material,
+  kesa: THREE.Material,
+  skin: THREE.Material
+): SeatedMonk {
+  const group = new THREE.Group()
+  const dark = new THREE.MeshStandardMaterial({ color: '#2a1d17', roughness: 0.6 })
+
+  group.add(part(new RoundedBoxGeometry(0.62, 0.07, 0.62, 3, 0.03), cushion, 0, 0.035, 0))
+  // Round zafu sitting cushion on the zabuton
+  group.add(part(new THREE.CylinderGeometry(0.2, 0.22, 0.08, 28), cushion, 0, 0.11, -0.05))
+
+  // Crossed legs: a soft mound of robe
+  const legs = new THREE.LatheGeometry([
+    new THREE.Vector2(0, 0.07),
+    new THREE.Vector2(0.34, 0.07),
+    new THREE.Vector2(0.39, 0.11),
+    new THREE.Vector2(0.37, 0.16),
+    new THREE.Vector2(0.26, 0.205),
+    new THREE.Vector2(0, 0.215),
+  ], 32)
+  legs.scale(1, 1, 0.78)
+  group.add(part(legs, robe, 0, 0, 0.03))
+
+  const torso = new THREE.Group()
+  torso.position.set(0, 0.19, -0.03)
+  group.add(torso)
+
+  const body = new THREE.LatheGeometry([
+    new THREE.Vector2(0, 0),
+    new THREE.Vector2(0.19, 0),
+    new THREE.Vector2(0.205, 0.09),
+    new THREE.Vector2(0.18, 0.24),
+    new THREE.Vector2(0.205, 0.37),
+    new THREE.Vector2(0.175, 0.45),
+    new THREE.Vector2(0.07, 0.5),
+    new THREE.Vector2(0, 0.5),
+  ], 32)
+  body.scale(1, 1, 0.7)
+  torso.add(part(body, robe))
+
+  // Rakusu (bib-like kesa) and its straps
+  torso.add(part(new RoundedBoxGeometry(0.2, 0.2, 0.012, 2, 0.004), kesa, 0, 0.3, 0.135))
+  for (const s of [-1, 1]) {
+    const strap = new THREE.BoxGeometry(0.025, 0.2, 0.01)
+    const m = part(strap, kesa, s * 0.075, 0.43, 0.105, { cast: false })
+    m.rotation.z = s * 0.25
+    m.rotation.x = -0.35
+    torso.add(m)
+  }
+
+  // Sleeves down to the lap and hands in the cosmic mudra
+  for (const s of [-1, 1]) {
+    torso.add(part(tube([
+      new THREE.Vector3(s * 0.19, 0.42, 0),
+      new THREE.Vector3(s * 0.25, 0.24, 0.05),
+      new THREE.Vector3(s * 0.19, 0.11, 0.16),
+      new THREE.Vector3(s * 0.08, 0.08, 0.2),
+    ], 0.055, 20, 12), robe))
+    const hand = new THREE.SphereGeometry(0.05, 16, 12)
+    hand.scale(1.25, 0.45, 0.85)
+    torso.add(part(hand, skin, s * 0.03, 0.075 + (s > 0 ? 0.012 : 0), 0.21))
+  }
+  // Thumbs lightly touching above the palms
+  torso.add(part(tube([
+    new THREE.Vector3(-0.045, 0.1, 0.235),
+    new THREE.Vector3(0, 0.12, 0.245),
+    new THREE.Vector3(0.045, 0.1, 0.235),
+  ], 0.011, 10, 8), skin))
+
+  // Neck and head
+  torso.add(part(new THREE.CylinderGeometry(0.045, 0.052, 0.09, 16), skin, 0, 0.53, 0))
+  const head = new THREE.Group()
+  head.position.set(0, 0.66, 0.01)
+  head.rotation.x = 0.12 // gaze lowered
+  torso.add(head)
+  const skull = new THREE.SphereGeometry(0.1, 32, 24)
+  skull.scale(0.9, 1.06, 0.97)
+  head.add(part(skull, skin))
+  for (const s of [-1, 1]) {
+    const ear = new THREE.SphereGeometry(0.026, 12, 10)
+    ear.scale(0.45, 1, 0.7)
+    head.add(part(ear, skin, s * 0.09, -0.005, -0.005))
+    // Closed eyes: soft downward arcs
+    const eye = new THREE.TorusGeometry(0.017, 0.0028, 6, 16, Math.PI)
+    const eyeMesh = part(eye, dark, s * 0.034, 0.008, 0.088, { cast: false })
+    eyeMesh.rotation.z = Math.PI
+    head.add(eyeMesh)
+    const brow = new THREE.BoxGeometry(0.03, 0.005, 0.006)
+    const browMesh = part(brow, dark, s * 0.035, 0.034, 0.088, { cast: false })
+    browMesh.rotation.z = -s * 0.12
+    head.add(browMesh)
+  }
+  head.add(part(new THREE.SphereGeometry(0.013, 10, 8), skin, 0, -0.012, 0.098, { cast: false }))
+  const mouth = new THREE.TorusGeometry(0.016, 0.0022, 6, 14, Math.PI * 0.7)
+  const mouthMesh = part(mouth, dark, 0, -0.04, 0.086, { cast: false })
+  mouthMesh.rotation.z = Math.PI * 1.15
+  head.add(mouthMesh)
+
+  const hitBox = new THREE.Mesh(new THREE.BoxGeometry(0.8, 1.0, 0.8), new THREE.MeshBasicMaterial({ visible: false }))
+  hitBox.position.set(0, 0.5, 0)
+  group.add(hitBox)
+
+  return { group, torso, head, hitBox }
+}

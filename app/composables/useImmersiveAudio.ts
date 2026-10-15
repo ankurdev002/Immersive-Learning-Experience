@@ -328,6 +328,37 @@ function generateDoorSlideWavUrl(): string {
 }
 
 /**
+ * Meditation temple bell / singing bowl (5s): inharmonic partials with slow beating and a long,
+ * soft decay, struck with a gentle mallet transient.
+ */
+function generateTempleBellWavUrl(): string {
+  const sr = 22050
+  const duration = 5
+  const len = Math.floor(sr * duration)
+  const samples = new Float32Array(len)
+  const base = 392
+  const partials = [
+    { ratio: 1, gain: 0.32, decay: 0.55 },
+    { ratio: 2.71, gain: 0.16, decay: 0.9 },
+    { ratio: 5.15, gain: 0.07, decay: 1.6 },
+    { ratio: 8.6, gain: 0.035, decay: 2.6 },
+  ]
+  for (let i = 0; i < len; i++) {
+    const t = i / sr
+    let v = 0
+    for (const p of partials) {
+      // Two slightly detuned components per partial give the bowl's slow shimmer
+      const f = base * p.ratio
+      v += p.gain * Math.exp(-t * p.decay) * (Math.sin(2 * Math.PI * f * t) + 0.6 * Math.sin(2 * Math.PI * (f + 1.3) * t))
+    }
+    const strike = t < 0.02 ? (Math.random() * 2 - 1) * Math.exp(-t * 300) * 0.15 : 0
+    const fadeIn = Math.min(1, t * 400)
+    samples[i] = (v * 0.55 + strike) * fadeIn
+  }
+  return createWavBlobUrl(sr, samples)
+}
+
+/**
  * 12. Soft Tatami/Wood Footstep Sound (0.16s)
  * - Gentle padded heel-to-toe contact
  */
@@ -359,6 +390,7 @@ let lightSwitchHowl: Howl | null = null
 let teaCupHowl: Howl | null = null
 let teaDrinkHowl: Howl | null = null
 let doorSlideHowl: Howl | null = null
+let templeBellHowl: Howl | null = null
 let footstepHowl: Howl | null = null
 
 function preloadReusableSounds() {
@@ -443,6 +475,12 @@ function preloadReusableSounds() {
       src: [doorUrl],
       format: ['wav'],
       volume: 0.22,
+    })
+
+    templeBellHowl = new Howl({
+      src: [generateTempleBellWavUrl()],
+      format: ['wav'],
+      volume: 0.5,
     })
 
     const stepUrl = generateFootstepWavUrl()
@@ -602,7 +640,16 @@ export const useImmersiveAudio = () => {
     footstepHowl?.play()
   }
 
+  // Meditation dojo: temple bell marking the start and end of a sit
+  const playMeditationBell = () => {
+    if (!import.meta.client) return
+    ensureAudioContextResumed()
+    preloadReusableSounds()
+    templeBellHowl?.play()
+  }
+
   return {
+    playMeditationBell,
     playRoomAmbience,
     playBookSelect,
     playBookMove,

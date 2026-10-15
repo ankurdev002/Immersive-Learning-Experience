@@ -32,7 +32,153 @@ const {
   playTeaDrink,
   playDoorSlide,
   playFootstep,
+  playMeditationBell,
 } = useImmersiveAudio()
+
+// ---------------------------------------------------------------------------
+// Meditation dojo: monk conversation and guided sitting
+// ---------------------------------------------------------------------------
+type PracticeId = 'breath' | 'body' | 'kindness'
+interface Practice {
+  id: PracticeId
+  icon: string
+  label: string
+  minutes: number
+  intro: string
+  guidance: string[]
+}
+const PRACTICES: Practice[] = [
+  {
+    id: 'breath',
+    icon: '🌬️',
+    label: 'Breath awareness',
+    minutes: 3,
+    intro: 'Rest your attention on the breath. Nothing to change, only to notice.',
+    guidance: [
+      'Let your spine rise gently, like smoke from incense.',
+      'Feel the cool air entering at the nostrils, warm air leaving.',
+      'Follow one breath from its beginning to its end.',
+      'When the mind wanders, smile, and return to the breath.',
+      'Let each exhale be a little longer, a little softer.',
+      'There is nowhere else to be. Only this breath.',
+    ],
+  },
+  {
+    id: 'body',
+    icon: '🧘',
+    label: 'Body scan',
+    minutes: 5,
+    intro: 'Travel slowly through the body, meeting each place with kindness.',
+    guidance: [
+      'Feel the weight of your body resting on the cushion.',
+      'Soften the forehead, the eyes, the jaw.',
+      'Let the shoulders fall away from the ears.',
+      'Notice your hands resting in your lap, warm and still.',
+      'Feel the belly rise and fall with each breath.',
+      'Notice your legs and feet, grounded and supported.',
+      'Now feel the whole body breathing, as one.',
+    ],
+  },
+  {
+    id: 'kindness',
+    icon: '💗',
+    label: 'Loving-kindness',
+    minutes: 5,
+    intro: 'Offer simple wishes of goodwill, first to yourself, then outward.',
+    guidance: [
+      'Silently say: may I be at ease. May I be kind to myself.',
+      'Picture someone you love. May you be happy. May you be safe.',
+      'Picture someone you barely know. May you be at ease.',
+      'Picture someone difficult. May you be free from suffering.',
+      'Let the wish widen: may all beings be at ease.',
+      'Rest in this warmth, without needing anything.',
+    ],
+  },
+]
+
+type MonkStep = 'greet' | 'explain' | 'choose' | 'ready'
+const nearMonk = ref(false)
+const monkDialog = ref<{ roomId: string; step: MonkStep; practice: Practice | null } | null>(null)
+const isMeditating = ref(false)
+const meditationSession = ref<{ practice: Practice; elapsed: number; total: number; complete: boolean } | null>(null)
+const monkFarewell = ref('')
+let meditationTimer: ReturnType<typeof setInterval> | null = null
+
+const breathPhase = computed(() => {
+  const t = (meditationSession.value?.elapsed ?? 0) % 12
+  if (t < 4) return 'Breathe in…'
+  if (t < 6) return 'Hold softly…'
+  return 'Breathe out…'
+})
+const currentGuidance = computed(() => {
+  const session = meditationSession.value
+  if (!session) return ''
+  if (session.complete) return 'The bell has rung. Notice how you feel right now.'
+  const lines = session.practice.guidance
+  const index = Math.floor(session.elapsed / 25) % lines.length
+  return session.elapsed < 10 ? session.practice.intro : lines[index]!
+})
+const meditationRemaining = computed(() => {
+  const s = meditationSession.value
+  if (!s) return '0:00'
+  const left = Math.max(0, Math.ceil(s.total - s.elapsed))
+  return `${Math.floor(left / 60)}:${String(left % 60).padStart(2, '0')}`
+})
+const meditationProgress = computed(() => {
+  const s = meditationSession.value
+  return s ? Math.min(1, s.elapsed / s.total) : 0
+})
+
+const openMonkDialog = (roomId: string) => {
+  if (isMeditating.value) return
+  monkDialog.value = { roomId, step: 'greet', practice: null }
+}
+const closeMonkDialog = () => {
+  monkDialog.value = null
+}
+const chooseMonkStep = (step: MonkStep, practice: Practice | null = monkDialog.value?.practice ?? null) => {
+  if (monkDialog.value) monkDialog.value = { ...monkDialog.value, step, practice }
+}
+const beginMeditation = () => {
+  const dialog = monkDialog.value
+  if (!roomService || !dialog?.practice) return
+  meditationSession.value = { practice: dialog.practice, elapsed: 0, total: dialog.practice.minutes * 60, complete: false }
+  monkDialog.value = null
+  roomService.startMeditation(dialog.roomId)
+}
+const startMeditationClock = () => {
+  if (meditationTimer) clearInterval(meditationTimer)
+  playMeditationBell()
+  meditationTimer = setInterval(() => {
+    const s = meditationSession.value
+    if (!s || s.complete) return
+    s.elapsed += 0.25
+    if (s.elapsed >= s.total) {
+      s.complete = true
+      playMeditationBell()
+    }
+  }, 250)
+}
+const extendMeditation = (minutes: number) => {
+  const s = meditationSession.value
+  if (!s) return
+  s.total += minutes * 60
+  s.complete = false
+}
+const leaveMeditation = () => {
+  if (!roomService) return
+  if (meditationTimer) {
+    clearInterval(meditationTimer)
+    meditationTimer = null
+  }
+  if (meditationSession.value && !meditationSession.value.complete) playMeditationBell()
+  meditationSession.value = null
+  roomService.endMeditation()
+  monkFarewell.value = 'The monk bows softly: “Carry this stillness with you.”'
+  setTimeout(() => {
+    monkFarewell.value = ''
+  }, 4500)
+}
 
 const roomState = ref<'room-view' | 'book-flying' | 'on-table' | 'book-open' | 'explore'>('room-view')
 const isLoading = ref(true)
@@ -151,6 +297,14 @@ const handleSelectClass = (classLevel: number) => {
 }
 
 const handleKeyDown = (e: KeyboardEvent) => {
+  if (isMeditating.value || meditationSession.value) {
+    if (e.key === 'Escape') leaveMeditation()
+    return
+  }
+  if (monkDialog.value) {
+    if (e.key === 'Escape') closeMonkDialog()
+    return
+  }
   if (e.key === 'Escape') {
     if (isExploreMode.value) {
       handleToggleExploreMode()
@@ -298,6 +452,17 @@ onMounted(() => {
       onNearDoorPrompt: (p) => {
         nearDoorPrompt.value = p
       },
+      onNearMonk: ({ show }) => {
+        nearMonk.value = show
+        if (!show) monkDialog.value = null
+      },
+      onMonkInteract: (roomId) => {
+        openMonkDialog(roomId)
+      },
+      onMeditationChanged: (meditating) => {
+        isMeditating.value = meditating
+        if (meditating) startMeditationClock()
+      },
       onNearSwitchPrompt: (p) => {
         nearSwitchPrompt.value = p
       },
@@ -326,6 +491,7 @@ onMounted(() => {
 })
 
 onUnmounted(() => {
+  if (meditationTimer) clearInterval(meditationTimer)
   window.removeEventListener('keydown', handleKeyDown)
   window.removeEventListener('click', closeChamberMenu)
   if (progressTimer) {
@@ -872,7 +1038,7 @@ const handleExitRoom = () => {
       </div>
 
       <!-- Controls Helper Badge in Bottom-Left -->
-      <div class="explore-controls-card">
+      <div v-show="!isMeditating" class="explore-controls-card">
         <div class="ctrl-header">
           <span class="ctrl-badge-dot" />
           <span class="ctrl-mode-text">EXPLORE MODE ACTIVE</span>
@@ -895,9 +1061,112 @@ const handleExitRoom = () => {
       </div>
 
       <!-- Door Proximity Action Banner (Floating interactive chip) -->
+      <!-- Meditation dojo: talk to the monk -->
       <transition name="pop-fade">
         <div
-          v-if="nearSwitchPrompt.show"
+          v-if="nearMonk && !monkDialog && !isMeditating && !meditationSession && !monkFarewell"
+          class="floating-door-prompt monk-prompt"
+          @click="openMonkDialog(currentZone)"
+        >
+          <div class="fd-icon-box">🧘</div>
+          <div class="fd-content">
+            <span class="fd-title">The monk sits in silence</span>
+            <span class="fd-sub">Press [E] or click to speak with him</span>
+          </div>
+          <div class="fd-btn-group">
+            <button class="fd-btn fd-toggle-btn" @click.stop="openMonkDialog(currentZone)">Speak</button>
+          </div>
+        </div>
+      </transition>
+
+      <transition name="pop-fade">
+        <div v-if="monkDialog" class="monk-dialog" @click.stop>
+          <div class="monk-dialog-header">
+            <span class="monk-avatar">🧘</span>
+            <div>
+              <div class="monk-name">Rōshi Kenshin</div>
+              <div class="monk-role">Teacher of the Meditation Dojo</div>
+            </div>
+            <span class="monk-step">{{ monkDialog.step === 'ready' ? '3 / 3' : monkDialog.step === 'choose' ? '2 / 3' : '1 / 3' }}</span>
+          </div>
+
+          <template v-if="monkDialog.step === 'greet'">
+            <p class="monk-line">“Welcome, traveller. You carry a busy mind. Would you like to set it down and sit with me for a while?”</p>
+            <div class="monk-options">
+              <button class="monk-option is-primary" @click="chooseMonkStep('choose')">🙏 Yes, teach me to meditate</button>
+              <button class="monk-option" @click="chooseMonkStep('explain')">❓ What is meditation?</button>
+              <button class="monk-option is-quiet" @click="closeMonkDialog">Not now</button>
+            </div>
+          </template>
+
+          <template v-else-if="monkDialog.step === 'explain'">
+            <p class="monk-line">“Meditation is simply paying kind attention to this moment: the breath, the body, the heart. The mind will wander. Noticing that, and gently returning, is the whole practice.”</p>
+            <div class="monk-options">
+              <button class="monk-option is-primary" @click="chooseMonkStep('choose')">🌱 I would like to try</button>
+              <button class="monk-option is-quiet" @click="closeMonkDialog">Maybe later</button>
+            </div>
+          </template>
+
+          <template v-else-if="monkDialog.step === 'choose'">
+            <p class="monk-line">“Good. How would you like to sit today?”</p>
+            <div class="monk-options">
+              <button
+                v-for="practice in PRACTICES"
+                :key="practice.id"
+                class="monk-option"
+                @click="chooseMonkStep('ready', practice)"
+              >
+                {{ practice.icon }} {{ practice.label }} <span class="monk-option-meta">{{ practice.minutes }} min</span>
+              </button>
+              <button class="monk-option is-quiet" @click="chooseMonkStep('greet')">← Back</button>
+            </div>
+          </template>
+
+          <template v-else-if="monkDialog.step === 'ready' && monkDialog.practice">
+            <p class="monk-line">“{{ monkDialog.practice.intro }} Sit on the cushion facing me, rest your hands in your lap, and let your eyes soften. When you are ready, I will ring the bell.”</p>
+            <div class="monk-options">
+              <button class="monk-option is-primary" @click="beginMeditation">🔔 Sit and begin ({{ monkDialog.practice.minutes }} min)</button>
+              <button class="monk-option is-quiet" @click="chooseMonkStep('choose')">← Choose another practice</button>
+            </div>
+          </template>
+        </div>
+      </transition>
+
+      <!-- Guided meditation overlay -->
+      <transition name="pop-fade">
+        <div v-if="isMeditating && meditationSession" class="meditation-overlay">
+          <div class="meditation-top">
+            <span class="meditation-practice">{{ meditationSession.practice.icon }} {{ meditationSession.practice.label }}</span>
+            <span class="meditation-timer">{{ meditationSession.complete ? 'Complete' : meditationRemaining }}</span>
+          </div>
+          <div class="meditation-progress"><div class="meditation-progress-fill" :style="{ transform: `scaleX(${meditationProgress})` }" /></div>
+
+          <div class="breath-orb-wrap">
+            <div class="breath-orb" :class="{ 'is-paused': meditationSession.complete }" />
+            <span class="breath-label">{{ meditationSession.complete ? 'Rest' : breathPhase }}</span>
+          </div>
+
+          <transition name="fade-line" mode="out-in">
+            <p :key="currentGuidance" class="meditation-guidance">{{ currentGuidance }}</p>
+          </transition>
+
+          <div class="meditation-actions">
+            <template v-if="meditationSession.complete">
+              <button class="monk-option" @click="extendMeditation(2)">Sit a little longer (+2 min)</button>
+              <button class="monk-option is-primary" @click="leaveMeditation">Leave meditation</button>
+            </template>
+            <button v-else class="monk-option is-quiet" @click="leaveMeditation">Leave meditation · Esc</button>
+          </div>
+        </div>
+      </transition>
+
+      <transition name="pop-fade">
+        <div v-if="monkFarewell" class="monk-farewell">{{ monkFarewell }}</div>
+      </transition>
+
+      <transition name="pop-fade">
+        <div
+          v-if="nearSwitchPrompt.show && !isMeditating && !nearMonk && !monkDialog"
           class="floating-door-prompt switch-prompt"
           :class="{ 'is-stacked': nearDoorPrompt.show }"
           @click="handleToggleSwitchPrompt"
@@ -917,7 +1186,7 @@ const handleExitRoom = () => {
 
       <transition name="pop-fade">
         <div
-          v-if="nearDoorPrompt.show"
+          v-if="nearDoorPrompt.show && !isMeditating && !nearMonk && !monkDialog"
           class="floating-door-prompt"
         >
           <div class="fd-icon-box" @click="handleInteractDoor">🚪</div>
@@ -942,7 +1211,7 @@ const handleExitRoom = () => {
       </transition>
 
       <!-- Vertical Drop-Up Chamber Navigator (Bottom-Right) -->
-      <div class="chamber-dropup-container">
+      <div v-show="!isMeditating" class="chamber-dropup-container">
         <!-- Floating Dropup Menu that expands vertically UP -->
         <transition name="dropup-pop">
           <div v-if="isChamberMenuOpen" class="chamber-dropup-menu" @click.stop>
@@ -2012,6 +2281,272 @@ const handleExitRoom = () => {
 .floating-door-prompt.switch-prompt {
   border-color: rgba(250, 204, 21, 0.6);
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 24px rgba(250, 204, 21, 0.3);
+}
+
+/* ---------------- Meditation dojo ---------------- */
+.floating-door-prompt.monk-prompt {
+  top: 87%;
+  border-color: rgba(251, 191, 36, 0.55);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 24px rgba(251, 191, 36, 0.25);
+}
+
+.monk-dialog {
+  position: absolute;
+  left: 50%;
+  bottom: 3%;
+  transform: translateX(-50%);
+  width: min(540px, calc(100% - 32px));
+  padding: 20px 22px 18px;
+  background: rgba(20, 16, 12, 0.92);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(251, 191, 36, 0.35);
+  border-radius: 20px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+  color: #f5efe4;
+  pointer-events: auto;
+  z-index: 40;
+}
+
+.monk-dialog-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.monk-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 22px;
+  background: rgba(251, 191, 36, 0.14);
+  border: 1px solid rgba(251, 191, 36, 0.4);
+}
+
+.monk-name {
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.02em;
+}
+
+.monk-role {
+  font-size: 12px;
+  color: rgba(245, 239, 228, 0.6);
+}
+
+.monk-step {
+  margin-left: auto;
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(251, 191, 36, 0.85);
+  letter-spacing: 0.08em;
+}
+
+.monk-line {
+  margin: 0 0 14px;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 16px;
+  line-height: 1.55;
+  color: #f8f1e3;
+}
+
+.monk-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.monk-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(245, 239, 228, 0.18);
+  background: rgba(245, 239, 228, 0.06);
+  color: #f5efe4;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+}
+
+.monk-option:hover {
+  background: rgba(251, 191, 36, 0.14);
+  border-color: rgba(251, 191, 36, 0.5);
+  transform: translateY(-1px);
+}
+
+.monk-option.is-primary {
+  background: rgba(251, 191, 36, 0.2);
+  border-color: rgba(251, 191, 36, 0.6);
+}
+
+.monk-option.is-quiet {
+  background: transparent;
+  color: rgba(245, 239, 228, 0.7);
+}
+
+.monk-option-meta {
+  margin-left: auto;
+  font-size: 12px;
+  color: rgba(245, 239, 228, 0.55);
+}
+
+.meditation-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 24px 16px 3vh;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 40%, rgba(8, 6, 4, 0.55) 100%);
+  pointer-events: none;
+  z-index: 40;
+  color: #f8f1e3;
+}
+
+.meditation-top {
+  position: absolute;
+  top: 84px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: rgba(20, 16, 12, 0.6);
+  border: 1px solid rgba(251, 191, 36, 0.3);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.meditation-timer {
+  font-variant-numeric: tabular-nums;
+  color: rgba(251, 191, 36, 0.95);
+}
+
+.meditation-progress {
+  position: absolute;
+  top: 126px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(260px, 60%);
+  height: 3px;
+  border-radius: 3px;
+  background: rgba(245, 239, 228, 0.15);
+  overflow: hidden;
+}
+
+.meditation-progress-fill {
+  height: 100%;
+  background: rgba(251, 191, 36, 0.85);
+  transform-origin: left center;
+  transition: transform 0.25s linear;
+}
+
+.breath-orb-wrap {
+  position: relative;
+  width: 96px;
+  height: 96px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 10px;
+}
+
+.breath-orb {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, rgba(255, 236, 200, 0.55), rgba(251, 191, 36, 0.12) 60%, rgba(251, 191, 36, 0) 72%);
+  border: 1px solid rgba(251, 191, 36, 0.35);
+  animation: breath-cycle 12s ease-in-out infinite;
+}
+
+.breath-orb.is-paused {
+  animation-play-state: paused;
+}
+
+/* 4s in · 2s hold · 6s out, matching the on-screen cue and the camera's breathing */
+@keyframes breath-cycle {
+  0% { transform: scale(0.55); opacity: 0.55; }
+  33% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(0.55); opacity: 0.55; }
+}
+
+.breath-label {
+  position: relative;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+}
+
+.meditation-guidance {
+  max-width: 560px;
+  min-height: 3em;
+  margin: 0 0 18px;
+  text-align: center;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 18px;
+  line-height: 1.5;
+  padding: 8px 16px;
+  border-radius: 14px;
+  background: rgba(14, 11, 8, 0.45);
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.75);
+}
+
+.meditation-actions {
+  display: flex;
+  gap: 10px;
+  pointer-events: auto;
+}
+
+.meditation-actions .monk-option {
+  width: auto;
+  background: rgba(20, 16, 12, 0.6);
+}
+
+.meditation-actions .monk-option.is-primary {
+  background: rgba(251, 191, 36, 0.25);
+}
+
+.fade-line-enter-active,
+.fade-line-leave-active {
+  transition: opacity 1.2s ease;
+}
+
+.fade-line-enter-from,
+.fade-line-leave-to {
+  opacity: 0;
+}
+
+.monk-farewell {
+  position: absolute;
+  left: 50%;
+  bottom: 12%;
+  transform: translateX(-50%);
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: rgba(20, 16, 12, 0.85);
+  border: 1px solid rgba(251, 191, 36, 0.35);
+  color: #f8f1e3;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 15px;
+  z-index: 40;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .breath-orb {
+    animation-duration: 0s;
+  }
 }
 
 /* Switches hang beside doorways: sit above the door prompt when both apply */

@@ -6,6 +6,8 @@ import { PbrTextureLibrary } from './room/PbrTextures'
 import { HandRig, type HandPose } from './room/HandRig'
 import { CurvedStack, CurvedSheet, stackSurfaceHeight, gutterShade } from './room/BookGeometry'
 import {
+  createSeatedMonk,
+  type SeatedMonk,
   projectWoodUVs,
   createDesk,
   createChair,
@@ -267,6 +269,11 @@ export interface RoomServiceCallbacks {
   onRoomCreated?: (room: { id: string; name: string; icon: string; theme: string }) => void
   onNearDoorPrompt?: (prompt: DoorPromptData) => void
   onNearSwitchPrompt?: (prompt: SwitchPromptData) => void
+  /** Standing near a dojo monk (show = false when walking away) */
+  onNearMonk?: (near: { show: boolean; roomId: string }) => void
+  /** Player pressed [E] / clicked the monk: open the conversation */
+  onMonkInteract?: (roomId: string) => void
+  onMeditationChanged?: (meditating: boolean) => void
   onPlayFootstep?: () => void
   onPlayDoorSlide?: () => void
   onPerformanceUpdate?: (stats: PerformanceStats) => void
@@ -398,6 +405,7 @@ export class JapaneseRoomService {
   private consecutiveFastFrames = 0
   private slowFramesAtMinDPR = 0
   private framesSinceStatsEmit = 0
+  private lastDprDropTime = -Infinity
   private shadowUpdateFrames = 25
   private lastRaycastTime = 0
   private lastSpatialCheckZone = ''
@@ -454,6 +462,12 @@ export class JapaneseRoomService {
   private pageOpenness = { value: 0 }
   private lastSurfaceKey = ''
 
+  // Meditation dojo monks and the player's seated meditation
+  private monks: Array<SeatedMonk & { roomId: string; seat: THREE.Vector3 }> = []
+  private nearMonkRoomId = ''
+  public isMeditating = false
+  private meditationStand: { x: number; z: number; yaw: number } | null = null
+
   // Page-turning hands
   private handRight: HandRig | null = null
   private handLeft: HandRig | null = null
@@ -504,7 +518,8 @@ export class JapaneseRoomService {
     // 1. Scene & Camera
     this.scene = new THREE.Scene()
     this.scene.background = new THREE.Color('#0a0614')
-    this.scene.fog = new THREE.FogExp2('#0a0614', 0.05)
+    // Light haze only: the old density darkened the far end of the 28m corridor into murk
+    this.scene.fog = new THREE.FogExp2('#0a0614', 0.012)
 
     const aspect = canvas.clientWidth / canvas.clientHeight
     this.camera = new THREE.PerspectiveCamera(48, aspect, 0.1, 50)
@@ -585,9 +600,6 @@ export class JapaneseRoomService {
     // Compile every shader now (behind the loading screen) instead of mid-interaction
     this.warmUpShaders()
     this.startLoop()
-    if (typeof window !== 'undefined' && window.location.search.includes('roomDebug=1')) {
-      ;(window as any).__ireRoom = { service: this, gsap } // TEMP-DEBUG
-    }
   }
 
   // =========================================================
@@ -728,6 +740,7 @@ export class JapaneseRoomService {
         if (this.currentDPR > this.preset.minDPR + 0.001) {
           this.currentDPR = Math.max(this.preset.minDPR, Math.round((this.currentDPR - 0.1) * 100) / 100)
           this.renderer.setPixelRatio(this.currentDPR)
+          this.lastDprDropTime = performance.now()
         } else if (!this.isManualTier && this.qualityTier !== 'low') {
           this.slowFramesAtMinDPR++
           if (this.slowFramesAtMinDPR >= 6) {
@@ -741,7 +754,13 @@ export class JapaneseRoomService {
       this.consecutiveFastFrames++
       this.consecutiveSlowFrames = 0
       this.slowFramesAtMinDPR = 0
-      if (this.consecutiveFastFrames > 90 && this.currentDPR < this.baseDPR) {
+      // Only step back up after ~4s of headroom and well after the last drop, so resolution doesn't
+      // oscillate (each change resizes the canvas, which reads as a visible pop / seam)
+      if (
+        this.consecutiveFastFrames > 240 &&
+        this.currentDPR < this.baseDPR &&
+        performance.now() - this.lastDprDropTime > 15000
+      ) {
         this.currentDPR = Math.min(this.baseDPR, Math.round((this.currentDPR + 0.05) * 100) / 100)
         this.renderer.setPixelRatio(this.currentDPR)
         this.consecutiveFastFrames = 0
@@ -1067,22 +1086,33 @@ export class JapaneseRoomService {
       group.add(rug)
       decals.push([sx, -0.05, 3.9, 0.8], [sx + 1.25, 1.45, 1.1, 1.0], [sx + 1.95, 0.75, 0.45, 0.45])
     } else if (theme === 'meditation') {
-      place(createStoneLantern(p, glow('#ffc878', 1.0)), sx - 1.3, 1.2)
-      collide(sx - 1.3, 1.2, 0.32, 0.32)
-      const candle = createVirtualLight('point', '#fef08a', 0.8, 5, 2, new THREE.Vector3(sx - 1.3, 0.62, 1.2))
+      place(createStoneLantern(p, glow('#ffc878', 1.0)), sx - 1.7, 1.0)
+      collide(sx - 1.7, 1.0, 0.32, 0.32)
+      const candle = createVirtualLight('point', '#fef08a', 0.8, 5, 2, new THREE.Vector3(sx - 1.7, 0.62, 1.0))
       lights.push(candle)
       this.pointFixtures.push(candle)
 
       const pedestal = new THREE.Mesh(new THREE.CylinderGeometry(0.28, 0.32, 0.7, 28), p.walnut)
       pedestal.castShadow = true
-      place(pedestal, sx + 1.4, 0.8, 0, 0.35)
-      place(createBonsai(p, 1.5), sx + 1.4, 0.8, 0.4, 0.7)
-      collide(sx + 1.4, 0.8, 0.38, 0.38)
+      place(pedestal, sx + 1.7, 0.75, 0, 0.35)
+      place(createBonsai(p, 1.5), sx + 1.7, 0.75, 0.4, 0.7)
+      collide(sx + 1.7, 0.75, 0.38, 0.38)
 
-      place(createChabudai(p), sx, 1.55)
-      collide(sx, 1.55, 0.48, 0.48)
-      place(createZabuton(p.cushionIndigo), sx - 0.75, 1.55, 0.1)
-      place(createZabuton(p.cushionIndigo), sx + 0.75, 1.55, -0.1)
+      // Low table with tea off to the side, clear of the walk from the door to the cushions
+      place(createChabudai(p), sx + 1.45, 2.55)
+      const tea = createTeaSet(p)
+      place(tea, sx + 1.45, 2.55, 0.6, 0.3375)
+      collide(sx + 1.45, 2.55, 0.48, 0.48)
+
+      // The monk sits facing the door; an empty zabuton waits opposite for the visitor
+      const robe = this.pbr.material('hessian', { noColorMap: true, color: '#2b2b31', repeat: [3, 3], normalScale: 0.5, name: `monk-robe-${sx}` })
+      const kesa = this.pbr.material('hessian', { noColorMap: true, color: '#7d5a28', repeat: [2, 2], name: `monk-kesa-${sx}` })
+      const skin = new THREE.MeshStandardMaterial({ color: '#c79a78', roughness: 0.55, name: `monk-skin-${sx}` })
+      const monk = createSeatedMonk(p.cushionIndigo, robe, kesa, skin)
+      place(monk.group, sx, 0.95)
+      collide(sx, 0.95, 0.5, 0.45)
+      this.monks.push({ ...monk, roomId: '', seat: new THREE.Vector3(sx, 0, 2.25) })
+      place(createZabuton(p.cushionIndigo), sx, 2.25)
 
       // Picture window onto a raked karesansui garden
       box(3.1, 1.5, 0.06, p.walnutDark, sx, 1.55, -0.27)
@@ -1092,7 +1122,7 @@ export class JapaneseRoomService {
       box(0.04, 1.32, 0.03, p.walnutDark, sx - 0.97, 1.55, -0.225)
       box(0.04, 1.32, 0.03, p.walnutDark, sx + 0.97, 1.55, -0.225)
       box(3.2, 0.04, 0.14, p.walnutDark, sx, 0.79, -0.22)
-      decals.push([sx - 1.3, 1.2, 0.75, 0.75], [sx + 1.4, 0.8, 0.85, 0.85], [sx, 1.55, 1.3, 1.3])
+      decals.push([sx - 1.7, 1.0, 0.75, 0.75], [sx + 1.7, 0.75, 0.85, 0.85], [sx + 1.45, 2.55, 1.3, 1.3], [sx, 0.95, 1.0, 1.0])
     } else if (theme === 'gallery') {
       place(createFramedPainting(p, 'mountains', 0.8, 1.0), sx - 1.1, -0.3, 0, 1.65)
       place(createFramedPainting(p, 'enso', 0.8, 1.0), sx + 1.1, -0.3, 0, 1.65)
@@ -1217,6 +1247,26 @@ export class JapaneseRoomService {
       { tex: createGardenMidLayer(), dist: 2.4, w: width * 2.6 + 6, h: 4.2, y: 2.0, cutout: true, repeat: Math.max(2, Math.round((width * 2.6 + 6) / 9)) },
       { tex: createGardenNearLayer(), dist: 0.9, w: width * 1.9 + 2, h: 6, y: 2.9, cutout: true, sway: true, repeat: Math.max(2, Math.round((width * 1.9 + 2) / 5)) },
     ]
+    // Mossy ground running out from the window under all layers: looking down through the glass
+    // used to show empty background beneath the garden planes
+    {
+      let lo = originAlong - (width * 3.6 + 10) / 2
+      let hi = originAlong + (width * 3.6 + 10) / 2
+      if (clampAlong) {
+        lo = Math.max(lo, clampAlong[0])
+        hi = Math.min(hi, clampAlong[1])
+      }
+      const groundMat = new THREE.MeshBasicMaterial({ color: '#5a7a45', fog: false })
+      nightList?.push(groundMat)
+      const ground = new THREE.Mesh(new THREE.PlaneGeometry(hi - lo, 4.6), groundMat)
+      ground.rotation.x = -Math.PI / 2
+      ground.rotation.z = alongZ ? Math.PI / 2 : 0
+      ground.position.copy(origin).addScaledVector(outward, 2.35)
+      ground.position.y = -0.02
+      if (alongZ) ground.position.z = (lo + hi) / 2
+      else ground.position.x = (lo + hi) / 2
+      parent.add(ground)
+    }
     for (const layer of layers) {
       layer.tex.wrapS = THREE.RepeatWrapping
       layer.tex.repeat.set(layer.repeat, 1)
@@ -1349,7 +1399,8 @@ export class JapaneseRoomService {
     // 3. Left wall: yukimi-shoji screens with a clear band looking onto the garden
     const shoji = createShojiWall(p, 6.98, { transom: this.plasterMaterial(6.98, 1.0) })
     shoji.rotation.y = Math.PI / 2
-    shoji.position.set(-3.0, 0, 0.39)
+    // Set 6cm into the study: the dojo's wall shares the x = -3 plane, so nothing may poke through it
+    shoji.position.set(-2.94, 0, 0.39)
     this.scene.add(shoji)
 
     // Parallax garden: sky + mountains, maples, swaying bamboo
@@ -2750,6 +2801,7 @@ export class JapaneseRoomService {
     this.shelfInteractiveMeshes.forEach(add)
     this.interactiveDoors.forEach((d) => add(d.mesh))
     this.interactiveSwitches.forEach((s) => add(s.mesh))
+    for (const monk of this.monks) add(monk.group)
     for (const room of this.customRooms.values()) {
       add(room.doorGroup)
       add(room.labelMesh)
@@ -2966,7 +3018,7 @@ export class JapaneseRoomService {
   }
 
   private onWindowMouseMove = (e: MouseEvent) => {
-    if (this.isExploreMode && this.isMouseDragging) {
+    if (this.isExploreMode && this.isMouseDragging && !this.isMeditating) {
       const dx = e.clientX - this.prevMousePos.x
       const dy = e.clientY - this.prevMousePos.y
       this.prevMousePos = { x: e.clientX, y: e.clientY }
@@ -3148,6 +3200,16 @@ export class JapaneseRoomService {
         if (intersects.length > 0 && intersects[0]!.distance < 4.5) {
           this.toggleDoor(doorItem.roomId)
           return
+        }
+      }
+      if (!this.isMeditating) {
+        for (const monk of this.monks) {
+          if (monk.roomId !== this.currentZone) continue
+          const hit = this.raycaster.intersectObject(monk.hitBox, false)
+          if (hit.length > 0 && hit[0]!.distance < 4) {
+            this.callbacks.onMonkInteract?.(monk.roomId)
+            return
+          }
         }
       }
       for (const switchItem of this.interactiveSwitches) {
@@ -4915,6 +4977,7 @@ export class JapaneseRoomService {
     const colliders: RoomCollider[] = []
     const glowMaterials: THREE.MeshStandardMaterial[] = []
     this.furnishRoom(interior, theme, slotX, roomLights, colliders, glowMaterials)
+    for (const monk of this.monks) if (!monk.roomId) monk.roomId = roomId
     this.addDoorwayNoren(roomGroup, slotX, roomIndex)
 
     // 3. Room Dedicated Lighting System
@@ -5030,8 +5093,9 @@ export class JapaneseRoomService {
 
     const leftClosed = doorCenterX - 0.41
     const rightClosed = doorCenterX + 0.41
-    const leftTarget = isOpen ? leftClosed - 0.65 : leftClosed
-    const rightTarget = isOpen ? rightClosed + 0.65 : rightClosed
+    // Leaves slide fully into the wall pocket (0.84m) so no half-open panel hangs in the doorway
+    const leftTarget = isOpen ? leftClosed - 0.84 : leftClosed
+    const rightTarget = isOpen ? rightClosed + 0.84 : rightClosed
 
     this.callbacks.onPlayDoorSlide?.()
     // Reveal the room as the door starts opening; hide it only once the door has fully closed
@@ -5278,6 +5342,11 @@ export class JapaneseRoomService {
       })
     } else {
       // Return to Desk / Shelf overview
+      if (this.isMeditating) {
+        this.isMeditating = false
+        this.playerPos.y = 1.65
+        this.callbacks.onMeditationChanged?.(false)
+      }
       this.keys.forward = false
       this.keys.backward = false
       this.keys.left = false
@@ -5454,10 +5523,78 @@ export class JapaneseRoomService {
   }
 
   private interactNearest() {
+    if (this.isMeditating) return
+    if (this.nearMonkRoomId) {
+      this.callbacks.onMonkInteract?.(this.nearMonkRoomId)
+      return
+    }
     if (this.currentNearPrompt.show && this.currentNearPrompt.roomId) {
       this.toggleDoor(this.currentNearPrompt.roomId)
     }
   }
+
+  private checkMonkProximity() {
+    let near = ''
+    if (this.isExploreMode && !this.isMeditating) {
+      for (const monk of this.monks) {
+        if (monk.roomId !== this.currentZone) continue
+        const d = Math.hypot(monk.group.position.x - this.playerPos.x, monk.group.position.z - this.playerPos.z)
+        if (d < 2.1) near = monk.roomId
+      }
+    }
+    if (near !== this.nearMonkRoomId) {
+      this.nearMonkRoomId = near
+      this.callbacks.onNearMonk?.({ show: !!near, roomId: near })
+    }
+  }
+
+  /** Sit down on the visitor's cushion facing the monk and hand the camera over to stillness. */
+  public startMeditation(roomId: string) {
+    const monk = this.monks.find((m) => m.roomId === roomId)
+    if (!monk || this.isMeditating) return
+    this.isMeditating = true
+    this.keys.forward = this.keys.backward = this.keys.left = this.keys.right = this.keys.shift = false
+    this.isMouseDragging = false
+    // Unwind the yaw so the turn toward the monk takes the short way round
+    this.playerYaw = Math.atan2(Math.sin(this.playerYaw), Math.cos(this.playerYaw))
+    this.meditationStand = { x: this.playerPos.x, z: this.playerPos.z, yaw: this.playerYaw }
+    this.nearMonkRoomId = ''
+    this.callbacks.onNearMonk?.({ show: false, roomId })
+
+    gsap.killTweensOf(this.playerPos)
+    const seat = monk.seat
+    const tl = gsap.timeline()
+    // Step onto the cushion, then lower down into a seated posture facing the monk
+    tl.to(this.playerPos, { x: seat.x, z: seat.z + 0.12, duration: 0.9, ease: 'power2.inOut' }, 0)
+    tl.to(this, { playerYaw: 0, playerPitch: -0.16, duration: 0.9, ease: 'power2.inOut' }, 0)
+    tl.to(this.playerPos, { y: 0.92, duration: 1.1, ease: 'power3.inOut' }, 0.6)
+    const env = this.envLevels.get(roomId)
+    const room = this.customRooms.get(roomId)
+    if (env && room?.isLightOn) tl.to(env, { value: 0.28, duration: 2.0 }, 0.6)
+    tl.call(() => this.callbacks.onMeditationChanged?.(true), [], 1.5)
+  }
+
+  /** Stand up from the cushion and return control to the player. */
+  public endMeditation() {
+    if (!this.isMeditating) return
+    gsap.killTweensOf(this.playerPos)
+    const roomId = this.currentZone
+    const env = this.envLevels.get(roomId)
+    const room = this.customRooms.get(roomId)
+    const tl = gsap.timeline({
+      onComplete: () => {
+        this.isMeditating = false
+        this.callbacks.onMeditationChanged?.(false)
+        this.checkDoorProximity()
+      },
+    })
+    tl.to(this.playerPos, { y: 1.65, duration: 1.0, ease: 'power2.inOut' }, 0)
+    tl.to(this.playerPos, { z: this.playerPos.z + 0.45, duration: 0.8, ease: 'power2.out' }, 0.6)
+    // Stand and keep a respectful downward glance toward the monk
+    tl.to(this, { playerPitch: -0.28, duration: 0.8, ease: 'power2.inOut' }, 0)
+    if (env) tl.to(env, { value: room?.isLightOn === false ? 0.05 : 0.45, duration: 1.2 }, 0)
+  }
+
 
   private checkAllowedPosition(nextX: number, nextZ: number): { allowed: boolean; newZone?: string } {
     if (this.currentZone === 'study-room') {
@@ -5562,6 +5699,14 @@ export class JapaneseRoomService {
     // Ensure delta is valid and realistic (guaranteed > 0)
     const safeDelta = (delta > 0.0005 && delta < 0.15) ? delta : (1 / 60)
 
+    if (this.isMeditating) {
+      // Seated: no walking, just a slow breath rising and falling (12s, like the on-screen guide)
+      const breath = Math.sin((elapsedTime / 12) * Math.PI * 2) * 0.006
+      this.camera.position.set(this.playerPos.x, this.playerPos.y + breath, this.playerPos.z)
+      this.camera.rotation.set(this.playerPitch, this.playerYaw, 0, 'YXZ')
+      return
+    }
+
     // 1. Calculate Horizontal Movement Vectors using zero-allocation scratch objects
     this._scratchForward.set(-Math.sin(this.playerYaw), 0, -Math.cos(this.playerYaw))
     this._scratchRight.set(Math.cos(this.playerYaw), 0, -Math.sin(this.playerYaw))
@@ -5638,6 +5783,8 @@ export class JapaneseRoomService {
 
   private checkDoorProximity() {
     this.checkSwitchProximity()
+    this.checkMonkProximity()
+    if (this.isMeditating) return
     let nearPrompt: DoorPromptData = { show: false, text: '', roomId: '', isOpen: false }
 
     // Check Study Room Door (X: 0, Z: 3.87)
@@ -5766,6 +5913,12 @@ export class JapaneseRoomService {
 
       this.syncLightPools()
       this.swayUniforms.uTime.value = elapsedTime
+      for (const monk of this.monks) {
+        if (!monk.group.parent?.visible) continue
+        const breath = Math.sin(elapsedTime * 0.52)
+        monk.torso.scale.set(1 + breath * 0.008, 1 + breath * 0.014, 1 + breath * 0.01)
+        monk.head.rotation.x = 0.12 + breath * 0.012
+      }
       this.scene.environmentIntensity = (this.envLevels.get(this.currentZone) ?? this.envLevels.get('hallway')!).value
       if (this.heroBookGroup.visible) this.syncBookSurfaces()
       this.renderer.render(this.scene, this.camera)
