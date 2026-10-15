@@ -4,6 +4,8 @@ import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js'
 import { PbrTextureLibrary } from './room/PbrTextures'
+import { OutdoorWorld } from './room/OutdoorWorld'
+import { createGlassDoorWall, createPictureWindow, createWindowGlass } from './room/Windows'
 import { HandRig, type HandPose } from './room/HandRig'
 import { CurvedStack, CurvedSheet, stackSurfaceHeight, gutterShade } from './room/BookGeometry'
 import {
@@ -36,11 +38,7 @@ import {
   type RoomPalette,
 } from './room/Props'
 import {
-  createGardenFarLayer,
-  createGardenMidLayer,
-  createGardenNearLayer,
   createRugTexture,
-  createSandGardenTexture,
   createGlobeTexture,
   createWallMapTexture,
   createSoftShadowTexture,
@@ -339,7 +337,9 @@ export class JapaneseRoomService {
   private pbr!: PbrTextureLibrary
   private palette!: RoomPalette
   private readonly swayUniforms = { uTime: { value: 0 } }
-  private studyGardenGroup = new THREE.Group()
+  /** Real garden + sky outside the glass (front: corridor side, back: courtyard behind the rooms) */
+  private outdoor: OutdoorWorld | null = null
+  private readonly windowGlass = createWindowGlass()
   private hallwayLanternPaper!: THREE.MeshStandardMaterial
   private studyPaperGlow!: THREE.MeshStandardMaterial
   private lampBulbMaterial: THREE.MeshStandardMaterial | null = null
@@ -348,7 +348,6 @@ export class JapaneseRoomService {
     ['study-room', { value: 0.45 }],
     ['hallway', { value: 0.45 }],
   ])
-  private studyGardenMaterials: THREE.MeshBasicMaterial[] = []
   private hallwayEmissives: THREE.MeshStandardMaterial[] = []
   private hallwayFixtureMaterial: THREE.MeshBasicMaterial | null = null
   /** Every wall switch, with the zone it sits in and the zone it controls */
@@ -524,7 +523,7 @@ export class JapaneseRoomService {
     this.scene.fog = new THREE.FogExp2('#0a0614', 0.012)
 
     const aspect = canvas.clientWidth / canvas.clientHeight
-    this.camera = new THREE.PerspectiveCamera(48, aspect, 0.1, 50)
+    this.camera = new THREE.PerspectiveCamera(48, aspect, 0.1, 200)
     this.camera.position.copy(this.initialCamPos)
     this.camera.lookAt(this.initialCamTarget)
 
@@ -588,6 +587,16 @@ export class JapaneseRoomService {
     this.buildFrontBookshelf()
     this.buildHeroBook()
     this.setupAtmosphere()
+    this.outdoor = new OutdoorWorld({
+      pbr: this.pbr,
+      manager: this.loadingManager,
+      tier: this.qualityTier,
+      antialias: this.preset.antialias,
+      dojoX: -5.5,
+      onModelsReady: () => this.warmUpShaders(),
+    })
+    this.outdoor.setCorridorSpill(this.isHallwayLightOn ? 1 : 0)
+    this.scene.add(this.outdoor.front, this.outdoor.back, this.outdoor.far)
 
     // Collapse static furniture & architecture into one mesh per material (hundreds fewer draw calls)
     this.optimizeStaticMeshes()
@@ -799,7 +808,14 @@ export class JapaneseRoomService {
     this.lastSpatialCheckX = px
 
     // Occlusion by zone: interiors render only when you're inside or can see in through an open door
-    this.studyGardenGroup.visible = zone === 'study-room'
+    if (this.outdoor) {
+      // The courtyard is seen from the study and dojo windows, the front garden through the corridor glass
+      const room = this.customRooms.get(zone)
+      const dojo = [...this.customRooms.values()].find((r) => r.theme === 'meditation')
+      this.outdoor.front.visible = zone === 'hallway' || (zone === 'study-room' ? this.isStudyDoorOpen : !!room?.isDoorOpen)
+      this.outdoor.back.visible =
+        zone === 'study-room' || room?.theme === 'meditation' || (zone === 'hallway' && (this.isStudyDoorOpen || !!dojo?.isDoorOpen))
+    }
     for (const room of this.customRooms.values()) {
       room.interior.visible = zone === room.id || (zone !== 'study-room' && room.isDoorOpen)
     }
@@ -861,9 +877,11 @@ export class JapaneseRoomService {
 
   /** Applies zone masks and maps the nearest active virtual fixtures onto the fixed real light pools. */
   private syncLightPools() {
-    this.sunLight.intensity = this.lightLevels.sun * this.zoneMask.sun
+    // Daylight through the window follows the real time of day
+    const day = this.outdoor?.daylight ?? 1
+    this.sunLight.intensity = this.lightLevels.sun * this.zoneMask.sun * (0.3 + 0.7 * day)
     this.lampLight.intensity = this.lightLevels.lamp * this.zoneMask.lamp
-    this.moonLight.intensity = this.lightLevels.moon * this.zoneMask.moon
+    this.moonLight.intensity = (this.lightLevels.moon + 0.25 * (1 - day)) * this.zoneMask.moon
 
     this.assignLightPool(this.spotFixtures, this.spotPool)
     this.assignLightPool(this.pointFixtures, this.pointPool)
@@ -1139,14 +1157,10 @@ export class JapaneseRoomService {
       this.monks.push({ ...monk, roomId: '', seat: new THREE.Vector3(sx, 0, 2.25) })
       place(createZabuton(p.cushionIndigo), sx, 2.25)
 
-      // Picture window onto a raked karesansui garden
-      box(3.1, 1.5, 0.06, p.walnutDark, sx, 1.55, -0.27)
-      const sand = new THREE.Mesh(new THREE.PlaneGeometry(2.92, 1.32), this.gardenLayerMaterial(createSandGardenTexture(), false))
-      sand.position.set(sx, 1.55, -0.235)
-      group.add(sand)
-      box(0.04, 1.32, 0.03, p.walnutDark, sx - 0.97, 1.55, -0.225)
-      box(0.04, 1.32, 0.03, p.walnutDark, sx + 0.97, 1.55, -0.225)
-      box(3.2, 0.04, 0.14, p.walnutDark, sx, 0.79, -0.22)
+      // Glazed window onto the raked karesansui courtyard behind the dojo (opening cut in createCustomRoom)
+      const dojoWindow = createPictureWindow(2.9, 1.76, 0.06, p.walnutDark, this.windowGlass)
+      dojoWindow.position.set(sx, 1.33, -0.33)
+      group.add(dojoWindow)
       decals.push([sx - 1.7, 1.0, 0.75, 0.75], [sx + 1.7, 0.75, 0.85, 0.85], [sx + 1.45, 2.55, 1.3, 1.3], [sx, 0.95, 1.0, 1.0])
     } else if (theme === 'gallery') {
       place(createFramedPainting(p, 'mountains', 0.8, 1.0), sx - 1.1, -0.3, 0, 1.65)
@@ -1233,90 +1247,6 @@ export class JapaneseRoomService {
       )
     }
     material.customProgramCacheKey = () => `sway-${weight}-${amplitude}-${speed}-${axis}`
-  }
-
-  private gardenLayerMaterial(
-    map: THREE.Texture,
-    transparentCutout: boolean,
-    nightList?: THREE.MeshBasicMaterial[]
-  ): THREE.MeshBasicMaterial {
-    // Cut-out foliage seen at grazing angles shimmered into streaks: sharper oblique filtering, and
-    // with MSAA the cut-out edges are antialiased by alpha-to-coverage
-    map.anisotropy = Math.max(map.anisotropy, this.preset.anisotropy)
-    const mat = new THREE.MeshBasicMaterial({
-      map,
-      alphaTest: transparentCutout ? 0.45 : 0,
-      alphaToCoverage: transparentCutout && this.preset.antialias,
-      side: THREE.FrontSide,
-      fog: false,
-    })
-    nightList?.push(mat)
-    return mat
-  }
-
-  /**
-   * Three parallax planes (sky/mountains, maples, swaying bamboo) behind a window. `origin` is the
-   * window centre, `outward` the unit direction away from the room.
-   */
-  private buildGardenLayers(
-    parent: THREE.Object3D,
-    origin: THREE.Vector3,
-    outward: THREE.Vector3,
-    width: number,
-    clampAlong?: [number, number],
-    nightList?: THREE.MeshBasicMaterial[]
-  ) {
-    const yaw = Math.atan2(-outward.x, -outward.z) // plane faces back into the room
-    // Horizontal axis of the window wall (world X or Z)
-    const alongZ = Math.abs(outward.x) > Math.abs(outward.z)
-    const originAlong = alongZ ? origin.z : origin.x
-    const layers: Array<{ tex: THREE.Texture; dist: number; w: number; h: number; y: number; cutout: boolean; sway?: boolean; repeat: number }> = [
-      // Widths cover the steep viewing angles from the far end of the room through the window
-      { tex: createGardenFarLayer(), dist: 4.2, w: width * 3.6 + 10, h: 8, y: 2.6, cutout: false, repeat: Math.max(2, Math.round((width * 3.6 + 10) / 12)) },
-      { tex: createGardenMidLayer(), dist: 2.4, w: width * 2.6 + 6, h: 4.2, y: 2.0, cutout: true, repeat: Math.max(2, Math.round((width * 2.6 + 6) / 9)) },
-      { tex: createGardenNearLayer(), dist: 0.9, w: width * 1.9 + 2, h: 6, y: 2.9, cutout: true, sway: true, repeat: Math.max(2, Math.round((width * 1.9 + 2) / 5)) },
-    ]
-    // Mossy ground running out from the window under all layers: looking down through the glass
-    // used to show empty background beneath the garden planes
-    {
-      let lo = originAlong - (width * 3.6 + 10) / 2
-      let hi = originAlong + (width * 3.6 + 10) / 2
-      if (clampAlong) {
-        lo = Math.max(lo, clampAlong[0])
-        hi = Math.min(hi, clampAlong[1])
-      }
-      const groundMat = new THREE.MeshBasicMaterial({ color: '#5a7a45', fog: false })
-      nightList?.push(groundMat)
-      const ground = new THREE.Mesh(new THREE.PlaneGeometry(hi - lo, 4.6), groundMat)
-      ground.rotation.x = -Math.PI / 2
-      ground.rotation.z = alongZ ? Math.PI / 2 : 0
-      ground.position.copy(origin).addScaledVector(outward, 2.35)
-      ground.position.y = -0.02
-      if (alongZ) ground.position.z = (lo + hi) / 2
-      else ground.position.x = (lo + hi) / 2
-      parent.add(ground)
-    }
-    for (const layer of layers) {
-      layer.tex.wrapS = THREE.RepeatWrapping
-      layer.tex.repeat.set(layer.repeat, 1)
-      const mat = this.gardenLayerMaterial(layer.tex, layer.cutout, nightList)
-      if (layer.sway) this.applySway(mat, 'uv.y * uv.y', 0.06, 0.9, 'x')
-      let lo = originAlong - layer.w / 2
-      let hi = originAlong + layer.w / 2
-      if (clampAlong) {
-        lo = Math.max(lo, clampAlong[0])
-        hi = Math.min(hi, clampAlong[1])
-      }
-      const w = hi - lo
-      layer.tex.repeat.x = Math.max(1, Math.round((layer.repeat * w) / layer.w))
-      const mesh = new THREE.Mesh(new THREE.PlaneGeometry(w, layer.h, layer.sway ? 24 : 1, layer.sway ? 6 : 1), mat)
-      mesh.position.copy(origin).addScaledVector(outward, layer.dist)
-      if (alongZ) mesh.position.z = (lo + hi) / 2
-      else mesh.position.x = (lo + hi) / 2
-      mesh.position.y = layer.y
-      mesh.rotation.y = yaw
-      parent.add(mesh)
-    }
   }
 
   /** One merged, transparent mesh of soft contact-shadow blobs on a floor (or desk) plane. */
@@ -1425,18 +1355,33 @@ export class JapaneseRoomService {
     rightWall.receiveShadow = true
     this.scene.add(rightWall)
 
-    // 3. Left wall: yukimi-shoji screens with a clear band looking onto the garden
-    const shoji = createShojiWall(p, 6.98, { transom: this.plasterMaterial(6.98, 1.0) })
+    // 3. Left wall. The front part (z -0.3..3.88) backs onto the meditation dojo: closed shoji
+    // screens. The back part is solid wall with a glazed picture window onto the courtyard garden.
+    const shoji = createShojiWall(p, 4.18, { panels: 2, glassFrom: 1.45, glassTo: 1.45, transom: this.plasterMaterial(4.18, 1.0) })
     shoji.rotation.y = Math.PI / 2
     // Set 6cm into the study: the dojo's wall shares the x = -3 plane, so nothing may poke through it
-    shoji.position.set(-2.94, 0, 0.39)
+    shoji.position.set(-2.94, 0, 1.79)
     this.scene.add(shoji)
+    const post = new THREE.Mesh(new THREE.BoxGeometry(0.13, 3.9, 0.13), p.walnutDark)
+    post.position.set(-2.95, 1.95, -0.3)
+    this.scene.add(post)
 
-    // Parallax garden: sky + mountains, maples, swaying bamboo
-    // Clamped so the layers never reach the corridor (z > 3.85); shown only from inside the study
-    // because the meditation dojo occupies the space beyond this window.
-    this.scene.add(this.studyGardenGroup)
-    this.buildGardenLayers(this.studyGardenGroup, new THREE.Vector3(-3.0, 0, 0.39), new THREE.Vector3(-1, 0, 0), 6.98, [-30, 3.85], this.studyGardenMaterials)
+    // Wall around the window opening (z -2.9..-0.5, y 0.5..2.7); both faces of these boxes show,
+    // so they double as the building's outside wall seen from the garden
+    const wallPiece = (y0: number, y1: number, z0: number, z1: number) => {
+      const m = new THREE.Mesh(new THREE.BoxGeometry(0.12, y1 - y0, z1 - z0), this.worldPlaster)
+      m.position.set(-3.0, (y0 + y1) / 2, (z0 + z1) / 2)
+      m.receiveShadow = true
+      this.scene.add(m)
+    }
+    wallPiece(-0.35, 0.5, -3.1, -0.3)
+    wallPiece(2.7, 4.0, -3.1, -0.3)
+    wallPiece(0.5, 2.7, -3.1, -2.9)
+    wallPiece(0.5, 2.7, -0.5, -0.3)
+    const studyWindow = createPictureWindow(2.4, 2.2, 0.12, p.walnutDark, this.windowGlass)
+    studyWindow.rotation.y = Math.PI / 2
+    studyWindow.position.set(-3.0, 1.6, -1.7)
+    this.scene.add(studyWindow)
 
     // 4. Tokonoma alcove on the right wall holding the calligraphy scroll, ikebana and a small andon
     const tokonoma = createTokonoma(p, 1.6, 0.5)
@@ -2825,6 +2770,7 @@ export class JapaneseRoomService {
     add(this.contactShadowLeft)
     add(this.contactShadowRight)
     add(this.gardenBackdropMesh)
+    add(this.outdoor?.sky)
     add(this.dustParticles)
     add(this.teaSteamParticles)
     this.shelfInteractiveMeshes.forEach(add)
@@ -2899,7 +2845,10 @@ export class JapaneseRoomService {
       zoneOf.set(room.group, { key: `${room.id}-shell`, parent: room.group })
       zoneOf.set(room.interior, { key: room.id, parent: room.interior })
     }
-    zoneOf.set(this.studyGardenGroup, { key: 'study-garden', parent: this.studyGardenGroup })
+    if (this.outdoor) {
+      zoneOf.set(this.outdoor.front, { key: 'outdoor-front', parent: this.outdoor.front })
+      zoneOf.set(this.outdoor.back, { key: 'outdoor-back', parent: this.outdoor.back })
+    }
     const studyZone = { key: 'study', parent: this.scene as THREE.Object3D }
 
     const canonicalMaterials = new Map<string, THREE.Material>()
@@ -4745,15 +4694,11 @@ export class JapaneseRoomService {
     this.hallwayGroup.add(this.hallwayInnerWallGroup)
     this.rebuildHallwayInnerWall()
 
-    // 5. Outer yukimi-shoji wall looking onto the garden (Z = 7.3) + parallax garden layers
-    // Daylit washi: its own material so switching the study light off doesn't dim the corridor
-    const corridorPaper = this.studyPaperGlow.clone()
-    corridorPaper.name = 'corridor-paper'
-    const outerShoji = createShojiWall(p, 28, { panels: 16, transom: this.plasterMaterial(28, 1.0), paper: corridorPaper })
-    outerShoji.rotation.y = Math.PI
-    outerShoji.position.set(0, 0, 7.3)
-    this.hallwayGroup.add(outerShoji)
-    this.buildGardenLayers(this.hallwayGroup, new THREE.Vector3(0, 0, 7.3), new THREE.Vector3(0, 0, 1), 28)
+    // 5. Outer wall onto the garden (Z = 7.3): sliding glass doors opening onto the veranda
+    const outerGlass = createGlassDoorWall(28, p.walnutDark, this.windowGlass, { panels: 16, transom: this.worldPlaster })
+    outerGlass.rotation.y = Math.PI
+    outerGlass.position.set(0, 0, 7.3)
+    this.hallwayGroup.add(outerGlass)
 
     // Timber posts along the inner wall, between the doorway slots
     for (const x of [-13.85, -8.25, -2.75, 2.75, 8.25, 13.85]) {
@@ -4966,7 +4911,9 @@ export class JapaneseRoomService {
     interior.add(floor)
 
     // Back wall at Z = -0.3
-    const backWall = new THREE.Mesh(new THREE.PlaneGeometry(5.0, 3.9), wallMat)
+    // The dojo's back wall has a low window opening (2.9 x 1.76m, sill at 0.45m) onto the courtyard
+    const backWallGeo = theme === 'meditation' ? wallWithOpening(5.0, 3.9, 2.9, 1.76, 1.33 - 1.95) : new THREE.PlaneGeometry(5.0, 3.9)
+    const backWall = new THREE.Mesh(backWallGeo, wallMat)
     backWall.position.set(slotX, 1.95, -0.3)
     backWall.receiveShadow = true
     interior.add(backWall)
@@ -5258,7 +5205,6 @@ export class JapaneseRoomService {
         gsap.to(this.envLevels.get('study-room')!, { value: 0.07, duration: 0.5 })
         gsap.to(this.studyPaperGlow, { emissiveIntensity: 0.06, duration: 0.5 })
         if (this.lampBulbMaterial) gsap.to(this.lampBulbMaterial, { emissiveIntensity: 0.05, duration: 0.35 })
-        for (const mat of this.studyGardenMaterials) gsap.to(mat.color, { r: 0.22, g: 0.28, b: 0.45, duration: 0.6 })
 
         if (this.lampShadeMesh) {
           const shadeMat = this.lampShadeMesh.material as THREE.MeshStandardMaterial
@@ -5276,7 +5222,6 @@ export class JapaneseRoomService {
         gsap.to(this.envLevels.get('study-room')!, { value: 0.45, duration: 0.5 })
         gsap.to(this.studyPaperGlow, { emissiveIntensity: 0.55, duration: 0.5 })
         if (this.lampBulbMaterial) gsap.to(this.lampBulbMaterial, { emissiveIntensity: 2.2, duration: 0.35 })
-        for (const mat of this.studyGardenMaterials) gsap.to(mat.color, { r: 1, g: 1, b: 1, duration: 0.6 })
 
         if (this.lampShadeMesh) {
           const shadeMat = this.lampShadeMesh.material as THREE.MeshStandardMaterial
@@ -5313,6 +5258,7 @@ export class JapaneseRoomService {
         gsap.to(light, { intensity: state ? on : light instanceof THREE.AmbientLight ? 0.05 : 0, duration: 0.4 })
       }
       gsap.to(this.envLevels.get('hallway')!, { value: state ? 0.45 : 0.05, duration: 0.4 })
+      this.outdoor?.setCorridorSpill(state ? 1 : 0)
       for (const mat of this.hallwayEmissives) {
         gsap.to(mat, { emissiveIntensity: state ? (mat.userData.onIntensity ?? 0.9) : 0.06, duration: 0.4 })
       }
@@ -6126,6 +6072,7 @@ export class JapaneseRoomService {
 
       this.syncLightPools()
       this.swayUniforms.uTime.value = elapsedTime
+      this.outdoor?.update(elapsedTime, this.scene)
       for (const monk of this.monks) {
         if (!monk.group.parent?.visible) continue
         const breath = Math.sin(elapsedTime * 0.52)
@@ -6218,4 +6165,22 @@ export class JapaneseRoomService {
     this.renderer.dispose()
     this.renderer.forceContextLoss()
   }
+}
+
+/** Wall plane `w` x `h` (centred, facing +Z) with a rectangular opening centred `holeY` above its middle. */
+function wallWithOpening(w: number, h: number, holeW: number, holeH: number, holeY: number): THREE.BufferGeometry {
+  const shape = new THREE.Shape()
+  shape.moveTo(-w / 2, -h / 2)
+  shape.lineTo(w / 2, -h / 2)
+  shape.lineTo(w / 2, h / 2)
+  shape.lineTo(-w / 2, h / 2)
+  shape.lineTo(-w / 2, -h / 2)
+  const hole = new THREE.Path()
+  hole.moveTo(-holeW / 2, holeY - holeH / 2)
+  hole.lineTo(-holeW / 2, holeY + holeH / 2)
+  hole.lineTo(holeW / 2, holeY + holeH / 2)
+  hole.lineTo(holeW / 2, holeY - holeH / 2)
+  hole.lineTo(-holeW / 2, holeY - holeH / 2)
+  shape.holes.push(hole)
+  return new THREE.ShapeGeometry(shape)
 }

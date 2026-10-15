@@ -10,6 +10,11 @@ const PBR_SETS = {
   hessian: 'hessian_230',
   linen: 'rough_linen',
   poplin: 'stretch_poplin',
+  grass: 'grass_ground',
+  gravel: 'gravel_floor_02',
+  bark: 'chinese_cedar_bark',
+  stoneWall: 'japanese_stone_wall',
+  granite: 'granite_wall',
 } as const
 
 export type PbrSetName = keyof typeof PBR_SETS
@@ -61,7 +66,16 @@ export class PbrTextureLibrary {
   /** Close-up / large surfaces get 1K on medium+ tiers; everything is 512px on low tier. */
   private resolutionFor(set: PbrSetName): 512 | 1024 {
     if (this.isLowTier) return 512
-    return set === 'plaster' || set === 'hessian' || set === 'darkWalnut' || set === 'linen' || set === 'poplin' ? 512 : 1024
+    return set === 'plaster' ||
+      set === 'hessian' ||
+      set === 'darkWalnut' ||
+      set === 'linen' ||
+      set === 'poplin' ||
+      set === 'bark' ||
+      set === 'stoneWall' ||
+      set === 'granite'
+      ? 512
+      : 1024
   }
 
   private getBase(set: PbrSetName): PbrBaseMaps {
@@ -120,6 +134,17 @@ export class PbrTextureLibrary {
     }
     if (opts.worldUV) material.userData.worldUV = true
     return material
+  }
+
+  /** Tiled clones of all three maps, for materials built outside this library (e.g. outdoor Lambert). */
+  tiledMaps(set: PbrSetName, repeat: [number, number]): { map: THREE.Texture; normalMap: THREE.Texture; armMap: THREE.Texture } {
+    const base = this.getBase(set)
+    const tile = (tex: THREE.Texture) => {
+      const t = tex.clone()
+      t.repeat.set(repeat[0], repeat[1])
+      return t
+    }
+    return { map: tile(base.map), normalMap: tile(base.normalMap), armMap: tile(base.armMap) }
   }
 
   /** Tiled clones of a set's relief maps, for materials that bring their own colour map. */
