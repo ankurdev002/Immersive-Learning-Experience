@@ -8,6 +8,8 @@ import { HandRig, type HandPose } from './room/HandRig'
 import { CurvedStack, CurvedSheet, stackSurfaceHeight, gutterShade } from './room/BookGeometry'
 import {
   createSeatedMonk,
+  createSleeveDrape,
+  getRakusuTexture,
   type SeatedMonk,
   projectWoodUVs,
   createDesk,
@@ -570,7 +572,7 @@ export class JapaneseRoomService {
     else configurePageTextures(1.28, 8)
 
     this.pbr = new PbrTextureLibrary(this.loadingManager, this.qualityTier === 'low', this.preset.anisotropy)
-    this.pbr.preload(['tatami', 'walnut', 'darkWalnut', 'cedar', 'plaster', 'hessian'])
+    this.pbr.preload(['tatami', 'walnut', 'darkWalnut', 'cedar', 'plaster', 'hessian', 'linen', 'poplin'])
     this.palette = this.createPalette()
     this.loadHands()
 
@@ -1106,13 +1108,34 @@ export class JapaneseRoomService {
       collide(sx + 1.45, 2.55, 0.48, 0.48)
 
       // The monk sits facing the door; an empty zabuton waits opposite for the visitor
-      const robe = this.pbr.material('hessian', { noColorMap: true, color: '#2b2b31', repeat: [3, 3], normalScale: 0.5, name: `monk-robe-${sx}` })
-      const kesa = this.pbr.material('hessian', { noColorMap: true, color: '#7d5a28', repeat: [2, 2], name: `monk-kesa-${sx}` })
+      // Robes from the real linen / cotton scans: black koromo with a soft cloth sheen, brown
+      // rakusu patchwork over linen weave, white cotton juban collar
+      const robe = this.pbr.material('linen', {
+        noColorMap: true,
+        color: '#1d1e24',
+        repeat: [3, 3],
+        sheen: { color: '#55586a', roughness: 0.55, intensity: 0.85 },
+        name: `monk-robe-${sx}`,
+      })
+      const robeSheet = robe.clone()
+      robeSheet.side = THREE.DoubleSide
+      robeSheet.name = `monk-robe-sheet-${sx}`
+      const linenRelief = this.pbr.reliefMaps('linen', [2, 2])
+      const rakusu = new THREE.MeshStandardMaterial({
+        name: `monk-rakusu-${sx}`,
+        map: getRakusuTexture(),
+        normalMap: linenRelief.normalMap,
+        roughnessMap: linenRelief.armMap,
+        aoMap: linenRelief.armMap,
+        roughness: 1,
+      })
+      const kesa = this.pbr.material('linen', { noColorMap: true, color: '#6e4b22', repeat: [1, 6], side: THREE.DoubleSide, name: `monk-kesa-${sx}` })
+      const juban = this.pbr.material('poplin', { noColorMap: true, color: '#efe9de', repeat: [2, 2], side: THREE.DoubleSide, name: `monk-juban-${sx}` })
       const skin = new THREE.MeshStandardMaterial({ color: '#bd9488', roughness: 0.55, name: `monk-skin-${sx}` })
-      const zenCushion = this.pbr.material('hessian', { noColorMap: true, color: '#1d1d22', repeat: [3, 3], name: `zafu-${sx}` })
-      const monk = createSeatedMonk(zenCushion, robe, kesa, skin)
+      const zenCushion = this.pbr.material('linen', { noColorMap: true, color: '#18181d', repeat: [3, 3], name: `zafu-${sx}` })
+      const monk = createSeatedMonk({ cushion: zenCushion, robe, robeSheet, rakusu, kesa, juban, skin })
       place(monk.group, sx, 0.95)
-      this.attachRealisticMonk(monk, robe)
+      this.attachRealisticMonk(monk, robe, robeSheet)
       collide(sx, 0.95, 0.5, 0.45)
       this.monks.push({ ...monk, roomId: '', seat: new THREE.Vector3(sx, 0, 2.25) })
       place(createZabuton(p.cushionIndigo), sx, 2.25)
@@ -1218,9 +1241,13 @@ export class JapaneseRoomService {
     transparentCutout: boolean,
     nightList?: THREE.MeshBasicMaterial[]
   ): THREE.MeshBasicMaterial {
+    // Cut-out foliage seen at grazing angles shimmered into streaks: sharper oblique filtering, and
+    // with MSAA the cut-out edges are antialiased by alpha-to-coverage
+    map.anisotropy = Math.max(map.anisotropy, this.preset.anisotropy)
     const mat = new THREE.MeshBasicMaterial({
       map,
       alphaTest: transparentCutout ? 0.45 : 0,
+      alphaToCoverage: transparentCutout && this.preset.antialias,
       side: THREE.FrontSide,
       fog: false,
     })
@@ -4847,7 +4874,9 @@ export class JapaneseRoomService {
       ;(child as THREE.Mesh).geometry?.dispose()
     }
 
-    const halfDoor = 0.8
+    // The opening is 2cm narrower than the door-frame posts' inner faces (±0.80) so each wall end
+    // sits inside a post: coplanar faces there used to z-fight into torn-looking strips at every jamb
+    const halfDoor = 0.82
     const wallMinX = -14.0
     const wallMaxX = 14.0
     const doorXs = [0, ...Array.from(this.customRooms.values(), (r) => r.doorX)]
@@ -5643,9 +5672,9 @@ export class JapaneseRoomService {
         const idx = i * (radial + 1) + j
         const a = (j / radial) * Math.PI * 2
         v.fromBufferAttribute(pos, idx).sub(center)
-        const folds = 0.12 * Math.sin(a * 5 + t * 4 + seed) + 0.07 * Math.sin(a * 9 - t * 7 + seed * 2)
-        // Concertina creases gathering toward the elbow end
-        const creases = t > 0.6 ? 0.1 * Math.sin(t * 60 + a * 2) * (t - 0.6) * 2.5 : 0
+        const folds = 0.08 * Math.sin(a * 5 + t * 4 + seed) + 0.045 * Math.sin(a * 9 - t * 7 + seed * 2)
+        // Soft creases gathering toward the elbow end
+        const creases = t > 0.65 ? 0.035 * Math.sin(t * 38 + a * 2) * (t - 0.65) * 2.8 : 0
         // Fabric hangs: the underside sits further out than the top
         const sag = 0.18 * Math.max(0, -frames.normals[i]!.clone().multiplyScalar(Math.cos(a)).addScaledVector(frames.binormals[i]!, Math.sin(a)).y)
         v.multiplyScalar(1 + folds + creases + sag)
@@ -5657,7 +5686,7 @@ export class JapaneseRoomService {
   }
 
   /** Replace the stand-in head and arms with the scanned head and real hands in the cosmic mudra. */
-  private attachRealisticMonk(monk: SeatedMonk, robe: THREE.Material) {
+  private attachRealisticMonk(monk: SeatedMonk, robe: THREE.Material, robeSheet: THREE.Material) {
     const [standInHead, standInNeck, ...standInArms] = monk.fallback.children
     void this.loadMonkHead().then((template) => {
       if (!template) return
@@ -5693,6 +5722,9 @@ export class JapaneseRoomService {
         const joint = new THREE.Mesh(new THREE.SphereGeometry(0.058, 18, 14), robe)
         joint.position.copy(elbow)
         monk.torso.add(joint)
+        // The koromo's wide sleeve hangs from the forearm toward the knee
+        const wrist = pose.tip.clone().addScaledVector(fingerDir, -0.17)
+        monk.torso.add(createSleeveDrape(elbow, wrist, side, robeSheet))
         return true
       })
     )

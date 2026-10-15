@@ -8,6 +8,8 @@ const PBR_SETS = {
   cedar: 'japanese_cedar_planks',
   plaster: 'clay_plaster',
   hessian: 'hessian_230',
+  linen: 'rough_linen',
+  poplin: 'stretch_poplin',
 } as const
 
 export type PbrSetName = keyof typeof PBR_SETS
@@ -32,6 +34,8 @@ export interface PbrMaterialOptions {
   side?: THREE.Side
   /** Use only the scan's relief (normal + AO/roughness) under a flat colour */
   noColorMap?: boolean
+  /** Cloth sheen (soft grazing-angle highlight of woven fabric); ignored on the low tier */
+  sheen?: { color: THREE.ColorRepresentation; roughness: number; intensity?: number }
   /** Mark geometry using this material for real-world box-projected UVs (see projectWoodUVs) */
   worldUV?: boolean
   name?: string
@@ -57,7 +61,7 @@ export class PbrTextureLibrary {
   /** Close-up / large surfaces get 1K on medium+ tiers; everything is 512px on low tier. */
   private resolutionFor(set: PbrSetName): 512 | 1024 {
     if (this.isLowTier) return 512
-    return set === 'plaster' || set === 'hessian' || set === 'darkWalnut' ? 512 : 1024
+    return set === 'plaster' || set === 'hessian' || set === 'darkWalnut' || set === 'linen' || set === 'poplin' ? 512 : 1024
   }
 
   private getBase(set: PbrSetName): PbrBaseMaps {
@@ -94,7 +98,9 @@ export class PbrTextureLibrary {
     }
     const arm = tile(base.armMap)
     const normalScale = opts.normalScale ?? 1
-    const material = new THREE.MeshStandardMaterial({
+    const useSheen = !!opts.sheen && !this.isLowTier
+    const Material = useSheen ? THREE.MeshPhysicalMaterial : THREE.MeshStandardMaterial
+    const material = new Material({
       name: opts.name ?? `pbr-${set}`,
       map: opts.noColorMap ? null : tile(base.map),
       normalMap: tile(base.normalMap),
@@ -107,7 +113,23 @@ export class PbrTextureLibrary {
       envMapIntensity: opts.envMapIntensity ?? 1,
       side: opts.side ?? THREE.FrontSide,
     })
+    if (useSheen && material instanceof THREE.MeshPhysicalMaterial) {
+      material.sheen = opts.sheen!.intensity ?? 1
+      material.sheenColor = new THREE.Color(opts.sheen!.color)
+      material.sheenRoughness = opts.sheen!.roughness
+    }
     if (opts.worldUV) material.userData.worldUV = true
     return material
+  }
+
+  /** Tiled clones of a set's relief maps, for materials that bring their own colour map. */
+  reliefMaps(set: PbrSetName, repeat: [number, number]): { normalMap: THREE.Texture; armMap: THREE.Texture } {
+    const base = this.getBase(set)
+    const tile = (tex: THREE.Texture) => {
+      const t = tex.clone()
+      t.repeat.set(repeat[0], repeat[1])
+      return t
+    }
+    return { normalMap: tile(base.normalMap), armMap: tile(base.armMap) }
   }
 }
