@@ -6,6 +6,7 @@ import {
   type InteractiveHoverData,
   type PerformanceStats,
   type QualityTier,
+  type SwitchPromptData,
 } from '~/services/JapaneseRoomService'
 import { useImmersiveAudio } from '~/composables/useImmersiveAudio'
 import type { ImmersiveBookData } from '~/types/learning-journey'
@@ -83,6 +84,7 @@ const nearDoorPrompt = ref<{ show: boolean; text: string; roomId: string; isOpen
   roomId: '',
   isOpen: false,
 })
+const nearSwitchPrompt = ref<SwitchPromptData>({ show: false, targetId: '', zoneName: '', isOn: true })
 const isCreateRoomModalOpen = ref(false)
 const newRoomName = ref('')
 const newRoomSubtitle = ref('')
@@ -296,6 +298,9 @@ onMounted(() => {
       onNearDoorPrompt: (p) => {
         nearDoorPrompt.value = p
       },
+      onNearSwitchPrompt: (p) => {
+        nearSwitchPrompt.value = p
+      },
       onRoomLightToggled: (roomId: string, state: boolean) => {
         if (roomId === currentZone.value || (roomId === 'study-room' && currentZone.value === 'study-room')) {
           currentRoomLight.value = state
@@ -335,11 +340,17 @@ onUnmounted(() => {
 })
 
 // Control Handlers
+// [L] key, the lamp chip and the HUD button all switch the lights of the zone you're standing in
 const handleToggleLight = () => {
-  if (roomService) {
-    const nextState = roomService.toggleRoomLight()
-    isLightOn.value = nextState
-  }
+  handleToggleActiveLight()
+}
+
+const handleToggleSwitchPrompt = () => {
+  const target = nearSwitchPrompt.value.targetId
+  if (!roomService || !target) return
+  const nextState = roomService.toggleRoomLight(target)
+  if (target === currentZone.value) currentRoomLight.value = nextState
+  if (target === 'study-room') isLightOn.value = nextState
 }
 
 const handleDrinkTea = () => {
@@ -884,6 +895,26 @@ const handleExitRoom = () => {
       </div>
 
       <!-- Door Proximity Action Banner (Floating interactive chip) -->
+      <transition name="pop-fade">
+        <div
+          v-if="nearSwitchPrompt.show"
+          class="floating-door-prompt switch-prompt"
+          :class="{ 'is-stacked': nearDoorPrompt.show }"
+          @click="handleToggleSwitchPrompt"
+        >
+          <div class="fd-icon-box">{{ nearSwitchPrompt.isOn ? '💡' : '🌙' }}</div>
+          <div class="fd-content">
+            <span class="fd-title">{{ nearSwitchPrompt.zoneName }} light · {{ nearSwitchPrompt.isOn ? 'ON' : 'OFF' }}</span>
+            <span class="fd-sub">Press [L] or click the wall switch</span>
+          </div>
+          <div class="fd-btn-group">
+            <button class="fd-btn fd-toggle-btn" @click.stop="handleToggleSwitchPrompt">
+              {{ nearSwitchPrompt.isOn ? 'Turn Off' : 'Turn On' }}
+            </button>
+          </div>
+        </div>
+      </transition>
+
       <transition name="pop-fade">
         <div
           v-if="nearDoorPrompt.show"
@@ -1976,6 +2007,16 @@ const handleExitRoom = () => {
   pointer-events: auto;
   cursor: pointer;
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
+}
+
+.floating-door-prompt.switch-prompt {
+  border-color: rgba(250, 204, 21, 0.6);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 24px rgba(250, 204, 21, 0.3);
+}
+
+/* Switches hang beside doorways: sit above the door prompt when both apply */
+.floating-door-prompt.switch-prompt.is-stacked {
+  top: 64%;
 }
 
 .floating-door-prompt:hover {

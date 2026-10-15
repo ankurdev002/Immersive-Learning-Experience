@@ -223,6 +223,14 @@ function createVirtualLight(
   }
 }
 
+export interface SwitchPromptData {
+  show: boolean
+  /** Zone whose lights this switch controls ('study-room', 'hallway' or a room id) */
+  targetId: string
+  zoneName: string
+  isOn: boolean
+}
+
 export interface DoorPromptData {
   show: boolean
   text: string
@@ -258,6 +266,7 @@ export interface RoomServiceCallbacks {
   onRoomLightToggled?: (roomId: string, isLightOn: boolean) => void
   onRoomCreated?: (room: { id: string; name: string; icon: string; theme: string }) => void
   onNearDoorPrompt?: (prompt: DoorPromptData) => void
+  onNearSwitchPrompt?: (prompt: SwitchPromptData) => void
   onPlayFootstep?: () => void
   onPlayDoorSlide?: () => void
   onPerformanceUpdate?: (stats: PerformanceStats) => void
@@ -321,12 +330,21 @@ export class JapaneseRoomService {
   private pbr!: PbrTextureLibrary
   private palette!: RoomPalette
   private readonly swayUniforms = { uTime: { value: 0 } }
-  private gardenMaterials: THREE.MeshBasicMaterial[] = []
   private studyGardenGroup = new THREE.Group()
   private hallwayLanternPaper!: THREE.MeshStandardMaterial
   private studyPaperGlow!: THREE.MeshStandardMaterial
   private lampBulbMaterial: THREE.MeshStandardMaterial | null = null
-  private envLevel = { value: 0.45 }
+  /** Environment (bounce / reflection) light per zone, so a switched-off zone actually goes dark */
+  private envLevels = new Map<string, { value: number }>([
+    ['study-room', { value: 0.45 }],
+    ['hallway', { value: 0.45 }],
+  ])
+  private studyGardenMaterials: THREE.MeshBasicMaterial[] = []
+  private hallwayEmissives: THREE.MeshStandardMaterial[] = []
+  private hallwayFixtureMaterial: THREE.MeshBasicMaterial | null = null
+  /** Every wall switch, with the zone it sits in and the zone it controls */
+  private wallSwitches: { mesh: THREE.Mesh; zone: string; targetId: string }[] = []
+  private currentSwitchPrompt: SwitchPromptData = { show: false, targetId: '', zoneName: '', isOn: true }
   /** Resolves once textures and hand models are loaded (or failed / timed out) */
   public readonly ready: Promise<void>
   private resolveReady!: () => void
@@ -528,7 +546,7 @@ export class JapaneseRoomService {
     // wood real reflections and soft bounce light on every tier (one small cubemap, built once).
     const pmrem = new THREE.PMREMGenerator(this.renderer)
     this.scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture
-    this.scene.environmentIntensity = this.envLevel.value
+    this.scene.environmentIntensity = 0.45
     pmrem.dispose()
 
     // Sharper book pages on capable GPUs (1536x2048), lean memory budget on low-end ones
@@ -766,7 +784,8 @@ export class JapaneseRoomService {
       for (const spot of this.hallwaySpotLights) spot.active = false
       if (this.hallwayLeftLight) this.hallwayLeftLight.active = false
       if (this.hallwayRightLight) this.hallwayRightLight.active = false
-      if (this.hallwayAmbientLight) this.hallwayAmbientLight.visible = this.isStudyDoorOpen
+      // Ambient light is global, so only the zone you're in contributes it
+      if (this.hallwayAmbientLight) this.hallwayAmbientLight.visible = false
 
       for (const room of this.customRooms.values()) this.setRoomLightsActive(room, false)
 
@@ -792,7 +811,7 @@ export class JapaneseRoomService {
         this.setRoomLightsActive(room, room.isDoorOpen || Math.abs(room.doorX - px) < 3.5)
       }
 
-      this.ambientLight.visible = this.isStudyDoorOpen || Math.abs(px) < 3.5
+      this.ambientLight.visible = false
     } else {
       // Inside a custom room
       this.zoneMask.sun = 0
@@ -805,12 +824,14 @@ export class JapaneseRoomService {
         this.setRoomLightsActive(room, id === zone)
       }
 
+      // Corridor light only spills in through an open door
+      const here = this.customRooms.get(zone)
       for (const spot of this.hallwaySpotLights) {
-        spot.active = Math.abs(spot.position.x - px) < 4.5
+        spot.active = !!here?.isDoorOpen && Math.abs(spot.position.x - px) < 4.5
       }
       if (this.hallwayLeftLight) this.hallwayLeftLight.active = false
       if (this.hallwayRightLight) this.hallwayRightLight.active = false
-      if (this.hallwayAmbientLight) this.hallwayAmbientLight.visible = true
+      if (this.hallwayAmbientLight) this.hallwayAmbientLight.visible = false
     }
   }
 
@@ -1156,14 +1177,18 @@ export class JapaneseRoomService {
     material.customProgramCacheKey = () => `sway-${weight}-${amplitude}-${speed}-${axis}`
   }
 
-  private gardenLayerMaterial(map: THREE.Texture, transparentCutout: boolean): THREE.MeshBasicMaterial {
+  private gardenLayerMaterial(
+    map: THREE.Texture,
+    transparentCutout: boolean,
+    nightList?: THREE.MeshBasicMaterial[]
+  ): THREE.MeshBasicMaterial {
     const mat = new THREE.MeshBasicMaterial({
       map,
       alphaTest: transparentCutout ? 0.45 : 0,
       side: THREE.FrontSide,
       fog: false,
     })
-    this.gardenMaterials.push(mat)
+    nightList?.push(mat)
     return mat
   }
 
@@ -1176,7 +1201,8 @@ export class JapaneseRoomService {
     origin: THREE.Vector3,
     outward: THREE.Vector3,
     width: number,
-    clampAlong?: [number, number]
+    clampAlong?: [number, number],
+    nightList?: THREE.MeshBasicMaterial[]
   ) {
     const yaw = Math.atan2(-outward.x, -outward.z) // plane faces back into the room
     // Horizontal axis of the window wall (world X or Z)
@@ -1191,7 +1217,7 @@ export class JapaneseRoomService {
     for (const layer of layers) {
       layer.tex.wrapS = THREE.RepeatWrapping
       layer.tex.repeat.set(layer.repeat, 1)
-      const mat = this.gardenLayerMaterial(layer.tex, layer.cutout)
+      const mat = this.gardenLayerMaterial(layer.tex, layer.cutout, nightList)
       if (layer.sway) this.applySway(mat, 'uv.y * uv.y', 0.06, 0.9, 'x')
       let lo = originAlong - layer.w / 2
       let hi = originAlong + layer.w / 2
@@ -1327,7 +1353,7 @@ export class JapaneseRoomService {
     // Clamped so the layers never reach the corridor (z > 3.85); shown only from inside the study
     // because the meditation dojo occupies the space beyond this window.
     this.scene.add(this.studyGardenGroup)
-    this.buildGardenLayers(this.studyGardenGroup, new THREE.Vector3(-3.0, 0, 0.39), new THREE.Vector3(-1, 0, 0), 6.98, [-30, 3.85])
+    this.buildGardenLayers(this.studyGardenGroup, new THREE.Vector3(-3.0, 0, 0.39), new THREE.Vector3(-1, 0, 0), 6.98, [-30, 3.85], this.studyGardenMaterials)
 
     // 4. Tokonoma alcove on the right wall holding the calligraphy scroll, ikebana and a small andon
     const tokonoma = createTokonoma(p, 1.6, 0.5)
@@ -4546,14 +4572,8 @@ export class JapaneseRoomService {
     this.scene.add(this.studyDoorPlaque)
 
     // Physical 3D Light Switch (Mounted inside Study Room beside the door)
-    const switchTex = createLightSwitchTexture(this.isLightOn)
-    const switchMat = new THREE.MeshStandardMaterial({ map: switchTex, roughness: 0.4 })
-    const switchGeo = new THREE.PlaneGeometry(0.18, 0.26)
-    this.studyWallSwitch = new THREE.Mesh(switchGeo, switchMat)
-    this.studyWallSwitch.position.set(0.98, 1.40, 3.83)
-    this.studyWallSwitch.rotation.y = Math.PI // Facing inside study room (-Z)
-    this.scene.add(this.studyWallSwitch)
-    this.interactiveSwitches.push({ mesh: this.studyWallSwitch, targetId: 'study-room' })
+    // Study light switch, inside the study beside the door
+    this.studyWallSwitch = this.addWallSwitch(this.scene, 0.98, 3.83, Math.PI, 'study-room', 'study-room', this.isLightOn)
   }
 
   private buildGrandHallway() {
@@ -4616,7 +4636,10 @@ export class JapaneseRoomService {
     this.rebuildHallwayInnerWall()
 
     // 5. Outer yukimi-shoji wall looking onto the garden (Z = 7.3) + parallax garden layers
-    const outerShoji = createShojiWall(p, 28, { panels: 16, transom: this.plasterMaterial(28, 1.0) })
+    // Daylit washi: its own material so switching the study light off doesn't dim the corridor
+    const corridorPaper = this.studyPaperGlow.clone()
+    corridorPaper.name = 'corridor-paper'
+    const outerShoji = createShojiWall(p, 28, { panels: 16, transom: this.plasterMaterial(28, 1.0), paper: corridorPaper })
     outerShoji.rotation.y = Math.PI
     outerShoji.position.set(0, 0, 7.3)
     this.hallwayGroup.add(outerShoji)
@@ -4644,6 +4667,7 @@ export class JapaneseRoomService {
       emissiveIntensity: 0.9,
       roughness: 0.92,
     })
+    this.hallwayEmissives.push(this.hallwayLanternPaper)
     const andonXs = [-11, -5.5, 0, 5.5, 11]
     for (const x of andonXs) {
       const andon = createFloorAndon(p, this.hallwayLanternPaper)
@@ -4680,10 +4704,8 @@ export class JapaneseRoomService {
       this.hallwayLights.push(spot)
       this.hallwaySpotLights.push(spot)
 
-      const fixture = new THREE.Mesh(
-        new THREE.CylinderGeometry(0.12, 0.12, 0.04, 16),
-        new THREE.MeshBasicMaterial({ color: '#fff7ed' })
-      )
+      this.hallwayFixtureMaterial ??= new THREE.MeshBasicMaterial({ color: '#fff7ed', name: 'hallway-fixture' })
+      const fixture = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.12, 0.04, 16), this.hallwayFixtureMaterial)
       fixture.position.set(sx, 3.88, 5.59)
       this.hallwayGroup.add(fixture)
     }
@@ -4691,11 +4713,13 @@ export class JapaneseRoomService {
     // Illuminated Cedar & Washi Wall Sconces on Left and Right End Walls
     const lanternGeo = new THREE.BoxGeometry(0.18, 0.45, 0.28)
     const lanternMat = new THREE.MeshStandardMaterial({
+      name: 'hallway-sconce',
       color: '#fff7ed',
       emissive: '#fed7aa',
       emissiveIntensity: 0.9,
       roughness: 0.3,
     })
+    this.hallwayEmissives.push(lanternMat)
 
     const leftLantern = new THREE.Mesh(lanternGeo, lanternMat)
     leftLantern.position.set(-13.88, 2.2, 5.59)
@@ -4716,12 +4740,11 @@ export class JapaneseRoomService {
     this.pointFixtures.push(rightEndLight)
 
     // Hallway Light Switch (Beside Study Room door in the hallway)
-    const switchTex = createLightSwitchTexture(this.isHallwayLightOn)
-    const switchMat = new THREE.MeshStandardMaterial({ map: switchTex, roughness: 0.4 })
-    this.hallwayWallSwitch = new THREE.Mesh(new THREE.PlaneGeometry(0.18, 0.26), switchMat)
-    this.hallwayWallSwitch.position.set(-1.48, 1.40, 3.96) // Beside door facing hallway (+Z)
-    this.hallwayGroup.add(this.hallwayWallSwitch)
-    this.interactiveSwitches.push({ mesh: this.hallwayWallSwitch, targetId: 'hallway' })
+    // Corridor light switches: beside the study door and on both end walls (every room door gets
+    // one too, see createCustomRoom), so there's always one within reach in the hall
+    this.hallwayWallSwitch = this.addWallSwitch(this.hallwayGroup, -1.48, 3.96, 0, 'hallway', 'hallway', this.isHallwayLightOn)
+    this.addWallSwitch(this.hallwayGroup, -13.93, 4.7, Math.PI / 2, 'hallway', 'hallway', this.isHallwayLightOn)
+    this.addWallSwitch(this.hallwayGroup, 13.93, 4.7, -Math.PI / 2, 'hallway', 'hallway', this.isHallwayLightOn)
 
     this.scene.add(this.hallwayGroup)
   }
@@ -4923,15 +4946,10 @@ export class JapaneseRoomService {
     this.scene.add(labelMesh)
 
     // 5. 3D Light Switch (inside the room facing -Z)
-    const switchTex = createLightSwitchTexture(true)
-    const switchMesh = new THREE.Mesh(
-      new THREE.PlaneGeometry(0.18, 0.26),
-      new THREE.MeshStandardMaterial({ map: switchTex, roughness: 0.4 })
-    )
-    switchMesh.position.set(slotX + 0.98, 1.40, 3.83)
-    switchMesh.rotation.y = Math.PI
-    interior.add(switchMesh)
-    this.interactiveSwitches.push({ mesh: switchMesh, targetId: roomId })
+    const switchMesh = this.addWallSwitch(interior, slotX + 0.98, 3.83, Math.PI, roomId, roomId, true)
+    // Corridor switch beside this room's door (hall side)
+    this.addWallSwitch(roomGroup, slotX - 1.2, 3.96, 0, 'hallway', 'hallway', this.isHallwayLightOn)
+    this.envLevels.set(roomId, { value: 0.45 })
 
     this.scene.add(roomGroup)
 
@@ -5033,6 +5051,71 @@ export class JapaneseRoomService {
     })
   }
 
+  /**
+   * Wall light switch: lit plate on a walnut back-plate with a generous invisible hit area so it's
+   * easy to click. `zone` is where it hangs (for the proximity prompt), `targetId` the lights it runs.
+   */
+  private addWallSwitch(
+    parent: THREE.Object3D,
+    x: number,
+    z: number,
+    rotationY: number,
+    zone: string,
+    targetId: string,
+    isOn: boolean
+  ): THREE.Mesh {
+    const plate = new THREE.Mesh(
+      new THREE.PlaneGeometry(0.16, 0.24),
+      new THREE.MeshStandardMaterial({ map: createLightSwitchTexture(isOn), roughness: 0.4, name: `switch-${targetId}-${x}` })
+    )
+    plate.position.set(x, 1.4, z)
+    plate.rotation.y = rotationY
+    const back = new THREE.Mesh(new THREE.BoxGeometry(0.2, 0.28, 0.02), this.palette.walnutDark)
+    back.position.z = -0.012
+    plate.add(back)
+    const hit = new THREE.Mesh(new THREE.PlaneGeometry(0.45, 0.6), new THREE.MeshBasicMaterial({ visible: false }))
+    hit.position.z = 0.01
+    plate.add(hit)
+    parent.add(plate)
+    this.interactiveSwitches.push({ mesh: plate, targetId })
+    this.wallSwitches.push({ mesh: plate, zone, targetId })
+    return plate
+  }
+
+  private updateSwitchPlates(targetId: string, isOn: boolean) {
+    for (const sw of this.wallSwitches) {
+      if (sw.targetId === targetId) this.swapMaterialMap(sw.mesh, createLightSwitchTexture(isOn))
+    }
+  }
+
+  private lightStateOf(targetId: string): boolean {
+    if (targetId === 'study-room') return this.isLightOn
+    if (targetId === 'hallway') return this.isHallwayLightOn
+    return this.customRooms.get(targetId)?.isLightOn ?? true
+  }
+
+  /** Shows "turn the light on/off" when standing next to a switch in the current zone. */
+  private checkSwitchProximity(force = false) {
+    let prompt: SwitchPromptData = { show: false, targetId: '', zoneName: '', isOn: true }
+    if (this.isExploreMode) {
+      let best = 1.6
+      for (const sw of this.wallSwitches) {
+        if (sw.zone !== this.currentZone) continue
+        const p = sw.mesh.getWorldPosition(this._gripA)
+        const d = Math.hypot(p.x - this.playerPos.x, p.z - this.playerPos.z)
+        if (d < best) {
+          best = d
+          prompt = { show: true, targetId: sw.targetId, zoneName: this.getZoneName(sw.targetId), isOn: this.lightStateOf(sw.targetId) }
+        }
+      }
+    }
+    const prev = this.currentSwitchPrompt
+    if (force || prompt.show !== prev.show || prompt.targetId !== prev.targetId || prompt.isOn !== prev.isOn) {
+      this.currentSwitchPrompt = prompt
+      this.callbacks.onNearSwitchPrompt?.(prompt)
+    }
+  }
+
   /** Swaps a material's texture, releasing the GPU copy of the one it replaces. */
   private swapMaterialMap(mesh: THREE.Mesh, map: THREE.Texture) {
     const mat = mesh.material as THREE.MeshStandardMaterial
@@ -5045,6 +5128,8 @@ export class JapaneseRoomService {
     this.triggerShadowUpdate(45)
     this.markActivity()
     const activeTarget = targetId || this.currentZone
+    // Refresh the "near a switch" prompt once the state has flipped
+    queueMicrotask(() => this.checkSwitchProximity(true))
 
     if (activeTarget === 'study-room' || activeTarget === 'current') {
       this.isLightOn = !this.isLightOn
@@ -5056,10 +5141,10 @@ export class JapaneseRoomService {
         gsap.to(this.lightLevels, { sun: 0.04, moon: 0.85, duration: 0.5 })
         gsap.to(this.ambientLight, { intensity: 0.08, duration: 0.5 })
         gsap.to(this.ambientLight.color, { r: 0.08, g: 0.12, b: 0.24, duration: 0.5 })
-        gsap.to(this.envLevel, { value: 0.07, duration: 0.5 })
+        gsap.to(this.envLevels.get('study-room')!, { value: 0.07, duration: 0.5 })
         gsap.to(this.studyPaperGlow, { emissiveIntensity: 0.06, duration: 0.5 })
         if (this.lampBulbMaterial) gsap.to(this.lampBulbMaterial, { emissiveIntensity: 0.05, duration: 0.35 })
-        for (const mat of this.gardenMaterials) gsap.to(mat.color, { r: 0.22, g: 0.28, b: 0.45, duration: 0.6 })
+        for (const mat of this.studyGardenMaterials) gsap.to(mat.color, { r: 0.22, g: 0.28, b: 0.45, duration: 0.6 })
 
         if (this.lampShadeMesh) {
           const shadeMat = this.lampShadeMesh.material as THREE.MeshStandardMaterial
@@ -5074,10 +5159,10 @@ export class JapaneseRoomService {
         gsap.to(this.lightLevels, { sun: 1.6, moon: 0, duration: 0.5 })
         gsap.to(this.ambientLight, { intensity: 0.75, duration: 0.5 })
         gsap.to(this.ambientLight.color, { r: 1.0, g: 0.93, b: 0.85, duration: 0.5 })
-        gsap.to(this.envLevel, { value: 0.45, duration: 0.5 })
+        gsap.to(this.envLevels.get('study-room')!, { value: 0.45, duration: 0.5 })
         gsap.to(this.studyPaperGlow, { emissiveIntensity: 0.55, duration: 0.5 })
         if (this.lampBulbMaterial) gsap.to(this.lampBulbMaterial, { emissiveIntensity: 2.2, duration: 0.35 })
-        for (const mat of this.gardenMaterials) gsap.to(mat.color, { r: 1, g: 1, b: 1, duration: 0.6 })
+        for (const mat of this.studyGardenMaterials) gsap.to(mat.color, { r: 1, g: 1, b: 1, duration: 0.6 })
 
         if (this.lampShadeMesh) {
           const shadeMat = this.lampShadeMesh.material as THREE.MeshStandardMaterial
@@ -5090,9 +5175,7 @@ export class JapaneseRoomService {
       }
 
       // Update 3D Switch Plate
-      if (this.studyWallSwitch) {
-        this.swapMaterialMap(this.studyWallSwitch, createLightSwitchTexture(state))
-      }
+      this.updateSwitchPlates('study-room', state)
 
       // Update Study Room Plaque
       if (this.studyDoorPlaque) {
@@ -5112,16 +5195,19 @@ export class JapaneseRoomService {
       const state = this.isHallwayLightOn
 
       for (const light of this.hallwayLights) {
-        const mult = light instanceof THREE.AmbientLight ? (state ? 0.45 : 0.05) : state ? 1.35 : 0.0
-        gsap.to(light, { intensity: mult, duration: 0.4 })
+        const on = light instanceof THREE.AmbientLight ? 0.65 : light.kind === 'spot' ? 1.45 : 1.4
+        gsap.to(light, { intensity: state ? on : light instanceof THREE.AmbientLight ? 0.05 : 0, duration: 0.4 })
       }
-      if (this.hallwayLanternPaper) {
-        gsap.to(this.hallwayLanternPaper, { emissiveIntensity: state ? 0.9 : 0.12, duration: 0.4 })
+      gsap.to(this.envLevels.get('hallway')!, { value: state ? 0.45 : 0.05, duration: 0.4 })
+      for (const mat of this.hallwayEmissives) {
+        gsap.to(mat, { emissiveIntensity: state ? (mat.userData.onIntensity ?? 0.9) : 0.06, duration: 0.4 })
+      }
+      if (this.hallwayFixtureMaterial) {
+        const c = state ? new THREE.Color('#fff7ed') : new THREE.Color('#3a352f')
+        gsap.to(this.hallwayFixtureMaterial.color, { r: c.r, g: c.g, b: c.b, duration: 0.4 })
       }
 
-      if (this.hallwayWallSwitch) {
-        this.swapMaterialMap(this.hallwayWallSwitch, createLightSwitchTexture(state))
-      }
+      this.updateSwitchPlates('hallway', state)
 
       this.callbacks.onRoomLightToggled?.('hallway', state)
       return state
@@ -5141,9 +5227,9 @@ export class JapaneseRoomService {
         gsap.to(mat, { emissiveIntensity: state ? (mat.userData.onIntensity ?? 0.8) : 0.08, duration: 0.4 })
       }
 
-      if (custom.switchMesh) {
-        this.swapMaterialMap(custom.switchMesh, createLightSwitchTexture(state))
-      }
+      this.updateSwitchPlates(activeTarget, state)
+      const roomEnv = this.envLevels.get(activeTarget)
+      if (roomEnv) gsap.to(roomEnv, { value: state ? 0.45 : 0.05, duration: 0.4 })
 
       if (custom.labelMesh) {
         this.swapMaterialMap(
@@ -5197,6 +5283,8 @@ export class JapaneseRoomService {
       this.isMouseDragging = false
       this.currentNearPrompt = { show: false, text: '', roomId: '', isOpen: false }
       this.callbacks.onNearDoorPrompt?.(this.currentNearPrompt)
+      this.currentSwitchPrompt = { show: false, targetId: '', zoneName: '', isOn: true }
+      this.callbacks.onNearSwitchPrompt?.(this.currentSwitchPrompt)
 
       gsap.to(this.camera.position, {
         x: this.initialCamPos.x,
@@ -5546,6 +5634,7 @@ export class JapaneseRoomService {
   }
 
   private checkDoorProximity() {
+    this.checkSwitchProximity()
     let nearPrompt: DoorPromptData = { show: false, text: '', roomId: '', isOpen: false }
 
     // Check Study Room Door (X: 0, Z: 3.87)
@@ -5674,7 +5763,7 @@ export class JapaneseRoomService {
 
       this.syncLightPools()
       this.swayUniforms.uTime.value = elapsedTime
-      this.scene.environmentIntensity = this.envLevel.value
+      this.scene.environmentIntensity = (this.envLevels.get(this.currentZone) ?? this.envLevels.get('hallway')!).value
       if (this.heroBookGroup.visible) this.syncBookSurfaces()
       this.renderer.render(this.scene, this.camera)
     }
@@ -5713,7 +5802,7 @@ export class JapaneseRoomService {
     }
     gsap.killTweensOf(this.heroBookGlow)
     gsap.killTweensOf(this.lightLevels)
-    gsap.killTweensOf(this.envLevel)
+    for (const level of this.envLevels.values()) gsap.killTweensOf(level)
     if (this.handTurn) {
       gsap.killTweensOf(this.handTurn.approach)
       gsap.killTweensOf(this.handTurn.retreat)

@@ -387,7 +387,7 @@ export function createTokonoma(p: RoomPalette, width = 1.6, depth = 0.5): THREE.
 export function createShojiWall(
   p: RoomPalette,
   length: number,
-  opts: { height?: number; panels?: number; glassFrom?: number; glassTo?: number; transom?: THREE.Material } = {}
+  opts: { height?: number; panels?: number; glassFrom?: number; glassTo?: number; transom?: THREE.Material; paper?: THREE.Material } = {}
 ): THREE.Group {
   const g = new THREE.Group()
   const doorH = 2.9
@@ -407,10 +407,11 @@ export function createShojiWall(
   }
 
   // Paper zones (backlit washi) and the glass band
+  const paper = opts.paper ?? p.paperGlow
   const paperLowH = glassFrom - 0.06
   const paperHighH = doorH - 0.05 - glassTo
-  g.add(part(new THREE.PlaneGeometry(length, paperLowH), p.paperGlow, 0, 0.04 + paperLowH / 2, -0.004, { cast: false }))
-  g.add(part(new THREE.PlaneGeometry(length, paperHighH), p.paperGlow, 0, glassTo + paperHighH / 2, -0.004, { cast: false }))
+  g.add(part(new THREE.PlaneGeometry(length, paperLowH), paper, 0, 0.04 + paperLowH / 2, -0.004, { cast: false }))
+  g.add(part(new THREE.PlaneGeometry(length, paperHighH), paper, 0, glassTo + paperHighH / 2, -0.004, { cast: false }))
   const glass = new THREE.Mesh(new THREE.PlaneGeometry(length, glassTo - glassFrom), p.glass)
   glass.position.set(0, (glassFrom + glassTo) / 2, -0.006)
   glass.renderOrder = 2
