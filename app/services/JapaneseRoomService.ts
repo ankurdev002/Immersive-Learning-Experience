@@ -2834,42 +2834,7 @@ export class JapaneseRoomService {
     )
   }
 
-  public toggleRoomLight(): boolean {
-    this.isLightOn = !this.isLightOn
 
-    if (!this.isLightOn) {
-      gsap.to(this.lampLight, { intensity: 0, duration: 0.35 })
-      gsap.to(this.sunLight, { intensity: 0.04, duration: 0.5 })
-      gsap.to(this.ambientLight, { intensity: 0.08, duration: 0.5 })
-      gsap.to(this.ambientLight.color, { r: 0.08, g: 0.12, b: 0.24, duration: 0.5 })
-      gsap.to(this.moonLight, { intensity: 0.75, duration: 0.5 })
-
-      const shadeMat = this.lampShadeMesh.material as THREE.MeshStandardMaterial
-      gsap.to(shadeMat, { emissiveIntensity: 0.03, duration: 0.35 })
-
-      if (this.dustParticles) {
-        const mat = this.dustParticles.material as THREE.PointsMaterial
-        gsap.to(mat, { opacity: 0.95, size: 0.085, duration: 0.4 })
-      }
-    } else {
-      gsap.to(this.lampLight, { intensity: 3.2, duration: 0.35 })
-      gsap.to(this.sunLight, { intensity: 1.4, duration: 0.5 })
-      gsap.to(this.ambientLight, { intensity: 0.75, duration: 0.5 })
-      gsap.to(this.ambientLight.color, { r: 1.0, g: 0.93, b: 0.85, duration: 0.5 })
-      gsap.to(this.moonLight, { intensity: 0.25, duration: 0.5 })
-
-      const shadeMat = this.lampShadeMesh.material as THREE.MeshStandardMaterial
-      gsap.to(shadeMat, { emissiveIntensity: 0.85, duration: 0.35 })
-
-      if (this.dustParticles) {
-        const mat = this.dustParticles.material as THREE.PointsMaterial
-        gsap.to(mat, { opacity: 0.85, size: 0.075, duration: 0.4 })
-      }
-    }
-
-    this.callbacks.onLightToggled?.(this.isLightOn)
-    return this.isLightOn
-  }
 
   // Realistic Drinking Green Tea Animation
   public drinkTea() {
@@ -3517,12 +3482,38 @@ export class JapaneseRoomService {
       this.isLightOn = !this.isLightOn
       const state = this.isLightOn
 
-      // Animate Study Room Lights
-      const targetIntensity = state ? 0.75 : 0.08
-      gsap.to(this.ambientLight, { intensity: targetIntensity, duration: 0.4 })
-      gsap.to(this.sunLight, { intensity: state ? 1.6 : 0.0, duration: 0.4 })
-      gsap.to(this.moonLight, { intensity: state ? 0.0 : 0.85, duration: 0.4 })
-      gsap.to(this.lampLight, { intensity: state ? 2.4 : 0.0, duration: 0.35 })
+      // Full atmospheric lighting transitions
+      if (!state) {
+        gsap.to(this.lampLight, { intensity: 0, duration: 0.35 })
+        gsap.to(this.sunLight, { intensity: 0.04, duration: 0.5 })
+        gsap.to(this.ambientLight, { intensity: 0.08, duration: 0.5 })
+        gsap.to(this.ambientLight.color, { r: 0.08, g: 0.12, b: 0.24, duration: 0.5 })
+        gsap.to(this.moonLight, { intensity: 0.85, duration: 0.5 })
+
+        if (this.lampShadeMesh) {
+          const shadeMat = this.lampShadeMesh.material as THREE.MeshStandardMaterial
+          gsap.to(shadeMat, { emissiveIntensity: 0.03, duration: 0.35 })
+        }
+        if (this.dustParticles) {
+          const mat = this.dustParticles.material as THREE.PointsMaterial
+          gsap.to(mat, { opacity: 0.95, size: 0.085, duration: 0.4 })
+        }
+      } else {
+        gsap.to(this.lampLight, { intensity: 3.2, duration: 0.35 })
+        gsap.to(this.sunLight, { intensity: 1.6, duration: 0.5 })
+        gsap.to(this.ambientLight, { intensity: 0.75, duration: 0.5 })
+        gsap.to(this.ambientLight.color, { r: 1.0, g: 0.93, b: 0.85, duration: 0.5 })
+        gsap.to(this.moonLight, { intensity: 0.25, duration: 0.5 })
+
+        if (this.lampShadeMesh) {
+          const shadeMat = this.lampShadeMesh.material as THREE.MeshStandardMaterial
+          gsap.to(shadeMat, { emissiveIntensity: 0.85, duration: 0.35 })
+        }
+        if (this.dustParticles) {
+          const mat = this.dustParticles.material as THREE.PointsMaterial
+          gsap.to(mat, { opacity: 0.85, size: 0.075, duration: 0.4 })
+        }
+      }
 
       // Update 3D Switch Plate
       if (this.studyWallSwitch) {
