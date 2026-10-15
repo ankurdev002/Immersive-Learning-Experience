@@ -3820,14 +3820,29 @@ export class JapaneseRoomService {
     const c = this.leafPointToBook(this.leafCornerIndex, this._gripA)
     const towardSpine = this.leafPointToBook(this.leafSpineNeighborIndex, this._gripB).sub(c).normalize()
     const upPage = this.leafPointToBook(this.leafUpNeighborIndex, this._gripC).sub(c).normalize()
-    const frontNormal = new THREE.Vector3().crossVectors(upPage, towardSpine).normalize()
+    // True surface normal of the bent paper right where the fingertip touches (one vertex in from the
+    // edge), so the fingertip stays under the sheet even where the corner curls sharply
+    const gripIndex = this.leafCornerIndex - 1
+    const contact = this.leafPointToBook(gripIndex, new THREE.Vector3())
+    const normals = this.pageFrontMesh.geometry.getAttribute('normal') as THREE.BufferAttribute
+    const frontNormal = new THREE.Vector3()
+      .fromBufferAttribute(normals, gripIndex)
+      .applyAxisAngle(new THREE.Vector3(0, 0, 1), this.pagePivot.rotation.z)
+      .normalize()
+    if (frontNormal.dot(new THREE.Vector3().crossVectors(upPage, towardSpine)) < 0) frontNormal.negate()
     // The face that was on top when the turn began: the fingers stay under it the whole way over
     const upNormal = isForward ? frontNormal : frontNormal.negate()
-    const point = c.clone()
-      .addScaledVector(towardSpine, 0.022)
-      .addScaledVector(upPage, 0.03)
-      .addScaledVector(upNormal, -0.009)
-    const finger = towardSpine.clone().multiplyScalar(0.8).addScaledVector(upPage, 0.5).normalize()
+    // Only the fingertip slips under the edge, its centre ~2cm below the paper so a finger's
+    // thickness never reaches the sheet. The finger rises toward the page from below and outside, so
+    // knuckles and palm stay off the page footprint instead of cutting through the paper.
+    const point = contact
+      .addScaledVector(upPage, 0.012)
+      .addScaledVector(upNormal, -0.02)
+    const finger = towardSpine.clone()
+      .multiplyScalar(0.65)
+      .addScaledVector(upPage, 0.3)
+      .addScaledVector(upNormal, 0.75)
+      .normalize()
     const back = upNormal.clone().negate()
     return { point, finger, back }
   }
@@ -3842,7 +3857,8 @@ export class JapaneseRoomService {
   } | null = null
 
   private static readonly HAND_RELAXED: HandPose = { thumb: 0.3, index: 0.32, middle: 0.36, ring: 0.45, pinky: 0.52 }
-  private static readonly HAND_GRIP: HandPose = { thumb: 0.18, index: 0.06, middle: 0.12, ring: 0.5, pinky: 0.62 }
+  // Index and middle gently hooked so their pads meet the underside of the edge; ring and pinky tucked
+  private static readonly HAND_GRIP: HandPose = { thumb: 0.3, index: 0.2, middle: 0.22, ring: 0.62, pinky: 0.72 }
   private static readonly HAND_FLIP_START = 0.24
 
   private blendPose(a: HandPose, b: HandPose, t: number): HandPose {
