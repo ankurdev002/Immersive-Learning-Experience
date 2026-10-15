@@ -316,8 +316,13 @@ void main() {
     float n = fbm(uv * 1.7);
     float cov = uCloudCover;
     float a = smoothstep(1.0 - cov, 1.0 - cov + 0.3, n) * smoothstep(0.0, 0.12, y);
+    #ifdef SKY_CHEAP
+    // One fbm only: fake self-shadowing from the cloud density itself
+    float lit = clamp(1.15 - a * 0.55, 0.0, 1.0);
+    #else
     float n2 = fbm(uv * 1.7 + uSunDir.xz * 0.06);
     float lit = clamp(0.62 + (n - n2) * 3.0, 0.0, 1.0);
+    #endif
     vec3 cloud = mix(uCloudShade, uCloudLit, lit);
     cloud += uSunColor * pow(sd, 6.0) * 0.5 * uSunUp;
     col = mix(col, cloud, a * 0.94);
@@ -465,6 +470,8 @@ interface Placement {
   sy?: number
   tilt?: number
   tint?: THREE.ColorRepresentation
+  /** Woodland outside the walls: drawn with cheaper geometry and thinned on lower tiers */
+  far?: boolean
 }
 
 export class OutdoorWorld {
@@ -502,7 +509,7 @@ export class OutdoorWorld {
   }
 
   private readonly pbr: PbrTextureLibrary
-  private readonly tier: OutdoorTier
+  private tier: OutdoorTier
   private readonly detail: 'low' | 'high'
   private readonly antialias: boolean
   private readonly dojoX: number
@@ -511,6 +518,10 @@ export class OutdoorWorld {
   private lampCount = 0
   private corridorSpill = 0
   private readonly shadowMaterials: THREE.MeshBasicMaterial[] = []
+  /** Distant-forest instanced meshes with their full instance counts (thinned per tier) */
+  private readonly farForest: Array<{ mesh: THREE.InstancedMesh; total: number }> = []
+  private readonly fernMeshes: THREE.InstancedMesh[] = []
+  private skyMaterial: THREE.ShaderMaterial | null = null
   private readonly mats: ReturnType<OutdoorWorld['createMaterials']>
   private readonly treePlacements = {
     front: { maple: [] as Placement[], pine: [] as Placement[], bamboo: [] as Placement[] },
@@ -549,6 +560,7 @@ export class OutdoorWorld {
     this.buildShrubs()
     this.buildShadowBlobs()
     this.loadModels(opts.manager, opts.onModelsReady)
+    this.setTier(this.tier)
     this.updateSky(true)
   }
 
@@ -706,7 +718,7 @@ export class OutdoorWorld {
       fragmentShader: SKY_FRAG,
       side: THREE.BackSide,
       depthWrite: false,
-      defines: { SKY_OCTAVES: this.tier === 'low' ? 3 : this.tier === 'medium' ? 4 : 5 },
+      defines: OutdoorWorld.skyDefines(this.tier),
       uniforms: {
         uSunDir: u.uSunDir,
         uMoonDir: u.uMoonDir,
@@ -721,6 +733,7 @@ export class OutdoorWorld {
         uCloudCover: u.uCloudCover,
       },
     })
+    this.skyMaterial = mat
     const sky = new THREE.Mesh(new THREE.SphereGeometry(10, 32, 16), mat)
     sky.name = 'sky-dome'
     sky.frustumCulled = false
@@ -1225,7 +1238,7 @@ export class OutdoorWorld {
   /** Mixed woodland on the slopes outside the walls (instances of the garden species). */
   private buildForestBeyondWalls() {
     const r = rng(97)
-    const count = this.tier === 'low' ? 20 : this.tier === 'medium' ? 34 : 48
+    const count = 48
     for (let i = 0; i < count; i++) {
       let x = 0
       let z = 0
@@ -1242,7 +1255,7 @@ export class OutdoorWorld {
       }
       const kind = r()
       const side = z > 3.88 ? 'front' : 'back'
-      const p: Placement = { x, z, s: 1.25 + r() * 0.6 }
+      const p: Placement = { x, z, s: 1.25 + r() * 0.6, far: true }
       if (kind < 0.4) this.treePlacements[side].pine.push(p)
       else if (kind < 0.8) this.treePlacements[side].maple.push(p)
       else this.treePlacements[side].bamboo.push({ ...p, s: 1.1 })
@@ -1291,14 +1304,21 @@ export class OutdoorWorld {
     ]
     for (const sp of species) {
       const geos = Array.from({ length: variants }, (_, v) => sp.build(101 + v * 57 + sp.key.length, this.detail))
+      // Trees beyond the garden wall are 30-50 m away: the low-detail build is indistinguishable there
+      const farGeo = this.detail === 'low' ? geos[0]! : sp.build(301 + sp.key.length, 'low')
       for (const side of ['front', 'back'] as const) {
-        const items = this.treePlacements[side][sp.key]
+        const near = this.treePlacements[side][sp.key].filter((it) => !it.far)
+        const far = this.treePlacements[side][sp.key].filter((it) => it.far)
         for (let v = 0; v < variants; v++) {
-          const subset = items.filter((_, i) => i % variants === v)
+          const subset = near.filter((_, i) => i % variants === v)
           const geo = geos[v]!
           this.instances(geo.wood, sp.wood, subset, this[side])
           this.instances(geo.leaves, sp.leaves, subset, this[side], sp.tints)
           for (const it of subset) this.shadowSpots[side].push({ x: it.x, z: it.z, s: sp.key === 'bamboo' ? 2.2 : 4.2 * it.s })
+        }
+        for (const [g, mat, tints] of [[farGeo.wood, sp.wood, undefined], [farGeo.leaves, sp.leaves, sp.tints]] as const) {
+          const mesh = this.instances(g, mat, far, this[side], tints ? [...tints] : undefined)
+          if (mesh) this.farForest.push({ mesh, total: far.length })
         }
       }
     }
@@ -1410,8 +1430,11 @@ export class OutdoorWorld {
         { map, alphaTest: 0.5, alphaToCoverage: this.antialias, side: THREE.DoubleSide, color: '#e6eed8' },
         { foliage: true, sway: { start: 0.05, amp: 0.05, flutter: 0.008 } }
       )
-      this.instances(flat.geometry, mat, this.fernPlacements.front, this.front)
-      this.instances(flat.geometry, mat, this.fernPlacements.back, this.back)
+      for (const side of ['front', 'back'] as const) {
+        const mesh = this.instances(flat.geometry, mat, this.fernPlacements[side], this[side])
+        if (mesh) this.fernMeshes.push(mesh)
+      }
+      this.setTier(this.tier)
     })
     void Promise.allSettled([rocksReady, fernsReady]).then((results) => {
       for (const r of results) if (r.status === 'rejected') console.warn('[OutdoorWorld] garden model unavailable:', r.reason)
@@ -1422,6 +1445,27 @@ export class OutdoorWorld {
   // =========================================================
   // Time of day
   // =========================================================
+
+  private static skyDefines(tier: OutdoorTier): Record<string, number | string> {
+    if (tier === 'low') return { SKY_OCTAVES: 3, SKY_CHEAP: '' }
+    return { SKY_OCTAVES: tier === 'medium' ? 4 : 5 }
+  }
+
+  /**
+   * Runtime detail scaling, called when the adaptive quality engine changes tier: thins the distant
+   * woodland, drops the fern scans and simplifies the cloud shader (one recompile of the sky).
+   */
+  setTier(tier: OutdoorTier) {
+    const changed = tier !== this.tier
+    this.tier = tier
+    const share = tier === 'low' ? 0.4 : tier === 'medium' ? 0.7 : 1
+    for (const { mesh, total } of this.farForest) mesh.count = Math.max(1, Math.round(total * share))
+    for (const fern of this.fernMeshes) fern.visible = tier !== 'low'
+    if (changed && this.skyMaterial) {
+      this.skyMaterial.defines = OutdoorWorld.skyDefines(tier)
+      this.skyMaterial.needsUpdate = true
+    }
+  }
 
   /** Warm light from the corridor spilling onto the veranda at night (0 = corridor lights off). */
   setCorridorSpill(level: number) {

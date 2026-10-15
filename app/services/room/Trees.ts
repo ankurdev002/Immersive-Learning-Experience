@@ -99,8 +99,14 @@ export function buildMaple(seed: number, detail: 'low' | 'high'): TreeGeometry {
     const end = start.clone().addScaledVector(dir, len).add(bend.clone().multiplyScalar(0.4))
     const rMid = radius * 0.82
     const rEnd = radius * 0.66
-    limb(wood, start, mid, radius, rMid, radial)
-    limb(wood, mid, end, rMid, rEnd, radial)
+    // Thin outer twigs get fewer sides and a single segment: invisible detail, real vertex cost
+    const sides = Math.max(3, radial - depth)
+    if (depth < 2) {
+      limb(wood, start, mid, radius, rMid, sides)
+      limb(wood, mid, end, rMid, rEnd, sides)
+    } else {
+      limb(wood, start, end, radius, rEnd, sides)
+    }
 
     if (depth >= maxDepth) {
       for (let k = 0; k < 2; k++) {

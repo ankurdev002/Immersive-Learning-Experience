@@ -700,6 +700,7 @@ export class JapaneseRoomService {
     // Manual tier changes keep the reading boost; automatic step-downs must not undo themselves
     if (this.readingBoost && !keepCurrentDPR) this.setReadingResolution(true)
     this.applyShadowSettings()
+    this.outdoor?.setTier(tier)
     this.emitPerformanceStats()
   }
 
