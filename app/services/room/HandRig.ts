@@ -44,6 +44,13 @@ type FingerName = keyof typeof FINGER_CHAINS
 /** Curl amount per finger, 0 = straight, 1 = fully curled. */
 export type HandPose = Record<FingerName, number>
 
+export interface ArmOptions {
+  forearmLength?: number
+  sleeveLength?: number
+  /** Sleeve radius at the cuff and at the far end */
+  sleeveRadius?: [number, number]
+}
+
 // Max flexion (radians) per joint, starting at the metacarpal
 const FINGER_MAX_FLEX = [0.08, 1.25, 1.45, 0.95]
 const THUMB_MAX_FLEX = [0.35, 0.55, 0.85]
@@ -61,7 +68,9 @@ export class HandRig {
   private readonly modelBasisInverse = new THREE.Matrix4()
   private readonly modelBack = new THREE.Vector3()
 
-  private constructor(gltfScene: THREE.Object3D, skin: THREE.Material, sleeve: THREE.Material) {
+  private readonly armLength: number
+
+  private constructor(gltfScene: THREE.Object3D, skin: THREE.Material, sleeve: THREE.Material, arm: ArmOptions = {}) {
     gltfScene.traverse((obj) => {
       if ((obj as THREE.Bone).isBone || FINGER_NAMES.has(obj.name)) {
         this.bones.set(obj.name, obj)
@@ -93,7 +102,7 @@ export class HandRig {
     const armBasis = new THREE.Matrix4().makeBasis(side, finger.clone().negate(), back)
     const armQuat = new THREE.Quaternion().setFromRotationMatrix(armBasis)
 
-    const forearmLength = 0.2
+    const forearmLength = arm.forearmLength ?? 0.2
     const forearm = new THREE.Mesh(new THREE.CylinderGeometry(0.023, 0.03, forearmLength, 18, 1, true), skin)
     forearm.scale.set(1.3, 1, 0.82)
     forearm.quaternion.copy(armQuat)
@@ -101,8 +110,10 @@ export class HandRig {
     forearm.castShadow = true
     this.root.add(forearm)
 
-    const sleeveLength = 0.32
-    const sleeveMesh = new THREE.Mesh(new THREE.CylinderGeometry(0.042, 0.05, sleeveLength, 20), sleeve)
+    const sleeveLength = arm.sleeveLength ?? 0.32
+    const [cuffR, farR] = arm.sleeveRadius ?? [0.042, 0.05]
+    this.armLength = 0.11 + sleeveLength
+    const sleeveMesh = new THREE.Mesh(new THREE.CylinderGeometry(cuffR, farR, sleeveLength, 20), sleeve)
     sleeveMesh.scale.set(1.2, 1, 0.9)
     sleeveMesh.quaternion.copy(armQuat)
     sleeveMesh.position.copy(wrist).addScaledVector(finger, -(0.11 + sleeveLength / 2))
@@ -116,11 +127,12 @@ export class HandRig {
     url: string,
     skin: THREE.Material,
     sleeve: THREE.Material,
-    manager?: THREE.LoadingManager
+    manager?: THREE.LoadingManager,
+    arm?: ArmOptions
   ): Promise<HandRig | null> {
     try {
       const gltf = await new GLTFLoader(manager).loadAsync(url)
-      return new HandRig(gltf.scene, skin, sleeve)
+      return new HandRig(gltf.scene, skin, sleeve, arm)
     } catch (err) {
       console.warn('[HandRig] hand model unavailable, page turns continue without hands:', err)
       return null
@@ -129,6 +141,13 @@ export class HandRig {
 
   private restPosition(name: string): THREE.Vector3 {
     return this.rest.get(name)?.p.clone() ?? new THREE.Vector3()
+  }
+
+  /** Far end of the sleeve (where an upper arm should meet it), in the parent's space. */
+  sleeveEnd(fingerDir: THREE.Vector3): THREE.Vector3 {
+    const wrist = (this.bones.get('wrist')?.position ?? new THREE.Vector3()).clone()
+    wrist.applyQuaternion(this.root.quaternion).add(this.root.position)
+    return wrist.addScaledVector(fingerDir.clone().normalize(), -this.armLength)
   }
 
   /** Curl the fingers (forward kinematics from the rest pose). */

@@ -2260,10 +2260,13 @@ const handleExitRoom = () => {
 
 /* Floating Door Proximity Prompt */
 .floating-door-prompt {
+  /* Bottom-left, stacked above the Explore Mode guide card, out of the centre of the view */
   position: absolute;
-  top: 75%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  left: 32px;
+  bottom: 158px;
+  max-width: min(440px, calc(100% - 64px));
+  transform: none;
+  transform-origin: left bottom;
   background: rgba(15, 23, 42, 0.92);
   backdrop-filter: blur(16px);
   border: 1.5px solid rgba(56, 189, 248, 0.6);
@@ -2285,7 +2288,6 @@ const handleExitRoom = () => {
 
 /* ---------------- Meditation dojo ---------------- */
 .floating-door-prompt.monk-prompt {
-  top: 87%;
   border-color: rgba(251, 191, 36, 0.55);
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 24px rgba(251, 191, 36, 0.25);
 }
@@ -2551,11 +2553,11 @@ const handleExitRoom = () => {
 
 /* Switches hang beside doorways: sit above the door prompt when both apply */
 .floating-door-prompt.switch-prompt.is-stacked {
-  top: 64%;
+  bottom: 234px;
 }
 
 .floating-door-prompt:hover {
-  transform: translate(-50%, -54%) scale(1.03);
+  transform: translateY(-2px) scale(1.02);
   box-shadow: 0 20px 48px rgba(0, 0, 0, 0.7), 0 0 32px rgba(56, 189, 248, 0.55);
 }
 

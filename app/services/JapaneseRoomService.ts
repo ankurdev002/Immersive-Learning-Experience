@@ -1,6 +1,7 @@
 import * as THREE from 'three'
 import { gsap } from 'gsap'
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js'
 import { PbrTextureLibrary } from './room/PbrTextures'
 import { HandRig, type HandPose } from './room/HandRig'
@@ -1107,9 +1108,11 @@ export class JapaneseRoomService {
       // The monk sits facing the door; an empty zabuton waits opposite for the visitor
       const robe = this.pbr.material('hessian', { noColorMap: true, color: '#2b2b31', repeat: [3, 3], normalScale: 0.5, name: `monk-robe-${sx}` })
       const kesa = this.pbr.material('hessian', { noColorMap: true, color: '#7d5a28', repeat: [2, 2], name: `monk-kesa-${sx}` })
-      const skin = new THREE.MeshStandardMaterial({ color: '#c79a78', roughness: 0.55, name: `monk-skin-${sx}` })
-      const monk = createSeatedMonk(p.cushionIndigo, robe, kesa, skin)
+      const skin = new THREE.MeshStandardMaterial({ color: '#bd9488', roughness: 0.55, name: `monk-skin-${sx}` })
+      const zenCushion = this.pbr.material('hessian', { noColorMap: true, color: '#1d1d22', repeat: [3, 3], name: `zafu-${sx}` })
+      const monk = createSeatedMonk(zenCushion, robe, kesa, skin)
       place(monk.group, sx, 0.95)
+      this.attachRealisticMonk(monk, robe)
       collide(sx, 0.95, 0.5, 0.45)
       this.monks.push({ ...monk, roomId: '', seat: new THREE.Vector3(sx, 0, 2.25) })
       place(createZabuton(p.cushionIndigo), sx, 2.25)
@@ -5546,6 +5549,141 @@ export class JapaneseRoomService {
       this.nearMonkRoomId = near
       this.callbacks.onNearMonk?.({ show: !!near, roomId: near })
     }
+  }
+
+  private monkHeadTemplate: Promise<THREE.Mesh | null> | null = null
+
+  /**
+   * Photo-scanned head (Lee Perry-Smith scan, CC BY 3.0), trimmed at the neck so it sits inside the
+   * robe collar, with its skin colour and pore-detail normal map. Loaded once, shared by all monks.
+   */
+  private loadMonkHead(): Promise<THREE.Mesh | null> {
+    if (!this.monkHeadTemplate) {
+      const loader = new THREE.TextureLoader(this.loadingManager)
+      const color = loader.load('/models/monk/head-color.webp')
+      color.colorSpace = THREE.SRGBColorSpace
+      color.anisotropy = this.preset.anisotropy
+      const normal = loader.load('/models/monk/head-normal.webp')
+      const material = new THREE.MeshStandardMaterial({
+        name: 'monk-head-skin',
+        map: color,
+        normalMap: normal,
+        normalScale: new THREE.Vector2(0.8, 0.8),
+        roughness: 0.52,
+        metalness: 0,
+      })
+      this.monkHeadTemplate = new GLTFLoader(this.loadingManager)
+        .loadAsync('/models/monk/head.glb')
+        .then((gltf) => {
+          let source: THREE.Mesh | null = null
+          gltf.scene.traverse((o) => {
+            if ((o as THREE.Mesh).isMesh && !source) source = o as THREE.Mesh
+          })
+          if (!source) return null
+          const geometry = (source as THREE.Mesh).geometry.clone()
+          // Drop the scanned shoulders: keep triangles above the base of the neck
+          const pos = geometry.getAttribute('position') as THREE.BufferAttribute
+          const index = geometry.index
+          if (index) {
+            const kept: number[] = []
+            for (let i = 0; i < index.count; i += 3) {
+              const a = index.getX(i)
+              const b = index.getX(i + 1)
+              const c = index.getX(i + 2)
+              if (Math.min(pos.getY(a), pos.getY(b), pos.getY(c)) > -1.62) kept.push(a, b, c)
+            }
+            geometry.setIndex(kept)
+          }
+          const mesh = new THREE.Mesh(geometry, material)
+          mesh.scale.setScalar(0.042) // scan units -> metres (~15.5cm head width)
+          mesh.castShadow = true
+          mesh.receiveShadow = true
+          return mesh
+        })
+        .catch((err) => {
+          console.warn('[JapaneseRoomService] monk head unavailable, using stand-in:', err)
+          return null
+        })
+    }
+    return this.monkHeadTemplate
+  }
+
+  /**
+   * Sleeve tube with cloth behaviour: soft lengthwise folds, gathered creases near the elbow and a
+   * slight sag toward the floor, instead of a smooth pipe.
+   */
+  private clothSleeve(points: THREE.Vector3[], radius: number, seed: number): THREE.BufferGeometry {
+    const curve = new THREE.CatmullRomCurve3(points)
+    const tubularSegments = 36
+    const radial = 20
+    const g = new THREE.TubeGeometry(curve, tubularSegments, radius, radial, false)
+    const pos = g.getAttribute('position') as THREE.BufferAttribute
+    const frames = curve.computeFrenetFrames(tubularSegments, false)
+    const v = new THREE.Vector3()
+    for (let i = 0; i <= tubularSegments; i++) {
+      const t = i / tubularSegments
+      const center = curve.getPointAt(t)
+      for (let j = 0; j <= radial; j++) {
+        const idx = i * (radial + 1) + j
+        const a = (j / radial) * Math.PI * 2
+        v.fromBufferAttribute(pos, idx).sub(center)
+        const folds = 0.12 * Math.sin(a * 5 + t * 4 + seed) + 0.07 * Math.sin(a * 9 - t * 7 + seed * 2)
+        // Concertina creases gathering toward the elbow end
+        const creases = t > 0.6 ? 0.1 * Math.sin(t * 60 + a * 2) * (t - 0.6) * 2.5 : 0
+        // Fabric hangs: the underside sits further out than the top
+        const sag = 0.18 * Math.max(0, -frames.normals[i]!.clone().multiplyScalar(Math.cos(a)).addScaledVector(frames.binormals[i]!, Math.sin(a)).y)
+        v.multiplyScalar(1 + folds + creases + sag)
+        pos.setXYZ(idx, center.x + v.x, center.y + v.y, center.z + v.z)
+      }
+    }
+    g.computeVertexNormals()
+    return g
+  }
+
+  /** Replace the stand-in head and arms with the scanned head and real hands in the cosmic mudra. */
+  private attachRealisticMonk(monk: SeatedMonk, robe: THREE.Material) {
+    const [standInHead, standInNeck, ...standInArms] = monk.fallback.children
+    void this.loadMonkHead().then((template) => {
+      if (!template) return
+      const head = template.clone()
+      // Neck trim (-1.75 scan units ≈ -7cm) lands just inside the robe collar
+      monk.head.add(head)
+      if (standInHead) standInHead.visible = false
+      if (standInNeck) standInNeck.visible = false
+      this.warmUpShaders()
+    })
+
+    // Slightly deeper than the face's average albedo: hands read pinker than faces under the same light
+    const skin = new THREE.MeshStandardMaterial({ color: '#a97f6c', roughness: 0.6, name: 'monk-hand-skin' })
+    const arm = { forearmLength: 0.12, sleeveLength: 0.14, sleeveRadius: [0.048, 0.058] as [number, number] }
+    const loads = monk.handPoses.map((pose) =>
+      HandRig.load(`/models/hands/hand_${pose.side}.glb`, skin, robe, this.loadingManager, arm).then((rig) => {
+        if (!rig) return false
+        const fingerDir = pose.tip.clone().sub(pose.elbow).normalize()
+        rig.root.visible = true
+        monk.torso.add(rig.root)
+        rig.place(pose.tip, fingerDir, new THREE.Vector3(0, -1, 0))
+        rig.setPose({ thumb: 0.12, index: 0.14, middle: 0.16, ring: 0.18, pinky: 0.2 })
+
+        // Wide upper sleeve hanging from the shoulder to meet the forearm sleeve
+        const shoulder = pose.side === 'left' ? monk.shoulders.left : monk.shoulders.right
+        const elbow = rig.sleeveEnd(fingerDir)
+        const side = pose.side === 'left' ? -1 : 1
+        const mid = shoulder.clone().lerp(elbow, 0.5).add(new THREE.Vector3(side * 0.035, -0.015, -0.01))
+        const upper = new THREE.Mesh(this.clothSleeve([shoulder, mid, elbow], 0.058, side), robe)
+        upper.castShadow = true
+        monk.torso.add(upper)
+        // Rounded elbow so the upper sleeve meets the cuff like cloth (the shoulder end starts inside the robe)
+        const joint = new THREE.Mesh(new THREE.SphereGeometry(0.058, 18, 14), robe)
+        joint.position.copy(elbow)
+        monk.torso.add(joint)
+        return true
+      })
+    )
+    void Promise.all(loads).then((ok) => {
+      if (ok.every(Boolean)) for (const part of standInArms) part.visible = false
+      this.warmUpShaders()
+    })
   }
 
   /** Sit down on the visitor's cushion facing the monk and hand the camera over to stillness. */

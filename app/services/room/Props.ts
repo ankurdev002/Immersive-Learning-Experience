@@ -683,14 +683,144 @@ export interface SeatedMonk {
   group: THREE.Group
   /** Breathes (scaled on Y) and carries the head and arms */
   torso: THREE.Group
+  /** Where the scanned head is mounted (torso space); also tilts slightly with the breath */
   head: THREE.Group
-  /** Invisible box used for click / proximity interaction */
+  /** Simple stand-in head / hands shown only if the realistic assets fail to load */
+  fallback: THREE.Group
+  /** Lap targets for the real hands (torso space): index fingertip, finger direction, and elbow */
+  handPoses: Array<{ side: 'left' | 'right'; tip: THREE.Vector3; elbow: THREE.Vector3 }>
+  /** Shoulder points the upper sleeves hang from (torso space) */
+  shoulders: { left: THREE.Vector3; right: THREE.Vector3 }
   hitBox: THREE.Mesh
 }
 
+/** Lathe whose surface carries hanging cloth folds (vertical ripples that deepen toward the hem). */
+function drapedLathe(profile: THREE.Vector2[], segments: number, foldDepth: number, folds: number, seed: number) {
+  const g = new THREE.LatheGeometry(profile, segments)
+  const pos = g.getAttribute('position') as THREE.BufferAttribute
+  let maxY = -Infinity
+  let minY = Infinity
+  for (let i = 0; i < pos.count; i++) {
+    maxY = Math.max(maxY, pos.getY(i))
+    minY = Math.min(minY, pos.getY(i))
+  }
+  for (let i = 0; i < pos.count; i++) {
+    const x = pos.getX(i)
+    const z = pos.getZ(i)
+    const y = pos.getY(i)
+    const r = Math.hypot(x, z)
+    if (r < 1e-4) continue
+    const a = Math.atan2(z, x)
+    const hang = 1 - (y - minY) / Math.max(1e-4, maxY - minY) // deeper folds lower down
+    const ripple =
+      Math.sin(a * folds + seed + y * 3.1) * 0.6 +
+      Math.sin(a * folds * 2.3 + seed * 1.7 - y * 5.3) * 0.3 +
+      Math.sin(a * 3 + seed * 0.4) * 0.25
+    const nr = r + foldDepth * ripple * (0.35 + 0.65 * hang)
+    pos.setXYZ(i, (x / r) * nr, y, (z / r) * nr)
+  }
+  g.computeVertexNormals()
+  return g
+}
+
 /**
- * Zen monk in full lotus on a zabuton, hands in the cosmic mudra, eyes closed. Faces +Z; origin at
- * the floor under the cushion. Built from a dozen light primitives (one shared skin and robe material).
+ * Flat cloth band (lapel, strap) laid onto a lathe-shaped robe: each control point (x, y) is
+ * projected onto the robe's front surface (radius profile `radiusAt`, depth squash `depth`) and the
+ * band is spread across the surface, so it reads as fabric lying on fabric rather than a tube.
+ */
+function robeRibbon(
+  path: Array<[number, number]>,
+  width: number,
+  radiusAt: (y: number) => number,
+  depth: number,
+  lift: number,
+  segments = 40
+): THREE.BufferGeometry {
+  const onSurface = (x: number, y: number) => {
+    const r = radiusAt(y)
+    const zz = Math.sqrt(Math.max(0, r * r - x * x)) * depth
+    return new THREE.Vector3(x, y, zz + lift)
+  }
+  const curve = new THREE.CatmullRomCurve3(path.map(([x, y]) => onSurface(x, y)))
+  const positions: number[] = []
+  const uvs: number[] = []
+  const indices: number[] = []
+  for (let i = 0; i <= segments; i++) {
+    const t = i / segments
+    const p = curve.getPoint(t)
+    const tangent = curve.getTangent(t)
+    const outward = new THREE.Vector3(p.x, 0, p.z / Math.max(depth, 1e-3)).normalize()
+    const across = new THREE.Vector3().crossVectors(tangent, outward).normalize()
+    for (const s of [-1, 1]) {
+      const q = p.clone().addScaledVector(across, (s * width) / 2)
+      const sq = onSurface(q.x, q.y)
+      positions.push(sq.x, sq.y, sq.z)
+      uvs.push((s + 1) / 2, t)
+    }
+    if (i < segments) {
+      const a = i * 2
+      indices.push(a, a + 1, a + 2, a + 1, a + 3, a + 2)
+    }
+  }
+  const g = new THREE.BufferGeometry()
+  g.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3))
+  g.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2))
+  g.setIndex(indices)
+  g.computeVertexNormals()
+  return g
+}
+
+let rakusuTexture: THREE.CanvasTexture | null = null
+/** Hand-stitched patchwork of the rakusu (the small kesa worn on the chest). */
+function getRakusuTexture(): THREE.CanvasTexture {
+  if (rakusuTexture) return rakusuTexture
+  const c = document.createElement('canvas')
+  c.width = 256
+  c.height = 256
+  const ctx = c.getContext('2d')!
+  ctx.fillStyle = '#6d4c22'
+  ctx.fillRect(0, 0, 256, 256)
+  const cols = [0, 52, 104, 152, 204, 256]
+  for (let i = 0; i < cols.length - 1; i++) {
+    const x0 = cols[i]!
+    const w = cols[i + 1]! - x0
+    const rows = i % 2 ? [0, 96, 256] : [0, 150, 256]
+    for (let r = 0; r < rows.length - 1; r++) {
+      const shade = 0.88 + ((i * 7 + r * 3) % 5) * 0.03
+      ctx.fillStyle = `rgb(${Math.round(112 * shade)}, ${Math.round(78 * shade)}, ${Math.round(36 * shade)})`
+      ctx.fillRect(x0 + 3, rows[r]! + 3, w - 6, rows[r + 1]! - rows[r]! - 6)
+    }
+  }
+  // Running stitches along the seams
+  ctx.strokeStyle = 'rgba(40, 26, 10, 0.75)'
+  ctx.setLineDash([5, 4])
+  ctx.lineWidth = 1.5
+  for (const x of cols) {
+    ctx.beginPath()
+    ctx.moveTo(x, 0)
+    ctx.lineTo(x, 256)
+    ctx.stroke()
+  }
+  for (const y of [96, 150]) {
+    ctx.beginPath()
+    ctx.moveTo(0, y)
+    ctx.lineTo(256, y)
+    ctx.stroke()
+  }
+  ctx.setLineDash([])
+  ctx.lineWidth = 6
+  ctx.strokeStyle = '#4a3216'
+  ctx.strokeRect(3, 3, 250, 250)
+  rakusuTexture = new THREE.CanvasTexture(c)
+  rakusuTexture.colorSpace = THREE.SRGBColorSpace
+  return rakusuTexture
+}
+
+/**
+ * Zen monk in full lotus on a zafu and zabuton, robes draped in folds, rakusu on the chest.
+ * Faces +Z; origin on the floor under the cushion. The realistic scanned head and hands are
+ * attached by the caller to `head` and the lap poses in `handPoses`; `fallback` holds simple
+ * stand-ins that are shown only until those assets arrive.
  */
 export function createSeatedMonk(
   cushion: THREE.Material,
@@ -699,54 +829,116 @@ export function createSeatedMonk(
   skin: THREE.Material
 ): SeatedMonk {
   const group = new THREE.Group()
-  const dark = new THREE.MeshStandardMaterial({ color: '#2a1d17', roughness: 0.6 })
+  const juban = new THREE.MeshStandardMaterial({ color: '#ece6da', roughness: 0.85, side: THREE.DoubleSide })
+  const robeBand = (robe as THREE.MeshStandardMaterial).clone()
+  robeBand.side = THREE.DoubleSide
+  const kesaBand = (kesa as THREE.MeshStandardMaterial).clone()
+  kesaBand.side = THREE.DoubleSide
+  const rakusu = new THREE.MeshStandardMaterial({ map: getRakusuTexture(), roughness: 0.9 })
+  const wood = new THREE.MeshStandardMaterial({ color: '#5a3b22', roughness: 0.5 })
 
-  group.add(part(new RoundedBoxGeometry(0.62, 0.07, 0.62, 3, 0.03), cushion, 0, 0.035, 0))
-  // Round zafu sitting cushion on the zabuton
-  group.add(part(new THREE.CylinderGeometry(0.2, 0.22, 0.08, 28), cushion, 0, 0.11, -0.05))
+  group.add(part(new RoundedBoxGeometry(0.66, 0.06, 0.66, 3, 0.025), cushion, 0, 0.03, 0))
+  // Zafu: pleated round meditation cushion
+  group.add(part(drapedLathe([
+    new THREE.Vector2(0, 0.06),
+    new THREE.Vector2(0.2, 0.06),
+    new THREE.Vector2(0.215, 0.1),
+    new THREE.Vector2(0.2, 0.14),
+    new THREE.Vector2(0, 0.145),
+  ], 48, 0.006, 22, 1.3), cushion, 0, 0, -0.08))
 
-  // Crossed legs: a soft mound of robe
-  const legs = new THREE.LatheGeometry([
-    new THREE.Vector2(0, 0.07),
-    new THREE.Vector2(0.34, 0.07),
-    new THREE.Vector2(0.39, 0.11),
-    new THREE.Vector2(0.37, 0.16),
-    new THREE.Vector2(0.26, 0.205),
-    new THREE.Vector2(0, 0.215),
-  ], 32)
-  legs.scale(1, 1, 0.78)
+  // Crossed legs under the robe skirt, folds fanning out onto the cushion
+  const legs = drapedLathe([
+    new THREE.Vector2(0, 0.06),
+    new THREE.Vector2(0.36, 0.06),
+    new THREE.Vector2(0.405, 0.095),
+    new THREE.Vector2(0.39, 0.15),
+    new THREE.Vector2(0.3, 0.195),
+    new THREE.Vector2(0.14, 0.215),
+    new THREE.Vector2(0, 0.22),
+  ], 64, 0.012, 11, 0.7)
+  legs.scale(1, 1, 0.8)
   group.add(part(legs, robe, 0, 0, 0.03))
 
   const torso = new THREE.Group()
-  torso.position.set(0, 0.19, -0.03)
+  torso.position.set(0, 0.19, -0.04)
   group.add(torso)
 
-  const body = new THREE.LatheGeometry([
+  // Koromo (outer robe): broad shoulders, soft vertical folds, closing high around the neck
+  const body = drapedLathe([
     new THREE.Vector2(0, 0),
-    new THREE.Vector2(0.19, 0),
-    new THREE.Vector2(0.205, 0.09),
-    new THREE.Vector2(0.18, 0.24),
-    new THREE.Vector2(0.205, 0.37),
-    new THREE.Vector2(0.175, 0.45),
-    new THREE.Vector2(0.07, 0.5),
-    new THREE.Vector2(0, 0.5),
-  ], 32)
+    new THREE.Vector2(0.2, 0),
+    new THREE.Vector2(0.215, 0.08),
+    new THREE.Vector2(0.19, 0.22),
+    new THREE.Vector2(0.195, 0.36),
+    new THREE.Vector2(0.192, 0.45),
+    new THREE.Vector2(0.155, 0.505),
+    new THREE.Vector2(0.095, 0.545),
+    new THREE.Vector2(0.066, 0.575),
+  ], 64, 0.006, 9, 2.1)
   body.scale(1, 1, 0.7)
+
+  // Layered collar hugging the neck: white juban edge inside the black koromo band. It also hides
+  // where the scanned bust is trimmed.
+  const collarRing = (radius: number, tubeR: number, mat: THREE.Material, y: number) => {
+    const ringGeo = new THREE.TorusGeometry(radius, tubeR, 10, 40)
+    ringGeo.rotateX(Math.PI / 2)
+    ringGeo.scale(1, 1, 0.82)
+    return part(ringGeo, mat, 0, y, -0.004, { cast: false })
+  }
+  torso.add(collarRing(0.058, 0.011, juban, 0.574))
+  torso.add(collarRing(0.071, 0.014, robe, 0.566))
   torso.add(part(body, robe))
 
-  // Rakusu (bib-like kesa) and its straps
-  torso.add(part(new RoundedBoxGeometry(0.2, 0.2, 0.012, 2, 0.004), kesa, 0, 0.3, 0.135))
-  for (const s of [-1, 1]) {
-    const strap = new THREE.BoxGeometry(0.025, 0.2, 0.01)
-    const m = part(strap, kesa, s * 0.075, 0.43, 0.105, { cast: false })
-    m.rotation.z = s * 0.25
-    m.rotation.x = -0.35
-    torso.add(m)
+  // Robe front surface (matches the koromo lathe profile) for laying flat bands onto it
+  const profile: Array<[number, number]> = [[0, 0.2], [0.08, 0.215], [0.22, 0.19], [0.36, 0.195], [0.45, 0.192], [0.505, 0.155], [0.545, 0.095], [0.575, 0.066]]
+  const radiusAt = (y: number) => {
+    for (let i = 1; i < profile.length; i++) {
+      const [y1, r1] = profile[i]!
+      const [y0, r0] = profile[i - 1]!
+      if (y <= y1) return r0 + ((r1 - r0) * (y - y0)) / Math.max(1e-4, y1 - y0)
+    }
+    return profile[profile.length - 1]![1]
+  }
+  // Crossed lapels (left over right) forming the kimono V, with the white juban collar inside
+  for (const side of [1, -1]) {
+    const lapelPath: Array<[number, number]> = [[side * 0.05, 0.53], [side * 0.045, 0.47], [0, 0.36], [-side * 0.07, 0.24], [-side * 0.12, 0.12]]
+    const jubanPath: Array<[number, number]> = lapelPath.map(([x, y]) => [x + side * 0.018, y + 0.012])
+    torso.add(part(robeRibbon(jubanPath, 0.022, radiusAt, 0.7, 0.009), juban, 0, 0, 0, { cast: false }))
+    torso.add(part(robeRibbon(lapelPath, 0.05, radiusAt, 0.7, side > 0 ? 0.014 : 0.012), robeBand, 0, 0, 0, { cast: false }))
   }
 
-  // Sleeves down to the lap and hands in the cosmic mudra
+  // Rakusu: stitched panel on the chest (over the lapels), flat straps over the shoulders, wooden ring
+  const panel = new RoundedBoxGeometry(0.21, 0.19, 0.012, 2, 0.004)
+  torso.add(part(panel, rakusu, 0, 0.235, 0.157))
+  torso.add(part(robeRibbon([[-0.105, 0.333], [0.105, 0.333]], 0.022, radiusAt, 0.7, 0.024, 12), kesaBand, 0, 0, 0, { cast: false }))
+  for (const side of [-1, 1]) {
+    torso.add(part(robeRibbon([[side * 0.095, 0.335], [side * 0.11, 0.42], [side * 0.09, 0.5], [side * 0.06, 0.535]], 0.026, radiusAt, 0.7, 0.02, 24), kesaBand, 0, 0, 0, { cast: false }))
+  }
+  const ring = new THREE.TorusGeometry(0.022, 0.006, 10, 28)
+  torso.add(part(ring, wood, -0.11, 0.41, 0.153, { cast: false }))
+
+  // Wide upper sleeves are added by the caller once the hands are placed (they meet the forearms)
+  const shoulders = { left: new THREE.Vector3(-0.165, 0.45, 0), right: new THREE.Vector3(0.165, 0.45, 0) }
+  const handPoses: SeatedMonk['handPoses'] = [
+    // Zen cosmic mudra: palms up in the lap, left hand resting on the right, thumbs touching
+    { side: 'right', tip: new THREE.Vector3(-0.055, 0.075, 0.215), elbow: new THREE.Vector3(0.23, 0.17, -0.01) },
+    { side: 'left', tip: new THREE.Vector3(0.055, 0.09, 0.215), elbow: new THREE.Vector3(-0.23, 0.17, -0.01) },
+  ]
+
+  const head = new THREE.Group()
+  head.position.set(0, 0.6, 0.005)
+  torso.add(head)
+
+  // Stand-ins (hidden as soon as the scanned head / hands are attached)
+  const fallback = new THREE.Group()
+  torso.add(fallback)
+  const skull = new THREE.SphereGeometry(0.1, 32, 24)
+  skull.scale(0.9, 1.06, 0.97)
+  fallback.add(part(skull, skin, 0, 0.66, 0.01))
+  fallback.add(part(new THREE.CylinderGeometry(0.045, 0.052, 0.09, 16), skin, 0, 0.55, 0))
   for (const s of [-1, 1]) {
-    torso.add(part(tube([
+    fallback.add(part(tube([
       new THREE.Vector3(s * 0.19, 0.42, 0),
       new THREE.Vector3(s * 0.25, 0.24, 0.05),
       new THREE.Vector3(s * 0.19, 0.11, 0.16),
@@ -754,47 +946,12 @@ export function createSeatedMonk(
     ], 0.055, 20, 12), robe))
     const hand = new THREE.SphereGeometry(0.05, 16, 12)
     hand.scale(1.25, 0.45, 0.85)
-    torso.add(part(hand, skin, s * 0.03, 0.075 + (s > 0 ? 0.012 : 0), 0.21))
+    fallback.add(part(hand, skin, s * 0.03, 0.075, 0.21))
   }
-  // Thumbs lightly touching above the palms
-  torso.add(part(tube([
-    new THREE.Vector3(-0.045, 0.1, 0.235),
-    new THREE.Vector3(0, 0.12, 0.245),
-    new THREE.Vector3(0.045, 0.1, 0.235),
-  ], 0.011, 10, 8), skin))
-
-  // Neck and head
-  torso.add(part(new THREE.CylinderGeometry(0.045, 0.052, 0.09, 16), skin, 0, 0.53, 0))
-  const head = new THREE.Group()
-  head.position.set(0, 0.66, 0.01)
-  head.rotation.x = 0.12 // gaze lowered
-  torso.add(head)
-  const skull = new THREE.SphereGeometry(0.1, 32, 24)
-  skull.scale(0.9, 1.06, 0.97)
-  head.add(part(skull, skin))
-  for (const s of [-1, 1]) {
-    const ear = new THREE.SphereGeometry(0.026, 12, 10)
-    ear.scale(0.45, 1, 0.7)
-    head.add(part(ear, skin, s * 0.09, -0.005, -0.005))
-    // Closed eyes: soft downward arcs
-    const eye = new THREE.TorusGeometry(0.017, 0.0028, 6, 16, Math.PI)
-    const eyeMesh = part(eye, dark, s * 0.034, 0.008, 0.088, { cast: false })
-    eyeMesh.rotation.z = Math.PI
-    head.add(eyeMesh)
-    const brow = new THREE.BoxGeometry(0.03, 0.005, 0.006)
-    const browMesh = part(brow, dark, s * 0.035, 0.034, 0.088, { cast: false })
-    browMesh.rotation.z = -s * 0.12
-    head.add(browMesh)
-  }
-  head.add(part(new THREE.SphereGeometry(0.013, 10, 8), skin, 0, -0.012, 0.098, { cast: false }))
-  const mouth = new THREE.TorusGeometry(0.016, 0.0022, 6, 14, Math.PI * 0.7)
-  const mouthMesh = part(mouth, dark, 0, -0.04, 0.086, { cast: false })
-  mouthMesh.rotation.z = Math.PI * 1.15
-  head.add(mouthMesh)
 
   const hitBox = new THREE.Mesh(new THREE.BoxGeometry(0.8, 1.0, 0.8), new THREE.MeshBasicMaterial({ visible: false }))
   hitBox.position.set(0, 0.5, 0)
   group.add(hitBox)
 
-  return { group, torso, head, hitBox }
+  return { group, torso, head, fallback, handPoses, shoulders, hitBox }
 }
