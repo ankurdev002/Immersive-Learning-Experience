@@ -8,7 +8,7 @@
   "subtitle": "Hardware Organization & Architecture (3rd Ed)",
   "coverColor": "#065f46",
   "accentColor": "#34d399",
-  "coverImage": "/books/comp-arch/cover.png",
+  "coverImage": "/books/comp-arch/cover.webp",
   "sourcePdf": "/books/comp-arch/computer-systems-Architecture.pdf",
   "icon": "\ud83d\udcbb",
   "isInteractive": true,

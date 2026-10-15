@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import { gsap } from 'gsap'
-import { getProject, type IProject, type ISheet } from '@theatre/core'
+import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js'
 import {
   createWoodTexture,
   createModernRoomLabelTexture,
@@ -58,8 +58,122 @@ export interface CustomRoomData {
   isDoorOpen: boolean
   labelMesh: THREE.Mesh
   switchMesh: THREE.Mesh
-  lights: THREE.Light[]
+  lights: RoomLight[]
   roomIndex: number
+}
+
+/**
+ * A light fixture that is not a real THREE.Light. Fixtures are mapped onto a small, fixed pool of real
+ * lights every frame (nearest first), so the scene's light count never changes. Changing the number of
+ * visible lights forces three.js to recompile every shader, which caused 50-300ms hitches when walking
+ * between rooms or flipping switches.
+ */
+export interface VirtualLight {
+  kind: 'spot' | 'point'
+  position: THREE.Vector3
+  target: THREE.Vector3
+  color: THREE.Color
+  intensity: number
+  distance: number
+  decay: number
+  angle: number
+  penumbra: number
+  active: boolean
+}
+
+export type RoomLight = THREE.AmbientLight | VirtualLight
+
+export type QualityTier = 'low' | 'medium' | 'high'
+
+interface QualityPreset {
+  maxDPR: number
+  minDPR: number
+  antialias: boolean
+  shadowMapSize: number
+  sunShadow: boolean
+  spotPoolSize: number
+  pointPoolSize: number
+  lightRadius: number
+  anisotropy: number
+  throttleWhenIdle: boolean
+}
+
+const QUALITY_PRESETS: Record<QualityTier, QualityPreset> = {
+  low: {
+    maxDPR: 1.0,
+    minDPR: 0.6,
+    antialias: false,
+    shadowMapSize: 512,
+    sunShadow: false,
+    spotPoolSize: 3,
+    pointPoolSize: 2,
+    lightRadius: 6.0,
+    anisotropy: 2,
+    throttleWhenIdle: true,
+  },
+  medium: {
+    maxDPR: 1.25,
+    minDPR: 0.75,
+    antialias: true,
+    shadowMapSize: 1024,
+    sunShadow: true,
+    spotPoolSize: 4,
+    pointPoolSize: 2,
+    lightRadius: 7.5,
+    anisotropy: 4,
+    throttleWhenIdle: false,
+  },
+  high: {
+    maxDPR: 2.0,
+    minDPR: 1.0,
+    antialias: true,
+    shadowMapSize: 2048,
+    sunShadow: true,
+    spotPoolSize: 5,
+    pointPoolSize: 2,
+    lightRadius: 9.0,
+    anisotropy: 8,
+    throttleWhenIdle: false,
+  },
+}
+
+const QUALITY_STORAGE_KEY = 'ire-quality-tier'
+// Material slot of a shelf book's spine (see buildFrontBookshelf)
+const SHELF_BOOK_SPINE_MATERIAL = 2
+const TIER_ORDER: QualityTier[] = ['low', 'medium', 'high']
+
+function readStoredQualityTier(): QualityTier | null {
+  try {
+    const stored = localStorage.getItem(QUALITY_STORAGE_KEY)
+    return stored === 'low' || stored === 'medium' || stored === 'high' ? stored : null
+  } catch {
+    return null
+  }
+}
+
+function createVirtualLight(
+  kind: 'spot' | 'point',
+  color: THREE.ColorRepresentation,
+  intensity: number,
+  distance: number,
+  decay: number,
+  position: THREE.Vector3,
+  target = new THREE.Vector3(),
+  angle = Math.PI / 3,
+  penumbra = 0
+): VirtualLight {
+  return {
+    kind,
+    position,
+    target,
+    color: new THREE.Color(color),
+    intensity,
+    distance,
+    decay,
+    angle,
+    penumbra,
+    active: false,
+  }
 }
 
 export interface DoorPromptData {
@@ -72,7 +186,8 @@ export interface DoorPromptData {
 export interface PerformanceStats {
   fps: number
   dpr: number
-  tier: 'low' | 'high'
+  tier: QualityTier
+  isManualTier: boolean
   isOptimized: boolean
 }
 
@@ -99,31 +214,6 @@ export interface RoomServiceCallbacks {
   onPlayFootstep?: () => void
   onPlayDoorSlide?: () => void
   onPerformanceUpdate?: (stats: PerformanceStats) => void
-}
-
-// Stable Theatre.js Project Singleton across HMR cycles
-const THEATRE_CONFIG = Object.freeze({
-  state: {
-    sheetsById: {},
-    definitionVersion: '0.4.0',
-    revisionHistory: [],
-  },
-})
-
-let cachedTheatreProject: IProject | null = null
-
-function getChamberTheatreProject(): IProject | null {
-  if (cachedTheatreProject) return cachedTheatreProject
-  try {
-    cachedTheatreProject = getProject('IREJapaneseChamber', THEATRE_CONFIG)
-  } catch {
-    try {
-      cachedTheatreProject = getProject('IREJapaneseChamber')
-    } catch (e) {
-      console.warn('Theatre.js project initialization notice:', e)
-    }
-  }
-  return cachedTheatreProject
 }
 
 export class JapaneseRoomService {
@@ -158,7 +248,9 @@ export class JapaneseRoomService {
   public customRooms = new Map<string, CustomRoomData>()
   public availableSlots = [5.5, -5.5, 11.0, -11.0]
   private hallwayGroup = new THREE.Group()
-  private hallwayLights: THREE.Light[] = []
+  private hallwayInnerWallGroup = new THREE.Group()
+  private hallwayWallMat: THREE.MeshStandardMaterial | null = null
+  private hallwayLights: Array<THREE.AmbientLight | VirtualLight> = []
   private studyDoorGroup = new THREE.Group()
   private studyDoorLeft!: THREE.Mesh
   private studyDoorRight!: THREE.Mesh
@@ -174,8 +266,21 @@ export class JapaneseRoomService {
   private lampLight!: THREE.SpotLight
   private moonLight!: THREE.DirectionalLight
   private lampShadeMesh!: THREE.Mesh
-  private heroBookGlowLight!: THREE.PointLight
+  private heroBookGlow!: VirtualLight
   private textureLoader = new THREE.TextureLoader()
+  private coverTextures = new Map<string, THREE.Texture>()
+
+  // Tweenable light levels for the always-present study lights. The renderer sees
+  // level * zoneMask, so leaving the study zone dims these without removing them from the scene.
+  private lightLevels = { sun: 1.4, lamp: 3.2, moon: 0 }
+  private zoneMask = { sun: 1, lamp: 1, moon: 1 }
+
+  // Fixed-size real light pools that virtual fixtures are mapped onto each frame
+  private spotPool: THREE.SpotLight[] = []
+  private pointPool: THREE.PointLight[] = []
+  private spotFixtures: VirtualLight[] = []
+  private pointFixtures: VirtualLight[] = []
+  private readonly _fixtureCandidates: { light: VirtualLight; dist: number }[] = []
 
   // Interactive Book System
   private heroBookGroup = new THREE.Group()
@@ -200,25 +305,31 @@ export class JapaneseRoomService {
   public currentBookData: ImmersiveBookData = SHELF_BOOKS_CONFIG.find((b) => b.isInteractive)!
 
   // =========================================================
-  // LOW-END DEVICE & INTEGRATED GPU 60 FPS ENGINE
+  // ADAPTIVE QUALITY TIERS (LOW / MEDIUM / HIGH) & 60 FPS ENGINE
   // =========================================================
-  public isIntegratedGPU = false
+  public qualityTier: QualityTier = 'medium'
+  public isManualTier = false
+  private preset: QualityPreset = QUALITY_PRESETS.medium
   public baseDPR = 1.0
   public currentDPR = 1.0
   public currentFps = 60
   private avgFrameDelta = 0.0166
   private consecutiveSlowFrames = 0
   private consecutiveFastFrames = 0
+  private slowFramesAtMinDPR = 0
+  private framesSinceStatsEmit = 0
   private shadowUpdateFrames = 25
   private lastRaycastTime = 0
   private lastSpatialCheckZone = ''
   private lastSpatialCheckX = 9999
+  private lastActivityTime = 0
+  private idleFrameToggle = false
 
   // Dedicated Hallway Light References for Spatial Light Culling
-  private hallwaySpotLights: THREE.SpotLight[] = []
+  private hallwaySpotLights: VirtualLight[] = []
   private hallwayAmbientLight: THREE.AmbientLight | null = null
-  private hallwayLeftLight: THREE.PointLight | null = null
-  private hallwayRightLight: THREE.PointLight | null = null
+  private hallwayLeftLight: VirtualLight | null = null
+  private hallwayRightLight: VirtualLight | null = null
 
   // Zero-Allocation Reusable Scratch Vectors for Render Loop
   private readonly _scratchForward = new THREE.Vector3()
@@ -248,6 +359,8 @@ export class JapaneseRoomService {
   private cupGroup = new THREE.Group()
   private cupTargetMesh!: THREE.Mesh
   private isDrinking = false
+  private isOpenPending = false
+  private staticMeshesOptimized = false
 
   // Environmental Atmospheric Particles & Props
   private dustParticles: THREE.Points | null = null
@@ -283,10 +396,6 @@ export class JapaneseRoomService {
   public currentPage = 1
   private currentHoveredTarget: 'lamp' | 'cup' | 'book' | null = null
 
-  // Theatre.js integration
-  private theatreProject: IProject | null = getChamberTheatreProject()
-  private theatreSheet: ISheet | null = this.theatreProject ? this.theatreProject.sheet('ChamberCinematics') : null
-
   constructor(canvas: HTMLCanvasElement, callbacks: RoomServiceCallbacks = {}) {
     this.canvas = canvas
     this.callbacks = callbacks
@@ -301,13 +410,14 @@ export class JapaneseRoomService {
     this.camera.position.copy(this.initialCamPos)
     this.camera.lookAt(this.initialCamTarget)
 
-    // Detect GPU & Hardware profile for low-end / integrated GPU optimization
-    this.detectHardwareProfile()
+    // Pick a quality tier (manual override > GPU/device heuristics); antialias must be decided before
+    // the WebGL context exists, everything else can still adapt at runtime.
+    this.applyQualityPreset(this.detectQualityTier())
 
     // 2. High-Fidelity & Low-End Optimized WebGL Renderer
     this.renderer = new THREE.WebGLRenderer({
       canvas,
-      antialias: true,
+      antialias: this.preset.antialias,
       powerPreference: 'high-performance',
       stencil: false,
       depth: true,
@@ -323,6 +433,9 @@ export class JapaneseRoomService {
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping
     this.renderer.toneMappingExposure = 1.15
 
+    // Start fetching the default book's curriculum right away (it is no longer bundled into the JS)
+    void BookCatalogService.ensureBookLoaded(this.currentBookData.id)
+
     // 3. Build Room Architecture & Props
     this.setupLighting()
     this.buildRoomArchitecture()
@@ -334,65 +447,133 @@ export class JapaneseRoomService {
     this.buildHeroBook()
     this.setupAtmosphere()
 
+    // Collapse static furniture & architecture into one mesh per material (hundreds fewer draw calls)
+    this.optimizeStaticMeshes()
+
     // 4. Events & Render Loop
     this.bindEvents()
     // Initial static shadow bake (25 frames)
     this.triggerShadowUpdate(25)
     // Initial spatial lighting culling pass
     this.updateSpatialLights(true)
+    this.syncLightPools()
+    // Compile every shader now (behind the loading screen) instead of mid-interaction
+    this.renderer.compile(this.scene, this.camera)
     this.startLoop()
   }
 
   // =========================================================
-  // HARDWARE DETECTION & ADAPTIVE 60 FPS PERFORMANCE ENGINE
+  // HARDWARE DETECTION, QUALITY TIERS & ADAPTIVE 60 FPS ENGINE
   // =========================================================
 
-  private detectHardwareProfile() {
-    let isLowTier = false
+  private detectQualityTier(): QualityTier {
+    const stored = readStoredQualityTier()
+    if (stored) {
+      this.isManualTier = true
+      return stored
+    }
+    this.isManualTier = false
+
+    // Probe on a throwaway canvas: calling getContext() on the real canvas first would lock in default
+    // context attributes and silently override the renderer's antialias / alpha settings.
+    let rendererStr = ''
     try {
-      const gl = this.canvas.getContext('webgl2') || this.canvas.getContext('webgl')
+      const probe = document.createElement('canvas')
+      const gl = (probe.getContext('webgl2') || probe.getContext('webgl')) as WebGLRenderingContext | null
       if (gl) {
         const debugInfo = gl.getExtension('WEBGL_debug_renderer_info')
-        if (debugInfo) {
-          const rendererStr = (gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) || '').toLowerCase()
-          if (
-            rendererStr.includes('intel') ||
-            rendererStr.includes('uhd') ||
-            rendererStr.includes('iris') ||
-            rendererStr.includes('hd graphics') ||
-            rendererStr.includes('mali') ||
-            rendererStr.includes('adreno') ||
-            rendererStr.includes('powervr') ||
-            rendererStr.includes('radeon vega') ||
-            rendererStr.includes('radeon graphics') ||
-            rendererStr.includes('llvmpipe') ||
-            rendererStr.includes('swiftshader') ||
-            (rendererStr.includes('apple') && !rendererStr.includes('pro') && !rendererStr.includes('max'))
-          ) {
-            isLowTier = true
-          }
-        }
-      }
-      if (typeof navigator !== 'undefined') {
-        if (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) {
-          isLowTier = true
-        }
-        if ((navigator as any).deviceMemory && (navigator as any).deviceMemory <= 4) {
-          isLowTier = true
-        }
+        rendererStr = String(
+          (debugInfo && gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL)) || gl.getParameter(gl.RENDERER) || ''
+        ).toLowerCase()
+        gl.getExtension('WEBGL_lose_context')?.loseContext()
       }
     } catch {
-      // Fallback
+      // Fall through to device heuristics
     }
 
-    this.isIntegratedGPU = isLowTier
-    // On integrated / mobile GPUs, clamp base DPR to 1.0 to prevent 4x pixel overhead on Retina displays
-    this.baseDPR = isLowTier ? Math.min(window.devicePixelRatio, 1.0) : Math.min(window.devicePixelRatio, 1.25)
+    const nav = typeof navigator !== 'undefined' ? navigator : undefined
+    const ua = nav?.userAgent || ''
+    const memory = (nav as any)?.deviceMemory as number | undefined
+    const cores = nav?.hardwareConcurrency
+    const isMobile =
+      /Android|iPhone|iPad|iPod|Mobile/i.test(ua) || (/Macintosh/.test(ua) && (nav?.maxTouchPoints ?? 0) > 1)
+
+    if (/swiftshader|llvmpipe|software|microsoft basic/.test(rendererStr)) return 'low'
+    if (isMobile || /mali|adreno|powervr/.test(rendererStr)) return 'low'
+    if ((memory && memory <= 2) || (cores && cores <= 2)) return 'low'
+
+    if (/nvidia|geforce|rtx|gtx|quadro|radeon (rx|pro)|arc\(tm\)|apple m\d+ (pro|max|ultra)/.test(rendererStr)) {
+      return 'high'
+    }
+    if (/hd graphics|uhd graphics/.test(rendererStr)) return 'low'
+    if (/iris|radeon|vega|apple/.test(rendererStr)) return 'medium'
+    if ((memory && memory <= 4) || (cores && cores <= 4)) return 'low'
+    return 'medium'
+  }
+
+  private applyQualityPreset(tier: QualityTier) {
+    const previousDPR = this.renderer ? this.currentDPR : Infinity
+    this.qualityTier = tier
+    this.preset = QUALITY_PRESETS[tier]
+    const deviceDPR = typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1
+    this.baseDPR = Math.max(this.preset.minDPR, Math.min(deviceDPR, this.preset.maxDPR))
     this.currentDPR = this.baseDPR
+    this.consecutiveSlowFrames = 0
+    this.consecutiveFastFrames = 0
+    this.slowFramesAtMinDPR = 0
+    return previousDPR
+  }
+
+  private applyShadowSettings() {
+    const size = this.preset.shadowMapSize
+    for (const light of [this.sunLight, this.lampLight]) {
+      if (light.shadow.mapSize.x !== size) {
+        light.shadow.mapSize.set(size, size)
+        light.shadow.map?.dispose()
+        light.shadow.map = null
+      }
+    }
+    // Changing the shadow-caster count recompiles shaders once; only happens on a tier change
+    this.sunLight.castShadow = this.preset.sunShadow
+    this.triggerShadowUpdate(10)
+  }
+
+  private switchQualityTier(tier: QualityTier, keepCurrentDPR: boolean) {
+    const previousDPR = this.applyQualityPreset(tier)
+    if (keepCurrentDPR) {
+      // When stepping down for performance, never jump to a higher resolution than we were already at
+      this.currentDPR = Math.max(this.preset.minDPR, Math.min(this.currentDPR, previousDPR))
+    }
+    this.renderer.setPixelRatio(this.currentDPR)
+    this.applyShadowSettings()
+    this.emitPerformanceStats()
+  }
+
+  /** Manually choose a quality tier, or 'auto' to go back to detection. Antialiasing applies on next visit. */
+  public setQualityTier(tier: QualityTier | 'auto') {
+    try {
+      if (tier === 'auto') localStorage.removeItem(QUALITY_STORAGE_KEY)
+      else localStorage.setItem(QUALITY_STORAGE_KEY, tier)
+    } catch {
+      // Storage unavailable (private mode): still apply for this session
+    }
+    const nextTier = tier === 'auto' ? this.detectQualityTier() : tier
+    this.isManualTier = tier !== 'auto'
+    this.switchQualityTier(nextTier, false)
   }
 
   public triggerShadowUpdate(frames = 30) {
     this.shadowUpdateFrames = Math.max(this.shadowUpdateFrames, frames)
+  }
+
+  private emitPerformanceStats() {
+    this.callbacks.onPerformanceUpdate?.({
+      fps: this.currentFps,
+      dpr: this.currentDPR,
+      tier: this.qualityTier,
+      isManualTier: this.isManualTier,
+      isOptimized: true,
+    })
   }
 
   private monitorPerformance(rawDelta: number) {
@@ -402,20 +583,28 @@ export class JapaneseRoomService {
     this.avgFrameDelta = this.avgFrameDelta * 0.94 + rawDelta * 0.06
     this.currentFps = Math.max(15, Math.min(120, Math.round(1 / this.avgFrameDelta)))
 
-    // Check if frame time exceeds 18.2ms (< 55 FPS)
     if (this.avgFrameDelta > 0.0182) {
+      // < 55 FPS: step resolution down, then (automatic tiers only) the quality tier itself
       this.consecutiveSlowFrames++
       this.consecutiveFastFrames = 0
-      // If consistently slow over 45 frames, gracefully step down DPR
-      if (this.consecutiveSlowFrames > 45 && this.currentDPR > 0.75) {
-        this.currentDPR = Math.max(0.75, Math.round((this.currentDPR - 0.08) * 100) / 100)
-        this.renderer.setPixelRatio(this.currentDPR)
+      if (this.consecutiveSlowFrames > 30) {
         this.consecutiveSlowFrames = 0
+        if (this.currentDPR > this.preset.minDPR + 0.001) {
+          this.currentDPR = Math.max(this.preset.minDPR, Math.round((this.currentDPR - 0.1) * 100) / 100)
+          this.renderer.setPixelRatio(this.currentDPR)
+        } else if (!this.isManualTier && this.qualityTier !== 'low') {
+          this.slowFramesAtMinDPR++
+          if (this.slowFramesAtMinDPR >= 6) {
+            const lowerTier = TIER_ORDER[TIER_ORDER.indexOf(this.qualityTier) - 1]!
+            this.switchQualityTier(lowerTier, true)
+          }
+        }
       }
-    } else if (this.avgFrameDelta < 0.0152) { // > 65 FPS headroom
+    } else if (this.avgFrameDelta < 0.0152) {
+      // > 65 FPS headroom: gently step resolution back up toward the tier's target
       this.consecutiveFastFrames++
       this.consecutiveSlowFrames = 0
-      // If consistently fast over 90 frames, gently step up toward baseDPR
+      this.slowFramesAtMinDPR = 0
       if (this.consecutiveFastFrames > 90 && this.currentDPR < this.baseDPR) {
         this.currentDPR = Math.min(this.baseDPR, Math.round((this.currentDPR + 0.05) * 100) / 100)
         this.renderer.setPixelRatio(this.currentDPR)
@@ -423,17 +612,25 @@ export class JapaneseRoomService {
       }
     }
 
-    // Periodic stats emission to UI
-    if (Math.random() < 0.018) {
-      this.callbacks.onPerformanceUpdate?.({
-        fps: this.currentFps,
-        dpr: this.currentDPR,
-        tier: this.isIntegratedGPU ? 'low' : 'high',
-        isOptimized: true,
-      })
+    // Periodic stats emission to UI (~2x per second)
+    this.framesSinceStatsEmit++
+    if (this.framesSinceStatsEmit >= 30) {
+      this.framesSinceStatsEmit = 0
+      this.emitPerformanceStats()
     }
   }
 
+  private setRoomLightsActive(room: CustomRoomData, active: boolean) {
+    for (const light of room.lights) {
+      if (light instanceof THREE.AmbientLight) light.visible = active
+      else light.active = active
+    }
+  }
+
+  /**
+   * Zone-based light culling. Only toggles ambient lights (which never affect shader compilation),
+   * zone masks on the always-present study lights, and the `active` flag of virtual fixtures.
+   */
   public updateSpatialLights(force = false) {
     const px = this.isExploreMode ? this.playerPos.x : 0
     const zone = this.currentZone
@@ -445,67 +642,118 @@ export class JapaneseRoomService {
     this.lastSpatialCheckX = px
 
     if (zone === 'study-room') {
-      // In study room: turn off all hallway spotlights and custom room lights
-      for (const spot of this.hallwaySpotLights) spot.visible = false
-      if (this.hallwayLeftLight) this.hallwayLeftLight.visible = false
-      if (this.hallwayRightLight) this.hallwayRightLight.visible = false
+      for (const spot of this.hallwaySpotLights) spot.active = false
+      if (this.hallwayLeftLight) this.hallwayLeftLight.active = false
+      if (this.hallwayRightLight) this.hallwayRightLight.active = false
       if (this.hallwayAmbientLight) this.hallwayAmbientLight.visible = this.isStudyDoorOpen
 
-      for (const room of this.customRooms.values()) {
-        for (const l of room.lights) l.visible = false
-      }
+      for (const room of this.customRooms.values()) this.setRoomLightsActive(room, false)
 
-      if (this.ambientLight) this.ambientLight.visible = true
-      if (this.sunLight) this.sunLight.visible = true
-      if (this.lampLight) this.lampLight.visible = this.isLightOn
-      if (this.moonLight) this.moonLight.visible = !this.isLightOn
-      if (this.heroBookGlowLight) {
-        this.heroBookGlowLight.visible = (this.state === 'room-view' && !this.isExploreMode)
-      }
+      this.ambientLight.visible = true
+      this.zoneMask.sun = 1
+      this.zoneMask.lamp = 1
+      this.zoneMask.moon = 1
+      this.heroBookGlow.active = this.state === 'room-view' && !this.isExploreMode
     } else if (zone === 'hallway') {
-      // In hallway: turn off study desk lamp & hero glow
-      if (this.lampLight) this.lampLight.visible = false
-      if (this.heroBookGlowLight) this.heroBookGlowLight.visible = false
-      if (this.sunLight) this.sunLight.visible = false
+      this.zoneMask.sun = 0
+      this.zoneMask.lamp = 0
+      this.zoneMask.moon = 0
+      this.heroBookGlow.active = false
 
-      if (this.hallwayAmbientLight) this.hallwayAmbientLight.visible = this.isHallwayLightOn
+      if (this.hallwayAmbientLight) this.hallwayAmbientLight.visible = true
+      // The pool lights the nearest fixtures; switching the corridor off fades them via intensity
+      for (const spot of this.hallwaySpotLights) spot.active = true
+      if (this.hallwayLeftLight) this.hallwayLeftLight.active = true
+      if (this.hallwayRightLight) this.hallwayRightLight.active = true
 
-      // Only enable the nearest 2-3 corridor spotlights to player position
-      const maxSpotDist = this.isIntegratedGPU ? 6.5 : 9.0
-      for (const spot of this.hallwaySpotLights) {
-        spot.visible = this.isHallwayLightOn && Math.abs(spot.position.x - px) <= maxSpotDist
-      }
-
-      // Hallway end wall sconces
-      if (this.hallwayLeftLight) this.hallwayLeftLight.visible = this.isHallwayLightOn && Math.abs(px - (-13.5)) < 8.0
-      if (this.hallwayRightLight) this.hallwayRightLight.visible = this.isHallwayLightOn && Math.abs(px - 13.5) < 8.0
-
-      // Custom room lights: only enable if door is open OR player is within 3.5m of door
+      // Custom room lights: only spill into the corridor if the door is open or the player is near it
       for (const room of this.customRooms.values()) {
-        const nearDoor = Math.abs(room.doorX - px) < 3.5
-        const shouldLight = room.isLightOn && (room.isDoorOpen || nearDoor)
-        for (const l of room.lights) l.visible = shouldLight
+        this.setRoomLightsActive(room, room.isDoorOpen || Math.abs(room.doorX - px) < 3.5)
       }
 
-      if (this.ambientLight) this.ambientLight.visible = this.isStudyDoorOpen || Math.abs(px) < 3.5
+      this.ambientLight.visible = this.isStudyDoorOpen || Math.abs(px) < 3.5
     } else {
       // Inside a custom room
-      if (this.lampLight) this.lampLight.visible = false
-      if (this.heroBookGlowLight) this.heroBookGlowLight.visible = false
-      if (this.sunLight) this.sunLight.visible = false
-      if (this.ambientLight) this.ambientLight.visible = false
+      this.zoneMask.sun = 0
+      this.zoneMask.lamp = 0
+      this.zoneMask.moon = 0
+      this.heroBookGlow.active = false
+      this.ambientLight.visible = false
 
       for (const [id, room] of this.customRooms.entries()) {
-        const isCurrent = id === zone
-        for (const l of room.lights) l.visible = isCurrent && room.isLightOn
+        this.setRoomLightsActive(room, id === zone)
       }
 
       for (const spot of this.hallwaySpotLights) {
-        spot.visible = this.isHallwayLightOn && Math.abs(spot.position.x - px) < 4.5
+        spot.active = Math.abs(spot.position.x - px) < 4.5
       }
-      if (this.hallwayLeftLight) this.hallwayLeftLight.visible = false
-      if (this.hallwayRightLight) this.hallwayRightLight.visible = false
-      if (this.hallwayAmbientLight) this.hallwayAmbientLight.visible = this.isHallwayLightOn
+      if (this.hallwayLeftLight) this.hallwayLeftLight.active = false
+      if (this.hallwayRightLight) this.hallwayRightLight.active = false
+      if (this.hallwayAmbientLight) this.hallwayAmbientLight.visible = true
+    }
+  }
+
+  /** Applies zone masks and maps the nearest active virtual fixtures onto the fixed real light pools. */
+  private syncLightPools() {
+    this.sunLight.intensity = this.lightLevels.sun * this.zoneMask.sun
+    this.lampLight.intensity = this.lightLevels.lamp * this.zoneMask.lamp
+    this.moonLight.intensity = this.lightLevels.moon * this.zoneMask.moon
+
+    this.assignLightPool(this.spotFixtures, this.spotPool)
+    this.assignLightPool(this.pointFixtures, this.pointPool)
+  }
+
+  private assignLightPool(fixtures: VirtualLight[], pool: Array<THREE.SpotLight | THREE.PointLight>) {
+    const origin = this.camera.position
+    const radius = this.preset.lightRadius
+    const candidates = this._fixtureCandidates
+    let count = 0
+
+    for (const light of fixtures) {
+      if (!light.active || light.intensity <= 0.001) continue
+      const dist = light === this.heroBookGlow
+        ? 0
+        : Math.hypot(light.position.x - origin.x, light.position.z - origin.z)
+      if (dist >= radius) continue
+      const slot = candidates[count] || (candidates[count] = { light, dist })
+      slot.light = light
+      slot.dist = dist
+      count++
+    }
+
+    // Insertion sort by distance (a handful of entries, no allocation)
+    for (let i = 1; i < count; i++) {
+      const item = candidates[i]!
+      const { light, dist } = item
+      let j = i - 1
+      while (j >= 0 && candidates[j]!.dist > dist) {
+        candidates[j + 1]!.light = candidates[j]!.light
+        candidates[j + 1]!.dist = candidates[j]!.dist
+        j--
+      }
+      candidates[j + 1]!.light = light
+      candidates[j + 1]!.dist = dist
+    }
+
+    for (let i = 0; i < pool.length; i++) {
+      const real = pool[i]!
+      if (i >= count) {
+        real.intensity = 0
+        continue
+      }
+      const { light: v, dist } = candidates[i]!
+      // Fade fixtures out over the last 1.5m of the radius so pool hand-offs never pop
+      const fade = THREE.MathUtils.clamp((radius - dist) / 1.5, 0, 1)
+      real.intensity = v.intensity * fade
+      real.color.copy(v.color)
+      real.distance = v.distance
+      real.decay = v.decay
+      real.position.copy(v.position)
+      if (real instanceof THREE.SpotLight) {
+        real.angle = v.angle
+        real.penumbra = v.penumbra
+        real.target.position.copy(v.target)
+      }
     }
   }
 
@@ -514,11 +762,12 @@ export class JapaneseRoomService {
     this.ambientLight = new THREE.AmbientLight(0xffeed8, 0.75)
     this.scene.add(this.ambientLight)
 
+    const shadowSize = this.preset.shadowMapSize
+
     // Shoji Screen Sunlight (soft directional streaming from left garden terrace)
-    this.sunLight = new THREE.DirectionalLight(0xfffae5, 1.4)
+    this.sunLight = new THREE.DirectionalLight(0xfffae5, this.lightLevels.sun)
     this.sunLight.position.set(-4.5, 4.2, 0.5)
-    this.sunLight.castShadow = true
-    const shadowSize = this.isIntegratedGPU ? 512 : 1024
+    this.sunLight.castShadow = this.preset.sunShadow
     this.sunLight.shadow.mapSize.width = shadowSize
     this.sunLight.shadow.mapSize.height = shadowSize
     this.sunLight.shadow.camera.near = 0.5
@@ -531,7 +780,7 @@ export class JapaneseRoomService {
     this.scene.add(this.sunLight)
 
     // Warm Gooseneck Desk Lamp (Optimized SpotLight with single 2D shadow map instead of 6-sided cubemap)
-    this.lampLight = new THREE.SpotLight(0xffa534, 3.2, 5.0, Math.PI / 3.0, 0.45, 1.2)
+    this.lampLight = new THREE.SpotLight(0xffa534, this.lightLevels.lamp, 5.0, Math.PI / 3.0, 0.45, 1.2)
     this.lampLight.position.set(-0.65, 1.22, -0.45)
     this.lampLight.target.position.set(0, 0.85, -0.44)
     this.scene.add(this.lampLight.target)
@@ -543,15 +792,27 @@ export class JapaneseRoomService {
     this.lampLight.shadow.camera.far = 4.0
     this.scene.add(this.lampLight)
 
-    // Cool Moonlight (streaming from left garden for nighttime ambience)
-    this.moonLight = new THREE.DirectionalLight(0x60a5fa, 0.25)
+    // Cool Moonlight (streaming from left garden; fades in when the study lights are switched off)
+    this.moonLight = new THREE.DirectionalLight(0x60a5fa, this.lightLevels.moon)
     this.moonLight.position.set(-5, 3.5, -1)
     this.scene.add(this.moonLight)
 
-    // Magical blue glow over Class 3 Mathematics section on the front bookshelf
-    this.heroBookGlowLight = new THREE.PointLight(0x38bdf8, 1.1, 2.0, 1.0)
-    this.heroBookGlowLight.position.set(0.45, 2.2, -2.35)
-    this.scene.add(this.heroBookGlowLight)
+    // Magical blue glow over the hero book section on the front bookshelf
+    this.heroBookGlow = createVirtualLight('point', 0x38bdf8, 1.1, 2.0, 1.0, new THREE.Vector3(0.45, 2.2, -2.35))
+    this.pointFixtures.push(this.heroBookGlow)
+
+    // Fixed pools of real lights for corridor / room fixtures. Their count never changes at runtime.
+    for (let i = 0; i < this.preset.spotPoolSize; i++) {
+      const spot = new THREE.SpotLight(0xffffff, 0)
+      this.scene.add(spot)
+      this.scene.add(spot.target)
+      this.spotPool.push(spot)
+    }
+    for (let i = 0; i < this.preset.pointPoolSize; i++) {
+      const point = new THREE.PointLight(0xffffff, 0)
+      this.scene.add(point)
+      this.pointPool.push(point)
+    }
   }
 
   private buildRoomArchitecture() {
@@ -560,6 +821,7 @@ export class JapaneseRoomService {
     tatamiTexture.wrapS = THREE.RepeatWrapping
     tatamiTexture.wrapT = THREE.RepeatWrapping
     tatamiTexture.repeat.set(3, 4)
+    tatamiTexture.anisotropy = this.preset.anisotropy
 
     const floorGeo = new THREE.PlaneGeometry(6.0, 6.98)
     const floorMat = new THREE.MeshStandardMaterial({
@@ -583,7 +845,7 @@ export class JapaneseRoomService {
     backWall.receiveShadow = true
     this.scene.add(backWall)
 
-    const darkWood = createWoodTexture('#2b170c', '#150a04')
+    const darkWood = createWoodTexture('#5a3720', '#2e1a0d')
     const frameMat = new THREE.MeshStandardMaterial({ map: darkWood, roughness: 0.65 })
 
     // Horizontal architectural top beam along back wall
@@ -658,6 +920,7 @@ export class JapaneseRoomService {
     sCtx.fillText('印', 128, 408)
 
     const scrollTex = new THREE.CanvasTexture(scrollCanvas)
+    scrollTex.colorSpace = THREE.SRGBColorSpace
     const scrollMesh = new THREE.Mesh(scrollGeo, new THREE.MeshStandardMaterial({ map: scrollTex, roughness: 0.9 }))
     scrollMesh.position.set(2.97, 2.05, 0.4)
     scrollMesh.rotation.y = -Math.PI / 2
@@ -675,7 +938,7 @@ export class JapaneseRoomService {
   }
 
   private buildJapaneseDesk() {
-    const darkWood = createWoodTexture('#3a2113', '#1f1008')
+    const darkWood = createWoodTexture('#6b4428', '#3a2213')
     const woodMat = new THREE.MeshStandardMaterial({
       map: darkWood,
       roughness: 0.45,
@@ -881,7 +1144,6 @@ export class JapaneseRoomService {
       pencil.position.set(Math.cos(angle) * 0.018, 0.08 + pLen / 2, Math.sin(angle) * 0.018)
       pencil.rotation.z = Math.cos(angle) * 0.15
       pencil.rotation.x = Math.sin(angle) * 0.15
-      pencil.castShadow = true
       pencilCupGroup.add(pencil)
     })
     this.scene.add(pencilCupGroup)
@@ -918,7 +1180,6 @@ export class JapaneseRoomService {
       leaf.position.set(Math.cos(lAngle) * 0.038, 0.105, Math.sin(lAngle) * 0.038)
       leaf.rotation.y = lAngle
       leaf.rotation.x = -0.3
-      leaf.castShadow = true
       plantGroup.add(leaf)
     }
     this.scene.add(plantGroup)
@@ -1019,7 +1280,7 @@ export class JapaneseRoomService {
     const standGroup = new THREE.Group()
     standGroup.position.set(0, 0.795, -0.48) // Rests securely on study desk surface
 
-    const standDarkWood = createWoodTexture('#2e1a10', '#180d07')
+    const standDarkWood = createWoodTexture('#5e3b24', '#33200f')
     const standWoodMat = new THREE.MeshStandardMaterial({
       map: standDarkWood,
       roughness: 0.45,
@@ -1133,7 +1394,7 @@ export class JapaneseRoomService {
 
   // Feature: Data-Driven Bookshelf with Sections: Class 1, 2, 3, 4, 5 (Right Wall - Frame 1, 2)
   private buildFrontBookshelf() {
-    const woodTexture = createWoodTexture('#382315', '#1d0f07')
+    const woodTexture = createWoodTexture('#6a4429', '#38220f')
     const shelfMat = new THREE.MeshStandardMaterial({
       map: woodTexture,
       roughness: 0.6,
@@ -1238,6 +1499,9 @@ export class JapaneseRoomService {
       metalness: 0.35,
     })
 
+    // Page-edge paper is identical for every book, so share one material
+    const shelfPaperMat = new THREE.MeshStandardMaterial({ color: '#f5f5f4', roughness: 0.8 })
+
     // Construct tightly packed rows of books without artificial gaps!
     shelfTierStacks.forEach(({ tier, bay, books }) => {
       const tierH = classTierHeights[tier] || 1.72
@@ -1269,9 +1533,10 @@ export class JapaneseRoomService {
 
         let shelfCoverMat: THREE.Material
         if (bookItem.coverImage) {
-          const cTex = this.textureLoader.load(bookItem.coverImage)
-          cTex.colorSpace = THREE.SRGBColorSpace
-          shelfCoverMat = new THREE.MeshStandardMaterial({ map: cTex, roughness: 0.5 })
+          shelfCoverMat = new THREE.MeshStandardMaterial({
+            map: this.loadCoverTexture(bookItem.coverImage),
+            roughness: 0.5,
+          })
         } else {
           shelfCoverMat = new THREE.MeshStandardMaterial({
             color: bookItem.coverColor,
@@ -1280,15 +1545,20 @@ export class JapaneseRoomService {
         }
 
         const bookMatArray = [
-          shelfCoverMat, // +X
-          shelfCoverMat, // -X
-          new THREE.MeshStandardMaterial({ color: '#f5f5f4', roughness: 0.8 }), // +Y
-          new THREE.MeshStandardMaterial({ color: '#f5f5f4', roughness: 0.8 }), // -Y
+          shelfCoverMat, // covers (±X)
+          shelfPaperMat, // page edges (±Y)
           new THREE.MeshStandardMaterial({ map: spineTex, roughness: 0.45 }), // +Z (Spine facing camera!)
           new THREE.MeshStandardMaterial({ color: bookItem.coverColor, roughness: 0.6 }), // -Z
         ]
 
+        // BoxGeometry face order is +X,-X,+Y,-Y,+Z,-Z (6 indices each). Re-group so faces sharing a
+        // material draw together: 4 draw calls per book instead of 6.
         const bGeo = new THREE.BoxGeometry(bookItem.thickness, bookItem.height, bDepth)
+        bGeo.clearGroups()
+        bGeo.addGroup(0, 12, 0)
+        bGeo.addGroup(12, 12, 1)
+        bGeo.addGroup(24, 6, 2)
+        bGeo.addGroup(30, 6, 3)
         const bMesh = new THREE.Mesh(bGeo, bookMatArray)
         bMesh.position.set(bookX, tierH + bookItem.height / 2 + 0.0225, 0.01)
         bMesh.castShadow = true
@@ -1404,7 +1674,6 @@ export class JapaneseRoomService {
             Math.random() * Math.PI * 2,
             (Math.random() - 0.5) * 0.8
           )
-          leaf.castShadow = true
           plantGroup.add(leaf)
         }
       }
@@ -1412,11 +1681,22 @@ export class JapaneseRoomService {
       const curve = new THREE.CatmullRomCurve3(curvePoints)
       const stemGeo = new THREE.TubeGeometry(curve, cfg.segments * 2, 0.006, 6, false)
       const stem = new THREE.Mesh(stemGeo, vineMat)
-      stem.castShadow = true
       plantGroup.add(stem)
     })
 
     shelfGroup.add(plantGroup)
+  }
+
+  /** Cover images are loaded once and shared by the shelf book and the hero book. */
+  private loadCoverTexture(url: string): THREE.Texture {
+    let tex = this.coverTextures.get(url)
+    if (!tex) {
+      tex = this.textureLoader.load(url)
+      tex.colorSpace = THREE.SRGBColorSpace
+      tex.anisotropy = this.preset.anisotropy
+      this.coverTextures.set(url, tex)
+    }
+    return tex
   }
 
   private getTotalPages(): number {
@@ -1542,8 +1822,7 @@ export class JapaneseRoomService {
     // Materials configured for current book
     let coverTex: THREE.Texture
     if (this.currentBookData.coverImage) {
-      coverTex = this.textureLoader.load(this.currentBookData.coverImage)
-      coverTex.colorSpace = THREE.SRGBColorSpace
+      coverTex = this.loadCoverTexture(this.currentBookData.coverImage)
     } else {
       coverTex = createBookCoverTexture(
         this.currentBookData.title,
@@ -1916,73 +2195,238 @@ export class JapaneseRoomService {
     this.scene.add(this.dustParticles)
   }
 
+  // =========================================================
+  // STATIC MESH MERGING (DRAW CALL REDUCTION)
+  // =========================================================
+
+  /** Objects that move, animate, get raycast, or have materials mutated at runtime. Never merged. */
+  private collectDynamicObjects(): Set<THREE.Object3D> {
+    const dynamic = new Set<THREE.Object3D>()
+    const add = (obj: THREE.Object3D | null | undefined) => {
+      if (obj) dynamic.add(obj)
+    }
+    add(this.studyDoorGroup)
+    add(this.studyDoorPlaque)
+    add(this.studyWallSwitch)
+    add(this.hallwayWallSwitch)
+    add(this.hallwayInnerWallGroup)
+    add(this.lampShadeMesh)
+    add(this.lampTargetMesh)
+    add(this.heroBookGroup)
+    add(this.cupGroup)
+    add(this.contactShadowLeft)
+    add(this.contactShadowRight)
+    add(this.gardenBackdropMesh)
+    add(this.dustParticles)
+    add(this.teaSteamParticles)
+    this.shelfInteractiveMeshes.forEach(add)
+    this.interactiveDoors.forEach((d) => add(d.mesh))
+    this.interactiveSwitches.forEach((s) => add(s.mesh))
+    for (const room of this.customRooms.values()) {
+      add(room.doorGroup)
+      add(room.labelMesh)
+      add(room.switchMesh)
+    }
+    return dynamic
+  }
+
+  private staticMaterialKey(material: THREE.Material): string {
+    const m = material as THREE.MeshStandardMaterial
+    const isMergeableType = m.type === 'MeshStandardMaterial' || m.type === 'MeshBasicMaterial'
+    const extraMaps = m.normalMap || m.roughnessMap || m.metalnessMap || m.aoMap || m.emissiveMap || m.alphaMap
+    if (!isMergeableType || extraMaps) return material.uuid
+
+    const texKey = (t: THREE.Texture | null) =>
+      t
+        ? [t.source.uuid, t.repeat.x, t.repeat.y, t.offset.x, t.offset.y, t.wrapS, t.wrapT, t.rotation, t.anisotropy].join(',')
+        : '-'
+    return [
+      m.type,
+      m.color?.getHexString(),
+      m.roughness,
+      m.metalness,
+      m.emissive?.getHexString(),
+      m.emissiveIntensity,
+      m.side,
+      m.opacity,
+      m.transparent,
+      m.depthWrite,
+      m.flatShading,
+      m.vertexColors,
+      texKey(m.map),
+    ].join('|')
+  }
+
+  /**
+   * Bakes every static mesh into one merged mesh per (zone, material, shadow flags), in world space.
+   * Furniture, walls, shelf frame, plants etc. go from several hundred draw calls to a few dozen,
+   * which is the main CPU cost on low-end devices. Zones (study / corridor / each room) stay separate
+   * so frustum culling still skips rooms that are out of view.
+   */
+  private optimizeStaticMeshes() {
+    this.scene.updateMatrixWorld(true)
+    const dynamic = this.collectDynamicObjects()
+
+    const zoneOf = new Map<THREE.Object3D, { key: string; parent: THREE.Object3D }>()
+    zoneOf.set(this.hallwayGroup, { key: 'hallway', parent: this.hallwayGroup })
+    for (const room of this.customRooms.values()) zoneOf.set(room.group, { key: room.id, parent: room.group })
+    const studyZone = { key: 'study', parent: this.scene as THREE.Object3D }
+
+    const canonicalMaterials = new Map<string, THREE.Material>()
+    const buckets = new Map<string, { meshes: THREE.Mesh[]; material: THREE.Material; parent: THREE.Object3D }>()
+
+    this.scene.traverse((obj) => {
+      const mesh = obj as THREE.Mesh
+      if (!mesh.isMesh || (mesh as any).isInstancedMesh || (mesh as any).isSkinnedMesh) return
+      if (mesh.userData.mergedStatic) return
+      const material = mesh.material
+      if (Array.isArray(material) || !material.visible || material.transparent) return
+      const geometry = mesh.geometry
+      if (!geometry.attributes.position || Object.keys(geometry.morphAttributes).length > 0) return
+      if (mesh.matrixWorld.determinant() <= 0) return
+
+      let zone = studyZone
+      for (let node: THREE.Object3D | null = mesh; node; node = node.parent) {
+        if (dynamic.has(node) || !node.visible) return
+        const z = zoneOf.get(node)
+        if (z) zone = z
+      }
+
+      const matKey = this.staticMaterialKey(material)
+      let canonical = canonicalMaterials.get(matKey)
+      if (!canonical) {
+        canonical = material
+        canonicalMaterials.set(matKey, material)
+      }
+
+      const attrSignature = Object.keys(geometry.attributes).sort().join(',')
+      const bucketKey = [zone.key, canonical.uuid, mesh.castShadow, mesh.receiveShadow, attrSignature, !!geometry.index].join('#')
+      let bucket = buckets.get(bucketKey)
+      if (!bucket) {
+        bucket = { meshes: [], material: canonical, parent: zone.parent }
+        buckets.set(bucketKey, bucket)
+      }
+      bucket.meshes.push(mesh)
+    })
+
+    const identity = new THREE.Matrix4()
+    for (const { meshes, material, parent } of buckets.values()) {
+      // Geometry is baked in world space, so the merged mesh's parent must have an identity transform
+      if (meshes.length < 2 || !parent.matrixWorld.equals(identity)) continue
+
+      const geometries = meshes.map((mesh) => {
+        const g = mesh.geometry.clone()
+        g.clearGroups()
+        g.applyMatrix4(mesh.matrixWorld)
+        return g
+      })
+      const merged = mergeGeometries(geometries, false)
+      geometries.forEach((g) => g.dispose())
+      if (!merged) continue
+
+      const first = meshes[0]!
+      const mergedMesh = new THREE.Mesh(merged, material)
+      mergedMesh.castShadow = first.castShadow
+      mergedMesh.receiveShadow = first.receiveShadow
+      mergedMesh.userData.mergedStatic = true
+
+      for (const mesh of meshes) mesh.removeFromParent()
+      parent.add(mergedMesh)
+    }
+
+    this.staticMeshesOptimized = true
+  }
+
   // Interactive Raycasting & Mouse Events
   private bindEvents() {
-    // Keyboard listeners for Explore Mode (WASD + Shift)
-    window.addEventListener('keydown', (e) => {
-      if (!this.isExploreMode) return
-      // Ignore if user is typing in an input/textarea
-      if (['INPUT', 'TEXTAREA'].includes((e.target as HTMLElement)?.tagName)) return
-
-      const k = e.key ? e.key.toLowerCase() : ''
-      if (e.code === 'KeyW' || e.code === 'ArrowUp' || k === 'w') this.keys.forward = true
-      if (e.code === 'KeyS' || e.code === 'ArrowDown' || k === 's') this.keys.backward = true
-      if (e.code === 'KeyA' || e.code === 'ArrowLeft' || k === 'a') this.keys.left = true
-      if (e.code === 'KeyD' || e.code === 'ArrowRight' || k === 'd') this.keys.right = true
-      if (e.code === 'ShiftLeft' || e.code === 'ShiftRight' || e.shiftKey || k === 'shift') {
-        this.keys.shift = true
-        this.isRunning = true
-      }
-      if (e.code === 'KeyE' || k === 'e') {
-        this.interactNearest()
-      }
-    })
-
-    window.addEventListener('keyup', (e) => {
-      const k = e.key ? e.key.toLowerCase() : ''
-      if (e.code === 'KeyW' || e.code === 'ArrowUp' || k === 'w') this.keys.forward = false
-      if (e.code === 'KeyS' || e.code === 'ArrowDown' || k === 's') this.keys.backward = false
-      if (e.code === 'KeyA' || e.code === 'ArrowLeft' || k === 'a') this.keys.left = false
-      if (e.code === 'KeyD' || e.code === 'ArrowRight' || k === 'd') this.keys.right = false
-      if (e.code === 'ShiftLeft' || e.code === 'ShiftRight' || !e.shiftKey) {
-        this.keys.shift = false
-        this.isRunning = false
-      }
-    })
-
-    // Mouse drag for explore mode camera look (works smoothly across entire window)
-    window.addEventListener('mousedown', (e) => {
-      if (this.isExploreMode) {
-        const target = e.target as HTMLElement
-        if (target && (target.closest('button') || target.closest('input') || target.closest('.create-chamber-modal') || target.closest('.floating-door-prompt') || target.closest('.corridor-nav-dock'))) {
-          return
-        }
-        this.isMouseDragging = true
-        this.prevMousePos = { x: e.clientX, y: e.clientY }
-      }
-    })
-
-    window.addEventListener('mouseup', () => {
-      this.isMouseDragging = false
-    })
-
-    window.addEventListener('mousemove', (e) => {
-      if (this.isExploreMode && this.isMouseDragging) {
-        const dx = e.clientX - this.prevMousePos.x
-        const dy = e.clientY - this.prevMousePos.y
-        this.prevMousePos = { x: e.clientX, y: e.clientY }
-
-        const sensitivity = 0.0032
-        this.playerYaw -= dx * sensitivity
-        this.playerPitch -= dy * sensitivity
-        // Clamp pitch between -70° and +70°
-        this.playerPitch = Math.max(-1.22, Math.min(1.22, this.playerPitch))
-      }
-    })
-
+    window.addEventListener('keydown', this.onKeyDown)
+    window.addEventListener('keyup', this.onKeyUp)
+    window.addEventListener('mousedown', this.onWindowMouseDown)
+    window.addEventListener('mouseup', this.onWindowMouseUp)
+    window.addEventListener('mousemove', this.onWindowMouseMove)
     this.canvas.addEventListener('mousemove', this.onMouseMove)
     this.canvas.addEventListener('click', this.onClick)
     window.addEventListener('resize', this.onResize)
+  }
+
+  private unbindEvents() {
+    window.removeEventListener('keydown', this.onKeyDown)
+    window.removeEventListener('keyup', this.onKeyUp)
+    window.removeEventListener('mousedown', this.onWindowMouseDown)
+    window.removeEventListener('mouseup', this.onWindowMouseUp)
+    window.removeEventListener('mousemove', this.onWindowMouseMove)
+    this.canvas.removeEventListener('mousemove', this.onMouseMove)
+    this.canvas.removeEventListener('click', this.onClick)
+    window.removeEventListener('resize', this.onResize)
+  }
+
+  /** Marks the scene as active so low-tier idle throttling doesn't kick in. */
+  private markActivity() {
+    this.lastActivityTime = performance.now()
+  }
+
+  // Keyboard listeners for Explore Mode (WASD + Shift)
+  private onKeyDown = (e: KeyboardEvent) => {
+    this.markActivity()
+    if (!this.isExploreMode) return
+    // Ignore if user is typing in an input/textarea
+    if (['INPUT', 'TEXTAREA'].includes((e.target as HTMLElement)?.tagName)) return
+
+    const k = e.key ? e.key.toLowerCase() : ''
+    if (e.code === 'KeyW' || e.code === 'ArrowUp' || k === 'w') this.keys.forward = true
+    if (e.code === 'KeyS' || e.code === 'ArrowDown' || k === 's') this.keys.backward = true
+    if (e.code === 'KeyA' || e.code === 'ArrowLeft' || k === 'a') this.keys.left = true
+    if (e.code === 'KeyD' || e.code === 'ArrowRight' || k === 'd') this.keys.right = true
+    if (e.code === 'ShiftLeft' || e.code === 'ShiftRight' || e.shiftKey || k === 'shift') {
+      this.keys.shift = true
+      this.isRunning = true
+    }
+    if (e.code === 'KeyE' || k === 'e') {
+      this.interactNearest()
+    }
+  }
+
+  private onKeyUp = (e: KeyboardEvent) => {
+    const k = e.key ? e.key.toLowerCase() : ''
+    if (e.code === 'KeyW' || e.code === 'ArrowUp' || k === 'w') this.keys.forward = false
+    if (e.code === 'KeyS' || e.code === 'ArrowDown' || k === 's') this.keys.backward = false
+    if (e.code === 'KeyA' || e.code === 'ArrowLeft' || k === 'a') this.keys.left = false
+    if (e.code === 'KeyD' || e.code === 'ArrowRight' || k === 'd') this.keys.right = false
+    if (e.code === 'ShiftLeft' || e.code === 'ShiftRight' || !e.shiftKey) {
+      this.keys.shift = false
+      this.isRunning = false
+    }
+  }
+
+  // Mouse drag for explore mode camera look (works smoothly across entire window)
+  private onWindowMouseDown = (e: MouseEvent) => {
+    this.markActivity()
+    if (this.isExploreMode) {
+      const target = e.target as HTMLElement
+      if (target && (target.closest('button') || target.closest('input') || target.closest('.create-chamber-modal') || target.closest('.floating-door-prompt') || target.closest('.corridor-nav-dock'))) {
+        return
+      }
+      this.isMouseDragging = true
+      this.prevMousePos = { x: e.clientX, y: e.clientY }
+    }
+  }
+
+  private onWindowMouseUp = () => {
+    this.isMouseDragging = false
+  }
+
+  private onWindowMouseMove = (e: MouseEvent) => {
+    if (this.isExploreMode && this.isMouseDragging) {
+      const dx = e.clientX - this.prevMousePos.x
+      const dy = e.clientY - this.prevMousePos.y
+      this.prevMousePos = { x: e.clientX, y: e.clientY }
+
+      const sensitivity = 0.0032
+      this.playerYaw -= dx * sensitivity
+      this.playerPitch -= dy * sensitivity
+      // Clamp pitch between -70° and +70°
+      this.playerPitch = Math.max(-1.22, Math.min(1.22, this.playerPitch))
+    }
   }
 
   private getScreenCoords(worldPos: THREE.Vector3): { x: number; y: number } {
@@ -1998,7 +2442,7 @@ export class JapaneseRoomService {
     const restingPos = this.hoveredBookMesh.userData.restingPos as THREE.Vector3 | undefined
     const restingRot = this.hoveredBookMesh.userData.restingRot as THREE.Euler | undefined
 
-    const spineMat = (this.hoveredBookMesh.material as THREE.Material[])[4] as THREE.MeshStandardMaterial
+    const spineMat = (this.hoveredBookMesh.material as THREE.Material[])[SHELF_BOOK_SPINE_MATERIAL] as THREE.MeshStandardMaterial
     if (spineMat && spineMat.emissive) {
       spineMat.emissive.setHex(0x000000)
       spineMat.emissiveIntensity = 0
@@ -2023,6 +2467,7 @@ export class JapaneseRoomService {
   }
 
   private onMouseMove = (event: MouseEvent) => {
+    this.markActivity()
     if (this.state === 'book-flying') return
     const rect = this.canvas.getBoundingClientRect()
     this.mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1
@@ -2081,7 +2526,7 @@ export class JapaneseRoomService {
             this.hoveredBookMesh = hitMesh
 
             // Subtle highlight: soft tasteful blue/cyan sheen (No neon outlines, no excessive glow)
-            const spineMat = (hitMesh.material as THREE.Material[])[4] as THREE.MeshStandardMaterial
+            const spineMat = (hitMesh.material as THREE.Material[])[SHELF_BOOK_SPINE_MATERIAL] as THREE.MeshStandardMaterial
             if (spineMat && spineMat.emissive) {
               spineMat.emissive.setHex(0x0e2f56)
               spineMat.emissiveIntensity = 0.35
@@ -2151,6 +2596,7 @@ export class JapaneseRoomService {
   }
 
   private onClick = () => {
+    this.markActivity()
     this.raycaster.setFromCamera(this.mouse, this.camera)
 
     // Explore Mode: 3D interactive door & light switch clicking
@@ -2230,13 +2676,14 @@ export class JapaneseRoomService {
     this.triggerShadowUpdate(45)
     this.resetHoveredBook()
     this.currentBookData = bookData
+    // Fetch the curriculum while the book flies to the desk
+    void BookCatalogService.ensureBookLoaded(bookData.id)
     this.callbacks.onBookSelected?.(bookData)
 
     // Apply selected book outer appearance to Hero Book rig for flight
     let coverTex: THREE.Texture
     if (bookData.coverImage) {
-      coverTex = this.textureLoader.load(bookData.coverImage)
-      coverTex.colorSpace = THREE.SRGBColorSpace
+      coverTex = this.loadCoverTexture(bookData.coverImage)
     } else {
       coverTex = createBookCoverTexture(
         bookData.title,
@@ -2327,7 +2774,7 @@ export class JapaneseRoomService {
     }
 
     // Dim the shelf ambient glow light
-    gsap.to(this.heroBookGlowLight, { intensity: 0.15, duration: 0.3 })
+    gsap.to(this.heroBookGlow, { intensity: 0.15, duration: 0.3 })
 
     // Camera focal tracking point: begins at the shelf book and tracks smoothly
     const camFocus = {
@@ -2480,7 +2927,21 @@ export class JapaneseRoomService {
   }
 
   public openBook() {
-    if (this.state !== 'on-table') return
+    if (this.state !== 'on-table' || this.isOpenPending) return
+    const bookId = this.currentBookData.id
+    if (BookCatalogService.isBookLoaded(bookId)) {
+      this.runOpenBook()
+      return
+    }
+    // Curriculum still downloading (rare: it starts when the book is picked): open as soon as it lands
+    this.isOpenPending = true
+    void BookCatalogService.ensureBookLoaded(bookId).finally(() => {
+      this.isOpenPending = false
+      if (this.state === 'on-table' && this.currentBookData.id === bookId) this.runOpenBook()
+    })
+  }
+
+  private runOpenBook() {
     this.triggerShadowUpdate(45)
     this.state = 'book-open'
     this.currentPage = 1
@@ -2927,7 +3388,7 @@ export class JapaneseRoomService {
         this.callbacks.onBookClosed?.()
 
         // Restore shelf glow
-        gsap.to(this.heroBookGlowLight, { intensity: 1.1, duration: 0.4 })
+        gsap.to(this.heroBookGlow, { intensity: 1.1, duration: 0.4 })
       },
     })
 
@@ -3218,7 +3679,7 @@ export class JapaneseRoomService {
 
   private buildEntranceDoorAndPlaque() {
     // Architectural Cedar Frame Pillars for Study Room Door (X = 0, Z = 3.88)
-    const darkWood = createWoodTexture('#2b170c', '#150a04')
+    const darkWood = createWoodTexture('#5a3720', '#2e1a0d')
     const frameMat = new THREE.MeshStandardMaterial({ map: darkWood, roughness: 0.65 })
 
     const pillarGeo = new THREE.BoxGeometry(0.12, 3.0, 0.14)
@@ -3291,11 +3752,12 @@ export class JapaneseRoomService {
     // Grand Japanese Corridor: Width 28m (X: -14 to +14), Depth 3.42m (Z: 3.88 to 7.30), Height 3.9m
     const wallTex = createModernWallTexture()
     const wallMat = new THREE.MeshStandardMaterial({ map: wallTex, roughness: 0.8 })
-    const darkWood = createWoodTexture('#26140a', '#120803')
-    const frameMat = new THREE.MeshStandardMaterial({ map: darkWood, roughness: 0.65 })
+    this.hallwayWallMat = wallMat
+    const darkWood = createWoodTexture('#523219', '#2a180b')
 
     // 1. Polished Cedar Plank Floor
     const floorTex = createHallwayFloorTexture()
+    floorTex.anisotropy = this.preset.anisotropy
     const floorGeo = new THREE.PlaneGeometry(28, 3.42)
     const floorMat = new THREE.MeshStandardMaterial({
       map: floorTex,
@@ -3312,6 +3774,7 @@ export class JapaneseRoomService {
     const tatamiTex = createTatamiTexture()
     tatamiTex.wrapS = THREE.RepeatWrapping
     tatamiTex.repeat.set(14, 1)
+    tatamiTex.anisotropy = this.preset.anisotropy
     const runnerGeo = new THREE.PlaneGeometry(26, 1.4)
     const runnerMat = new THREE.MeshStandardMaterial({ map: tatamiTex, roughness: 0.85 })
     const runner = new THREE.Mesh(runnerGeo, runnerMat)
@@ -3346,49 +3809,9 @@ export class JapaneseRoomService {
     rightEndWall.position.set(14.0, 1.95, 5.59)
     this.hallwayGroup.add(rightEndWall)
 
-    // 4. Master Solid Inner Wall along Z = 3.88 (Thickness: 8cm, Height: 3.9m)
-    // Seamless architectural segments with exact doorway openings:
-    // Segment A (Far Left to Meditation Dojo Door X = -6.3): Width 7.7m
-    const segAGeo = new THREE.BoxGeometry(7.7, 3.9, 0.08)
-    const segA = new THREE.Mesh(segAGeo, wallMat)
-    segA.position.set(-10.15, 1.95, 3.88)
-    this.hallwayGroup.add(segA)
-
-    // Lintel above Meditation Dojo Doorway (X: -6.3 to -4.7, Y: 2.9 to 3.9)
-    const lintelMedGeo = new THREE.BoxGeometry(1.6, 1.0, 0.08)
-    const lintelMed = new THREE.Mesh(lintelMedGeo, wallMat)
-    lintelMed.position.set(-5.5, 3.4, 3.88)
-    this.hallwayGroup.add(lintelMed)
-
-    // Segment B (Between Meditation Dojo & Study Room X: -4.7 to -0.8): Width 3.9m
-    const segBGeo = new THREE.BoxGeometry(3.9, 3.9, 0.08)
-    const segB = new THREE.Mesh(segBGeo, wallMat)
-    segB.position.set(-2.75, 1.95, 3.88)
-    this.hallwayGroup.add(segB)
-
-    // Lintel above Study Room Doorway (X: -0.8 to 0.8, Y: 2.9 to 3.9)
-    const lintelStudyGeo = new THREE.BoxGeometry(1.6, 1.0, 0.08)
-    const lintelStudy = new THREE.Mesh(lintelStudyGeo, wallMat)
-    lintelStudy.position.set(0, 3.4, 3.88)
-    this.hallwayGroup.add(lintelStudy)
-
-    // Segment C (Between Study Room & Library Chamber X: 0.8 to 4.7): Width 3.9m
-    const segCGeo = new THREE.BoxGeometry(3.9, 3.9, 0.08)
-    const segC = new THREE.Mesh(segCGeo, wallMat)
-    segC.position.set(2.75, 1.95, 3.88)
-    this.hallwayGroup.add(segC)
-
-    // Lintel above Library Chamber Doorway (X: 4.7 to 6.3, Y: 2.9 to 3.9)
-    const lintelLibGeo = new THREE.BoxGeometry(1.6, 1.0, 0.08)
-    const lintelLib = new THREE.Mesh(lintelLibGeo, wallMat)
-    lintelLib.position.set(5.5, 3.4, 3.88)
-    this.hallwayGroup.add(lintelLib)
-
-    // Segment D (Library Chamber to Far Right X: 6.3 to 14.0): Width 7.7m
-    const segDGeo = new THREE.BoxGeometry(7.7, 3.9, 0.08)
-    const segD = new THREE.Mesh(segDGeo, wallMat)
-    segD.position.set(10.15, 1.95, 3.88)
-    this.hallwayGroup.add(segD)
+    // 4. Master Solid Inner Wall along Z = 3.88 with a doorway for every room (rebuilt as rooms are added)
+    this.hallwayGroup.add(this.hallwayInnerWallGroup)
+    this.rebuildHallwayInnerWall()
 
     // 5. Outer Glass Shoji Wall & Scenic Moonlit Bamboo Garden (Z = 7.3)
     const glassTex = createGlassShojiDoorTexture()
@@ -3424,15 +3847,22 @@ export class JapaneseRoomService {
     this.hallwayLights.push(hallAmbient)
     this.hallwayGroup.add(hallAmbient)
 
-    // Recessed ceiling LED spotlights down the corridor
+    // Recessed ceiling LED spotlights down the corridor (virtual fixtures lit by the spot pool)
     this.hallwaySpotLights = []
     const spotPositions = [-11.0, -7.5, -4.0, 0, 4.0, 7.5, 11.0]
     for (const sx of spotPositions) {
-      const spot = new THREE.SpotLight('#fed7aa', 1.45, 14, Math.PI / 3.2, 0.45, 1.2)
-      spot.position.set(sx, 3.8, 5.59)
-      spot.target.position.set(sx, 0, 5.59)
-      this.hallwayGroup.add(spot)
-      this.hallwayGroup.add(spot.target)
+      const spot = createVirtualLight(
+        'spot',
+        '#fed7aa',
+        1.45,
+        14,
+        1.2,
+        new THREE.Vector3(sx, 3.8, 5.59),
+        new THREE.Vector3(sx, 0, 5.59),
+        Math.PI / 3.2,
+        0.45
+      )
+      this.spotFixtures.push(spot)
       this.hallwayLights.push(spot)
       this.hallwaySpotLights.push(spot)
 
@@ -3457,21 +3887,19 @@ export class JapaneseRoomService {
     leftLantern.position.set(-13.88, 2.2, 5.59)
     this.hallwayGroup.add(leftLantern)
 
-    const leftEndLight = new THREE.PointLight('#fed7aa', 1.4, 9, 1.2)
-    leftEndLight.position.set(-13.5, 2.2, 5.59)
+    const leftEndLight = createVirtualLight('point', '#fed7aa', 1.4, 9, 1.2, new THREE.Vector3(-13.5, 2.2, 5.59))
     this.hallwayLeftLight = leftEndLight
     this.hallwayLights.push(leftEndLight)
-    this.hallwayGroup.add(leftEndLight)
+    this.pointFixtures.push(leftEndLight)
 
     const rightLantern = new THREE.Mesh(lanternGeo, lanternMat)
     rightLantern.position.set(13.88, 2.2, 5.59)
     this.hallwayGroup.add(rightLantern)
 
-    const rightEndLight = new THREE.PointLight('#fed7aa', 1.4, 9, 1.2)
-    rightEndLight.position.set(13.5, 2.2, 5.59)
+    const rightEndLight = createVirtualLight('point', '#fed7aa', 1.4, 9, 1.2, new THREE.Vector3(13.5, 2.2, 5.59))
     this.hallwayRightLight = rightEndLight
     this.hallwayLights.push(rightEndLight)
-    this.hallwayGroup.add(rightEndLight)
+    this.pointFixtures.push(rightEndLight)
 
     // Hallway Light Switch (Beside Study Room door in the hallway)
     const switchTex = createLightSwitchTexture(this.isHallwayLightOn)
@@ -3482,6 +3910,47 @@ export class JapaneseRoomService {
     this.interactiveSwitches.push({ mesh: this.hallwayWallSwitch, targetId: 'hallway' })
 
     this.scene.add(this.hallwayGroup)
+  }
+
+  /**
+   * Corridor partition wall (Z = 3.88) with a 1.6m doorway + lintel at the study door and at every
+   * custom room door. Previously the openings were hard-coded for X = ±5.5 only, so rooms created in
+   * the outer slots (X = ±11) sat behind a solid wall.
+   */
+  private rebuildHallwayInnerWall() {
+    const wallMat = this.hallwayWallMat
+    if (!wallMat) return
+
+    for (const child of [...this.hallwayInnerWallGroup.children]) {
+      this.hallwayInnerWallGroup.remove(child)
+      ;(child as THREE.Mesh).geometry?.dispose()
+    }
+
+    const halfDoor = 0.8
+    const wallMinX = -14.0
+    const wallMaxX = 14.0
+    const doorXs = [0, ...Array.from(this.customRooms.values(), (r) => r.doorX)]
+      .filter((x) => x - halfDoor > wallMinX && x + halfDoor < wallMaxX)
+      .sort((a, b) => a - b)
+
+    const addSegment = (fromX: number, toX: number) => {
+      const width = toX - fromX
+      if (width <= 0.001) return
+      const seg = new THREE.Mesh(new THREE.BoxGeometry(width, 3.9, 0.08), wallMat)
+      seg.position.set((fromX + toX) / 2, 1.95, 3.88)
+      this.hallwayInnerWallGroup.add(seg)
+    }
+
+    let cursor = wallMinX
+    for (const doorX of doorXs) {
+      addSegment(cursor, doorX - halfDoor)
+      // Lintel above the doorway (Y: 2.9 to 3.9)
+      const lintel = new THREE.Mesh(new THREE.BoxGeometry(halfDoor * 2, 1.0, 0.08), wallMat)
+      lintel.position.set(doorX, 3.4, 3.88)
+      this.hallwayInnerWallGroup.add(lintel)
+      cursor = doorX + halfDoor
+    }
+    addSegment(cursor, wallMaxX)
   }
 
   private buildDefaultRooms() {
@@ -3513,18 +3982,20 @@ export class JapaneseRoomService {
     theme: 'study' | 'library' | 'meditation' | 'gallery' | 'science' = 'library',
     requestedSlot?: number,
     fixedId?: string
-  ): CustomRoomData {
+  ): CustomRoomData | null {
     const roomId = fixedId || `room-${Date.now()}-${Math.floor(Math.random() * 1000)}`
     const slotX = requestedSlot !== undefined ? requestedSlot : this.getNextAvailableSlot()
+    // Every corridor slot is taken (a further room would overlap an existing one)
+    if (slotX === null) return null
     const roomIndex = this.customRooms.size + 2
 
     const roomGroup = new THREE.Group()
     const doorGroup = new THREE.Group()
-    const roomLights: THREE.Light[] = []
+    const roomLights: RoomLight[] = []
 
     const wallTex = createModernWallTexture()
     const wallMat = new THREE.MeshStandardMaterial({ map: wallTex, roughness: 0.8 })
-    const darkWood = createWoodTexture('#26140a', '#120803')
+    const darkWood = createWoodTexture('#523219', '#2a180b')
     const frameMat = new THREE.MeshStandardMaterial({ map: darkWood, roughness: 0.65 })
 
     // 1. Room Floor (Width 5.0m, Depth 4.18m from Z: -0.3 to 3.88)
@@ -3534,8 +4005,9 @@ export class JapaneseRoomService {
     } else if (theme === 'gallery') {
       floorTex = createWoodTexture('#f1f5f9', '#cbd5e1')
     } else {
-      floorTex = createWoodTexture('#3a2113', '#1e1008')
+      floorTex = createWoodTexture('#6b4428', '#3a2213')
     }
+    floorTex.anisotropy = this.preset.anisotropy
     const floor = new THREE.Mesh(
       new THREE.PlaneGeometry(5.0, 4.18),
       new THREE.MeshStandardMaterial({ map: floorTex, roughness: 0.6 })
@@ -3629,10 +4101,9 @@ export class JapaneseRoomService {
       lanternHead.position.set(slotX - 1.3, 0.75, 1.2)
       roomGroup.add(lanternHead)
 
-      const candle = new THREE.PointLight('#fef08a', 0.8, 5)
-      candle.position.set(slotX - 1.3, 0.75, 1.2)
+      const candle = createVirtualLight('point', '#fef08a', 0.8, 5, 2, new THREE.Vector3(slotX - 1.3, 0.75, 1.2))
       roomLights.push(candle)
-      roomGroup.add(candle)
+      this.pointFixtures.push(candle)
 
       const table = new THREE.Mesh(
         new THREE.CylinderGeometry(0.3, 0.3, 0.7, 16),
@@ -3640,7 +4111,14 @@ export class JapaneseRoomService {
       )
       table.position.set(slotX + 1.4, 0.35, 0.8)
       roomGroup.add(table)
-      this.buildShelfTopPlant(roomGroup as any, 0, 0, 0)
+
+      // Bonsai-style trailing plant on the pedestal table (was previously placed at the world origin,
+      // i.e. on the study room floor). Scaled down so the vines clear the floor.
+      const plantHolder = new THREE.Group()
+      plantHolder.position.set(slotX + 1.4, 0, 0.8)
+      plantHolder.scale.setScalar(0.6)
+      this.buildShelfTopPlant(plantHolder, 0.56, 0.7 / 0.6, 0.24)
+      roomGroup.add(plantHolder)
     } else if (theme === 'gallery') {
       const easelMat = new THREE.MeshStandardMaterial({ map: darkWood, roughness: 0.7 })
       const easelLeg = new THREE.Mesh(new THREE.BoxGeometry(0.06, 2.0, 0.06), easelMat)
@@ -3674,12 +4152,19 @@ export class JapaneseRoomService {
     roomLights.push(roomAmbient)
     roomGroup.add(roomAmbient)
 
-    const roomSpot = new THREE.SpotLight('#fed7aa', 1.6, 10, Math.PI / 3, 0.35)
-    roomSpot.position.set(slotX, 3.6, 1.79)
-    roomSpot.target.position.set(slotX, 0, 1.79)
+    const roomSpot = createVirtualLight(
+      'spot',
+      '#fed7aa',
+      1.6,
+      10,
+      2,
+      new THREE.Vector3(slotX, 3.6, 1.79),
+      new THREE.Vector3(slotX, 0, 1.79),
+      Math.PI / 3,
+      0.35
+    )
     roomLights.push(roomSpot)
-    roomGroup.add(roomSpot)
-    roomGroup.add(roomSpot.target)
+    this.spotFixtures.push(roomSpot)
 
     // 4. Modern Illuminated Room Plaque (in Hallway beside door)
     const plaqueTex = createModernRoomLabelTexture(name, subtitle, icon, true, roomIndex)
@@ -3727,11 +4212,19 @@ export class JapaneseRoomService {
     }
 
     this.customRooms.set(roomId, roomData)
+    this.rebuildHallwayInnerWall()
+    if (this.staticMeshesOptimized) {
+      // Rooms added after startup get the same static-mesh merging as the initial scene
+      this.optimizeStaticMeshes()
+      this.renderer.compile(this.scene, this.camera)
+    }
+    this.updateSpatialLights(true)
+    this.triggerShadowUpdate(10)
     this.callbacks.onRoomCreated?.({ id: roomId, name, icon, theme })
     return roomData
   }
 
-  private getNextAvailableSlot(): number {
+  private getNextAvailableSlot(): number | null {
     const usedSlots = new Set<number>([0])
     for (const r of this.customRooms.values()) {
       usedSlots.add(r.doorX)
@@ -3739,7 +4232,7 @@ export class JapaneseRoomService {
     for (const slot of this.availableSlots) {
       if (!usedSlots.has(slot)) return slot
     }
-    return 9.5
+    return null
   }
 
   public toggleDoor(roomId = 'study-room') {
@@ -3790,9 +4283,17 @@ export class JapaneseRoomService {
     })
   }
 
+  /** Swaps a material's texture, releasing the GPU copy of the one it replaces. */
+  private swapMaterialMap(mesh: THREE.Mesh, map: THREE.Texture) {
+    const mat = mesh.material as THREE.MeshStandardMaterial
+    const previous = mat.map
+    mat.map = map
+    if (previous && previous !== map) previous.dispose()
+  }
+
   public toggleRoomLight(targetId?: string): boolean {
     this.triggerShadowUpdate(45)
-    this.updateSpatialLights(true)
+    this.markActivity()
     const activeTarget = targetId || this.currentZone
 
     if (activeTarget === 'study-room' || activeTarget === 'current') {
@@ -3801,11 +4302,10 @@ export class JapaneseRoomService {
 
       // Full atmospheric lighting transitions
       if (!state) {
-        gsap.to(this.lampLight, { intensity: 0, duration: 0.35 })
-        gsap.to(this.sunLight, { intensity: 0.04, duration: 0.5 })
+        gsap.to(this.lightLevels, { lamp: 0, duration: 0.35 })
+        gsap.to(this.lightLevels, { sun: 0.04, moon: 0.85, duration: 0.5 })
         gsap.to(this.ambientLight, { intensity: 0.08, duration: 0.5 })
         gsap.to(this.ambientLight.color, { r: 0.08, g: 0.12, b: 0.24, duration: 0.5 })
-        gsap.to(this.moonLight, { intensity: 0.85, duration: 0.5 })
 
         if (this.lampShadeMesh) {
           const shadeMat = this.lampShadeMesh.material as THREE.MeshStandardMaterial
@@ -3816,11 +4316,10 @@ export class JapaneseRoomService {
           gsap.to(mat, { opacity: 0.95, size: 0.085, duration: 0.4 })
         }
       } else {
-        gsap.to(this.lampLight, { intensity: 3.2, duration: 0.35 })
-        gsap.to(this.sunLight, { intensity: 1.6, duration: 0.5 })
+        gsap.to(this.lightLevels, { lamp: 3.2, duration: 0.35 })
+        gsap.to(this.lightLevels, { sun: 1.6, moon: 0, duration: 0.5 })
         gsap.to(this.ambientLight, { intensity: 0.75, duration: 0.5 })
         gsap.to(this.ambientLight.color, { r: 1.0, g: 0.93, b: 0.85, duration: 0.5 })
-        gsap.to(this.moonLight, { intensity: 0.25, duration: 0.5 })
 
         if (this.lampShadeMesh) {
           const shadeMat = this.lampShadeMesh.material as THREE.MeshStandardMaterial
@@ -3834,22 +4333,15 @@ export class JapaneseRoomService {
 
       // Update 3D Switch Plate
       if (this.studyWallSwitch) {
-        const mat = this.studyWallSwitch.material as THREE.MeshStandardMaterial
-        mat.map = createLightSwitchTexture(state)
-        mat.needsUpdate = true
+        this.swapMaterialMap(this.studyWallSwitch, createLightSwitchTexture(state))
       }
 
       // Update Study Room Plaque
       if (this.studyDoorPlaque) {
-        const mat = this.studyDoorPlaque.material as THREE.MeshStandardMaterial
-        mat.map = createModernRoomLabelTexture(
-          'Study Room',
-          'Class 1-5 Knowledge Archive · 44 Volumes',
-          '📖',
-          state,
-          1
+        this.swapMaterialMap(
+          this.studyDoorPlaque,
+          createModernRoomLabelTexture('Study Room', 'Class 1-5 Knowledge Archive · 44 Volumes', '📖', state, 1)
         )
-        mat.needsUpdate = true
       }
 
       this.callbacks.onLightToggled?.(state)
@@ -3867,9 +4359,7 @@ export class JapaneseRoomService {
       }
 
       if (this.hallwayWallSwitch) {
-        const mat = this.hallwayWallSwitch.material as THREE.MeshStandardMaterial
-        mat.map = createLightSwitchTexture(state)
-        mat.needsUpdate = true
+        this.swapMaterialMap(this.hallwayWallSwitch, createLightSwitchTexture(state))
       }
 
       this.callbacks.onRoomLightToggled?.('hallway', state)
@@ -3888,21 +4378,14 @@ export class JapaneseRoomService {
       }
 
       if (custom.switchMesh) {
-        const mat = custom.switchMesh.material as THREE.MeshStandardMaterial
-        mat.map = createLightSwitchTexture(state)
-        mat.needsUpdate = true
+        this.swapMaterialMap(custom.switchMesh, createLightSwitchTexture(state))
       }
 
       if (custom.labelMesh) {
-        const mat = custom.labelMesh.material as THREE.MeshStandardMaterial
-        mat.map = createModernRoomLabelTexture(
-          custom.name,
-          custom.subtitle,
-          custom.icon,
-          state,
-          custom.roomIndex
+        this.swapMaterialMap(
+          custom.labelMesh,
+          createModernRoomLabelTexture(custom.name, custom.subtitle, custom.icon, state, custom.roomIndex)
         )
-        mat.needsUpdate = true
       }
 
       this.callbacks.onRoomLightToggled?.(activeTarget, state)
@@ -4369,6 +4852,13 @@ export class JapaneseRoomService {
     }
   }
 
+  private isSceneIdle(): boolean {
+    if (this.isExploreMode || this.isFlipping || this.isDrinking || this.state === 'book-flying') return false
+    if (this.shadowUpdateFrames > 0) return false
+    if (performance.now() - this.lastActivityTime < 4000) return false
+    return !gsap.globalTimeline.getChildren(true, true, false).some((tween) => tween.isActive())
+  }
+
   private startLoop() {
     const clock = new THREE.Clock()
     let frameCount = 0
@@ -4383,6 +4873,14 @@ export class JapaneseRoomService {
 
       // Real-time Adaptive Performance & 60 FPS monitor
       this.monitorPerformance(rawDelta)
+
+      // Low tier only: once nothing has happened for a few seconds (no input, no camera move, no
+      // animation), render every other frame. The idle scene only has slow ambient motion, and this
+      // halves GPU load / heat on weak laptops and phones.
+      if (this.preset.throttleWhenIdle && this.isSceneIdle()) {
+        this.idleFrameToggle = !this.idleFrameToggle
+        if (this.idleFrameToggle) return
+      }
 
       // First-Person WASD + Shift Run Explore Controller
       if (this.isExploreMode) {
@@ -4422,8 +4920,8 @@ export class JapaneseRoomService {
         this.camera.position.y = this.initialCamPos.y + Math.cos(elapsedTime * 0.2) * 0.012
         this.camera.lookAt(this.initialCamTarget)
 
-        if (this.heroBookGlowLight && this.heroBookGlowLight.visible) {
-          this.heroBookGlowLight.intensity = 0.8 + Math.sin(elapsedTime * 2.0) * 0.2
+        if (this.heroBookGlow.active) {
+          this.heroBookGlow.intensity = 0.8 + Math.sin(elapsedTime * 2.0) * 0.2
         }
       }
 
@@ -4436,6 +4934,7 @@ export class JapaneseRoomService {
         }
       }
 
+      this.syncLightPools()
       this.renderer.render(this.scene, this.camera)
     }
 
@@ -4471,14 +4970,17 @@ export class JapaneseRoomService {
     if (this.contactShadowLeft) {
       gsap.killTweensOf(this.contactShadowLeft.material)
     }
-    if (this.heroBookGlowLight) gsap.killTweensOf(this.heroBookGlowLight)
-    if (this.sunLight) gsap.killTweensOf(this.sunLight)
-    if (this.lampLight) gsap.killTweensOf(this.lampLight)
+    gsap.killTweensOf(this.heroBookGlow)
+    gsap.killTweensOf(this.lightLevels)
+    gsap.killTweensOf(this.ambientLight)
+    gsap.killTweensOf(this.ambientLight.color)
+    for (const light of this.hallwayLights) gsap.killTweensOf(light)
+    for (const room of this.customRooms.values()) {
+      for (const light of room.lights) gsap.killTweensOf(light)
+    }
 
     // Detach event listeners
-    this.canvas.removeEventListener('mousemove', this.onMouseMove)
-    this.canvas.removeEventListener('click', this.onClick)
-    window.removeEventListener('resize', this.onResize)
+    this.unbindEvents()
 
     // Traverse scene graph and dispose all geometries, materials, and textures
     this.scene.traverse((obj) => {

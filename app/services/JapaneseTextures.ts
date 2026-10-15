@@ -9,6 +9,36 @@ export const coverTextureCache = new Map<string, THREE.CanvasTexture>()
 export const spineTextureCache = new Map<string, THREE.CanvasTexture>()
 let cachedPageEdgesTexture: THREE.CanvasTexture | null = null
 
+// Book pages are 1200x1600 canvases (~10MB of GPU memory each with mipmaps), so keep only the most
+// recently viewed ones instead of growing without bound while a reader pages through a whole book.
+const MAX_CACHED_PAGE_TEXTURES = 16
+
+function srgbCanvasTexture(canvas: HTMLCanvasElement): THREE.CanvasTexture {
+  const texture = new THREE.CanvasTexture(canvas)
+  texture.colorSpace = THREE.SRGBColorSpace
+  return texture
+}
+
+// Procedural textures are generated once per unique argument set. Callers get a clone that shares the
+// same image source (one canvas, one GPU upload) but owns its own repeat/offset/wrap settings and can be
+// disposed independently.
+const proceduralTextureCache = new Map<string, THREE.CanvasTexture>()
+
+function memoizedTexture<A extends unknown[]>(
+  name: string,
+  build: (...args: A) => THREE.CanvasTexture
+): (...args: A) => THREE.CanvasTexture {
+  return (...args: A) => {
+    const key = `${name}:${JSON.stringify(args)}`
+    let base = proceduralTextureCache.get(key)
+    if (!base) {
+      base = build(...args)
+      proceduralTextureCache.set(key, base)
+    }
+    return base.clone()
+  }
+}
+
 function wrapText(
   ctx: CanvasRenderingContext2D,
   text: string,
@@ -53,7 +83,7 @@ function wrapText(
  * Procedural canvas-based textures for the Japanese Study Room
  */
 
-export function createWoodTexture(colorHex = '#3e271a', grainColorHex = '#27160c'): THREE.CanvasTexture {
+function buildWoodTexture(colorHex = '#3e271a', grainColorHex = '#27160c'): THREE.CanvasTexture {
   const canvas = document.createElement('canvas')
   canvas.width = 512
   canvas.height = 512
@@ -75,14 +105,13 @@ export function createWoodTexture(colorHex = '#3e271a', grainColorHex = '#27160c
   }
   ctx.globalAlpha = 1.0
 
-  const texture = new THREE.CanvasTexture(canvas)
+  const texture = srgbCanvasTexture(canvas)
   texture.wrapS = THREE.RepeatWrapping
   texture.wrapT = THREE.RepeatWrapping
-  cachedPageEdgesTexture = texture
   return texture
 }
 
-export function createModernWallTexture(): THREE.CanvasTexture {
+function buildModernWallTexture(): THREE.CanvasTexture {
   const canvas = document.createElement('canvas')
   canvas.width = 512
   canvas.height = 512
@@ -110,13 +139,13 @@ export function createModernWallTexture(): THREE.CanvasTexture {
     ctx.stroke()
   }
 
-  const texture = new THREE.CanvasTexture(canvas)
+  const texture = srgbCanvasTexture(canvas)
   texture.wrapS = THREE.RepeatWrapping
   texture.wrapT = THREE.RepeatWrapping
   return texture
 }
 
-export function createGlassShojiDoorTexture(): THREE.CanvasTexture {
+function buildGlassShojiDoorTexture(): THREE.CanvasTexture {
   const canvas = document.createElement('canvas')
   canvas.width = 512
   canvas.height = 512
@@ -147,11 +176,11 @@ export function createGlassShojiDoorTexture(): THREE.CanvasTexture {
     ctx.stroke()
   }
 
-  const texture = new THREE.CanvasTexture(canvas)
+  const texture = srgbCanvasTexture(canvas)
   return texture
 }
 
-export function createGardenBackdropTexture(): THREE.CanvasTexture {
+function buildGardenBackdropTexture(): THREE.CanvasTexture {
   const canvas = document.createElement('canvas')
   canvas.width = 1024
   canvas.height = 512
@@ -267,7 +296,7 @@ export function createGardenBackdropTexture(): THREE.CanvasTexture {
   drawCloud(620, 100, 110)
   drawCloud(860, 140, 75)
 
-  return new THREE.CanvasTexture(canvas)
+  return srgbCanvasTexture(canvas)
 }
 
 export function createSpineTexture(subject: string, title: string, colorHex: string): THREE.CanvasTexture {
@@ -328,12 +357,12 @@ export function createSpineTexture(subject: string, title: string, colorHex: str
   ctx.lineWidth = 1.5
   ctx.strokeRect(46, 64, 36, 26)
 
-  const texture = new THREE.CanvasTexture(canvas)
+  const texture = srgbCanvasTexture(canvas)
   spineTextureCache.set(cacheKey, texture)
   return texture
 }
 
-export function createTatamiTexture(): THREE.CanvasTexture {
+function buildTatamiTexture(): THREE.CanvasTexture {
   const canvas = document.createElement('canvas')
   canvas.width = 512
   canvas.height = 512
@@ -368,14 +397,14 @@ export function createTatamiTexture(): THREE.CanvasTexture {
   ctx.fillRect(0, 0, 16, 512)
   ctx.fillRect(496, 0, 16, 512)
 
-  const texture = new THREE.CanvasTexture(canvas)
+  const texture = srgbCanvasTexture(canvas)
   texture.wrapS = THREE.RepeatWrapping
   texture.wrapT = THREE.RepeatWrapping
   texture.repeat.set(2, 2)
   return texture
 }
 
-export function createShojiTexture(): THREE.CanvasTexture {
+function buildShojiTexture(): THREE.CanvasTexture {
   const canvas = document.createElement('canvas')
   canvas.width = 512
   canvas.height = 512
@@ -411,7 +440,7 @@ export function createShojiTexture(): THREE.CanvasTexture {
     ctx.stroke()
   }
 
-  return new THREE.CanvasTexture(canvas)
+  return srgbCanvasTexture(canvas)
 }
 
 
@@ -644,7 +673,7 @@ export function createBookCoverTexture(
   ctx.font = 'bold 15px sans-serif'
   ctx.fillText('IRE ARCHIVE', 256, 660)
 
-  const texture = new THREE.CanvasTexture(canvas)
+  const texture = srgbCanvasTexture(canvas)
   coverTextureCache.set(cacheKey, texture)
   return texture
 }
@@ -689,7 +718,12 @@ export function createBookPageTexture(
 ): THREE.CanvasTexture {
   const cacheKey = `${bookId || subject}_p${pageNumber}_v3`
   const cached = pageTextureCache.get(cacheKey)
-  if (cached) return cached
+  if (cached) {
+    // Refresh LRU position
+    pageTextureCache.delete(cacheKey)
+    pageTextureCache.set(cacheKey, cached)
+    return cached
+  }
   // High-DPI 1200x1600 canvas for pin-sharp typography and diagram readability
   const canvas = document.createElement('canvas')
   canvas.width = 1200
@@ -762,7 +796,7 @@ export function createBookPageTexture(
     currentY += 16
   }
 
-  const texture = new THREE.CanvasTexture(canvas)
+  const texture = srgbCanvasTexture(canvas)
   texture.generateMipmaps = true
   texture.minFilter = THREE.LinearMipmapLinearFilter
   texture.magFilter = THREE.LinearFilter
@@ -1024,7 +1058,16 @@ export function createBookPageTexture(
   ctx.textAlign = 'center'
   ctx.fillText(footerText, 600, 1515)
 
-  pageTextureCache.set(cacheKey, texture)
+  // Don't cache placeholder content rendered while the book's curriculum is still loading
+  if (!bookId || BookCatalogService.isBookLoaded(bookId)) {
+    pageTextureCache.set(cacheKey, texture)
+    while (pageTextureCache.size > MAX_CACHED_PAGE_TEXTURES) {
+      const oldestKey = pageTextureCache.keys().next().value as string
+      // Disposing only frees the GPU copy; a material still showing it simply re-uploads the canvas
+      pageTextureCache.get(oldestKey)?.dispose()
+      pageTextureCache.delete(oldestKey)
+    }
+  }
   return texture
 }
 
@@ -1176,7 +1219,7 @@ export function createBookInsideCoverTexture(
   ctx.font = '22px sans-serif'
   ctx.fillText('Endpaper · Preliminary Leaf', 600, 1490)
 
-  const texture = new THREE.CanvasTexture(canvas)
+  const texture = srgbCanvasTexture(canvas)
   texture.generateMipmaps = true
   texture.minFilter = THREE.LinearMipmapLinearFilter
   texture.magFilter = THREE.LinearFilter
@@ -1185,7 +1228,7 @@ export function createBookInsideCoverTexture(
   return texture
 }
 
-export function createPencilCupTexture(): THREE.CanvasTexture {
+function buildPencilCupTexture(): THREE.CanvasTexture {
   const canvas = document.createElement('canvas')
   canvas.width = 256
   canvas.height = 256
@@ -1209,10 +1252,10 @@ export function createPencilCupTexture(): THREE.CanvasTexture {
   ctx.fillRect(0, 0, 256, 10)
   ctx.fillRect(0, 246, 256, 10)
 
-  return new THREE.CanvasTexture(canvas)
+  return srgbCanvasTexture(canvas)
 }
 
-export function createPlantPotTexture(): THREE.CanvasTexture {
+function buildPlantPotTexture(): THREE.CanvasTexture {
   const canvas = document.createElement('canvas')
   canvas.width = 256
   canvas.height = 256
@@ -1236,10 +1279,10 @@ export function createPlantPotTexture(): THREE.CanvasTexture {
     ctx.fill()
   }
 
-  return new THREE.CanvasTexture(canvas)
+  return srgbCanvasTexture(canvas)
 }
 
-export function createShelfPlaqueTexture(label: string, sublabel = ''): THREE.CanvasTexture {
+function buildShelfPlaqueTexture(label: string, sublabel = ''): THREE.CanvasTexture {
   const canvas = document.createElement('canvas')
   canvas.width = 512
   canvas.height = 128
@@ -1277,7 +1320,7 @@ export function createShelfPlaqueTexture(label: string, sublabel = ''): THREE.Ca
     ctx.fillText(sublabel, 256, 92)
   }
 
-  return new THREE.CanvasTexture(canvas)
+  return srgbCanvasTexture(canvas)
 }
 
 export function createBookPageEdgesTexture(): THREE.CanvasTexture {
@@ -1297,13 +1340,14 @@ export function createBookPageEdgesTexture(): THREE.CanvasTexture {
     ctx.fillRect(0, y, 256, 1)
   }
 
-  const texture = new THREE.CanvasTexture(canvas)
+  const texture = srgbCanvasTexture(canvas)
   texture.wrapS = THREE.RepeatWrapping
   texture.wrapT = THREE.RepeatWrapping
+  cachedPageEdgesTexture = texture
   return texture
 }
 
-export function createContactShadowTexture(): THREE.CanvasTexture {
+function buildContactShadowTexture(): THREE.CanvasTexture {
   const canvas = document.createElement('canvas')
   canvas.width = 256
   canvas.height = 256
@@ -1318,10 +1362,10 @@ export function createContactShadowTexture(): THREE.CanvasTexture {
   ctx.fillStyle = grad
   ctx.fillRect(0, 0, 256, 256)
 
-  return new THREE.CanvasTexture(canvas)
+  return srgbCanvasTexture(canvas)
 }
 
-export function createCeramicCupTexture(): THREE.CanvasTexture {
+function buildCeramicCupTexture(): THREE.CanvasTexture {
   const canvas = document.createElement('canvas')
   canvas.width = 512
   canvas.height = 512
@@ -1380,10 +1424,10 @@ export function createCeramicCupTexture(): THREE.CanvasTexture {
     ctx.stroke()
   }
 
-  return new THREE.CanvasTexture(canvas)
+  return srgbCanvasTexture(canvas)
 }
 
-export function createMatchaTexture(): THREE.CanvasTexture {
+function buildMatchaTexture(): THREE.CanvasTexture {
   const canvas = document.createElement('canvas')
   canvas.width = 512
   canvas.height = 512
@@ -1446,10 +1490,10 @@ export function createMatchaTexture(): THREE.CanvasTexture {
   ctx.fillStyle = 'rgba(255, 255, 255, 0.08)'
   ctx.fill()
 
-  return new THREE.CanvasTexture(canvas)
+  return srgbCanvasTexture(canvas)
 }
 
-export function createTeaSaucerTexture(): THREE.CanvasTexture {
+function buildTeaSaucerTexture(): THREE.CanvasTexture {
   const canvas = document.createElement('canvas')
   canvas.width = 256
   canvas.height = 256
@@ -1480,10 +1524,10 @@ export function createTeaSaucerTexture(): THREE.CanvasTexture {
   ctx.lineWidth = 3
   ctx.stroke()
 
-  return new THREE.CanvasTexture(canvas)
+  return srgbCanvasTexture(canvas)
 }
 
-export function createSteamVaporTexture(): THREE.CanvasTexture {
+function buildSteamVaporTexture(): THREE.CanvasTexture {
   const canvas = document.createElement('canvas')
   canvas.width = 128
   canvas.height = 128
@@ -1498,7 +1542,7 @@ export function createSteamVaporTexture(): THREE.CanvasTexture {
   ctx.fillStyle = grad
   ctx.fillRect(0, 0, 128, 128)
 
-  return new THREE.CanvasTexture(canvas)
+  return srgbCanvasTexture(canvas)
 }
 
 /**
@@ -1508,7 +1552,7 @@ export function createSteamVaporTexture(): THREE.CanvasTexture {
  */
 let cachedFireflyTexture: THREE.CanvasTexture | null = null
 
-export function createFireflyTexture(): THREE.CanvasTexture {
+function buildFireflyTexture(): THREE.CanvasTexture {
   if (cachedFireflyTexture) return cachedFireflyTexture
 
   const canvas = document.createElement('canvas')
@@ -1558,7 +1602,7 @@ export function createFireflyTexture(): THREE.CanvasTexture {
   ctx.arc(cx, cy, 7, 0, Math.PI * 2)
   ctx.fill()
 
-  const texture = new THREE.CanvasTexture(canvas)
+  const texture = srgbCanvasTexture(canvas)
   texture.generateMipmaps = true
   texture.minFilter = THREE.LinearMipmapLinearFilter
   texture.magFilter = THREE.LinearFilter
@@ -1571,7 +1615,7 @@ export function createFireflyTexture(): THREE.CanvasTexture {
 // MODERN ROOM LABELS, DOORS & LIGHT SWITCHES
 // ==========================================
 
-export function createModernRoomLabelTexture(
+function buildModernRoomLabelTexture(
   title: string,
   subtitle = 'IMMERSIVE SPACE',
   icon = '📖',
@@ -1675,14 +1719,14 @@ export function createModernRoomLabelTexture(
     ctx.fillRect(65, 438, 894, 32)
   }
 
-  const texture = new THREE.CanvasTexture(canvas)
+  const texture = srgbCanvasTexture(canvas)
   texture.generateMipmaps = true
   texture.minFilter = THREE.LinearMipmapLinearFilter
   texture.magFilter = THREE.LinearFilter
   return texture
 }
 
-export function createLightSwitchTexture(isOn = true): THREE.CanvasTexture {
+function buildLightSwitchTexture(isOn = true): THREE.CanvasTexture {
   const canvas = document.createElement('canvas')
   canvas.width = 256
   canvas.height = 384
@@ -1732,12 +1776,12 @@ export function createLightSwitchTexture(isOn = true): THREE.CanvasTexture {
   ctx.font = 'bold 16px "Inter", sans-serif'
   ctx.fillText('LIGHT', 128, 325)
 
-  const texture = new THREE.CanvasTexture(canvas)
+  const texture = srgbCanvasTexture(canvas)
   texture.generateMipmaps = true
   return texture
 }
 
-export function createShojiDoorPanelTexture(): THREE.CanvasTexture {
+function buildShojiDoorPanelTexture(): THREE.CanvasTexture {
   const canvas = document.createElement('canvas')
   canvas.width = 512
   canvas.height = 1024
@@ -1778,19 +1822,19 @@ export function createShojiDoorPanelTexture(): THREE.CanvasTexture {
   ctx.lineWidth = 2
   ctx.strokeRect(36, 440, 24, 144)
 
-  const texture = new THREE.CanvasTexture(canvas)
+  const texture = srgbCanvasTexture(canvas)
   texture.generateMipmaps = true
   return texture
 }
 
-export function createHallwayFloorTexture(): THREE.CanvasTexture {
+function buildHallwayFloorTexture(): THREE.CanvasTexture {
   const canvas = document.createElement('canvas')
   canvas.width = 1024
   canvas.height = 1024
   const ctx = canvas.getContext('2d')!
 
   // Dark rich cedar floor planks
-  ctx.fillStyle = '#1e1108'
+  ctx.fillStyle = '#2e1b0e'
   ctx.fillRect(0, 0, 1024, 1024)
 
   const plankCount = 12
@@ -1798,7 +1842,7 @@ export function createHallwayFloorTexture(): THREE.CanvasTexture {
 
   for (let i = 0; i < plankCount; i++) {
     const x = i * plankW
-    const tone = i % 2 === 0 ? '#26160c' : '#1c0f07'
+    const tone = i % 2 === 0 ? '#4a2e1a' : '#3d2515'
     ctx.fillStyle = tone
     ctx.fillRect(x + 2, 0, plankW - 4, 1024)
 
@@ -1814,9 +1858,47 @@ export function createHallwayFloorTexture(): THREE.CanvasTexture {
     }
   }
 
-  const texture = new THREE.CanvasTexture(canvas)
+  const texture = srgbCanvasTexture(canvas)
   texture.wrapS = THREE.RepeatWrapping
   texture.wrapT = THREE.RepeatWrapping
   texture.repeat.set(4, 1)
   return texture
 }
+
+export const createWoodTexture = memoizedTexture('wood', buildWoodTexture)
+
+export const createModernWallTexture = memoizedTexture('wall', buildModernWallTexture)
+
+export const createGlassShojiDoorTexture = memoizedTexture('glassShoji', buildGlassShojiDoorTexture)
+
+export const createGardenBackdropTexture = memoizedTexture('garden', buildGardenBackdropTexture)
+
+export const createTatamiTexture = memoizedTexture('tatami', buildTatamiTexture)
+
+export const createShojiTexture = memoizedTexture('shoji', buildShojiTexture)
+
+export const createPencilCupTexture = memoizedTexture('pencilCup', buildPencilCupTexture)
+
+export const createPlantPotTexture = memoizedTexture('plantPot', buildPlantPotTexture)
+
+export const createShelfPlaqueTexture = memoizedTexture('shelfPlaque', buildShelfPlaqueTexture)
+
+export const createContactShadowTexture = memoizedTexture('contactShadow', buildContactShadowTexture)
+
+export const createCeramicCupTexture = memoizedTexture('ceramicCup', buildCeramicCupTexture)
+
+export const createMatchaTexture = memoizedTexture('matcha', buildMatchaTexture)
+
+export const createTeaSaucerTexture = memoizedTexture('teaSaucer', buildTeaSaucerTexture)
+
+export const createSteamVaporTexture = memoizedTexture('steam', buildSteamVaporTexture)
+
+export const createFireflyTexture = memoizedTexture('firefly', buildFireflyTexture)
+
+export const createModernRoomLabelTexture = memoizedTexture('roomLabel', buildModernRoomLabelTexture)
+
+export const createLightSwitchTexture = memoizedTexture('lightSwitch', buildLightSwitchTexture)
+
+export const createShojiDoorPanelTexture = memoizedTexture('shojiDoorPanel', buildShojiDoorPanelTexture)
+
+export const createHallwayFloorTexture = memoizedTexture('hallwayFloor', buildHallwayFloorTexture)

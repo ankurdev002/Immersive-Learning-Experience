@@ -8,7 +8,6 @@
   "subtitle": "Syntax Analysis, Code Gen & Optimization",
   "coverColor": "#831843",
   "accentColor": "#f472b6",
-  "coverImage": "/books/compilers/cover.png",
   "sourcePdf": null,
   "icon": "\u2699\ufe0f",
   "isInteractive": true,

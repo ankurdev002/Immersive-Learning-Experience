@@ -8,7 +8,7 @@
   "subtitle": "Classic Foundations by Aho, Hopcroft & Ullman",
   "coverColor": "#4338ca",
   "accentColor": "#818cf8",
-  "coverImage": "/books/dsa-aho/cover.png",
+  "coverImage": "/books/dsa-aho/cover.webp",
   "sourcePdf": "/books/dsa-aho/dS&A_Book_By_Alfred_-Aho.pdf",
   "icon": "\ud83c\udf32",
   "isInteractive": true,

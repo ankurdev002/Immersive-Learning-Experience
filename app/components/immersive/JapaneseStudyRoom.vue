@@ -1,7 +1,12 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
-import { BookCatalogService, SHELF_BOOKS_CONFIG } from '~/services/BookCatalogService'
-import { JapaneseRoomService, type InteractiveHoverData } from '~/services/JapaneseRoomService'
+import { BookCatalogService, SHELF_BOOKS_CONFIG, bookCatalogVersion } from '~/services/BookCatalogService'
+import {
+  JapaneseRoomService,
+  type InteractiveHoverData,
+  type PerformanceStats,
+  type QualityTier,
+} from '~/services/JapaneseRoomService'
 import { useImmersiveAudio } from '~/composables/useImmersiveAudio'
 import type { ImmersiveBookData } from '~/types/learning-journey'
 
@@ -45,8 +50,18 @@ watch(
 )
 const selectedBookId = ref('ddia')
 const selectedBook = computed(() => {
+  // Re-evaluate when a lazily loaded book.json arrives
+  void bookCatalogVersion.value
   return BookCatalogService.getBookById(selectedBookId.value)
 })
+// Book curricula load on demand; fetch whichever book the HUD is showing
+watch(
+  selectedBookId,
+  (id) => {
+    void BookCatalogService.ensureBookLoaded(id)
+  },
+  { immediate: true }
+)
 const currentBookTitle = computed(() => selectedBook.value?.title || 'Study Book')
 const currentBookSubject = computed(() => selectedBook.value?.subject || '')
 const totalPages = computed(() => {
@@ -74,13 +89,22 @@ const newRoomSubtitle = ref('')
 const newRoomIcon = ref('📚')
 const newRoomTheme = ref<'library' | 'meditation' | 'gallery' | 'science'>('library')
 
-// 60 FPS Engine & Integrated GPU Performance Stats
-const perfStats = ref<{ fps: number; dpr: number; tier: 'low' | 'high'; isOptimized: boolean }>({
+// 60 FPS Engine & Adaptive Quality Tier Stats
+const perfStats = ref<PerformanceStats>({
   fps: 60,
   dpr: 1.0,
-  tier: 'low',
+  tier: 'medium',
+  isManualTier: false,
   isOptimized: true,
 })
+const qualityTierLabels: Record<QualityTier, string> = { low: 'Low', medium: 'Medium', high: 'High' }
+const qualitySetting = computed<QualityTier | 'auto'>(() =>
+  perfStats.value.isManualTier ? perfStats.value.tier : 'auto'
+)
+const handleQualityChange = (event: Event) => {
+  const value = (event.target as HTMLSelectElement).value as QualityTier | 'auto'
+  roomService?.setQualityTier(value)
+}
 const customRoomsList = ref<Array<{ id: string; name: string; icon: string; theme: string }>>([
   { id: 'study-room', name: 'Study Room', icon: '📖', theme: 'study' },
   { id: 'hallway', name: 'Grand Corridor', icon: '⛩️', theme: 'hallway' as any },
@@ -144,11 +168,13 @@ const handleKeyDown = (e: KeyboardEvent) => {
   }
 }
 
+const closeChamberMenu = () => {
+  isChamberMenuOpen.value = false
+}
+
 onMounted(() => {
   window.addEventListener('keydown', handleKeyDown)
-  window.addEventListener('click', () => {
-    isChamberMenuOpen.value = false
-  })
+  window.addEventListener('click', closeChamberMenu)
 
   // Drive smooth zen loading sequence
   let currentProg = 20
@@ -284,11 +310,14 @@ onMounted(() => {
         perfStats.value = stats
       },
     })
+    // Keep the HUD in sync with the book the 3D scene actually starts with
+    selectedBookId.value = roomService.currentBookData.id
   }
 })
 
 onUnmounted(() => {
   window.removeEventListener('keydown', handleKeyDown)
+  window.removeEventListener('click', closeChamberMenu)
   if (progressTimer) {
     clearInterval(progressTimer)
     progressTimer = null
@@ -505,6 +534,12 @@ const handleConfirmCreateRoom = () => {
         roomService.setExploreMode(true)
       }
       roomService.teleportToZone(room.id)
+    } else {
+      isCreateRoomModalOpen.value = false
+      createdNotification.value = 'The corridor is full: every room slot is already in use.'
+      setTimeout(() => {
+        createdNotification.value = ''
+      }, 4000)
     }
   }
 }
@@ -530,7 +565,7 @@ const handleExitRoom = () => {
 </script>
 
 <template>
-  <div class="immersive-room-wrapper" :class="{ 'is-night-mode': !isLightOn }">
+  <div class="immersive-room-wrapper" :class="{ 'is-night-mode': !isLightOn, 'is-low-tier': perfStats.tier === 'low' }">
     <!-- WebGL Canvas -->
     <canvas ref="canvasRef" class="webgl-canvas" @click="handleCanvasFocus" />
 
@@ -619,11 +654,22 @@ const handleExitRoom = () => {
         <!-- Real-Time 60 FPS & Integrated GPU Performance Badge -->
         <div
           class="hud-perf-badge"
-          :title="`Engine: ${perfStats.tier === 'low' ? 'Integrated GPU' : 'High Performance'} · Target: 60 FPS · DPR: ${perfStats.dpr.toFixed(2)}`"
+          :title="`Quality: ${qualityTierLabels[perfStats.tier]}${perfStats.isManualTier ? '' : ' (auto)'} · Target: 60 FPS · DPR: ${perfStats.dpr.toFixed(2)} · Antialiasing changes apply on next visit`"
         >
           <span class="perf-dot" :class="{ 'is-smooth': perfStats.fps >= 54, 'is-warning': perfStats.fps < 54 }" />
           <span class="perf-fps-num">{{ perfStats.fps }} FPS</span>
-          <span class="perf-tag-pill">{{ perfStats.tier === 'low' ? 'iGPU 60Hz' : '60Hz Pro' }}</span>
+          <select
+            class="perf-tag-pill perf-tier-select"
+            aria-label="Graphics quality"
+            :value="qualitySetting"
+            @change="handleQualityChange"
+            @click.stop
+          >
+            <option value="auto">Auto · {{ qualityTierLabels[perfStats.tier] }}</option>
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+          </select>
         </div>
       </div>
 
@@ -2039,6 +2085,36 @@ const handleExitRoom = () => {
 .perf-fps-num {
   color: #38bdf8;
   letter-spacing: 0.04em;
+}
+
+.perf-tier-select {
+  appearance: none;
+  -webkit-appearance: none;
+  font-family: inherit;
+  cursor: pointer;
+  outline: none;
+}
+
+.perf-tier-select:focus-visible {
+  border-color: rgba(56, 189, 248, 0.8);
+}
+
+.perf-tier-select option {
+  background: #0f172a;
+  color: #e2e8f0;
+  text-transform: none;
+}
+
+/* Low quality tier: backdrop blur over a live WebGL canvas is one of the most expensive things an
+   integrated / mobile GPU can composite every frame, so drop it and rely on the translucent fill. */
+/* Separate selectors on purpose: the CSS minifier collapses an !important prefixed/unprefixed pair
+   in one block down to just the -webkit- version, which Chrome ignores. */
+.immersive-room-wrapper.is-low-tier :where(*) {
+  -webkit-backdrop-filter: none !important;
+}
+
+.immersive-room-wrapper.is-low-tier * {
+  backdrop-filter: none !important;
 }
 
 .perf-tag-pill {

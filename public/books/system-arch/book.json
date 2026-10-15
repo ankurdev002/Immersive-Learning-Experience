@@ -8,7 +8,7 @@
   "subtitle": "A Business-Enabling Engineering Discipline",
   "coverColor": "#1e3a8a",
   "accentColor": "#60a5fa",
-  "coverImage": "/books/system-arch/cover.png",
+  "coverImage": "/books/system-arch/cover.webp",
   "sourcePdf": "/books/system-arch/SystemArchitectureBook.pdf",
   "icon": "🏛️",
   "isInteractive": true,

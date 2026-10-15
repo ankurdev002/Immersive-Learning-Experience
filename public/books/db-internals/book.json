@@ -8,7 +8,6 @@
   "subtitle": "B-Trees, LSM-Trees & Storage Engines",
   "coverColor": "#1e1b4b",
   "accentColor": "#818cf8",
-  "coverImage": "/books/db-internals/cover.png",
   "sourcePdf": null,
   "icon": "\ud83d\udcbe",
   "isInteractive": true,
