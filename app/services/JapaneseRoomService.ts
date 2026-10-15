@@ -304,6 +304,8 @@ export class JapaneseRoomService {
   private headBobTimer = 0
   private stepDistanceAccumulator = 0
   public keys = { forward: false, backward: false, left: false, right: false, shift: false }
+  /** Eased yaw speed (rad/s) from the A / D turn keys, so the view swings round smoothly like a game camera */
+  private turnVelocity = 0
   private isMouseDragging = false
   private prevMousePos = { x: 0, y: 0 }
 
@@ -422,7 +424,6 @@ export class JapaneseRoomService {
 
   // Zero-Allocation Reusable Scratch Vectors for Render Loop
   private readonly _scratchForward = new THREE.Vector3()
-  private readonly _scratchRight = new THREE.Vector3()
   private readonly _scratchMoveVector = new THREE.Vector3()
 
   // Physical Book Geometry Constants
@@ -5863,19 +5864,29 @@ export class JapaneseRoomService {
       const breath = Math.sin((elapsedTime / 12) * Math.PI * 2) * 0.006
       this.camera.position.set(this.playerPos.x, this.playerPos.y + breath, this.playerPos.z)
       this.camera.rotation.set(this.playerPitch, this.playerYaw, 0, 'YXZ')
+      this.turnVelocity = 0
       return
+    }
+
+    // 0. Game-style keyboard camera: A / D (or arrow keys) turn the view, easing in and out
+    const turnInput = (this.keys.left ? 1 : 0) - (this.keys.right ? 1 : 0)
+    const targetTurn = turnInput * (this.keys.shift ? 2.3 : 1.75)
+    this.turnVelocity += (targetTurn - this.turnVelocity) * Math.min(1, safeDelta * 9)
+    if (Math.abs(this.turnVelocity) > 1e-4) this.playerYaw += this.turnVelocity * safeDelta
+    else this.turnVelocity = 0
+    // While walking with the keys (and not mouse-looking) the view drifts back to eye level
+    if ((this.keys.forward || this.keys.backward || turnInput !== 0) && !this.isMouseDragging) {
+      this.playerPitch += (0 - this.playerPitch) * Math.min(1, safeDelta * 1.6)
     }
 
     // 1. Calculate Horizontal Movement Vectors using zero-allocation scratch objects
     this._scratchForward.set(-Math.sin(this.playerYaw), 0, -Math.cos(this.playerYaw))
-    this._scratchRight.set(Math.cos(this.playerYaw), 0, -Math.sin(this.playerYaw))
 
     this._scratchMoveVector.set(0, 0, 0)
     if (this.keys.forward) this._scratchMoveVector.add(this._scratchForward)
     if (this.keys.backward) this._scratchMoveVector.sub(this._scratchForward)
-    if (this.keys.left) this._scratchMoveVector.sub(this._scratchRight)
-    if (this.keys.right) this._scratchMoveVector.add(this._scratchRight)
 
+    // (A / D turn rather than strafe, so only W / S translate)
     const isMoving = this._scratchMoveVector.lengthSq() > 0.0001
     if (isMoving) {
       this._scratchMoveVector.normalize()

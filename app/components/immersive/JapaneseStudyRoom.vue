@@ -1045,12 +1045,13 @@ const handleExitRoom = () => {
         </div>
         <div class="ctrl-row">
           <span class="key-cap">W</span>
-          <span class="key-cap">A</span>
           <span class="key-cap">S</span>
-          <span class="key-cap">D</span>
           <span class="ctrl-label">Walk</span>
+          <span class="key-cap">A</span>
+          <span class="key-cap">D</span>
+          <span class="ctrl-label">Turn</span>
           <span class="key-cap key-wide">Shift</span>
-          <span class="ctrl-label">Run / Sprint</span>
+          <span class="ctrl-label">Run</span>
         </div>
         <div class="ctrl-row sub-row">
           <span class="key-cap key-mouse">Drag Mouse</span>
