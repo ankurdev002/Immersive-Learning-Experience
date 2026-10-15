@@ -1,16 +1,51 @@
 import * as THREE from 'three'
 import { gsap } from 'gsap'
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js'
+import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js'
+import { PbrTextureLibrary } from './room/PbrTextures'
+import { HandRig, type HandPose } from './room/HandRig'
+import { CurvedStack, CurvedSheet, stackSurfaceHeight, gutterShade } from './room/BookGeometry'
 import {
-  createWoodTexture,
+  projectWoodUVs,
+  createDesk,
+  createChair,
+  createTeaSet,
+  createIncenseHolder,
+  createBonsai,
+  createSmallAndon,
+  createFloorAndon,
+  createIkebana,
+  createTokonoma,
+  createShojiWall,
+  createNoren,
+  createStoneLantern,
+  createZabuton,
+  createChabudai,
+  createArmchair,
+  createFloorLamp,
+  createBookWall,
+  createFramedPainting,
+  createBench,
+  createEasel,
+  createGlobe,
+  createTelescope,
+  type RoomPalette,
+} from './room/Props'
+import {
+  createGardenFarLayer,
+  createGardenMidLayer,
+  createGardenNearLayer,
+  createRugTexture,
+  createSandGardenTexture,
+  createGlobeTexture,
+  createWallMapTexture,
+  createSoftShadowTexture,
+  createPaintingTexture,
+} from './room/ArtTextures'
+import {
   createModernRoomLabelTexture,
   createLightSwitchTexture,
   createShojiDoorPanelTexture,
-  createHallwayFloorTexture,
-  createTatamiTexture,
-  createModernWallTexture,
-  createGlassShojiDoorTexture,
-  createGardenBackdropTexture,
   createSpineTexture,
   createBookCoverTexture,
   createBookPageTexture,
@@ -25,6 +60,7 @@ import {
   createPencilCupTexture,
   createPlantPotTexture,
   createFireflyTexture,
+  configurePageTextures,
 } from './JapaneseTextures'
 import {
   SHELF_BOOKS_CONFIG,
@@ -52,6 +88,8 @@ export interface CustomRoomData {
   doorZ: number
   isLightOn: boolean
   group: THREE.Group
+  /** Room contents behind the door (hidden unless inside or the door is open) */
+  interior: THREE.Group
   doorGroup: THREE.Group
   doorLeft: THREE.Mesh
   doorRight: THREE.Mesh
@@ -60,6 +98,17 @@ export interface CustomRoomData {
   switchMesh: THREE.Mesh
   lights: RoomLight[]
   roomIndex: number
+  /** Axis-aligned furniture footprints (centre x/z and half-extents) for explore-mode collisions */
+  colliders: RoomCollider[]
+  /** Lamp / lantern paper that dims with the room's light switch */
+  glowMaterials: THREE.MeshStandardMaterial[]
+}
+
+export interface RoomCollider {
+  x: number
+  z: number
+  hx: number
+  hz: number
 }
 
 /**
@@ -138,8 +187,6 @@ const QUALITY_PRESETS: Record<QualityTier, QualityPreset> = {
 }
 
 const QUALITY_STORAGE_KEY = 'ire-quality-tier'
-// Material slot of a shelf book's spine (see buildFrontBookshelf)
-const SHELF_BOOK_SPINE_MATERIAL = 2
 const TIER_ORDER: QualityTier[] = ['low', 'medium', 'high']
 
 function readStoredQualityTier(): QualityTier | null {
@@ -268,6 +315,21 @@ export class JapaneseRoomService {
   private lampShadeMesh!: THREE.Mesh
   private heroBookGlow!: VirtualLight
   private textureLoader = new THREE.TextureLoader()
+
+  // Assets (PBR scans, hand models) + shared material palette for the redesigned rooms
+  private loadingManager = new THREE.LoadingManager()
+  private pbr!: PbrTextureLibrary
+  private palette!: RoomPalette
+  private readonly swayUniforms = { uTime: { value: 0 } }
+  private gardenMaterials: THREE.MeshBasicMaterial[] = []
+  private studyGardenGroup = new THREE.Group()
+  private hallwayLanternPaper!: THREE.MeshStandardMaterial
+  private studyPaperGlow!: THREE.MeshStandardMaterial
+  private lampBulbMaterial: THREE.MeshStandardMaterial | null = null
+  private envLevel = { value: 0.45 }
+  /** Resolves once textures and hand models are loaded (or failed / timed out) */
+  public readonly ready: Promise<void>
+  private resolveReady!: () => void
   private coverTextures = new Map<string, THREE.Texture>()
 
   // Tweenable light levels for the always-present study lights. The renderer sees
@@ -353,6 +415,8 @@ export class JapaneseRoomService {
   private shelfBooksMap = new Map<string, THREE.Mesh>()
   private interactiveShelfBookMesh: THREE.Mesh | null = null
   private hoveredBookMesh: THREE.Mesh | null = null
+  private shelfBookMaterial!: THREE.MeshStandardMaterial
+  private shelfBookHighlightMaterial!: THREE.MeshStandardMaterial
 
   // Interactive Table Props
   private lampTargetMesh!: THREE.Mesh
@@ -360,6 +424,25 @@ export class JapaneseRoomService {
   private cupTargetMesh!: THREE.Mesh
   private isDrinking = false
   private isOpenPending = false
+
+  // Curved open-book surfaces (driven from the logical stack meshes each frame)
+  private rightStack!: CurvedStack
+  private leftStack!: CurvedStack
+  private rightStackMesh!: THREE.Mesh
+  private leftStackMesh!: THREE.Mesh
+  private rightSheet!: CurvedSheet
+  private leftSheet!: CurvedSheet
+  /** 0 = closed flat block, 1 = fully open curved pages */
+  private pageOpenness = { value: 0 }
+  private lastSurfaceKey = ''
+
+  // Page-turning hands
+  private handRight: HandRig | null = null
+  private handLeft: HandRig | null = null
+  private curlRest = { fromH: 0, toH: 0 }
+  private leafCornerIndex = -1
+  private leafSpineNeighborIndex = -1
+  private leafUpNeighborIndex = -1
   private staticMeshesOptimized = false
 
   // Environmental Atmospheric Particles & Props
@@ -414,6 +497,14 @@ export class JapaneseRoomService {
     // the WebGL context exists, everything else can still adapt at runtime.
     this.applyQualityPreset(this.detectQualityTier())
 
+    this.ready = new Promise<void>((resolve) => {
+      this.resolveReady = resolve
+    })
+    this.loadingManager.onLoad = () => this.resolveReady()
+    this.loadingManager.onError = (url) => console.warn('[JapaneseRoomService] asset failed to load:', url)
+    // Never hold the loading screen hostage to a slow network
+    setTimeout(() => this.resolveReady(), 9000)
+
     // 2. High-Fidelity & Low-End Optimized WebGL Renderer
     this.renderer = new THREE.WebGLRenderer({
       canvas,
@@ -432,6 +523,22 @@ export class JapaneseRoomService {
     this.renderer.shadowMap.autoUpdate = false
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping
     this.renderer.toneMappingExposure = 1.15
+
+    // Image-based lighting: a pre-filtered room environment gives brass, ceramic, glass and varnished
+    // wood real reflections and soft bounce light on every tier (one small cubemap, built once).
+    const pmrem = new THREE.PMREMGenerator(this.renderer)
+    this.scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture
+    this.scene.environmentIntensity = this.envLevel.value
+    pmrem.dispose()
+
+    // Sharper book pages on capable GPUs (1536x2048), lean memory budget on low-end ones
+    if (this.qualityTier === 'low') configurePageTextures(1, 6)
+    else configurePageTextures(1.28, 8)
+
+    this.pbr = new PbrTextureLibrary(this.loadingManager, this.qualityTier === 'low', this.preset.anisotropy)
+    this.pbr.preload(['tatami', 'walnut', 'darkWalnut', 'cedar', 'plaster', 'hessian'])
+    this.palette = this.createPalette()
+    this.loadHands()
 
     // Start fetching the default book's curriculum right away (it is no longer bundled into the JS)
     void BookCatalogService.ensureBookLoaded(this.currentBookData.id)
@@ -458,7 +565,7 @@ export class JapaneseRoomService {
     this.updateSpatialLights(true)
     this.syncLightPools()
     // Compile every shader now (behind the loading screen) instead of mid-interaction
-    this.renderer.compile(this.scene, this.camera)
+    this.warmUpShaders()
     this.startLoop()
   }
 
@@ -545,6 +652,8 @@ export class JapaneseRoomService {
       this.currentDPR = Math.max(this.preset.minDPR, Math.min(this.currentDPR, previousDPR))
     }
     this.renderer.setPixelRatio(this.currentDPR)
+    // Manual tier changes keep the reading boost; automatic step-downs must not undo themselves
+    if (this.readingBoost && !keepCurrentDPR) this.setReadingResolution(true)
     this.applyShadowSettings()
     this.emitPerformanceStats()
   }
@@ -578,6 +687,12 @@ export class JapaneseRoomService {
 
   private monitorPerformance(rawDelta: number) {
     if (rawDelta <= 0.0001 || rawDelta > 0.5) return
+    // Background / hidden tabs get throttled frame rates: never mistake that for a slow GPU
+    if (typeof document !== 'undefined' && document.visibilityState !== 'visible') {
+      this.consecutiveSlowFrames = 0
+      this.slowFramesAtMinDPR = 0
+      return
+    }
 
     // Exponential moving average of frame time
     this.avgFrameDelta = this.avgFrameDelta * 0.94 + rawDelta * 0.06
@@ -640,6 +755,12 @@ export class JapaneseRoomService {
     }
     this.lastSpatialCheckZone = zone
     this.lastSpatialCheckX = px
+
+    // Occlusion by zone: interiors render only when you're inside or can see in through an open door
+    this.studyGardenGroup.visible = zone === 'study-room'
+    for (const room of this.customRooms.values()) {
+      room.interior.visible = zone === room.id || (zone !== 'study-room' && room.isDoorOpen)
+    }
 
     if (zone === 'study-room') {
       for (const spot of this.hallwaySpotLights) spot.active = false
@@ -757,6 +878,364 @@ export class JapaneseRoomService {
     }
   }
 
+  // =========================================================
+  // MATERIAL PALETTE, ASSETS & SHADER HELPERS
+  // =========================================================
+
+  private createPalette(): RoomPalette {
+    const pbr = this.pbr
+    const flat = (params: THREE.MeshStandardMaterialParameters) => new THREE.MeshStandardMaterial(params)
+    // Shoji / lantern paper glows a little, as if lit from behind; dims when the lights go out
+    this.studyPaperGlow = flat({
+      name: 'study-paper-glow',
+      color: '#f3ead6',
+      emissive: '#ffe4b8',
+      emissiveIntensity: 0.55,
+      roughness: 0.92,
+      side: THREE.DoubleSide,
+    })
+    return {
+      // The veneer scans are neutral grey / beige: tint them into warm walnut and a dark smoked oak
+      walnut: pbr.material('walnut', { color: '#c58457', roughness: 0.85, worldUV: true, name: 'walnut' }),
+      walnutDark: pbr.material('darkWalnut', { color: '#6e4b33', roughness: 0.9, worldUV: true, name: 'walnut-dark' }),
+      brass: flat({ color: '#c9a24a', metalness: 1, roughness: 0.32, name: 'brass' }),
+      ceramic: flat({ color: '#efe9df', roughness: 0.3, name: 'ceramic' }),
+      celadon: flat({ color: '#93b09c', roughness: 0.22, name: 'celadon' }),
+      paperGlow: this.studyPaperGlow,
+      paper: flat({ color: '#efe7d6', roughness: 0.92, name: 'paper' }),
+      stone: pbr.material('plaster', { noColorMap: true, color: '#8f8b83', repeat: [2, 2], roughness: 1, name: 'stone' }),
+      cushionIndigo: pbr.material('hessian', { noColorMap: true, color: '#2e3d63', repeat: [3, 3], name: 'cushion-indigo' }),
+      cushionRust: pbr.material('hessian', { noColorMap: true, color: '#7a3a26', repeat: [3, 3], name: 'cushion-rust' }),
+      linenGreen: pbr.material('hessian', { noColorMap: true, color: '#2c4636', repeat: [7, 4], normalScale: 0.6, name: 'linen-green' }),
+      leaf: flat({ color: '#4f7a3a', roughness: 0.7, name: 'leaf' }),
+      leafDark: flat({ color: '#2d5428', roughness: 0.75, name: 'leaf-dark' }),
+      blossom: flat({ color: '#f2b8c6', roughness: 0.6, name: 'blossom' }),
+      bark: pbr.material('darkWalnut', { color: '#5a3d2b', roughness: 1, worldUV: true, name: 'bark' }),
+      iron: flat({ color: '#2b2b2b', metalness: 0.6, roughness: 0.5, name: 'iron' }),
+      glass: flat({
+        color: '#dfe9ee',
+        transparent: true,
+        opacity: 0.1,
+        roughness: 0.04,
+        metalness: 0,
+        depthWrite: false,
+        name: 'glass',
+      }),
+    }
+  }
+
+  /** Cream plaster walls: the clay scan's relief under a light colour, tiled every ~1.2m. */
+  private plasterMaterial(width: number, height: number): THREE.MeshStandardMaterial {
+    return this.pbr.material('plaster', {
+      noColorMap: true,
+      color: '#efe6d6',
+      repeat: [width / 1.2, height / 1.2],
+      normalScale: 0.7,
+    })
+  }
+
+  private _worldPlaster: THREE.MeshStandardMaterial | null = null
+
+  /** Plaster for box walls of any size: UVs projected in metres (one tile per 1.2m). */
+  private get worldPlaster(): THREE.MeshStandardMaterial {
+    if (!this._worldPlaster) {
+      this._worldPlaster = this.pbr.material('plaster', {
+        noColorMap: true,
+        color: '#efe6d6',
+        normalScale: 0.7,
+        worldUV: true,
+        name: 'plaster-world',
+      })
+      this._worldPlaster.userData.worldUVTile = 1.2
+    }
+    return this._worldPlaster
+  }
+
+  private darkCedarCeiling(width: number, depth: number): THREE.MeshStandardMaterial {
+    return this.pbr.material('cedar', {
+      color: '#5e4130',
+      repeat: [width / 0.9, depth / 0.9],
+      rotation: Math.PI / 2,
+      roughness: 1,
+    })
+  }
+
+  private static readonly NOREN_COLORS = ['#2e3d63', '#2e3d63', '#2d4a36', '#6b2430', '#7a5a1f', '#2f4f5f', '#5a2d5f']
+
+  /** Split noren curtain over a corridor doorway, coloured per room so doors are easy to tell apart. */
+  private addDoorwayNoren(parent: THREE.Object3D, doorX: number, roomIndex: number) {
+    const colors = JapaneseRoomService.NOREN_COLORS
+    const cloth = this.pbr.material('hessian', {
+      noColorMap: true,
+      color: colors[roomIndex % colors.length],
+      repeat: [2, 1],
+      side: THREE.DoubleSide,
+      name: `noren-${roomIndex}-${doorX}`,
+    })
+    this.applySway(cloth, '(1.0 - uv.y) * (1.0 - uv.y)', 0.035, 1.3, 'z')
+    const noren = createNoren(this.palette, cloth, 1.5, 0.7)
+    noren.position.set(doorX, 2.86, 3.99)
+    parent.add(noren)
+  }
+
+  /** Themed chamber furniture with explore-mode colliders and contact shadows. */
+  private furnishRoom(
+    group: THREE.Group,
+    theme: CustomRoomData['theme'],
+    sx: number,
+    lights: RoomLight[],
+    colliders: RoomCollider[],
+    glowMaterials: THREE.MeshStandardMaterial[]
+  ) {
+    const p = this.palette
+    const decals: Array<[number, number, number, number]> = []
+    const place = <T extends THREE.Object3D>(obj: T, x: number, z: number, rotY = 0, y = obj.position.y): T => {
+      obj.position.set(x, y, z)
+      obj.rotation.y = rotY
+      group.add(obj)
+      return obj
+    }
+    const collide = (x: number, z: number, hx: number, hz: number) => colliders.push({ x, z, hx, hz })
+    const glow = (emissive: string, intensity: number) => {
+      const m = new THREE.MeshStandardMaterial({
+        name: `room-glow-${sx}-${glowMaterials.length}`,
+        color: '#f3ead6',
+        emissive,
+        emissiveIntensity: intensity,
+        roughness: 0.9,
+        side: THREE.DoubleSide,
+      })
+      m.userData.onIntensity = intensity
+      glowMaterials.push(m)
+      return m
+    }
+    const box = (w: number, h: number, d: number, mat: THREE.Material, x: number, y: number, z: number) => {
+      const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat)
+      m.position.set(x, y, z)
+      m.castShadow = true
+      m.receiveShadow = true
+      group.add(m)
+      return m
+    }
+
+    // Trim: baseboards and ceiling cornice on three walls
+    box(5.0, 0.09, 0.02, p.walnutDark, sx, 0.045, -0.29)
+    box(0.02, 0.09, 4.18, p.walnutDark, sx - 2.49, 0.045, 1.79)
+    box(0.02, 0.09, 4.18, p.walnutDark, sx + 2.49, 0.045, 1.79)
+    box(5.0, 0.07, 0.05, p.walnutDark, sx, 3.86, -0.275)
+    box(0.05, 0.07, 4.18, p.walnutDark, sx - 2.475, 3.86, 1.79)
+    box(0.05, 0.07, 4.18, p.walnutDark, sx + 2.475, 3.86, 1.79)
+
+    if (theme === 'library') {
+      place(createBookWall(p, 3.6, 2.6, 0.4), sx, 0.12)
+      collide(sx, -0.1, 1.9, 0.32)
+      place(createArmchair(p, p.cushionRust), sx + 1.25, 1.45, -0.45)
+      collide(sx + 1.25, 1.45, 0.5, 0.5)
+      place(createFloorLamp(p, glow('#ffd29a', 0.9)), sx + 1.95, 0.75)
+      collide(sx + 1.95, 0.75, 0.2, 0.2)
+      const rug = new THREE.Mesh(
+        new THREE.PlaneGeometry(1.7, 2.5),
+        new THREE.MeshStandardMaterial({ map: createRugTexture(), roughness: 1 })
+      )
+      rug.rotation.x = -Math.PI / 2
+      rug.position.set(sx - 0.3, 0.006, 1.9)
+      rug.receiveShadow = true
+      group.add(rug)
+      decals.push([sx, -0.05, 3.9, 0.8], [sx + 1.25, 1.45, 1.1, 1.0], [sx + 1.95, 0.75, 0.45, 0.45])
+    } else if (theme === 'meditation') {
+      place(createStoneLantern(p, glow('#ffc878', 1.0)), sx - 1.3, 1.2)
+      collide(sx - 1.3, 1.2, 0.32, 0.32)
+      const candle = createVirtualLight('point', '#fef08a', 0.8, 5, 2, new THREE.Vector3(sx - 1.3, 0.62, 1.2))
+      lights.push(candle)
+      this.pointFixtures.push(candle)
+
+      const pedestal = new THREE.Mesh(new THREE.CylinderGeometry(0.28, 0.32, 0.7, 28), p.walnut)
+      pedestal.castShadow = true
+      place(pedestal, sx + 1.4, 0.8, 0, 0.35)
+      place(createBonsai(p, 1.5), sx + 1.4, 0.8, 0.4, 0.7)
+      collide(sx + 1.4, 0.8, 0.38, 0.38)
+
+      place(createChabudai(p), sx, 1.55)
+      collide(sx, 1.55, 0.48, 0.48)
+      place(createZabuton(p.cushionIndigo), sx - 0.75, 1.55, 0.1)
+      place(createZabuton(p.cushionIndigo), sx + 0.75, 1.55, -0.1)
+
+      // Picture window onto a raked karesansui garden
+      box(3.1, 1.5, 0.06, p.walnutDark, sx, 1.55, -0.27)
+      const sand = new THREE.Mesh(new THREE.PlaneGeometry(2.92, 1.32), this.gardenLayerMaterial(createSandGardenTexture(), false))
+      sand.position.set(sx, 1.55, -0.235)
+      group.add(sand)
+      box(0.04, 1.32, 0.03, p.walnutDark, sx - 0.97, 1.55, -0.225)
+      box(0.04, 1.32, 0.03, p.walnutDark, sx + 0.97, 1.55, -0.225)
+      box(3.2, 0.04, 0.14, p.walnutDark, sx, 0.79, -0.22)
+      decals.push([sx - 1.3, 1.2, 0.75, 0.75], [sx + 1.4, 0.8, 0.85, 0.85], [sx, 1.55, 1.3, 1.3])
+    } else if (theme === 'gallery') {
+      place(createFramedPainting(p, 'mountains', 0.8, 1.0), sx - 1.1, -0.3, 0, 1.65)
+      place(createFramedPainting(p, 'enso', 0.8, 1.0), sx + 1.1, -0.3, 0, 1.65)
+      place(createFramedPainting(p, 'bamboo', 0.7, 0.95), sx - 2.5, 1.8, Math.PI / 2, 1.65)
+      place(createFramedPainting(p, 'wave', 0.7, 0.95), sx + 2.5, 1.8, -Math.PI / 2, 1.65)
+      const easelCanvas = new THREE.MeshStandardMaterial({ map: createPaintingTexture('wave'), roughness: 0.9 })
+      place(createEasel(p, easelCanvas), sx, 1.25)
+      collide(sx, 1.25, 0.55, 0.45)
+      place(createBench(p, 1.6), sx + 1.5, 2.6, Math.PI / 2)
+      collide(sx + 1.5, 2.6, 0.25, 0.85)
+      decals.push([sx, 1.25, 1.0, 0.8], [sx + 1.5, 2.6, 0.6, 1.8])
+    } else {
+      // Observatory & study: writing desk, chair, globe, telescope, star chart
+      place(createDesk(p, { width: 1.6, depth: 0.75, drawers: 2, mat: false }), sx, 0.35)
+      collide(sx, 0.35, 0.85, 0.42)
+      place(createChair(p), sx, 1.0)
+      collide(sx, 1.0, 0.3, 0.28)
+      place(createGlobe(p, new THREE.MeshStandardMaterial({ map: createGlobeTexture(), roughness: 0.45 })), sx - 1.6, 1.5)
+      collide(sx - 1.6, 1.5, 0.35, 0.35)
+      place(createTelescope(p), sx + 1.7, 1.7)
+      collide(sx + 1.7, 1.7, 0.3, 0.3)
+      box(1.7, 1.15, 0.04, p.walnutDark, sx, 1.85, -0.28)
+      const chartTex = createWallMapTexture()
+      const chart = new THREE.Mesh(
+        new THREE.PlaneGeometry(1.6, 1.05),
+        new THREE.MeshStandardMaterial({ map: chartTex, emissiveMap: chartTex, emissive: '#ffffff', emissiveIntensity: 0.15, roughness: 0.95 })
+      )
+      chart.position.set(sx, 1.85, -0.257)
+      group.add(chart)
+      decals.push([sx, 0.35, 1.9, 1.1], [sx, 1.0, 0.75, 0.7], [sx - 1.6, 1.5, 0.8, 0.8], [sx + 1.7, 1.7, 0.7, 0.7])
+    }
+
+    this.buildShadowDecals(group, decals)
+  }
+
+  /**
+   * renderer.compile() skips hidden objects, so briefly reveal everything (hero book, room interiors,
+   * hands) and compile every shader up front instead of stuttering the first time each appears.
+   */
+  private warmUpShaders() {
+    const hidden: THREE.Object3D[] = []
+    this.scene.traverse((obj) => {
+      if (!obj.visible) {
+        hidden.push(obj)
+        obj.visible = true
+      }
+    })
+    this.renderer.compile(this.scene, this.camera)
+    for (const obj of hidden) obj.visible = false
+  }
+
+  private loadHands() {
+    const skin = new THREE.MeshStandardMaterial({ color: '#d39b78', roughness: 0.55, name: 'hand-skin' })
+    const sleeve = this.pbr.material('hessian', { noColorMap: true, color: '#2e3d63', repeat: [2, 3], name: 'hand-sleeve' })
+    void HandRig.load('/models/hands/hand_right.glb', skin, sleeve, this.loadingManager).then((rig) => {
+      if (!rig) return
+      this.handRight = rig
+      this.heroBookGroup.add(rig.root)
+      this.warmUpShaders()
+    })
+    void HandRig.load('/models/hands/hand_left.glb', skin, sleeve, this.loadingManager).then((rig) => {
+      if (!rig) return
+      this.handLeft = rig
+      this.heroBookGroup.add(rig.root)
+      this.warmUpShaders()
+    })
+  }
+
+  /**
+   * Gentle wind sway in the vertex shader (no CPU cost): bamboo, noren curtains. `weight` is a GLSL
+   * expression of `uv` giving how strongly each vertex moves (0 = pinned).
+   */
+  private applySway(material: THREE.Material, weight: string, amplitude: number, speed: number, axis: 'x' | 'z') {
+    const uniforms = this.swayUniforms
+    material.onBeforeCompile = (shader) => {
+      shader.uniforms.uTime = uniforms.uTime
+      shader.vertexShader = 'uniform float uTime;\n' + shader.vertexShader.replace(
+        '#include <begin_vertex>',
+        `#include <begin_vertex>
+        float swayW = ${weight};
+        float swayPhase = position.x * 1.7 + position.z * 1.3;
+        transformed.${axis} += swayW * ${amplitude.toFixed(4)} * (sin(uTime * ${speed.toFixed(3)} + swayPhase) + 0.35 * sin(uTime * ${(speed * 2.3).toFixed(3)} + swayPhase * 2.1));`
+      )
+    }
+    material.customProgramCacheKey = () => `sway-${weight}-${amplitude}-${speed}-${axis}`
+  }
+
+  private gardenLayerMaterial(map: THREE.Texture, transparentCutout: boolean): THREE.MeshBasicMaterial {
+    const mat = new THREE.MeshBasicMaterial({
+      map,
+      alphaTest: transparentCutout ? 0.45 : 0,
+      side: THREE.FrontSide,
+      fog: false,
+    })
+    this.gardenMaterials.push(mat)
+    return mat
+  }
+
+  /**
+   * Three parallax planes (sky/mountains, maples, swaying bamboo) behind a window. `origin` is the
+   * window centre, `outward` the unit direction away from the room.
+   */
+  private buildGardenLayers(
+    parent: THREE.Object3D,
+    origin: THREE.Vector3,
+    outward: THREE.Vector3,
+    width: number,
+    clampAlong?: [number, number]
+  ) {
+    const yaw = Math.atan2(-outward.x, -outward.z) // plane faces back into the room
+    // Horizontal axis of the window wall (world X or Z)
+    const alongZ = Math.abs(outward.x) > Math.abs(outward.z)
+    const originAlong = alongZ ? origin.z : origin.x
+    const layers: Array<{ tex: THREE.Texture; dist: number; w: number; h: number; y: number; cutout: boolean; sway?: boolean; repeat: number }> = [
+      // Widths cover the steep viewing angles from the far end of the room through the window
+      { tex: createGardenFarLayer(), dist: 4.2, w: width * 3.6 + 10, h: 8, y: 2.6, cutout: false, repeat: Math.max(2, Math.round((width * 3.6 + 10) / 12)) },
+      { tex: createGardenMidLayer(), dist: 2.4, w: width * 2.6 + 6, h: 4.2, y: 2.0, cutout: true, repeat: Math.max(2, Math.round((width * 2.6 + 6) / 9)) },
+      { tex: createGardenNearLayer(), dist: 0.9, w: width * 1.9 + 2, h: 6, y: 2.9, cutout: true, sway: true, repeat: Math.max(2, Math.round((width * 1.9 + 2) / 5)) },
+    ]
+    for (const layer of layers) {
+      layer.tex.wrapS = THREE.RepeatWrapping
+      layer.tex.repeat.set(layer.repeat, 1)
+      const mat = this.gardenLayerMaterial(layer.tex, layer.cutout)
+      if (layer.sway) this.applySway(mat, 'uv.y * uv.y', 0.06, 0.9, 'x')
+      let lo = originAlong - layer.w / 2
+      let hi = originAlong + layer.w / 2
+      if (clampAlong) {
+        lo = Math.max(lo, clampAlong[0])
+        hi = Math.min(hi, clampAlong[1])
+      }
+      const w = hi - lo
+      layer.tex.repeat.x = Math.max(1, Math.round((layer.repeat * w) / layer.w))
+      const mesh = new THREE.Mesh(new THREE.PlaneGeometry(w, layer.h, layer.sway ? 24 : 1, layer.sway ? 6 : 1), mat)
+      mesh.position.copy(origin).addScaledVector(outward, layer.dist)
+      if (alongZ) mesh.position.z = (lo + hi) / 2
+      else mesh.position.x = (lo + hi) / 2
+      mesh.position.y = layer.y
+      mesh.rotation.y = yaw
+      parent.add(mesh)
+    }
+  }
+
+  /** One merged, transparent mesh of soft contact-shadow blobs on a floor (or desk) plane. */
+  private buildShadowDecals(parent: THREE.Object3D, decals: Array<[x: number, z: number, w: number, d: number]>, y = 0.004, opacity = 0.55) {
+    if (decals.length === 0) return
+    const geometries = decals.map(([x, z, w, d]) => {
+      const g = new THREE.PlaneGeometry(w, d)
+      g.rotateX(-Math.PI / 2)
+      g.translate(x, y, z)
+      return g
+    })
+    const merged = mergeGeometries(geometries, false)
+    geometries.forEach((g) => g.dispose())
+    if (!merged) return
+    const mat = new THREE.MeshBasicMaterial({
+      map: createSoftShadowTexture(),
+      transparent: true,
+      opacity,
+      depthWrite: false,
+      polygonOffset: true,
+      polygonOffsetFactor: -2,
+    })
+    const mesh = new THREE.Mesh(merged, mat)
+    mesh.renderOrder = 1
+    parent.add(mesh)
+  }
+
   private setupLighting() {
     // Warm atmospheric ambient fill
     this.ambientLight = new THREE.AmbientLight(0xffeed8, 0.75)
@@ -816,78 +1295,51 @@ export class JapaneseRoomService {
   }
 
   private buildRoomArchitecture() {
-    // 1. Oak Wood Planks & Tatami Floor (Width: 6.0m from X: -3.0 to 3.0, Depth: 6.98m from Z: -3.1 to 3.88)
-    const tatamiTexture = createTatamiTexture()
-    tatamiTexture.wrapS = THREE.RepeatWrapping
-    tatamiTexture.wrapT = THREE.RepeatWrapping
-    tatamiTexture.repeat.set(3, 4)
-    tatamiTexture.anisotropy = this.preset.anisotropy
+    const p = this.palette
 
-    const floorGeo = new THREE.PlaneGeometry(6.0, 6.98)
-    const floorMat = new THREE.MeshStandardMaterial({
-      map: tatamiTexture,
-      roughness: 0.85,
-      metalness: 0.05,
-    })
-    const floor = new THREE.Mesh(floorGeo, floorMat)
+    // 1. Tatami floor (one texture tile = two 0.9 x 1.8m mats)
+    const floorMat = this.pbr.material('tatami', { repeat: [6.0 / 1.8, 6.98 / 1.8], roughness: 0.95 })
+    const floor = new THREE.Mesh(new THREE.PlaneGeometry(6.0, 6.98), floorMat)
     floor.rotation.x = -Math.PI / 2
     floor.position.set(0, 0.001, 0.39)
     floor.receiveShadow = true
     this.scene.add(floor)
 
-    // 2. Back Wall (Modern Japandi Plaster backdrop behind Front Bookshelf at Z = -3.1)
-    const wallTexture = createModernWallTexture()
-    const wallMat = new THREE.MeshStandardMaterial({ map: wallTexture, roughness: 0.8 })
-
-    const backWallGeo = new THREE.PlaneGeometry(6.0, 3.9)
-    const backWall = new THREE.Mesh(backWallGeo, wallMat)
+    // 2. Back wall (behind the bookshelf) and right wall: cream clay plaster
+    const backWall = new THREE.Mesh(new THREE.PlaneGeometry(6.0, 3.9), this.plasterMaterial(6.0, 3.9))
     backWall.position.set(0, 1.95, -3.1)
     backWall.receiveShadow = true
     this.scene.add(backWall)
 
-    const darkWood = createWoodTexture('#5a3720', '#2e1a0d')
-    const frameMat = new THREE.MeshStandardMaterial({ map: darkWood, roughness: 0.65 })
-
-    // Horizontal architectural top beam along back wall
-    const topBeamGeo = new THREE.BoxGeometry(6.0, 0.4, 0.1)
-    const topBeam = new THREE.Mesh(topBeamGeo, frameMat)
-    topBeam.position.set(0, 3.7, -3.05)
-    this.scene.add(topBeam)
-
-    // 3. Left Wall: Japanese Shoji Glass Windows overlooking peaceful bamboo garden
-    const glassDoorTex = createGlassShojiDoorTexture()
-    glassDoorTex.wrapS = THREE.RepeatWrapping
-    glassDoorTex.repeat.set(2, 1)
-
-    const glassDoorGeo = new THREE.PlaneGeometry(6.98, 3.9)
-    const glassDoorMat = new THREE.MeshStandardMaterial({
-      map: glassDoorTex,
-      transparent: true,
-      opacity: 0.9,
-      roughness: 0.15,
-      metalness: 0.1,
-    })
-    const glassDoor = new THREE.Mesh(glassDoorGeo, glassDoorMat)
-    glassDoor.position.set(-3.0, 1.95, 0.39)
-    glassDoor.rotation.y = Math.PI / 2
-    this.scene.add(glassDoor)
-
-    // Scenic Garden Backdrop outside left window
-    const gardenTex = createGardenBackdropTexture()
-    const gardenGeo = new THREE.PlaneGeometry(9.0, 4.8)
-    const gardenMat = new THREE.MeshBasicMaterial({ map: gardenTex })
-    this.gardenBackdropMesh = new THREE.Mesh(gardenGeo, gardenMat)
-    this.gardenBackdropMesh.position.set(-3.8, 2.0, 0.39)
-    this.gardenBackdropMesh.rotation.y = Math.PI / 2
-    this.scene.add(this.gardenBackdropMesh)
-
-    // 4. Right Wall: Clean Japandi Partition Wall shared with Library Chamber (at X = 3.0)
-    const rightWallGeo = new THREE.PlaneGeometry(6.98, 3.9)
-    const rightWall = new THREE.Mesh(rightWallGeo, wallMat)
+    const rightWall = new THREE.Mesh(new THREE.PlaneGeometry(6.98, 3.9), this.plasterMaterial(6.98, 3.9))
     rightWall.position.set(3.0, 1.95, 0.39)
     rightWall.rotation.y = -Math.PI / 2
     rightWall.receiveShadow = true
     this.scene.add(rightWall)
+
+    // 3. Left wall: yukimi-shoji screens with a clear band looking onto the garden
+    const shoji = createShojiWall(p, 6.98, { transom: this.plasterMaterial(6.98, 1.0) })
+    shoji.rotation.y = Math.PI / 2
+    shoji.position.set(-3.0, 0, 0.39)
+    this.scene.add(shoji)
+
+    // Parallax garden: sky + mountains, maples, swaying bamboo
+    // Clamped so the layers never reach the corridor (z > 3.85); shown only from inside the study
+    // because the meditation dojo occupies the space beyond this window.
+    this.scene.add(this.studyGardenGroup)
+    this.buildGardenLayers(this.studyGardenGroup, new THREE.Vector3(-3.0, 0, 0.39), new THREE.Vector3(-1, 0, 0), 6.98, [-30, 3.85])
+
+    // 4. Tokonoma alcove on the right wall holding the calligraphy scroll, ikebana and a small andon
+    const tokonoma = createTokonoma(p, 1.6, 0.5)
+    tokonoma.rotation.y = -Math.PI / 2
+    tokonoma.position.set(3.0, 0, 0.4)
+    const ikebana = createIkebana(p)
+    ikebana.position.set(0.45, 0.14, 0.24)
+    tokonoma.add(ikebana)
+    const alcoveAndon = createSmallAndon(p)
+    alcoveAndon.position.set(-0.5, 0.14, 0.26)
+    tokonoma.add(alcoveAndon)
+    this.scene.add(tokonoma)
 
     // Hanging Japanese Calligraphy Scroll on Right Wall
     const scrollWoodMat = new THREE.MeshStandardMaterial({ color: '#27160c' })
@@ -926,114 +1378,61 @@ export class JapaneseRoomService {
     scrollMesh.rotation.y = -Math.PI / 2
     this.scene.add(scrollMesh)
 
-    // 5. Ceiling Wooden Beams across the Study Room
-    const beamMat = new THREE.MeshStandardMaterial({ map: darkWood, roughness: 0.7 })
-    const beamGeo = new THREE.BoxGeometry(0.18, 0.16, 6.98)
+    // 5. Ceiling: dark cedar boards with walnut beams, plus perimeter trim and baseboards
+    const ceilingMat = this.pbr.material('cedar', {
+      color: '#6b4a36',
+      repeat: [6.0 / 0.9, 6.98 / 0.9],
+      rotation: Math.PI / 2,
+      roughness: 1,
+    })
+    const ceiling = new THREE.Mesh(new THREE.PlaneGeometry(6.0, 6.98), ceilingMat)
+    ceiling.rotation.x = Math.PI / 2
+    ceiling.position.set(0, 3.9, 0.39)
+    this.scene.add(ceiling)
+
     for (let x = -2.0; x <= 2.0; x += 1.0) {
-      const beam = new THREE.Mesh(beamGeo, beamMat)
+      const beam = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.16, 6.98), p.walnutDark)
       beam.position.set(x, 3.82, 0.39)
       beam.castShadow = true
       this.scene.add(beam)
     }
+
+    const trim = (w: number, h: number, d: number, x: number, y: number, z: number) => {
+      const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), p.walnutDark)
+      m.position.set(x, y, z)
+      m.receiveShadow = true
+      this.scene.add(m)
+    }
+    trim(6.0, 0.09, 0.02, 0, 0.045, -3.09) // habaki baseboards
+    trim(0.02, 0.09, 6.98, 2.99, 0.045, 0.39)
+    trim(6.0, 0.07, 0.05, 0, 3.86, -3.075) // mawaribuchi ceiling trim
+    trim(0.05, 0.07, 6.98, 2.975, 3.86, 0.39)
+    trim(6.0, 0.4, 0.1, 0, 3.7, -3.05) // top beam over the bookshelf wall
+
+    // Soft contact shadows grounding the furniture
+    this.buildShadowDecals(this.scene, [
+      [0, -0.5, 2.7, 1.5], // desk
+      [0, 0.28, 0.8, 0.75], // chair
+      [0, -2.5, 3.8, 0.7], // bookshelf
+      [2.75, 0.4, 0.7, 1.8], // tokonoma
+    ])
   }
 
   private buildJapaneseDesk() {
-    const darkWood = createWoodTexture('#6b4428', '#3a2213')
-    const woodMat = new THREE.MeshStandardMaterial({
-      map: darkWood,
-      roughness: 0.45,
-      metalness: 0.08,
-    })
+    // Solid walnut writing desk (top surface at y = 0.795) and Ming-style yoke-back chair
+    const desk = createDesk(this.palette)
+    desk.position.set(0, 0, -0.5)
+    this.scene.add(desk)
 
-    // Standing Study Desk (Storyboard Frame 1, 4, 8, 9) placed directly in front of the center window
-    // Top surface at y = 0.795, centered at x = 0, z = -0.5
-    const tableTopGeo = new THREE.BoxGeometry(2.3, 0.07, 1.1)
-    const tableTop = new THREE.Mesh(tableTopGeo, woodMat)
-    tableTop.position.set(0, 0.76, -0.5)
-    tableTop.castShadow = true
-    tableTop.receiveShadow = true
-    this.scene.add(tableTop)
+    const chair = createChair(this.palette)
+    chair.position.set(0, 0, 0.28)
+    this.scene.add(chair)
 
-    // 4 Wooden Desk Legs reaching the floor (y = 0 to 0.76)
-    const legGeo = new THREE.BoxGeometry(0.075, 0.76, 0.075)
-    const legPositions: [number, number, number][] = [
-      [-1.04, 0.38, -0.95],
-      [1.04, 0.38, -0.95],
-      [-1.04, 0.38, -0.05],
-      [1.04, 0.38, -0.05],
-    ]
-    legPositions.forEach(([x, y, z]) => {
-      const leg = new THREE.Mesh(legGeo, woodMat)
-      leg.position.set(x, y, z)
-      leg.castShadow = true
-      leg.receiveShadow = true
-      this.scene.add(leg)
-    })
-
-    // Under-desk Drawer Apron
-    const apronGeo = new THREE.BoxGeometry(2.14, 0.12, 0.96)
-    const apron = new THREE.Mesh(apronGeo, woodMat)
-    apron.position.set(0, 0.67, -0.5)
-    apron.castShadow = true
-    this.scene.add(apron)
-
-    // Drawer Brass Knobs
-    const knobGeo = new THREE.CylinderGeometry(0.015, 0.012, 0.02, 16)
-    const knobMat = new THREE.MeshStandardMaterial({ color: '#d4af37', metalness: 0.8, roughness: 0.25 })
-    const leftKnob = new THREE.Mesh(knobGeo, knobMat)
-    leftKnob.rotation.x = Math.PI / 2
-    leftKnob.position.set(-0.5, 0.67, -0.01)
-    this.scene.add(leftKnob)
-
-    const rightKnob = new THREE.Mesh(knobGeo, knobMat)
-    rightKnob.rotation.x = Math.PI / 2
-    rightKnob.position.set(0.5, 0.67, -0.01)
-    this.scene.add(rightKnob)
-
-    // Study Chair (Dark Wood Chair tucked at desk - Frame 1, 8, 9)
-    const chairGroup = new THREE.Group()
-    chairGroup.position.set(0, 0, 0.28)
-
-    const chairWoodMat = new THREE.MeshStandardMaterial({ color: '#24140b', roughness: 0.5 })
-    // Chair 4 Legs
-    const chairLegGeo = new THREE.CylinderGeometry(0.022, 0.018, 0.44, 16)
-    const cLegPos: [number, number, number][] = [
-      [-0.24, 0.22, -0.22],
-      [0.24, 0.22, -0.22],
-      [0.24, 0.22, 0.22],
-      [-0.24, 0.22, 0.22],
-    ]
-    cLegPos.forEach(([cx, cy, cz]) => {
-      const cLeg = new THREE.Mesh(chairLegGeo, chairWoodMat)
-      cLeg.position.set(cx, cy, cz)
-      cLeg.castShadow = true
-      chairGroup.add(cLeg)
-    })
-
-    // Chair Seat
-    const seatGeo = new THREE.BoxGeometry(0.56, 0.045, 0.52)
-    const seat = new THREE.Mesh(seatGeo, chairWoodMat)
-    seat.position.set(0, 0.44, 0)
-    seat.castShadow = true
-    chairGroup.add(seat)
-
-    // Chair Backrest Spindles (vertical rods reaching up to 0.82)
-    const spindleGeo = new THREE.CylinderGeometry(0.012, 0.012, 0.36, 12)
-    for (let sx = -0.18; sx <= 0.18; sx += 0.09) {
-      const spindle = new THREE.Mesh(spindleGeo, chairWoodMat)
-      spindle.position.set(sx, 0.64, 0.23)
-      spindle.castShadow = true
-      chairGroup.add(spindle)
-    }
-
-    // Chair Top Curved Crest Rail
-    const crestGeo = new THREE.BoxGeometry(0.58, 0.05, 0.04)
-    const crest = new THREE.Mesh(crestGeo, chairWoodMat)
-    crest.position.set(0, 0.82, 0.23)
-    crest.castShadow = true
-    chairGroup.add(crest)
-
-    this.scene.add(chairGroup)
+    // Kyusu teapot on a tray beside the tea cup
+    const teaSet = createTeaSet(this.palette)
+    teaSet.position.set(1.0, 0.795, -0.45)
+    teaSet.rotation.y = -0.35
+    this.scene.add(teaSet)
 
     // Shokendai Wooden Reading Stand
     this.buildBookStand()
@@ -1109,6 +1508,15 @@ export class JapaneseRoomService {
     this.lampShadeMesh.rotation.x = Math.PI * 0.15
     this.lampShadeMesh.castShadow = true
     lampGroup.add(this.lampShadeMesh)
+
+    // Glowing bulb inside the shade (emissive only; the SpotLight does the lighting)
+    const bulb = new THREE.Mesh(
+      new THREE.SphereGeometry(0.026, 16, 12),
+      new THREE.MeshStandardMaterial({ color: '#fff4dc', emissive: '#ffd7a0', emissiveIntensity: 2.2, name: 'lamp-bulb' })
+    )
+    bulb.position.set(0.105, 0.395, 0.07)
+    lampGroup.add(bulb)
+    this.lampBulbMaterial = bulb.material as THREE.MeshStandardMaterial
 
     // Lamp Hit Box for clicking/hovering
     const lampHitGeo = new THREE.CylinderGeometry(0.24, 0.24, 0.6, 16)
@@ -1280,17 +1688,8 @@ export class JapaneseRoomService {
     const standGroup = new THREE.Group()
     standGroup.position.set(0, 0.795, -0.48) // Rests securely on study desk surface
 
-    const standDarkWood = createWoodTexture('#5e3b24', '#33200f')
-    const standWoodMat = new THREE.MeshStandardMaterial({
-      map: standDarkWood,
-      roughness: 0.45,
-      metalness: 0.08,
-    })
-    const brassMat = new THREE.MeshStandardMaterial({
-      color: '#d4af37',
-      metalness: 0.85,
-      roughness: 0.25,
-    })
+    const standWoodMat = this.palette.walnut
+    const brassMat = this.palette.brass
 
     // 1. Base Plate (Horizontal board on desk)
     const baseGeo = new THREE.BoxGeometry(0.82, 0.024, 0.40)
@@ -1330,10 +1729,7 @@ export class JapaneseRoomService {
 
     // Slatted Japanese Kumiko horizontal inlays on backrest
     const slatGeo = new THREE.BoxGeometry(0.74, 0.006, 0.015)
-    const slatWoodMat = new THREE.MeshStandardMaterial({
-      color: '#452718',
-      roughness: 0.5,
-    })
+    const slatWoodMat = this.palette.walnutDark
     for (let sz = -0.40; sz <= -0.06; sz += 0.07) {
       const slatMesh = new THREE.Mesh(slatGeo, slatWoodMat)
       slatMesh.position.set(0, 0.002, sz)
@@ -1394,11 +1790,7 @@ export class JapaneseRoomService {
 
   // Feature: Data-Driven Bookshelf with Sections: Class 1, 2, 3, 4, 5 (Right Wall - Frame 1, 2)
   private buildFrontBookshelf() {
-    const woodTexture = createWoodTexture('#6a4429', '#38220f')
-    const shelfMat = new THREE.MeshStandardMaterial({
-      map: woodTexture,
-      roughness: 0.6,
-    })
+    const shelfMat = this.palette.walnut
 
     // Bookshelf Group situated directly in front of the table facing the viewer
     const shelfGroup = new THREE.Group()
@@ -1429,7 +1821,7 @@ export class JapaneseRoomService {
 
     // Back Panel
     const backPanelGeo = new THREE.BoxGeometry(shelfWidth, shelfHeight, 0.02)
-    const backPanel = new THREE.Mesh(backPanelGeo, shelfMat)
+    const backPanel = new THREE.Mesh(backPanelGeo, this.palette.walnutDark)
     backPanel.position.set(0, shelfHeight / 2, -shelfDepth / 2 + 0.01)
     shelfGroup.add(backPanel)
 
@@ -1448,6 +1840,15 @@ export class JapaneseRoomService {
       plank.receiveShadow = true
       shelfGroup.add(plank)
     })
+
+    // Crown moulding and recessed plinth so the case reads as furniture, not a box
+    const crown = new THREE.Mesh(new THREE.BoxGeometry(shelfWidth + 0.14, 0.07, shelfDepth + 0.06), this.palette.walnutDark)
+    crown.position.set(0, shelfHeight + 0.035, 0.01)
+    crown.castShadow = true
+    shelfGroup.add(crown)
+    const plinth = new THREE.Mesh(new THREE.BoxGeometry(shelfWidth - 0.04, 0.09, shelfDepth - 0.04), this.palette.walnutDark)
+    plinth.position.set(0, 0.045, -0.01)
+    shelfGroup.add(plinth)
 
     // Class Section Brass Plaques (4 Tiers)
     const classSectionDefs = [
@@ -1493,14 +1894,32 @@ export class JapaneseRoomService {
     const shelfTierStacks = getShelfTierStacks()
 
     // Realistic Wooden / Brass Bookend Material
-    const bookendMat = new THREE.MeshStandardMaterial({
-      color: '#451a03',
-      roughness: 0.4,
-      metalness: 0.35,
-    })
+    const bookendMat = this.palette.walnutDark
 
-    // Page-edge paper is identical for every book, so share one material
-    const shelfPaperMat = new THREE.MeshStandardMaterial({ color: '#f5f5f4', roughness: 0.8 })
+    // Every shelf book shares ONE material: spines are packed into a texture atlas and the cover /
+    // page-edge colours ride in vertex colours, so each book is a single draw call (was 6).
+    const atlasCols = 16
+    const cellW = 128
+    const cellH = 512
+    const atlasCanvas = document.createElement('canvas')
+    atlasCanvas.width = atlasCols * cellW
+    atlasCanvas.height = cellH * 4
+    const atlasCtx = atlasCanvas.getContext('2d')!
+    // Last cell stays plain white: non-spine faces sample it and take their colour from vertex colours
+    atlasCtx.fillStyle = '#ffffff'
+    atlasCtx.fillRect(atlasCanvas.width - cellW, atlasCanvas.height - cellH, cellW, cellH)
+    const whiteU = 1 - 0.5 / atlasCols
+    const whiteV = 0.5 / 4
+    let atlasSlot = 0
+    const atlasTexture = new THREE.CanvasTexture(atlasCanvas)
+    atlasTexture.colorSpace = THREE.SRGBColorSpace
+    atlasTexture.anisotropy = this.preset.anisotropy
+    this.shelfBookMaterial = new THREE.MeshStandardMaterial({ map: atlasTexture, vertexColors: true, roughness: 0.55, name: 'shelf-books' })
+    this.shelfBookHighlightMaterial = this.shelfBookMaterial.clone()
+    this.shelfBookHighlightMaterial.name = 'shelf-books-highlight'
+    this.shelfBookHighlightMaterial.emissive.setHex(0x0e2f56)
+    this.shelfBookHighlightMaterial.emissiveIntensity = 0.35
+    const paperColor = new THREE.Color('#f5f5f4')
 
     // Construct tightly packed rows of books without artificial gaps!
     shelfTierStacks.forEach(({ tier, bay, books }) => {
@@ -1531,35 +1950,33 @@ export class JapaneseRoomService {
           bookItem.coverColor
         )
 
-        let shelfCoverMat: THREE.Material
-        if (bookItem.coverImage) {
-          shelfCoverMat = new THREE.MeshStandardMaterial({
-            map: this.loadCoverTexture(bookItem.coverImage),
-            roughness: 0.5,
-          })
-        } else {
-          shelfCoverMat = new THREE.MeshStandardMaterial({
-            color: bookItem.coverColor,
-            roughness: 0.6,
-          })
-        }
+        // Pack this spine into the atlas
+        // 63 usable cells (the last one is the white swatch); wrap defensively if the shelf ever grows
+        const slot = atlasSlot++ % (atlasCols * 4 - 1)
+        const col = slot % atlasCols
+        const row = Math.floor(slot / atlasCols)
+        atlasCtx.drawImage(spineTex.image as CanvasImageSource, col * cellW, row * cellH, cellW, cellH)
+        const u0 = col / atlasCols
+        const v0 = 1 - (row + 1) / 4
 
-        const bookMatArray = [
-          shelfCoverMat, // covers (±X)
-          shelfPaperMat, // page edges (±Y)
-          new THREE.MeshStandardMaterial({ map: spineTex, roughness: 0.45 }), // +Z (Spine facing camera!)
-          new THREE.MeshStandardMaterial({ color: bookItem.coverColor, roughness: 0.6 }), // -Z
-        ]
-
-        // BoxGeometry face order is +X,-X,+Y,-Y,+Z,-Z (6 indices each). Re-group so faces sharing a
-        // material draw together: 4 draw calls per book instead of 6.
+        // BoxGeometry: 4 vertices per face in order +X,-X,+Y,-Y,+Z (spine),-Z
         const bGeo = new THREE.BoxGeometry(bookItem.thickness, bookItem.height, bDepth)
-        bGeo.clearGroups()
-        bGeo.addGroup(0, 12, 0)
-        bGeo.addGroup(12, 12, 1)
-        bGeo.addGroup(24, 6, 2)
-        bGeo.addGroup(30, 6, 3)
-        const bMesh = new THREE.Mesh(bGeo, bookMatArray)
+        const uvAttr = bGeo.getAttribute('uv') as THREE.BufferAttribute
+        const colors = new Float32Array(24 * 3)
+        const coverColor = new THREE.Color(bookItem.coverColor)
+        for (let v = 0; v < 24; v++) {
+          const face = Math.floor(v / 4)
+          if (face === 4) {
+            uvAttr.setXY(v, u0 + uvAttr.getX(v) / atlasCols, v0 + uvAttr.getY(v) / 4)
+            colors.set([1, 1, 1], v * 3)
+          } else {
+            uvAttr.setXY(v, whiteU, whiteV)
+            const c = face === 2 || face === 3 ? paperColor : coverColor
+            colors.set([c.r, c.g, c.b], v * 3)
+          }
+        }
+        bGeo.setAttribute('color', new THREE.BufferAttribute(colors, 3))
+        const bMesh = new THREE.Mesh(bGeo, this.shelfBookMaterial)
         bMesh.position.set(bookX, tierH + bookItem.height / 2 + 0.0225, 0.01)
         bMesh.castShadow = true
 
@@ -1596,6 +2013,45 @@ export class JapaneseRoomService {
       rightBookend.position.set(curX + 0.014, tierH + 0.12 + 0.0225, 0.01)
       rightBookend.castShadow = true
       shelfGroup.add(rightBookend)
+
+      // Decor in the free space beside the row (outer side of each bay)
+      const rowStart = bayCenter - totalRowWidth / 2 - 0.03
+      const rowEnd = bayCenter + totalRowWidth / 2 + 0.03
+      const bayInner = bay === 'left' ? -0.06 : 0.06
+      const bayOuter = bay === 'left' ? -shelfWidth / 2 + 0.06 : shelfWidth / 2 - 0.06
+      const freeOuter = bay === 'left' ? rowStart - bayOuter : bayOuter - rowEnd
+      const freeInner = bay === 'left' ? bayInner - rowEnd : rowStart - bayInner
+      const decorY = tierH + 0.0225
+      const pickDecor = (slot: number) => {
+        const kind = (tier * 2 + slot + (bay === 'left' ? 0 : 1)) % 4
+        if (kind === 0) return createBonsai(this.palette, 0.8)
+        if (kind === 1) return createIncenseHolder(this.palette)
+        if (kind === 2) return createSmallAndon(this.palette)
+        // Two books lying flat
+        const stack = new THREE.Group()
+        const colors = ['#5b1f1a', '#1f3a5f', '#6b4a1f']
+        for (let k = 0; k < 2; k++) {
+          const b = new THREE.Mesh(
+            new THREE.BoxGeometry(0.2 - k * 0.02, 0.035, 0.15 - k * 0.01),
+            new THREE.MeshStandardMaterial({ color: colors[(tier + k) % 3], roughness: 0.6 })
+          )
+          b.position.y = 0.0175 + k * 0.035
+          b.rotation.y = k * 0.2
+          b.castShadow = true
+          stack.add(b)
+        }
+        return stack
+      }
+      if (freeOuter >= 0.22) {
+        const decor = pickDecor(0)
+        decor.position.set(bay === 'left' ? bayOuter + freeOuter / 2 : bayOuter - freeOuter / 2, decorY, 0.02)
+        shelfGroup.add(decor)
+      }
+      if (freeInner >= 0.22) {
+        const decor = pickDecor(1)
+        decor.position.set(bay === 'left' ? bayInner - freeInner / 2 : bayInner + freeInner / 2, decorY, 0.02)
+        shelfGroup.add(decor)
+      }
     })
     // Trailing Ivy Plant on top shelf (Storyboard Frame 1, 2)
     this.buildShelfTopPlant(shelfGroup, shelfWidth, shelfHeight, shelfDepth)
@@ -1740,6 +2196,17 @@ export class JapaneseRoomService {
     const pageWidth = bookWidth * 0.96
     const bookLength = 0.48
     const pageLength = bookLength * 0.96
+    const profileWidth = bookWidth * 0.97
+
+    // Resting shape: the leaf leaves one curved stack and lands on the other. In pivot space the
+    // landing side is upside down (the pivot has turned 180°), hence the sign flip. It also floats
+    // 0.7mm above the page sheet (which sits 0.3mm up), so the page underneath can never show
+    // through it before it lifts.
+    const settle = (1 - Math.cos(Math.PI * p)) / 2
+    const fromSign = isForward ? 1 : -1
+    const fromH = this.curlRest.fromH
+    const toH = this.curlRest.toH
+    const lift = 0.0007 * (1 - 2 * settle)
 
     for (let i = 0; i < count; i++) {
       const idx = i * 3
@@ -1751,6 +2218,10 @@ export class JapaneseRoomService {
       // v in [-0.5, 0.5]: -0.5 = top edge, +0.5 = bottom edge
       const u = Math.max(0, Math.min(1, x0 / pageWidth))
       const v = z0 / pageLength
+      const uRest = x0 / profileWidth
+      const offFrom = stackSurfaceHeight(uRest, fromH) - fromH
+      const offTo = stackSurfaceHeight(uRest, toH) - toH
+      const dyRest = fromSign * ((1 - settle) * offFrom - settle * offTo + lift)
 
       let dy = 0
       if (isForward) {
@@ -1760,8 +2231,8 @@ export class JapaneseRoomService {
           ? 0.55 * bend * (1.0 - 0.3 * p) * Math.pow(u, 1.35)
           : -0.38 * bend * (p - 0.2) * Math.pow(u, 1.35)
 
-        // 2. Conical Diagonal Corner Twist: top-outer corner is gripped and leads the peel
-        const cornerTwist = 0.22 * bend * Math.pow(u, 2.0) * (0.5 - v)
+        // 2. Conical Diagonal Corner Twist: the bottom-outer corner (held by the fingers) leads the peel
+        const cornerTwist = 0.22 * bend * Math.pow(u, 2.0) * (0.5 + v)
 
         // 3. Aerodynamic Billow Dome: paper catches air in mid-flight and bulges like a sail
         const billowDome = 0.026 * Math.pow(bend, 1.15) * Math.pow(Math.sin(Math.PI * u * 0.95), 0.85) * (1.0 - 0.25 * v * v)
@@ -1778,7 +2249,7 @@ export class JapaneseRoomService {
           ? 0.55 * bend * (1.0 - 0.3 * p) * Math.pow(u, 1.35)
           : -0.38 * bend * (p - 0.2) * Math.pow(u, 1.35)
 
-        const cornerTwist = 0.22 * bend * Math.pow(u, 2.0) * (0.5 - v)
+        const cornerTwist = 0.22 * bend * Math.pow(u, 2.0) * (0.5 + v)
         const billowDome = 0.026 * Math.pow(bend, 1.15) * Math.pow(Math.sin(Math.PI * u * 0.95), 0.85) * (1.0 - 0.25 * v * v)
         const waveFlutter = 0.009 * Math.sin(2.0 * Math.PI * p) * Math.sin(1.5 * Math.PI * u) * u
 
@@ -1788,6 +2259,7 @@ export class JapaneseRoomService {
 
       // Exact inextensibility conservation: preserves paper width along the curve
       const dx = -(dy * dy) / (2.0 * pageWidth)
+      dy += dyRest
 
       // Apply to Front face
       posF[idx] = (baseF[idx] ?? 0) + dx
@@ -1885,11 +2357,12 @@ export class JapaneseRoomService {
 
     const page1Tex = createBookPageTexture(1, this.currentBookData.subject, this.currentBookData.id)
 
-    // 2a. Base Paper Stacks (Physical bulk block edges without center jointer intrusion)
-    const gutterInset = 0.024
-    const adjustedBlockW = blockWidth - gutterInset
-
-    const rightBlockGeo = new THREE.BoxGeometry(adjustedBlockW, pageBlockThickness, blockLength)
+    // 2a. Page stacks. The *logical* block meshes keep the existing animation contract (scale.y =
+    // stack height / thickness, visibility) but never render (layer 31). What you see are curved
+    // stacks + page sheets rebuilt from that state each frame (syncBookSurfaces), following the
+    // open-book gull-wing curve into the binding.
+    const stackOpts = { profileWidth: blockWidth, length: blockLength }
+    const rightBlockGeo = new THREE.BoxGeometry(blockWidth, pageBlockThickness, blockLength)
     const rightBlockMaterials = [
       pageEdgesMat, // +X (fore-edge: paper stack striations)
       new THREE.MeshStandardMaterial({ color: '#fdfbf7', roughness: 0.85 }), // -X (spine gutter)
@@ -1899,14 +2372,20 @@ export class JapaneseRoomService {
       pageEdgesMat, // -Z (top edges)
     ]
     this.rightPageBlockMesh = new THREE.Mesh(rightBlockGeo, rightBlockMaterials)
-    this.rightPageBlockMesh.position.set(gutterInset + adjustedBlockW / 2, coverThickness + pageBlockThickness / 2, 0)
-    this.rightPageBlockMesh.castShadow = true
-    this.rightPageBlockMesh.receiveShadow = true
+    this.rightPageBlockMesh.position.set(0, coverThickness + pageBlockThickness / 2, 0)
+    this.rightPageBlockMesh.layers.set(31)
     this.pageBlockMesh = this.rightPageBlockMesh
     this.heroBookGroup.add(this.rightPageBlockMesh)
 
+    this.rightStack = new CurvedStack({ ...stackOpts, innerX: 0.002, outerX: blockWidth })
+    this.rightStackMesh = new THREE.Mesh(this.rightStack.geometry, rightBlockMaterials)
+    this.rightStackMesh.position.y = coverThickness
+    this.rightStackMesh.castShadow = true
+    this.rightStackMesh.receiveShadow = true
+    this.heroBookGroup.add(this.rightStackMesh)
+
     // 2b. Left Page Block (Visibly grows in height on left cover as reader flips forward)
-    const leftBlockGeo = new THREE.BoxGeometry(adjustedBlockW, pageBlockThickness, blockLength)
+    const leftBlockGeo = new THREE.BoxGeometry(blockWidth, pageBlockThickness, blockLength)
     const leftBlockMaterials = [
       new THREE.MeshStandardMaterial({ color: '#fdfbf7', roughness: 0.85 }), // +X (spine gutter)
       pageEdgesMat, // -X (fore-edge on left: paper stack striations)
@@ -1916,24 +2395,32 @@ export class JapaneseRoomService {
       pageEdgesMat, // -Z (top edges)
     ]
     this.leftPageBlockMesh = new THREE.Mesh(leftBlockGeo, leftBlockMaterials)
-    this.leftPageBlockMesh.position.set(-(gutterInset + adjustedBlockW / 2), coverThickness + this.minStackH / 2, 0)
-    this.leftPageBlockMesh.castShadow = true
-    this.leftPageBlockMesh.receiveShadow = true
+    this.leftPageBlockMesh.position.set(0, coverThickness + this.minStackH / 2, 0)
+    this.leftPageBlockMesh.layers.set(31)
     this.leftPageBlockMesh.visible = false
     this.leftPageBlockMesh.scale.set(1, this.minStackH / pageBlockThickness, 1)
     this.heroBookGroup.add(this.leftPageBlockMesh)
 
+    this.leftStack = new CurvedStack({ ...stackOpts, innerX: -0.002, outerX: -blockWidth })
+    this.leftStackMesh = new THREE.Mesh(this.leftStack.geometry, leftBlockMaterials)
+    this.leftStackMesh.position.y = coverThickness
+    this.leftStackMesh.castShadow = true
+    this.leftStackMesh.receiveShadow = true
+    this.leftStackMesh.visible = false
+    this.heroBookGroup.add(this.leftStackMesh)
+
     // 2c. Flat Open Pages (Completely flat and flush on the page stacks, eliminating all text cut-offs)
     // Right Page: spans from x = 0 to +blockWidth flush on top of the right page block
-    const geoRight = new THREE.PlaneGeometry(blockWidth, blockLength, 4, 4)
-    geoRight.translate(blockWidth / 2, 0, 0)
-    geoRight.rotateX(-Math.PI / 2)
-    geoRight.computeVertexNormals()
+    // Visible page sheets ride on the curved stacks (scaled on Y to the stack height every frame) and
+    // carry vertex-colour shading that darkens the paper as it dives into the gutter.
+    this.rightSheet = new CurvedSheet(blockWidth, blockLength, 'right')
+    const geoRight = this.rightSheet.geometry
 
     const rightCurvedMat = new THREE.MeshStandardMaterial({
       map: page1Tex,
       roughness: 0.85,
       side: THREE.FrontSide,
+      vertexColors: true,
     })
     this.rightCurvedPageMesh = new THREE.Mesh(geoRight, rightCurvedMat)
     this.rightCurvedPageMesh.position.set(0, coverThickness + pageBlockThickness + 0.0003, 0)
@@ -1943,15 +2430,14 @@ export class JapaneseRoomService {
     this.heroBookGroup.add(this.rightCurvedPageMesh)
 
     // Left Page: spans from x = -blockWidth to 0 flush on top of the left page block
-    const geoLeft = new THREE.PlaneGeometry(blockWidth, blockLength, 4, 4)
-    geoLeft.translate(-blockWidth / 2, 0, 0)
-    geoLeft.rotateX(-Math.PI / 2)
-    geoLeft.computeVertexNormals()
+    this.leftSheet = new CurvedSheet(blockWidth, blockLength, 'left')
+    const geoLeft = this.leftSheet.geometry
 
     const leftCurvedMat = new THREE.MeshStandardMaterial({
       map: insideCoverTex,
       roughness: 0.85,
       side: THREE.FrontSide,
+      vertexColors: true,
     })
     this.leftCurvedPageMesh = new THREE.Mesh(geoLeft, leftCurvedMat)
     this.leftCurvedPageMesh.position.set(0, coverThickness + this.minStackH + 0.0003, 0)
@@ -1985,6 +2471,8 @@ export class JapaneseRoomService {
       transparent: true,
       opacity: 0.45,
       depthWrite: false,
+      // Superseded by the curved pages' own gutter shading; kept so existing toggles stay harmless
+      visible: false,
     })
     this.gutterShadowMesh = new THREE.Mesh(gutterShadowGeo, gutterShadowMat)
     this.gutterShadowMesh.position.set(0, coverThickness + pageBlockThickness + 0.0005, 0)
@@ -2047,6 +2535,7 @@ export class JapaneseRoomService {
       map: page1Tex,
       roughness: 0.85,
       side: THREE.FrontSide,
+      vertexColors: true,
     })
     this.pageFrontMesh = new THREE.Mesh(geoFront, frontMat)
     this.pageFrontMesh.position.set(0, 0, 0)
@@ -2057,6 +2546,15 @@ export class JapaneseRoomService {
     // Back face: Cloned geometry with inverted index winding and horizontal UV flip (zero separation, unified single sheet)
     const posAttrFront = geoFront.getAttribute('position') as THREE.BufferAttribute
     this.pageFrontBasePositions = new Float32Array(posAttrFront.array)
+
+    // Same gutter shading as the resting pages, so the turning leaf matches them where it bends
+    const leafColors = new Float32Array(posAttrFront.count * 3)
+    for (let i = 0; i < posAttrFront.count; i++) {
+      const shade = gutterShade(posAttrFront.getX(i) / blockWidth)
+      leafColors.set([shade, shade, shade], i * 3)
+    }
+    geoFront.setAttribute('color', new THREE.BufferAttribute(leafColors, 3))
+    this.locateLeafCorner(posAttrFront)
 
     const geoBack = geoFront.clone()
     if (geoBack.index) {
@@ -2085,6 +2583,7 @@ export class JapaneseRoomService {
       map: insideCoverTex,
       roughness: 0.85,
       side: THREE.FrontSide,
+      vertexColors: true,
     })
     this.pageBackMesh = new THREE.Mesh(geoBack, backMat)
     this.pageBackMesh.position.set(0, 0, 0)
@@ -2233,6 +2732,8 @@ export class JapaneseRoomService {
   private staticMaterialKey(material: THREE.Material): string {
     const m = material as THREE.MeshStandardMaterial
     const isMergeableType = m.type === 'MeshStandardMaterial' || m.type === 'MeshBasicMaterial'
+    // Named materials are referenced elsewhere (tweened) and shader-patched ones must stay distinct
+    if (m.name || m.onBeforeCompile !== THREE.Material.prototype.onBeforeCompile) return material.uuid
     const extraMaps = m.normalMap || m.roughnessMap || m.metalnessMap || m.aoMap || m.emissiveMap || m.alphaMap
     if (!isMergeableType || extraMaps) return material.uuid
 
@@ -2263,13 +2764,32 @@ export class JapaneseRoomService {
    * which is the main CPU cost on low-end devices. Zones (study / corridor / each room) stay separate
    * so frustum culling still skips rooms that are out of view.
    */
+  /** Real-world box-projected UVs for every (non-instanced) mesh whose material asks for them. */
+  private applyWorldUVs() {
+    const done = new Set<THREE.BufferGeometry>()
+    this.scene.traverse((obj) => {
+      const mesh = obj as THREE.Mesh
+      if (!mesh.isMesh || (mesh as any).isInstancedMesh || Array.isArray(mesh.material)) return
+      if (!mesh.material.userData.worldUV || mesh.userData.mergedStatic || done.has(mesh.geometry)) return
+      if (mesh.geometry.userData.worldUV) return
+      projectWoodUVs(mesh.geometry, mesh.material.userData.worldUVTile ?? 0.5)
+      mesh.geometry.userData.worldUV = true
+      done.add(mesh.geometry)
+    })
+  }
+
   private optimizeStaticMeshes() {
+    this.applyWorldUVs()
     this.scene.updateMatrixWorld(true)
     const dynamic = this.collectDynamicObjects()
 
     const zoneOf = new Map<THREE.Object3D, { key: string; parent: THREE.Object3D }>()
     zoneOf.set(this.hallwayGroup, { key: 'hallway', parent: this.hallwayGroup })
-    for (const room of this.customRooms.values()) zoneOf.set(room.group, { key: room.id, parent: room.group })
+    for (const room of this.customRooms.values()) {
+      zoneOf.set(room.group, { key: `${room.id}-shell`, parent: room.group })
+      zoneOf.set(room.interior, { key: room.id, parent: room.interior })
+    }
+    zoneOf.set(this.studyGardenGroup, { key: 'study-garden', parent: this.studyGardenGroup })
     const studyZone = { key: 'study', parent: this.scene as THREE.Object3D }
 
     const canonicalMaterials = new Map<string, THREE.Material>()
@@ -2289,7 +2809,8 @@ export class JapaneseRoomService {
       for (let node: THREE.Object3D | null = mesh; node; node = node.parent) {
         if (dynamic.has(node) || !node.visible) return
         const z = zoneOf.get(node)
-        if (z) zone = z
+        // Innermost zone wins (walking up from the mesh)
+        if (z && zone === studyZone) zone = z
       }
 
       const matKey = this.staticMaterialKey(material)
@@ -2442,11 +2963,7 @@ export class JapaneseRoomService {
     const restingPos = this.hoveredBookMesh.userData.restingPos as THREE.Vector3 | undefined
     const restingRot = this.hoveredBookMesh.userData.restingRot as THREE.Euler | undefined
 
-    const spineMat = (this.hoveredBookMesh.material as THREE.Material[])[SHELF_BOOK_SPINE_MATERIAL] as THREE.MeshStandardMaterial
-    if (spineMat && spineMat.emissive) {
-      spineMat.emissive.setHex(0x000000)
-      spineMat.emissiveIntensity = 0
-    }
+    this.hoveredBookMesh.material = this.shelfBookMaterial
 
     if (restingPos) {
       gsap.to(this.hoveredBookMesh.position, {
@@ -2526,11 +3043,7 @@ export class JapaneseRoomService {
             this.hoveredBookMesh = hitMesh
 
             // Subtle highlight: soft tasteful blue/cyan sheen (No neon outlines, no excessive glow)
-            const spineMat = (hitMesh.material as THREE.Material[])[SHELF_BOOK_SPINE_MATERIAL] as THREE.MeshStandardMaterial
-            if (spineMat && spineMat.emissive) {
-              spineMat.emissive.setHex(0x0e2f56)
-              spineMat.emissiveIntensity = 0.35
-            }
+            hitMesh.material = this.shelfBookHighlightMaterial
 
             // Slightly move forward and tilt on hover
             const restingPos = hitMesh.userData.restingPos as THREE.Vector3
@@ -2676,6 +3189,7 @@ export class JapaneseRoomService {
     this.triggerShadowUpdate(45)
     this.resetHoveredBook()
     this.currentBookData = bookData
+    this.pageOpenness.value = 0
     // Fetch the curriculum while the book flies to the desk
     void BookCatalogService.ensureBookLoaded(bookData.id)
     this.callbacks.onBookSelected?.(bookData)
@@ -2943,6 +3457,7 @@ export class JapaneseRoomService {
 
   private runOpenBook() {
     this.triggerShadowUpdate(45)
+    this.setReadingResolution(true)
     this.state = 'book-open'
     this.currentPage = 1
     this.isFlipping = false
@@ -2959,6 +3474,7 @@ export class JapaneseRoomService {
 
         // Step 6: Book controls appear
         this.callbacks.onBookOpened?.()
+        this.prefetchPages(this.currentPage)
       },
     })
 
@@ -3051,6 +3567,9 @@ export class JapaneseRoomService {
       ease: 'power3.out',
     }, 0.95)
 
+    // Pages relax from the flat closed block into the curved open-book shape
+    tl.to(this.pageOpenness, { value: 1, duration: 0.9, ease: 'power2.out' }, 0.9)
+
     // Flexible cloth hinge lowers cover pivot so front cover lies flat on the desk
     tl.to(this.bookCoverPivot.position, {
       y: coverThickness / 2,
@@ -3074,6 +3593,269 @@ export class JapaneseRoomService {
   }
 
   // Book Controller: Physical Page Flipping Animation with Realistic 3D Paper Curvature & Proportional Stack Thickness
+  private readingBoost = false
+
+  /**
+   * While reading, the view is just the book on its stand, so render at the display's real pixel
+   * density (text stays crisp on retina screens). The adaptive monitor still steps it down if a
+   * device can't hold 60fps.
+   */
+  private setReadingResolution(on: boolean) {
+    this.readingBoost = on
+    const deviceDPR = typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1
+    const readingMax = this.qualityTier === 'low' ? 1.5 : 2
+    const cap = on ? Math.max(this.preset.maxDPR, readingMax) : this.preset.maxDPR
+    this.baseDPR = Math.max(this.preset.minDPR, Math.min(deviceDPR, cap))
+    this.currentDPR = on ? this.baseDPR : Math.min(this.currentDPR, this.baseDPR)
+    this.consecutiveSlowFrames = 0
+    this.consecutiveFastFrames = 0
+    this.renderer.setPixelRatio(this.currentDPR)
+  }
+
+  /** Build + upload the neighbouring pages during idle time so turning never waits on canvas work. */
+  private prefetchPages(around: number) {
+    const bookId = this.currentBookData.id
+    const subject = this.currentBookData.subject
+    const total = this.getTotalPages()
+    const pages = [around + 1, around + 2, around - 1].filter((p) => p >= 1 && p <= total)
+    const idle: (cb: () => void) => void =
+      typeof (window as any).requestIdleCallback === 'function'
+        ? (cb) => (window as any).requestIdleCallback(cb, { timeout: 400 })
+        : (cb) => setTimeout(cb, 60)
+    const next = () => {
+      const page = pages.shift()
+      if (page === undefined || this.currentBookData.id !== bookId || this.state !== 'book-open') return
+      const tex = createBookPageTexture(page, subject, bookId)
+      this.renderer.initTexture(tex)
+      idle(next)
+    }
+    idle(next)
+  }
+
+  /** Rebuild the curved stacks / page sheets from the logical stack state (only when it changed). */
+  private syncBookSurfaces() {
+    const T = this.pageBlockThickness
+    const leftH = this.leftPageBlockMesh.scale.y * T
+    const rightH = this.rightPageBlockMesh.scale.y * T
+    const open = this.pageOpenness.value
+    this.leftStackMesh.visible = this.leftPageBlockMesh.visible
+    this.rightStackMesh.visible = this.rightPageBlockMesh.visible
+
+    const key = `${leftH.toFixed(5)}|${rightH.toFixed(5)}|${open.toFixed(4)}`
+    if (key !== this.lastSurfaceKey) {
+      this.lastSurfaceKey = key
+      this.leftStack.update(leftH, open)
+      this.rightStack.update(rightH, open)
+      this.leftSheet.update(leftH, open)
+      this.rightSheet.update(rightH, open)
+    }
+    // Sheet geometry already carries the absolute height; neutralise the legacy flat offsets
+    this.leftCurvedPageMesh.position.y = this.coverThickness
+    this.rightCurvedPageMesh.position.y = this.coverThickness
+  }
+
+  // =========================================================
+  // PAGE-TURNING HANDS
+  // =========================================================
+
+  /**
+   * Find the grip point on the leaf's fore-edge (~13cm above the bottom corner, where a reader's
+   * fingers naturally slip under the page and where the hand stays in the reading camera's frame),
+   * plus neighbours toward the spine and up the page.
+   */
+  private locateLeafCorner(pos: THREE.BufferAttribute) {
+    let maxX = -Infinity
+    let maxZ = -Infinity
+    for (let i = 0; i < pos.count; i++) {
+      maxX = Math.max(maxX, pos.getX(i))
+      maxZ = Math.max(maxZ, pos.getZ(i))
+    }
+    const targetZ = maxZ - 0.13
+    let corner = 0
+    let bestGrip = Infinity
+    for (let i = 0; i < pos.count; i++) {
+      if (Math.abs(pos.getX(i) - maxX) > 1e-6) continue
+      const d = Math.abs(pos.getZ(i) - targetZ)
+      if (d < bestGrip) {
+        bestGrip = d
+        corner = i
+      }
+    }
+    const cx = pos.getX(corner)
+    const cz = pos.getZ(corner)
+    let spine = -1
+    let up = -1
+    let bestSpine = Infinity
+    let bestUp = Infinity
+    for (let i = 0; i < pos.count; i++) {
+      if (i === corner) continue
+      const dx = cx - pos.getX(i)
+      const dz = cz - pos.getZ(i)
+      // ~6cm in toward the spine along the bottom edge, ~8cm up along the fore-edge
+      if (Math.abs(dz) < 1e-6 && dx > 0) {
+        const d = Math.abs(dx - 0.06)
+        if (d < bestSpine) { bestSpine = d; spine = i }
+      }
+      if (Math.abs(dx) < 1e-6 && dz > 0) {
+        const d = Math.abs(dz - 0.08)
+        if (d < bestUp) { bestUp = d; up = i }
+      }
+    }
+    this.leafCornerIndex = corner
+    this.leafSpineNeighborIndex = spine
+    this.leafUpNeighborIndex = up
+  }
+
+  private readonly _gripA = new THREE.Vector3()
+  private readonly _gripB = new THREE.Vector3()
+  private readonly _gripC = new THREE.Vector3()
+
+  /** Leaf vertex (current, deformed) → hero-book local space. */
+  private leafPointToBook(index: number, out: THREE.Vector3): THREE.Vector3 {
+    const pos = this.pageFrontMesh.geometry.getAttribute('position') as THREE.BufferAttribute
+    out.fromBufferAttribute(pos, index)
+    out.applyAxisAngle(new THREE.Vector3(0, 0, 1), this.pagePivot.rotation.z)
+    return out.add(this.pagePivot.position)
+  }
+
+  /**
+   * Where the index fingertip goes and how the hand is oriented so the fingers slip just under the
+   * page corner: palm toward the paper, fingers pointing in toward the spine and up the page.
+   */
+  private computeLeafGrip(isForward: boolean) {
+    const c = this.leafPointToBook(this.leafCornerIndex, this._gripA)
+    const towardSpine = this.leafPointToBook(this.leafSpineNeighborIndex, this._gripB).sub(c).normalize()
+    const upPage = this.leafPointToBook(this.leafUpNeighborIndex, this._gripC).sub(c).normalize()
+    const frontNormal = new THREE.Vector3().crossVectors(upPage, towardSpine).normalize()
+    // The face that was on top when the turn began: the fingers stay under it the whole way over
+    const upNormal = isForward ? frontNormal : frontNormal.negate()
+    const point = c.clone()
+      .addScaledVector(towardSpine, 0.022)
+      .addScaledVector(upPage, 0.03)
+      .addScaledVector(upNormal, -0.009)
+    const finger = towardSpine.clone().multiplyScalar(0.8).addScaledVector(upPage, 0.5).normalize()
+    const back = upNormal.clone().negate()
+    return { point, finger, back }
+  }
+
+  private handTurn: {
+    rig: HandRig
+    isForward: boolean
+    approach: { t: number }
+    retreat: { t: number }
+    released: boolean
+    releaseFrom: { point: THREE.Vector3; finger: THREE.Vector3; back: THREE.Vector3 } | null
+  } | null = null
+
+  private static readonly HAND_RELAXED: HandPose = { thumb: 0.3, index: 0.32, middle: 0.36, ring: 0.45, pinky: 0.52 }
+  private static readonly HAND_GRIP: HandPose = { thumb: 0.18, index: 0.06, middle: 0.12, ring: 0.5, pinky: 0.62 }
+  private static readonly HAND_FLIP_START = 0.24
+
+  private blendPose(a: HandPose, b: HandPose, t: number): HandPose {
+    return {
+      thumb: THREE.MathUtils.lerp(a.thumb, b.thumb, t),
+      index: THREE.MathUtils.lerp(a.index, b.index, t),
+      middle: THREE.MathUtils.lerp(a.middle, b.middle, t),
+      ring: THREE.MathUtils.lerp(a.ring, b.ring, t),
+      pinky: THREE.MathUtils.lerp(a.pinky, b.pinky, t),
+    }
+  }
+
+  /** Off-page rest position the hand comes from and returns to (bottom-outer, just off the book). */
+  private handRestInputs(isForward: boolean) {
+    const side = isForward ? 1 : -1
+    return {
+      point: new THREE.Vector3(side * (this.bookWidth + 0.24), 0.08, this.bookLength / 2 + 0.16),
+      finger: new THREE.Vector3(-side * 0.8, 0, -0.5).normalize(),
+      back: new THREE.Vector3(0, -1, 0),
+    }
+  }
+
+  /**
+   * Adds the reach-in to the flip timeline. Returns when the page itself should start moving
+   * (0 when no hand model is available, so turns still work without one).
+   */
+  private beginHandTurn(tl: gsap.core.Timeline, isForward: boolean): number {
+    const rig = isForward ? this.handRight : this.handLeft
+    const previous = this.handTurn
+    if (previous) {
+      gsap.killTweensOf(previous.approach)
+      gsap.killTweensOf(previous.retreat)
+      previous.rig.root.visible = false
+    }
+    this.handTurn = null
+    if (!rig || this.leafCornerIndex < 0) return 0
+
+    const turn = {
+      rig,
+      isForward,
+      approach: { t: 0 },
+      retreat: { t: 0 },
+      released: false,
+      releaseFrom: null,
+    }
+    this.handTurn = turn
+    rig.root.visible = true
+    tl.to(turn.approach, { t: 1, duration: 0.3, ease: 'power2.out' }, 0)
+    tl.eventCallback('onUpdate', () => this.updateHandTurn())
+    this.updateHandTurn()
+    return JapaneseRoomService.HAND_FLIP_START
+  }
+
+  /** Called from the flip tween with the leaf's progress; lets go of the page once it is past vertical. */
+  private onHandTurnProgress(p: number) {
+    const turn = this.handTurn
+    if (!turn || turn.released || p < 0.7) return
+    turn.released = true
+    const grip = this.computeLeafGrip(turn.isForward)
+    turn.releaseFrom = grip
+    gsap.to(turn.retreat, {
+      t: 1,
+      duration: 0.5,
+      ease: 'power2.inOut',
+      onUpdate: () => {
+        this.updateHandTurn()
+        this.triggerShadowUpdate(2)
+      },
+      onComplete: () => {
+        if (this.handTurn === turn) {
+          turn.rig.root.visible = false
+          this.handTurn = null
+        }
+      },
+    })
+  }
+
+  private updateHandTurn() {
+    const turn = this.handTurn
+    if (!turn) return
+    const rest = this.handRestInputs(turn.isForward)
+
+    if (!turn.released) {
+      const grip = this.computeLeafGrip(turn.isForward)
+      const a = turn.approach.t
+      // Arc in from the rest pose, sliding the fingertips under the corner
+      const point = rest.point.clone().lerp(grip.point, a)
+      point.y += Math.sin(Math.PI * a) * 0.035
+      const finger = rest.finger.clone().lerp(grip.finger, a).normalize()
+      const back = rest.back.clone().lerp(grip.back, a).normalize()
+      turn.rig.place(point, finger, back)
+      turn.rig.setPose(this.blendPose(JapaneseRoomService.HAND_RELAXED, JapaneseRoomService.HAND_GRIP, a))
+      return
+    }
+
+    // Let go and return to rest, lifting clear of the pages on the way back
+    const from = turn.releaseFrom!
+    const r = turn.retreat.t
+    const point = from.point.clone().lerp(rest.point, r)
+    point.y += Math.sin(Math.PI * r) * 0.09
+    const finger = from.finger.clone().lerp(rest.finger, r).normalize()
+    const back = from.back.clone().lerp(rest.back, r)
+    if (back.lengthSq() < 1e-4) back.set(0, -1, 0)
+    turn.rig.place(point, finger, back.normalize())
+    turn.rig.setPose(this.blendPose(JapaneseRoomService.HAND_GRIP, JapaneseRoomService.HAND_RELAXED, r))
+  }
+
   public flipPage(pageNumber: number) {
     if (this.state !== 'book-open') return
     if (this.isFlipping) return
@@ -3121,27 +3903,36 @@ export class JapaneseRoomService {
       backMeshMat.map = getPageTex(targetVerso)
       backMeshMat.needsUpdate = true
 
-      // Underneath on the right stack: immediately reveal the new targetPage
-      if (Array.isArray(rightBlockMats) && rightBlockMats[2]) {
-        rightBlockMats[2].map = getPageTex(targetPage)
-        rightBlockMats[2].needsUpdate = true
-      }
-      if (this.rightCurvedPageMesh) {
-        const rMat = this.rightCurvedPageMesh.material as THREE.MeshStandardMaterial
-        rMat.map = getPageTex(targetPage)
-        rMat.needsUpdate = true
+      // The page underneath is swapped only once the turning leaf has lifted and covers it, so the
+      // next page's content can't flash on the right before the turn
+      let revealed = false
+      const revealUnderneath = () => {
+        if (revealed) return
+        revealed = true
+        if (Array.isArray(rightBlockMats) && rightBlockMats[2]) {
+          rightBlockMats[2].map = getPageTex(targetPage)
+          rightBlockMats[2].needsUpdate = true
+        }
+        if (this.rightCurvedPageMesh) {
+          const rMat = this.rightCurvedPageMesh.material as THREE.MeshStandardMaterial
+          rMat.map = getPageTex(targetPage)
+          rMat.needsUpdate = true
+        }
       }
 
       // Initialize turning leaf on top of right stack
       this.pagePivot.rotation.z = 0
       this.pagePivot.position.set(0, coverThickness + prevRightH, 0)
       this.pagePivot.visible = true
+      this.curlRest.fromH = prevRightH
+      this.curlRest.toH = targetLeftH
       this.applyPageCurl(0, true)
 
       let hasPreloadedLeft = false
       const anim = { p: 0 }
       const tl = gsap.timeline({
         onComplete: () => {
+          revealUnderneath()
           // When landed on left stack: ensure top face of left stack has targetVerso
           if (Array.isArray(leftBlockMats) && leftBlockMats[2]) {
             leftBlockMats[2].map = getPageTex(targetVerso)
@@ -3176,13 +3967,15 @@ export class JapaneseRoomService {
             this.applyPageCurl(0, true)
             this.isFlipping = false
             this.callbacks.onPageFlipped?.(targetPage)
+            this.prefetchPages(targetPage)
           })
         },
       })
 
+      const flipStart = this.beginHandTurn(tl, isFlippingForward)
       tl.to(anim, {
         p: 1,
-        duration: 0.88,
+        duration: flipStart > 0 ? 0.95 : 0.88,
         ease: 'power2.inOut',
         onUpdate: () => {
           const p = anim.p
@@ -3228,8 +4021,10 @@ export class JapaneseRoomService {
 
           // Deform paper vertices with unified 3D bending physics
           this.applyPageCurl(p, true)
+          this.onHandTurnProgress(p)
+          if (p >= 0.05) revealUnderneath()
         },
-      })
+      }, flipStart)
     } else {
       // BACKWARD FLIP: Turning leaf lifts from left stack and turns to right stack
       // Back face (revealed while on left): page lifting off from left (prevPage - 1)
@@ -3241,28 +4036,35 @@ export class JapaneseRoomService {
       frontMeshMat.map = getPageTex(targetPage)
       frontMeshMat.needsUpdate = true
 
-      // Underneath on left stack: reveal targetPage - 1
       const targetVerso = targetPage - 1
-      if (Array.isArray(leftBlockMats) && leftBlockMats[2]) {
-        leftBlockMats[2].map = getPageTex(targetVerso)
-        leftBlockMats[2].needsUpdate = true
-      }
-      if (this.leftCurvedPageMesh) {
-        const lMat = this.leftCurvedPageMesh.material as THREE.MeshStandardMaterial
-        lMat.map = getPageTex(targetVerso)
-        lMat.needsUpdate = true
+      let revealed = false
+      const revealUnderneath = () => {
+        if (revealed) return
+        revealed = true
+        if (Array.isArray(leftBlockMats) && leftBlockMats[2]) {
+          leftBlockMats[2].map = getPageTex(targetVerso)
+          leftBlockMats[2].needsUpdate = true
+        }
+        if (this.leftCurvedPageMesh) {
+          const lMat = this.leftCurvedPageMesh.material as THREE.MeshStandardMaterial
+          lMat.map = getPageTex(targetVerso)
+          lMat.needsUpdate = true
+        }
       }
 
       // Initialize turning leaf on top of left stack
       this.pagePivot.rotation.z = Math.PI
       this.pagePivot.position.set(0, coverThickness + prevLeftH, 0)
       this.pagePivot.visible = true
+      this.curlRest.fromH = prevLeftH
+      this.curlRest.toH = targetRightH
       this.applyPageCurl(0, false)
 
       let hasPreloadedRight = false
       const anim = { p: 0 }
       const tl = gsap.timeline({
         onComplete: () => {
+          revealUnderneath()
           // When landed on right stack:
           if (Array.isArray(rightBlockMats) && rightBlockMats[2]) {
             rightBlockMats[2].map = getPageTex(targetPage)
@@ -3295,13 +4097,15 @@ export class JapaneseRoomService {
             this.applyPageCurl(0, false)
             this.isFlipping = false
             this.callbacks.onPageFlipped?.(targetPage)
+            this.prefetchPages(targetPage)
           })
         },
       })
 
+      const flipStart = this.beginHandTurn(tl, isFlippingForward)
       tl.to(anim, {
         p: 1,
-        duration: 0.88,
+        duration: flipStart > 0 ? 0.95 : 0.88,
         ease: 'power2.inOut',
         onUpdate: () => {
           const p = anim.p
@@ -3341,8 +4145,10 @@ export class JapaneseRoomService {
           this.pagePivot.position.y = coverThickness + baseY + airLift
 
           this.applyPageCurl(p, false)
+          this.onHandTurnProgress(p)
+          if (p >= 0.05) revealUnderneath()
         },
-      })
+      }, flipStart)
     }
   }
 
@@ -3352,6 +4158,7 @@ export class JapaneseRoomService {
 
     const wasOpen = this.state === 'book-open'
     this.state = 'book-flying'
+    if (this.readingBoost) this.setReadingResolution(false)
 
     const shelfMesh = this.shelfBooksMap.get(this.currentBookData.id) || this.interactiveShelfBookMesh
     const shelfWorldPos = new THREE.Vector3()
@@ -3417,6 +4224,8 @@ export class JapaneseRoomService {
         { y: coverThickness + pageBlockThickness / 2, duration: 0.38, ease: 'power2.inOut' },
         0
       )
+
+      tl.to(this.pageOpenness, { value: 0, duration: 0.3, ease: 'power2.in' }, 0)
 
       // 1c. Swing front cover smoothly from left (open = PI) to right (closed = 0) over the book holder
       tl.to(this.bookCoverPivot.rotation, { z: 0, duration: 0.42, ease: 'power2.inOut' }, 0)
@@ -3679,8 +4488,7 @@ export class JapaneseRoomService {
 
   private buildEntranceDoorAndPlaque() {
     // Architectural Cedar Frame Pillars for Study Room Door (X = 0, Z = 3.88)
-    const darkWood = createWoodTexture('#5a3720', '#2e1a0d')
-    const frameMat = new THREE.MeshStandardMaterial({ map: darkWood, roughness: 0.65 })
+    const frameMat = this.palette.walnutDark
 
     const pillarGeo = new THREE.BoxGeometry(0.12, 3.0, 0.14)
     const leftPillar = new THREE.Mesh(pillarGeo, frameMat)
@@ -3749,20 +4557,19 @@ export class JapaneseRoomService {
   }
 
   private buildGrandHallway() {
-    // Grand Japanese Corridor: Width 28m (X: -14 to +14), Depth 3.42m (Z: 3.88 to 7.30), Height 3.9m
-    const wallTex = createModernWallTexture()
-    const wallMat = new THREE.MeshStandardMaterial({ map: wallTex, roughness: 0.8 })
+    // Grand Japanese Corridor (engawa): Width 28m (X: -14 to +14), Depth 3.42m (Z: 3.88 to 7.30), Height 3.9m
+    const wallMat = this.worldPlaster
     this.hallwayWallMat = wallMat
-    const darkWood = createWoodTexture('#523219', '#2a180b')
+    const p = this.palette
 
     // 1. Polished Cedar Plank Floor
-    const floorTex = createHallwayFloorTexture()
-    floorTex.anisotropy = this.preset.anisotropy
+    // Polished cedar boards running down the corridor; low roughness so the environment reflects
     const floorGeo = new THREE.PlaneGeometry(28, 3.42)
-    const floorMat = new THREE.MeshStandardMaterial({
-      map: floorTex,
-      roughness: 0.45,
-      metalness: 0.08,
+    const floorMat = this.pbr.material('cedar', {
+      repeat: [28 / 1.0, 3.42 / 1.0],
+      rotation: Math.PI / 2,
+      color: '#a68a72',
+      roughness: 0.55,
     })
     const hallFloor = new THREE.Mesh(floorGeo, floorMat)
     hallFloor.rotation.x = -Math.PI / 2
@@ -3771,12 +4578,8 @@ export class JapaneseRoomService {
     this.hallwayGroup.add(hallFloor)
 
     // Tatami Runner carpet along center corridor
-    const tatamiTex = createTatamiTexture()
-    tatamiTex.wrapS = THREE.RepeatWrapping
-    tatamiTex.repeat.set(14, 1)
-    tatamiTex.anisotropy = this.preset.anisotropy
     const runnerGeo = new THREE.PlaneGeometry(26, 1.4)
-    const runnerMat = new THREE.MeshStandardMaterial({ map: tatamiTex, roughness: 0.85 })
+    const runnerMat = this.pbr.material('tatami', { repeat: [26 / 1.8, 1.4 / 1.8], roughness: 0.95 })
     const runner = new THREE.Mesh(runnerGeo, runnerMat)
     runner.rotation.x = -Math.PI / 2
     runner.position.set(0, 0.005, 5.59)
@@ -3784,10 +4587,9 @@ export class JapaneseRoomService {
     this.hallwayGroup.add(runner)
 
     // 2. Ceiling with Recessed Cedar Beams
-    const beamMat = new THREE.MeshStandardMaterial({ map: darkWood, roughness: 0.7 })
+    const beamMat = p.walnutDark
     const hallCeilingGeo = new THREE.PlaneGeometry(28, 3.42)
-    const ceilingMat = new THREE.MeshStandardMaterial({ color: '#161922', roughness: 0.9 })
-    const hallCeiling = new THREE.Mesh(hallCeilingGeo, ceilingMat)
+    const hallCeiling = new THREE.Mesh(hallCeilingGeo, this.darkCedarCeiling(28, 3.42))
     hallCeiling.rotation.x = Math.PI / 2
     hallCeiling.position.set(0, 3.9, 5.59)
     this.hallwayGroup.add(hallCeiling)
@@ -3813,33 +4615,45 @@ export class JapaneseRoomService {
     this.hallwayGroup.add(this.hallwayInnerWallGroup)
     this.rebuildHallwayInnerWall()
 
-    // 5. Outer Glass Shoji Wall & Scenic Moonlit Bamboo Garden (Z = 7.3)
-    const glassTex = createGlassShojiDoorTexture()
-    glassTex.wrapS = THREE.RepeatWrapping
-    glassTex.repeat.set(7, 1)
-    const outerWallGeo = new THREE.PlaneGeometry(28, 3.9)
-    const outerWallMat = new THREE.MeshStandardMaterial({
-      map: glassTex,
-      transparent: true,
-      opacity: 0.88,
-      roughness: 0.15,
-    })
-    const outerWall = new THREE.Mesh(outerWallGeo, outerWallMat)
-    outerWall.position.set(0, 1.95, 7.3)
-    outerWall.rotation.y = Math.PI
-    this.hallwayGroup.add(outerWall)
+    // 5. Outer yukimi-shoji wall looking onto the garden (Z = 7.3) + parallax garden layers
+    const outerShoji = createShojiWall(p, 28, { panels: 16, transom: this.plasterMaterial(28, 1.0) })
+    outerShoji.rotation.y = Math.PI
+    outerShoji.position.set(0, 0, 7.3)
+    this.hallwayGroup.add(outerShoji)
+    this.buildGardenLayers(this.hallwayGroup, new THREE.Vector3(0, 0, 7.3), new THREE.Vector3(0, 0, 1), 28)
 
-    // Scenic Garden Backdrop outside the Hallway windows
-    const gardenTex = createGardenBackdropTexture()
-    gardenTex.wrapS = THREE.RepeatWrapping
-    gardenTex.repeat.set(3, 1)
-    const gardenBackdrop = new THREE.Mesh(
-      new THREE.PlaneGeometry(32, 5.2),
-      new THREE.MeshBasicMaterial({ map: gardenTex })
-    )
-    gardenBackdrop.position.set(0, 2.0, 8.2)
-    gardenBackdrop.rotation.y = Math.PI
-    this.hallwayGroup.add(gardenBackdrop)
+    // Timber posts along the inner wall, between the doorway slots
+    for (const x of [-13.85, -8.25, -2.75, 2.75, 8.25, 13.85]) {
+      const post = new THREE.Mesh(new THREE.BoxGeometry(0.13, 3.9, 0.1), p.walnutDark)
+      post.position.set(x, 1.95, 3.97)
+      post.castShadow = true
+      this.hallwayGroup.add(post)
+    }
+    // Baseboards and ceiling trim
+    for (const z of [3.93, 7.24]) {
+      const base = new THREE.Mesh(new THREE.BoxGeometry(28, 0.09, 0.02), p.walnutDark)
+      base.position.set(0, 0.045, z)
+      this.hallwayGroup.add(base)
+    }
+
+    // Paper floor andon lanterns along the garden side, opposite each doorway (emissive only)
+    this.hallwayLanternPaper = new THREE.MeshStandardMaterial({
+      name: 'hallway-lantern-paper',
+      color: '#f3ead6',
+      emissive: '#ffcf8f',
+      emissiveIntensity: 0.9,
+      roughness: 0.92,
+    })
+    const andonXs = [-11, -5.5, 0, 5.5, 11]
+    for (const x of andonXs) {
+      const andon = createFloorAndon(p, this.hallwayLanternPaper)
+      andon.position.set(x, 0, 6.95)
+      this.hallwayGroup.add(andon)
+    }
+    this.buildShadowDecals(this.hallwayGroup, andonXs.map((x) => [x, 6.95, 0.6, 0.6] as [number, number, number, number]))
+
+    // Indigo noren over the study doorway
+    this.addDoorwayNoren(this.hallwayGroup, 0, 1)
 
     // 6. Hallway Lighting System (Warm Japanese Ryokan Illumination)
     const hallAmbient = new THREE.AmbientLight('#fff1e6', 0.65)
@@ -3990,58 +4804,56 @@ export class JapaneseRoomService {
     const roomIndex = this.customRooms.size + 2
 
     const roomGroup = new THREE.Group()
+    // Everything behind the door lives in `interior`, which is only rendered while you're inside the
+    // room or its door is open. Door frame, leaves and noren stay in `roomGroup` (seen from the corridor).
+    const interior = new THREE.Group()
+    roomGroup.add(interior)
     const doorGroup = new THREE.Group()
     const roomLights: RoomLight[] = []
 
-    const wallTex = createModernWallTexture()
-    const wallMat = new THREE.MeshStandardMaterial({ map: wallTex, roughness: 0.8 })
-    const darkWood = createWoodTexture('#523219', '#2a180b')
-    const frameMat = new THREE.MeshStandardMaterial({ map: darkWood, roughness: 0.65 })
+    const wallMat = this.worldPlaster
+    const frameMat = this.palette.walnutDark
 
     // 1. Room Floor (Width 5.0m, Depth 4.18m from Z: -0.3 to 3.88)
-    let floorTex: THREE.Texture
-    if (theme === 'meditation') {
-      floorTex = createTatamiTexture()
-    } else if (theme === 'gallery') {
-      floorTex = createWoodTexture('#f1f5f9', '#cbd5e1')
-    } else {
-      floorTex = createWoodTexture('#6b4428', '#3a2213')
-    }
-    floorTex.anisotropy = this.preset.anisotropy
-    const floor = new THREE.Mesh(
-      new THREE.PlaneGeometry(5.0, 4.18),
-      new THREE.MeshStandardMaterial({ map: floorTex, roughness: 0.6 })
-    )
+    const floorMat =
+      theme === 'meditation'
+        ? this.pbr.material('tatami', { repeat: [5.0 / 1.8, 4.18 / 1.8], roughness: 0.95 })
+        : this.pbr.material('cedar', {
+            repeat: [5.0 / 1.0, 4.18 / 1.0],
+            rotation: Math.PI / 2,
+            color: theme === 'gallery' ? '#e6d3c2' : '#b98d70',
+            roughness: 0.75,
+          })
+    const floor = new THREE.Mesh(new THREE.PlaneGeometry(5.0, 4.18), floorMat)
     floor.rotation.x = -Math.PI / 2
     floor.position.set(slotX, 0.002, 1.79)
     floor.receiveShadow = true
-    roomGroup.add(floor)
+    interior.add(floor)
 
     // Back wall at Z = -0.3
     const backWall = new THREE.Mesh(new THREE.PlaneGeometry(5.0, 3.9), wallMat)
     backWall.position.set(slotX, 1.95, -0.3)
     backWall.receiveShadow = true
-    roomGroup.add(backWall)
+    interior.add(backWall)
 
     // Left wall at X = slotX - 2.5
     const leftWall = new THREE.Mesh(new THREE.PlaneGeometry(4.18, 3.9), wallMat)
     leftWall.position.set(slotX - 2.5, 1.95, 1.79)
     leftWall.rotation.y = Math.PI / 2
-    roomGroup.add(leftWall)
+    interior.add(leftWall)
 
     // Right wall at X = slotX + 2.5
     const rightWall = new THREE.Mesh(new THREE.PlaneGeometry(4.18, 3.9), wallMat)
     rightWall.position.set(slotX + 2.5, 1.95, 1.79)
     rightWall.rotation.y = -Math.PI / 2
-    roomGroup.add(rightWall)
+    interior.add(rightWall)
 
     // Ceiling
     const ceilingGeo = new THREE.PlaneGeometry(5.0, 4.18)
-    const ceilingMat = new THREE.MeshStandardMaterial({ color: '#161922', roughness: 0.9 })
-    const ceiling = new THREE.Mesh(ceilingGeo, ceilingMat)
+    const ceiling = new THREE.Mesh(ceilingGeo, this.darkCedarCeiling(5.0, 4.18))
     ceiling.rotation.x = Math.PI / 2
     ceiling.position.set(slotX, 3.9, 1.79)
-    roomGroup.add(ceiling)
+    interior.add(ceiling)
 
     // Door Frame Pillars
     const lp = new THREE.Mesh(new THREE.BoxGeometry(0.12, 3.0, 0.14), frameMat)
@@ -4073,79 +4885,11 @@ export class JapaneseRoomService {
 
     this.interactiveDoors.push({ mesh: doorGroup, roomId })
 
-    // 2. Themed 3D Furnishings
-    if (theme === 'library') {
-      const shelf = new THREE.Mesh(
-        new THREE.BoxGeometry(3.6, 2.6, 0.4),
-        new THREE.MeshStandardMaterial({ map: darkWood, roughness: 0.6 })
-      )
-      shelf.position.set(slotX, 1.3, -0.1)
-      roomGroup.add(shelf)
-
-      // Reading chair offset to side so central walkway is completely unobstructed
-      const chairMat = new THREE.MeshStandardMaterial({ color: '#7f1d1d', roughness: 0.7 })
-      const chairSeat = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.4, 0.8), chairMat)
-      chairSeat.position.set(slotX + 1.2, 0.25, 1.2)
-      roomGroup.add(chairSeat)
-
-      const chairBack = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.8, 0.2), chairMat)
-      chairBack.position.set(slotX + 1.2, 0.7, 0.85)
-      roomGroup.add(chairBack)
-    } else if (theme === 'meditation') {
-      const lanternMat = new THREE.MeshStandardMaterial({ color: '#64748b', roughness: 0.9 })
-      const lanternBase = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.25, 0.6, 8), lanternMat)
-      lanternBase.position.set(slotX - 1.3, 0.3, 1.2)
-      roomGroup.add(lanternBase)
-
-      const lanternHead = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.35, 0.4), lanternMat)
-      lanternHead.position.set(slotX - 1.3, 0.75, 1.2)
-      roomGroup.add(lanternHead)
-
-      const candle = createVirtualLight('point', '#fef08a', 0.8, 5, 2, new THREE.Vector3(slotX - 1.3, 0.75, 1.2))
-      roomLights.push(candle)
-      this.pointFixtures.push(candle)
-
-      const table = new THREE.Mesh(
-        new THREE.CylinderGeometry(0.3, 0.3, 0.7, 16),
-        frameMat
-      )
-      table.position.set(slotX + 1.4, 0.35, 0.8)
-      roomGroup.add(table)
-
-      // Bonsai-style trailing plant on the pedestal table (was previously placed at the world origin,
-      // i.e. on the study room floor). Scaled down so the vines clear the floor.
-      const plantHolder = new THREE.Group()
-      plantHolder.position.set(slotX + 1.4, 0, 0.8)
-      plantHolder.scale.setScalar(0.6)
-      this.buildShelfTopPlant(plantHolder, 0.56, 0.7 / 0.6, 0.24)
-      roomGroup.add(plantHolder)
-    } else if (theme === 'gallery') {
-      const easelMat = new THREE.MeshStandardMaterial({ map: darkWood, roughness: 0.7 })
-      const easelLeg = new THREE.Mesh(new THREE.BoxGeometry(0.06, 2.0, 0.06), easelMat)
-      easelLeg.position.set(slotX, 1.0, 1.4)
-      roomGroup.add(easelLeg)
-
-      const canvasMesh = new THREE.Mesh(
-        new THREE.PlaneGeometry(1.2, 0.9),
-        new THREE.MeshStandardMaterial({ map: createGardenBackdropTexture() })
-      )
-      canvasMesh.position.set(slotX, 1.2, 1.35)
-      roomGroup.add(canvasMesh)
-    } else {
-      const bench = new THREE.Mesh(
-        new THREE.BoxGeometry(2.4, 0.8, 0.8),
-        new THREE.MeshStandardMaterial({ map: darkWood, roughness: 0.5 })
-      )
-      bench.position.set(slotX, 0.4, 0.6)
-      roomGroup.add(bench)
-
-      const globe = new THREE.Mesh(
-        new THREE.SphereGeometry(0.25, 16, 16),
-        new THREE.MeshStandardMaterial({ color: '#d97706', metalness: 0.6, roughness: 0.3 })
-      )
-      globe.position.set(slotX, 1.05, 0.6)
-      roomGroup.add(globe)
-    }
+    // 2. Themed furnishings, trim, noren and contact shadows
+    const colliders: RoomCollider[] = []
+    const glowMaterials: THREE.MeshStandardMaterial[] = []
+    this.furnishRoom(interior, theme, slotX, roomLights, colliders, glowMaterials)
+    this.addDoorwayNoren(roomGroup, slotX, roomIndex)
 
     // 3. Room Dedicated Lighting System
     const roomAmbient = new THREE.AmbientLight('#f1f5f9', 0.5)
@@ -4186,7 +4930,7 @@ export class JapaneseRoomService {
     )
     switchMesh.position.set(slotX + 0.98, 1.40, 3.83)
     switchMesh.rotation.y = Math.PI
-    roomGroup.add(switchMesh)
+    interior.add(switchMesh)
     this.interactiveSwitches.push({ mesh: switchMesh, targetId: roomId })
 
     this.scene.add(roomGroup)
@@ -4201,6 +4945,7 @@ export class JapaneseRoomService {
       doorZ: 3.88,
       isLightOn: true,
       group: roomGroup,
+      interior,
       doorGroup,
       doorLeft,
       doorRight,
@@ -4209,6 +4954,8 @@ export class JapaneseRoomService {
       switchMesh,
       lights: roomLights,
       roomIndex,
+      colliders,
+      glowMaterials,
     }
 
     this.customRooms.set(roomId, roomData)
@@ -4216,7 +4963,7 @@ export class JapaneseRoomService {
     if (this.staticMeshesOptimized) {
       // Rooms added after startup get the same static-mesh merging as the initial scene
       this.optimizeStaticMeshes()
-      this.renderer.compile(this.scene, this.camera)
+      this.warmUpShaders()
     }
     this.updateSpatialLights(true)
     this.triggerShadowUpdate(10)
@@ -4266,6 +5013,8 @@ export class JapaneseRoomService {
     const rightTarget = isOpen ? rightClosed + 0.65 : rightClosed
 
     this.callbacks.onPlayDoorSlide?.()
+    // Reveal the room as the door starts opening; hide it only once the door has fully closed
+    if (isOpen) this.updateSpatialLights(true)
 
     gsap.to(doorLeft.position, {
       x: leftTarget,
@@ -4278,6 +5027,7 @@ export class JapaneseRoomService {
       duration: 0.75,
       ease: 'power2.inOut',
       onComplete: () => {
+        if (!isOpen) this.updateSpatialLights(true)
         this.callbacks.onDoorInteracted?.(roomId, isOpen)
       },
     })
@@ -4306,6 +5056,10 @@ export class JapaneseRoomService {
         gsap.to(this.lightLevels, { sun: 0.04, moon: 0.85, duration: 0.5 })
         gsap.to(this.ambientLight, { intensity: 0.08, duration: 0.5 })
         gsap.to(this.ambientLight.color, { r: 0.08, g: 0.12, b: 0.24, duration: 0.5 })
+        gsap.to(this.envLevel, { value: 0.07, duration: 0.5 })
+        gsap.to(this.studyPaperGlow, { emissiveIntensity: 0.06, duration: 0.5 })
+        if (this.lampBulbMaterial) gsap.to(this.lampBulbMaterial, { emissiveIntensity: 0.05, duration: 0.35 })
+        for (const mat of this.gardenMaterials) gsap.to(mat.color, { r: 0.22, g: 0.28, b: 0.45, duration: 0.6 })
 
         if (this.lampShadeMesh) {
           const shadeMat = this.lampShadeMesh.material as THREE.MeshStandardMaterial
@@ -4320,6 +5074,10 @@ export class JapaneseRoomService {
         gsap.to(this.lightLevels, { sun: 1.6, moon: 0, duration: 0.5 })
         gsap.to(this.ambientLight, { intensity: 0.75, duration: 0.5 })
         gsap.to(this.ambientLight.color, { r: 1.0, g: 0.93, b: 0.85, duration: 0.5 })
+        gsap.to(this.envLevel, { value: 0.45, duration: 0.5 })
+        gsap.to(this.studyPaperGlow, { emissiveIntensity: 0.55, duration: 0.5 })
+        if (this.lampBulbMaterial) gsap.to(this.lampBulbMaterial, { emissiveIntensity: 2.2, duration: 0.35 })
+        for (const mat of this.gardenMaterials) gsap.to(mat.color, { r: 1, g: 1, b: 1, duration: 0.6 })
 
         if (this.lampShadeMesh) {
           const shadeMat = this.lampShadeMesh.material as THREE.MeshStandardMaterial
@@ -4357,6 +5115,9 @@ export class JapaneseRoomService {
         const mult = light instanceof THREE.AmbientLight ? (state ? 0.45 : 0.05) : state ? 1.35 : 0.0
         gsap.to(light, { intensity: mult, duration: 0.4 })
       }
+      if (this.hallwayLanternPaper) {
+        gsap.to(this.hallwayLanternPaper, { emissiveIntensity: state ? 0.9 : 0.12, duration: 0.4 })
+      }
 
       if (this.hallwayWallSwitch) {
         this.swapMaterialMap(this.hallwayWallSwitch, createLightSwitchTexture(state))
@@ -4375,6 +5136,9 @@ export class JapaneseRoomService {
       for (const light of custom.lights) {
         const mult = light instanceof THREE.AmbientLight ? (state ? 0.5 : 0.06) : state ? 1.6 : 0.0
         gsap.to(light, { intensity: mult, duration: 0.4 })
+      }
+      for (const mat of custom.glowMaterials) {
+        gsap.to(mat, { emissiveIntensity: state ? (mat.userData.onIntensity ?? 0.8) : 0.08, duration: 0.4 })
       }
 
       if (custom.switchMesh) {
@@ -4615,7 +5379,11 @@ export class JapaneseRoomService {
       if (nextZ < -2.15) {
         return { allowed: false }
       }
-      // 3. Side Walls: X < -2.85 or X > 2.85
+      // 3. Tokonoma alcove platform on the right wall
+      if (nextX > 2.3 && nextZ > -0.55 && nextZ < 1.35) {
+        return { allowed: false }
+      }
+      // 4. Side Walls: X < -2.85 or X > 2.85
       if (nextX < -2.85 || nextX > 2.85) {
         return { allowed: false }
       }
@@ -4675,39 +5443,9 @@ export class JapaneseRoomService {
           return { allowed: false }
         }
 
-        // 2. Object Colliders for Chamber Furnishings
-        if (room.theme === 'library') {
-          // Back Bookshelf (occupies X: [rx - 1.9, rx + 1.9], Z: [0.0, 0.35])
-          if (Math.abs(nextX - rx) < 1.9 && nextZ < 0.35) {
-            return { allowed: false }
-          }
-          // Reading Armchair (at rx + 1.2, Z: 1.2)
-          const chairX = rx + 1.2
-          const chairZ = 1.2
-          if (Math.abs(nextX - chairX) < 0.55 && Math.abs(nextZ - chairZ) < 0.55) {
-            return { allowed: false }
-          }
-        } else if (room.theme === 'meditation') {
-          // Zen Stone Lantern (at rx - 1.3, Z: 1.2)
-          const lanternX = rx - 1.3
-          const lanternZ = 1.2
-          if (Math.abs(nextX - lanternX) < 0.45 && Math.abs(nextZ - lanternZ) < 0.45) {
-            return { allowed: false }
-          }
-          // Bonsai Pedestal Table (at rx + 1.4, Z: 0.8)
-          const tableX = rx + 1.4
-          const tableZ = 0.8
-          if (Math.abs(nextX - tableX) < 0.45 && Math.abs(nextZ - tableZ) < 0.45) {
-            return { allowed: false }
-          }
-        } else if (room.theme === 'gallery') {
-          // Art Easel (at rx, Z: 1.35)
-          if (Math.abs(nextX - rx) < 0.7 && Math.abs(nextZ - 1.35) < 0.45) {
-            return { allowed: false }
-          }
-        } else {
-          // Science / Observatory Bench (at rx, Z: 0.6)
-          if (Math.abs(nextX - rx) < 1.3 && Math.abs(nextZ - 0.6) < 0.55) {
+        // 2. Furniture colliders (registered by furnishRoom)
+        for (const c of room.colliders) {
+          if (Math.abs(nextX - c.x) < c.hx && Math.abs(nextZ - c.z) < c.hz) {
             return { allowed: false }
           }
         }
@@ -4935,6 +5673,9 @@ export class JapaneseRoomService {
       }
 
       this.syncLightPools()
+      this.swayUniforms.uTime.value = elapsedTime
+      this.scene.environmentIntensity = this.envLevel.value
+      if (this.heroBookGroup.visible) this.syncBookSurfaces()
       this.renderer.render(this.scene, this.camera)
     }
 
@@ -4972,6 +5713,11 @@ export class JapaneseRoomService {
     }
     gsap.killTweensOf(this.heroBookGlow)
     gsap.killTweensOf(this.lightLevels)
+    gsap.killTweensOf(this.envLevel)
+    if (this.handTurn) {
+      gsap.killTweensOf(this.handTurn.approach)
+      gsap.killTweensOf(this.handTurn.retreat)
+    }
     gsap.killTweensOf(this.ambientLight)
     gsap.killTweensOf(this.ambientLight.color)
     for (const light of this.hallwayLights) gsap.killTweensOf(light)

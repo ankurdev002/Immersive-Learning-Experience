@@ -9,9 +9,33 @@ export const coverTextureCache = new Map<string, THREE.CanvasTexture>()
 export const spineTextureCache = new Map<string, THREE.CanvasTexture>()
 let cachedPageEdgesTexture: THREE.CanvasTexture | null = null
 
-// Book pages are 1200x1600 canvases (~10MB of GPU memory each with mipmaps), so keep only the most
-// recently viewed ones instead of growing without bound while a reader pages through a whole book.
-const MAX_CACHED_PAGE_TEXTURES = 16
+// Book pages are drawn on a 1200x1600 layout, rendered at `pageTextureScale` (1.28x = 1536x2048 on
+// medium/high tiers for crisp text). Each is 10-17MB of GPU memory with mipmaps, so only the most
+// recently viewed pages are kept.
+let pageTextureScale = 1
+let maxCachedPageTextures = 8
+
+/** Called once per room session with the quality tier's page resolution and cache budget. */
+export function configurePageTextures(scale: number, cacheSize: number) {
+  if (scale !== pageTextureScale) {
+    pageTextureCache.forEach((t) => t.dispose())
+    pageTextureCache.clear()
+    insideCoverTextureCache.forEach((t) => t.dispose())
+    insideCoverTextureCache.clear()
+  }
+  pageTextureScale = scale
+  maxCachedPageTextures = cacheSize
+}
+
+/** A canvas sized for the 1200x1600 page layout at the configured resolution. */
+function createPageCanvas(): { canvas: HTMLCanvasElement; ctx: CanvasRenderingContext2D } {
+  const canvas = document.createElement('canvas')
+  canvas.width = Math.round(1200 * pageTextureScale)
+  canvas.height = Math.round(1600 * pageTextureScale)
+  const ctx = canvas.getContext('2d')!
+  ctx.scale(pageTextureScale, pageTextureScale)
+  return { canvas, ctx }
+}
 
 function srgbCanvasTexture(canvas: HTMLCanvasElement): THREE.CanvasTexture {
   const texture = new THREE.CanvasTexture(canvas)
@@ -686,7 +710,8 @@ function renderPageImage(
   boxX: number,
   boxY: number,
   boxW: number,
-  boxH: number
+  boxH: number,
+  alignTop = false
 ): number {
   if (!img || !img.complete || img.naturalWidth === 0) return 0
   const nw = img.naturalWidth
@@ -695,7 +720,7 @@ function renderPageImage(
   const dw = Math.round(nw * scale)
   const dh = Math.round(nh * scale)
   const dx = Math.round(boxX + (boxW - dw) / 2)
-  const dy = Math.round(boxY + (boxH - dh) / 2)
+  const dy = Math.round(alignTop ? boxY : boxY + (boxH - dh) / 2)
 
   // Clean subtle card backing and crisp border on parchment
   ctx.fillStyle = '#ffffff'
@@ -724,11 +749,8 @@ export function createBookPageTexture(
     pageTextureCache.set(cacheKey, cached)
     return cached
   }
-  // High-DPI 1200x1600 canvas for pin-sharp typography and diagram readability
-  const canvas = document.createElement('canvas')
-  canvas.width = 1200
-  canvas.height = 1600
-  const ctx = canvas.getContext('2d')!
+  // 1200x1600 layout, rendered at the tier's page resolution for crisp typography and diagrams
+  const { canvas, ctx } = createPageCanvas()
 
   // Lookup data dynamically from BookCatalogService
   let pageData: BookPageData | undefined
@@ -742,6 +764,17 @@ export function createBookPageTexture(
     pageData = book?.chapters?.[0]?.pages?.find((p) => p.pageNumber === pageNumber)
   }
 
+  const texture = srgbCanvasTexture(canvas)
+  texture.generateMipmaps = true
+  texture.minFilter = THREE.LinearMipmapLinearFilter
+  texture.magFilter = THREE.LinearFilter
+  texture.anisotropy = 16
+
+  // The whole page is painted by one function so it can be repainted once a figure image arrives:
+  // the text is then laid out around the figure's real size instead of a guess (which used to make
+  // figures paint over the bullet text).
+  const paint = () => {
+  ctx.setTransform(pageTextureScale, 0, 0, pageTextureScale, 0, 0)
   // Warm cream parchment paper background
   ctx.fillStyle = '#fdfbf7'
   ctx.fillRect(0, 0, 1200, 1600)
@@ -770,8 +803,8 @@ export function createBookPageTexture(
   ctx.fillText(headerText, CONTENT_X, 135)
 
   if (subHeaderText) {
-    ctx.fillStyle = '#475569'
-    ctx.font = '500 24px "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, sans-serif'
+    ctx.fillStyle = '#334155'
+    ctx.font = '500 26px "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, sans-serif'
     ctx.fillText(subHeaderText, CONTENT_X, 178)
   }
 
@@ -796,11 +829,6 @@ export function createBookPageTexture(
     currentY += 16
   }
 
-  const texture = srgbCanvasTexture(canvas)
-  texture.generateMipmaps = true
-  texture.minFilter = THREE.LinearMipmapLinearFilter
-  texture.magFilter = THREE.LinearFilter
-  texture.anisotropy = 16
 
   // Render Real Book Diagrams & Illustrations (e.g. Page 24, Page 27, Page 34, etc.)
   if (pageData?.imageUrl) {
@@ -825,10 +853,7 @@ export function createBookPageTexture(
       if (img.complete && img.naturalWidth > 0) {
         renderPageImage(ctx, img, boxX, boxY, boxW, boxH)
       } else {
-        img.onload = () => {
-          renderPageImage(ctx, img!, boxX, boxY, boxW, boxH)
-          texture.needsUpdate = true
-        }
+        repaintWhenLoaded(img)
       }
       currentY = MAX_CONTENT_Y
     } else {
@@ -839,23 +864,21 @@ export function createBookPageTexture(
       const boxH = 540
 
       if (img.complete && img.naturalWidth > 0) {
-        const dh = renderPageImage(ctx, img, boxX, boxY, boxW, boxH)
-        currentY += dh + 28
+        // Figure sits at the top of its box so the text can follow straight after it
+        const dh = renderPageImage(ctx, img, boxX, boxY, boxW, boxH, true)
+        currentY = boxY + dh + 40
       } else {
-        img.onload = () => {
-          renderPageImage(ctx, img!, boxX, boxY, boxW, boxH)
-          texture.needsUpdate = true
-        }
-        currentY += 500
+        // Not loaded yet: lay the text out normally; the page repaints around the figure on load
+        repaintWhenLoaded(img)
       }
 
       // Bullet Points / Text below diagram
       if (pageData.bulletPoints && pageData.bulletPoints.length > 0) {
-        ctx.fillStyle = '#1e293b'
-        ctx.font = '500 26px "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, sans-serif'
+        ctx.fillStyle = '#0f172a'
+        ctx.font = '500 29px "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, sans-serif'
         for (const bp of pageData.bulletPoints) {
           if (currentY > MAX_CONTENT_Y - 30) break
-          currentY = wrapText(ctx, `• ${bp}`, 140, currentY, 920, 44, MAX_CONTENT_Y)
+          currentY = wrapText(ctx, `• ${bp}`, 140, currentY, 920, 47, MAX_CONTENT_Y)
         }
         currentY += 20
       }
@@ -864,22 +887,22 @@ export function createBookPageTexture(
     // Normal Text Pages
     // Learning Objectives (if defined)
     if (pageData?.objectives && pageData.objectives.length > 0) {
-      ctx.fillStyle = '#1e293b'
-      ctx.font = '500 26px "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, sans-serif'
+      ctx.fillStyle = '#0f172a'
+      ctx.font = '500 29px "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, sans-serif'
       for (const obj of pageData.objectives) {
         if (currentY > MAX_CONTENT_Y - 30) break
-        currentY = wrapText(ctx, `• ${obj}`, 140, currentY, 920, 44, MAX_CONTENT_Y)
+        currentY = wrapText(ctx, `• ${obj}`, 140, currentY, 920, 47, MAX_CONTENT_Y)
       }
       currentY += 20
     }
 
     // Bullet Points (if defined)
     if (pageData?.bulletPoints && pageData.bulletPoints.length > 0) {
-      ctx.fillStyle = '#1e293b'
-      ctx.font = '500 26px "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, sans-serif'
+      ctx.fillStyle = '#0f172a'
+      ctx.font = '500 29px "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, sans-serif'
       for (const bp of pageData.bulletPoints) {
         if (currentY > MAX_CONTENT_Y - 30) break
-        currentY = wrapText(ctx, `• ${bp}`, 140, currentY, 920, 44, MAX_CONTENT_Y)
+        currentY = wrapText(ctx, `• ${bp}`, 140, currentY, 920, 47, MAX_CONTENT_Y)
       }
       currentY += 20
     }
@@ -1058,10 +1081,28 @@ export function createBookPageTexture(
   ctx.textAlign = 'center'
   ctx.fillText(footerText, 600, 1515)
 
+  }
+
+  let repaintQueued = false
+  const repaintWhenLoaded = (img: HTMLImageElement) => {
+    if (repaintQueued) return
+    repaintQueued = true
+    img.addEventListener(
+      'load',
+      () => {
+        paint()
+        texture.needsUpdate = true
+      },
+      { once: true }
+    )
+  }
+
+  paint()
+
   // Don't cache placeholder content rendered while the book's curriculum is still loading
   if (!bookId || BookCatalogService.isBookLoaded(bookId)) {
     pageTextureCache.set(cacheKey, texture)
-    while (pageTextureCache.size > MAX_CACHED_PAGE_TEXTURES) {
+    while (pageTextureCache.size > maxCachedPageTextures) {
       const oldestKey = pageTextureCache.keys().next().value as string
       // Disposing only frees the GPU copy; a material still showing it simply re-uploads the canvas
       pageTextureCache.get(oldestKey)?.dispose()
@@ -1078,10 +1119,7 @@ export function createBookInsideCoverTexture(
   const cacheKey = `${title}_${subtitle}`
   const cached = insideCoverTextureCache.get(cacheKey)
   if (cached) return cached
-  const canvas = document.createElement('canvas')
-  canvas.width = 1200
-  canvas.height = 1600
-  const ctx = canvas.getContext('2d')!
+  const { canvas, ctx } = createPageCanvas()
 
   // Warm cream parchment paper background
   ctx.fillStyle = '#fdfaf3'

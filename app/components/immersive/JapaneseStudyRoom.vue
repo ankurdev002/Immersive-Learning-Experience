@@ -176,11 +176,13 @@ onMounted(() => {
   window.addEventListener('keydown', handleKeyDown)
   window.addEventListener('click', closeChamberMenu)
 
-  // Drive smooth zen loading sequence
+  // Drive smooth zen loading sequence; holds at 90% until textures and hand models have arrived
   let currentProg = 20
+  let assetsReady = false
   loadingProgress.value = 20
   progressTimer = setInterval(() => {
     currentProg += Math.floor(Math.random() * 20) + 15
+    if (!assetsReady) currentProg = Math.min(currentProg, 90)
     if (currentProg >= 100) {
       currentProg = 100
       loadingProgress.value = 100
@@ -312,6 +314,9 @@ onMounted(() => {
     })
     // Keep the HUD in sync with the book the 3D scene actually starts with
     selectedBookId.value = roomService.currentBookData.id
+    void roomService.ready.then(() => {
+      assetsReady = true
+    })
   }
 })
 
