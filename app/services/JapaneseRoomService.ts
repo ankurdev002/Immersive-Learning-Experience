@@ -245,7 +245,7 @@ export class JapaneseRoomService {
   private readCamTarget = new THREE.Vector3(0, 1.070, -0.440)
 
   // State
-  public state: 'room-view' | 'book-flying' | 'on-table' | 'book-open' = 'room-view'
+  public state: 'room-view' | 'book-flying' | 'on-table' | 'book-open' | 'explore' = 'room-view'
   public currentPage = 1
   private currentHoveredTarget: 'lamp' | 'cup' | 'book' | null = null
 
@@ -341,9 +341,13 @@ export class JapaneseRoomService {
   }
 
   private buildRoomArchitecture() {
-    // 1. Oak Wood Planks & Tatami Floor
+    // 1. Oak Wood Planks & Tatami Floor (Width: 6.0m from X: -3.0 to 3.0, Depth: 6.98m from Z: -3.1 to 3.88)
     const tatamiTexture = createTatamiTexture()
-    const floorGeo = new THREE.PlaneGeometry(8, 8)
+    tatamiTexture.wrapS = THREE.RepeatWrapping
+    tatamiTexture.wrapT = THREE.RepeatWrapping
+    tatamiTexture.repeat.set(3, 4)
+
+    const floorGeo = new THREE.PlaneGeometry(6.0, 6.98)
     const floorMat = new THREE.MeshStandardMaterial({
       map: tatamiTexture,
       roughness: 0.85,
@@ -351,31 +355,35 @@ export class JapaneseRoomService {
     })
     const floor = new THREE.Mesh(floorGeo, floorMat)
     floor.rotation.x = -Math.PI / 2
+    floor.position.set(0, 0.001, 0.39)
     floor.receiveShadow = true
     this.scene.add(floor)
 
-    // 2. Back Wall (Modern Japandi Plaster backdrop behind the Front Bookshelf)
+    // 2. Back Wall (Modern Japandi Plaster backdrop behind Front Bookshelf at Z = -3.1)
     const wallTexture = createModernWallTexture()
     const wallMat = new THREE.MeshStandardMaterial({ map: wallTexture, roughness: 0.8 })
 
-    const backWallGeo = new THREE.PlaneGeometry(8, 4)
+    const backWallGeo = new THREE.PlaneGeometry(6.0, 3.9)
     const backWall = new THREE.Mesh(backWallGeo, wallMat)
-    backWall.position.set(0, 1.9, -3.1)
+    backWall.position.set(0, 1.95, -3.1)
     backWall.receiveShadow = true
     this.scene.add(backWall)
 
     const darkWood = createWoodTexture('#2b170c', '#150a04')
     const frameMat = new THREE.MeshStandardMaterial({ map: darkWood, roughness: 0.65 })
 
-    // Horizontal architectural top beam
-    const topBeamGeo = new THREE.BoxGeometry(8, 0.45, 0.1)
+    // Horizontal architectural top beam along back wall
+    const topBeamGeo = new THREE.BoxGeometry(6.0, 0.4, 0.1)
     const topBeam = new THREE.Mesh(topBeamGeo, frameMat)
-    topBeam.position.set(0, 3.55, -3.05)
+    topBeam.position.set(0, 3.7, -3.05)
     this.scene.add(topBeam)
 
-    // 3. Left Wall: Japanese Sliding Glass Doors & Scenic Window to Zen Garden
+    // 3. Left Wall: Japanese Shoji Glass Windows overlooking peaceful bamboo garden
     const glassDoorTex = createGlassShojiDoorTexture()
-    const glassDoorGeo = new THREE.PlaneGeometry(8, 4)
+    glassDoorTex.wrapS = THREE.RepeatWrapping
+    glassDoorTex.repeat.set(2, 1)
+
+    const glassDoorGeo = new THREE.PlaneGeometry(6.98, 3.9)
     const glassDoorMat = new THREE.MeshStandardMaterial({
       map: glassDoorTex,
       transparent: true,
@@ -384,32 +392,32 @@ export class JapaneseRoomService {
       metalness: 0.1,
     })
     const glassDoor = new THREE.Mesh(glassDoorGeo, glassDoorMat)
-    glassDoor.position.set(-3.9, 1.9, 0)
+    glassDoor.position.set(-3.0, 1.95, 0.39)
     glassDoor.rotation.y = Math.PI / 2
     this.scene.add(glassDoor)
 
-    // Scenic Garden Backdrop behind the left glass doors (rolling hills, sakura trees, pagoda)
+    // Scenic Garden Backdrop outside left window
     const gardenTex = createGardenBackdropTexture()
-    const gardenGeo = new THREE.PlaneGeometry(10, 4.8)
+    const gardenGeo = new THREE.PlaneGeometry(9.0, 4.8)
     const gardenMat = new THREE.MeshBasicMaterial({ map: gardenTex })
     this.gardenBackdropMesh = new THREE.Mesh(gardenGeo, gardenMat)
-    this.gardenBackdropMesh.position.set(-4.6, 2.0, 0)
+    this.gardenBackdropMesh.position.set(-3.8, 2.0, 0.39)
     this.gardenBackdropMesh.rotation.y = Math.PI / 2
     this.scene.add(this.gardenBackdropMesh)
 
-    // 4. Right Wall: Japandi Wall with Hanging Japanese Calligraphy Scroll
-    const rightWallGeo = new THREE.PlaneGeometry(8, 4)
+    // 4. Right Wall: Clean Japandi Partition Wall shared with Library Chamber (at X = 3.0)
+    const rightWallGeo = new THREE.PlaneGeometry(6.98, 3.9)
     const rightWall = new THREE.Mesh(rightWallGeo, wallMat)
-    rightWall.position.set(4, 1.9, 0)
+    rightWall.position.set(3.0, 1.95, 0.39)
     rightWall.rotation.y = -Math.PI / 2
     rightWall.receiveShadow = true
     this.scene.add(rightWall)
 
     // Hanging Japanese Calligraphy Scroll on Right Wall
     const scrollWoodMat = new THREE.MeshStandardMaterial({ color: '#27160c' })
-    const topRod = new THREE.Mesh(new THREE.CylinderGeometry(0.02, 0.02, 1.0, 16), scrollWoodMat)
+    const topRod = new THREE.Mesh(new THREE.CylinderGeometry(0.02, 0.02, 0.9, 16), scrollWoodMat)
     topRod.rotation.z = Math.PI / 2
-    topRod.position.set(3.96, 2.7, 0.4)
+    topRod.position.set(2.96, 2.7, 0.4)
     this.scene.add(topRod)
 
     const scrollGeo = new THREE.PlaneGeometry(0.85, 1.4)
@@ -437,16 +445,16 @@ export class JapaneseRoomService {
 
     const scrollTex = new THREE.CanvasTexture(scrollCanvas)
     const scrollMesh = new THREE.Mesh(scrollGeo, new THREE.MeshStandardMaterial({ map: scrollTex, roughness: 0.9 }))
-    scrollMesh.position.set(3.97, 2.05, 0.4)
+    scrollMesh.position.set(2.97, 2.05, 0.4)
     scrollMesh.rotation.y = -Math.PI / 2
     this.scene.add(scrollMesh)
 
-    // 5. Ceiling Wooden Beams
+    // 5. Ceiling Wooden Beams across the Study Room
     const beamMat = new THREE.MeshStandardMaterial({ map: darkWood, roughness: 0.7 })
-    const beamGeo = new THREE.BoxGeometry(0.2, 0.18, 8)
-    for (let x = -3; x <= 3; x += 1.5) {
+    const beamGeo = new THREE.BoxGeometry(0.18, 0.16, 6.98)
+    for (let x = -2.0; x <= 2.0; x += 1.0) {
       const beam = new THREE.Mesh(beamGeo, beamMat)
-      beam.position.set(x, 3.8, 0)
+      beam.position.set(x, 3.82, 0.39)
       beam.castShadow = true
       this.scene.add(beam)
     }
@@ -1702,33 +1710,39 @@ export class JapaneseRoomService {
       // Ignore if user is typing in an input/textarea
       if (['INPUT', 'TEXTAREA'].includes((e.target as HTMLElement)?.tagName)) return
 
-      if (e.code === 'KeyW' || e.code === 'ArrowUp') this.keys.forward = true
-      if (e.code === 'KeyS' || e.code === 'ArrowDown') this.keys.backward = true
-      if (e.code === 'KeyA' || e.code === 'ArrowLeft') this.keys.left = true
-      if (e.code === 'KeyD' || e.code === 'ArrowRight') this.keys.right = true
-      if (e.code === 'ShiftLeft' || e.code === 'ShiftRight') {
+      const k = e.key ? e.key.toLowerCase() : ''
+      if (e.code === 'KeyW' || e.code === 'ArrowUp' || k === 'w') this.keys.forward = true
+      if (e.code === 'KeyS' || e.code === 'ArrowDown' || k === 's') this.keys.backward = true
+      if (e.code === 'KeyA' || e.code === 'ArrowLeft' || k === 'a') this.keys.left = true
+      if (e.code === 'KeyD' || e.code === 'ArrowRight' || k === 'd') this.keys.right = true
+      if (e.code === 'ShiftLeft' || e.code === 'ShiftRight' || e.shiftKey || k === 'shift') {
         this.keys.shift = true
         this.isRunning = true
       }
-      if (e.code === 'KeyE') {
+      if (e.code === 'KeyE' || k === 'e') {
         this.interactNearest()
       }
     })
 
     window.addEventListener('keyup', (e) => {
-      if (e.code === 'KeyW' || e.code === 'ArrowUp') this.keys.forward = false
-      if (e.code === 'KeyS' || e.code === 'ArrowDown') this.keys.backward = false
-      if (e.code === 'KeyA' || e.code === 'ArrowLeft') this.keys.left = false
-      if (e.code === 'KeyD' || e.code === 'ArrowRight') this.keys.right = false
-      if (e.code === 'ShiftLeft' || e.code === 'ShiftRight') {
+      const k = e.key ? e.key.toLowerCase() : ''
+      if (e.code === 'KeyW' || e.code === 'ArrowUp' || k === 'w') this.keys.forward = false
+      if (e.code === 'KeyS' || e.code === 'ArrowDown' || k === 's') this.keys.backward = false
+      if (e.code === 'KeyA' || e.code === 'ArrowLeft' || k === 'a') this.keys.left = false
+      if (e.code === 'KeyD' || e.code === 'ArrowRight' || k === 'd') this.keys.right = false
+      if (e.code === 'ShiftLeft' || e.code === 'ShiftRight' || !e.shiftKey) {
         this.keys.shift = false
         this.isRunning = false
       }
     })
 
-    // Mouse drag for explore mode camera look
-    this.canvas.addEventListener('mousedown', (e) => {
+    // Mouse drag for explore mode camera look (works smoothly across entire window)
+    window.addEventListener('mousedown', (e) => {
       if (this.isExploreMode) {
+        const target = e.target as HTMLElement
+        if (target && (target.closest('button') || target.closest('input') || target.closest('.create-chamber-modal') || target.closest('.floating-door-prompt') || target.closest('.corridor-nav-dock'))) {
+          return
+        }
         this.isMouseDragging = true
         this.prevMousePos = { x: e.clientX, y: e.clientY }
       }
@@ -1916,6 +1930,24 @@ export class JapaneseRoomService {
 
   private onClick = () => {
     this.raycaster.setFromCamera(this.mouse, this.camera)
+
+    // Explore Mode: 3D interactive door & light switch clicking
+    if (this.isExploreMode) {
+      for (const doorItem of this.interactiveDoors) {
+        const intersects = this.raycaster.intersectObject(doorItem.mesh, true)
+        if (intersects.length > 0 && intersects[0]!.distance < 4.5) {
+          this.toggleDoor(doorItem.roomId)
+          return
+        }
+      }
+      for (const switchItem of this.interactiveSwitches) {
+        const intersects = this.raycaster.intersectObject(switchItem.mesh, true)
+        if (intersects.length > 0 && intersects[0]!.distance < 3.5) {
+          this.toggleRoomLight(switchItem.targetId)
+          return
+        }
+      }
+    }
 
     // 1. Lamp Click: Toggle Light On/Off
     const lampIntersects = this.raycaster.intersectObject(this.lampTargetMesh)
@@ -2959,33 +2991,10 @@ export class JapaneseRoomService {
   // =========================================================
 
   private buildEntranceDoorAndPlaque() {
-    // 1. Entrance Wall for Study Room (at Z = 3.9) with 1.6m wide doorway at center X = 0
-    const wallTex = createModernWallTexture()
-    const wallMat = new THREE.MeshStandardMaterial({ map: wallTex, roughness: 0.8 })
+    // Architectural Cedar Frame Pillars for Study Room Door (X = 0, Z = 3.88)
     const darkWood = createWoodTexture('#2b170c', '#150a04')
     const frameMat = new THREE.MeshStandardMaterial({ map: darkWood, roughness: 0.65 })
 
-    // Left wall segment (X: -4 to -0.8)
-    const leftWall = new THREE.Mesh(new THREE.PlaneGeometry(3.2, 4), wallMat)
-    leftWall.position.set(-2.4, 1.9, 3.88)
-    leftWall.rotation.y = Math.PI
-    leftWall.receiveShadow = true
-    this.scene.add(leftWall)
-
-    // Right wall segment (X: 0.8 to 4)
-    const rightWall = new THREE.Mesh(new THREE.PlaneGeometry(3.2, 4), wallMat)
-    rightWall.position.set(2.4, 1.9, 3.88)
-    rightWall.rotation.y = Math.PI
-    rightWall.receiveShadow = true
-    this.scene.add(rightWall)
-
-    // Top lintel segment above door (Y: 2.9 to 4.0)
-    const topLintel = new THREE.Mesh(new THREE.PlaneGeometry(1.6, 1.1), wallMat)
-    topLintel.position.set(0, 3.45, 3.88)
-    topLintel.rotation.y = Math.PI
-    this.scene.add(topLintel)
-
-    // Architectural Door Frame Pillars & Header Beam
     const pillarGeo = new THREE.BoxGeometry(0.12, 3.0, 0.14)
     const leftPillar = new THREE.Mesh(pillarGeo, frameMat)
     leftPillar.position.set(-0.86, 1.45, 3.89)
@@ -2999,7 +3008,7 @@ export class JapaneseRoomService {
     headerBeam.position.set(0, 2.95, 3.89)
     this.scene.add(headerBeam)
 
-    // 2. Sliding Shoji Door Leaves (Left & Right)
+    // Sliding Shoji Door Leaves (Left & Right)
     const doorTex = createShojiDoorPanelTexture()
     const doorMat = new THREE.MeshStandardMaterial({
       map: doorTex,
@@ -3022,7 +3031,7 @@ export class JapaneseRoomService {
 
     this.interactiveDoors.push({ mesh: this.studyDoorGroup, roomId: 'study-room' })
 
-    // 3. Modern Illuminated Room Plaque (Mounted outside in hallway beside the door)
+    // Modern Illuminated Room Plaque (Mounted outside in hallway beside the door)
     const plaqueTex = createModernRoomLabelTexture(
       'Study Room',
       'Class 1-5 Knowledge Archive · 44 Volumes',
@@ -3041,22 +3050,27 @@ export class JapaneseRoomService {
     this.studyDoorPlaque.position.set(1.48, 1.65, 3.96) // Facing into hallway (+Z)
     this.scene.add(this.studyDoorPlaque)
 
-    // 4. Physical 3D Light Switch (Mounted inside Study Room beside the door)
+    // Physical 3D Light Switch (Mounted inside Study Room beside the door)
     const switchTex = createLightSwitchTexture(this.isLightOn)
     const switchMat = new THREE.MeshStandardMaterial({ map: switchTex, roughness: 0.4 })
     const switchGeo = new THREE.PlaneGeometry(0.18, 0.26)
     this.studyWallSwitch = new THREE.Mesh(switchGeo, switchMat)
-    this.studyWallSwitch.position.set(0.98, 1.40, 3.86)
+    this.studyWallSwitch.position.set(0.98, 1.40, 3.83)
     this.studyWallSwitch.rotation.y = Math.PI // Facing inside study room (-Z)
     this.scene.add(this.studyWallSwitch)
     this.interactiveSwitches.push({ mesh: this.studyWallSwitch, targetId: 'study-room' })
   }
 
   private buildGrandHallway() {
-    // Grand Japanese Corridor: Width 28m (X: -14 to +14), Depth 3.4m (Z: 3.9 to 7.3), Height 3.9m
+    // Grand Japanese Corridor: Width 28m (X: -14 to +14), Depth 3.42m (Z: 3.88 to 7.30), Height 3.9m
+    const wallTex = createModernWallTexture()
+    const wallMat = new THREE.MeshStandardMaterial({ map: wallTex, roughness: 0.8 })
+    const darkWood = createWoodTexture('#26140a', '#120803')
+    const frameMat = new THREE.MeshStandardMaterial({ map: darkWood, roughness: 0.65 })
+
     // 1. Polished Cedar Plank Floor
     const floorTex = createHallwayFloorTexture()
-    const floorGeo = new THREE.PlaneGeometry(28, 3.4)
+    const floorGeo = new THREE.PlaneGeometry(28, 3.42)
     const floorMat = new THREE.MeshStandardMaterial({
       map: floorTex,
       roughness: 0.45,
@@ -3064,7 +3078,7 @@ export class JapaneseRoomService {
     })
     const hallFloor = new THREE.Mesh(floorGeo, floorMat)
     hallFloor.rotation.x = -Math.PI / 2
-    hallFloor.position.set(0, 0.002, 5.6)
+    hallFloor.position.set(0, 0.002, 5.59)
     hallFloor.receiveShadow = true
     this.hallwayGroup.add(hallFloor)
 
@@ -3076,33 +3090,85 @@ export class JapaneseRoomService {
     const runnerMat = new THREE.MeshStandardMaterial({ map: tatamiTex, roughness: 0.85 })
     const runner = new THREE.Mesh(runnerGeo, runnerMat)
     runner.rotation.x = -Math.PI / 2
-    runner.position.set(0, 0.005, 5.6)
+    runner.position.set(0, 0.005, 5.59)
     runner.receiveShadow = true
     this.hallwayGroup.add(runner)
 
     // 2. Ceiling with Recessed Cedar Beams
-    const darkWood = createWoodTexture('#26140a', '#120803')
     const beamMat = new THREE.MeshStandardMaterial({ map: darkWood, roughness: 0.7 })
-
-    const hallCeilingGeo = new THREE.PlaneGeometry(28, 3.4)
+    const hallCeilingGeo = new THREE.PlaneGeometry(28, 3.42)
     const ceilingMat = new THREE.MeshStandardMaterial({ color: '#161922', roughness: 0.9 })
     const hallCeiling = new THREE.Mesh(hallCeilingGeo, ceilingMat)
     hallCeiling.rotation.x = Math.PI / 2
-    hallCeiling.position.set(0, 3.9, 5.6)
+    hallCeiling.position.set(0, 3.9, 5.59)
     this.hallwayGroup.add(hallCeiling)
 
     for (let x = -13; x <= 13; x += 2.6) {
-      const b = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.22, 3.4), beamMat)
-      b.position.set(x, 3.79, 5.6)
+      const b = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.22, 3.42), beamMat)
+      b.position.set(x, 3.79, 5.59)
       b.castShadow = true
       this.hallwayGroup.add(b)
     }
 
-    // 3. Outer Glass Shoji Wall & Scenic Moonlit Bamboo Garden (Z = 7.3)
+    // 3. Corridor Solid End Walls at X = -14 and X = +14 (Eliminates black void!)
+    const endWallGeo = new THREE.BoxGeometry(0.12, 3.9, 3.42)
+    const leftEndWall = new THREE.Mesh(endWallGeo, wallMat)
+    leftEndWall.position.set(-14.0, 1.95, 5.59)
+    this.hallwayGroup.add(leftEndWall)
+
+    const rightEndWall = new THREE.Mesh(endWallGeo, wallMat)
+    rightEndWall.position.set(14.0, 1.95, 5.59)
+    this.hallwayGroup.add(rightEndWall)
+
+    // 4. Master Solid Inner Wall along Z = 3.88 (Thickness: 8cm, Height: 3.9m)
+    // Seamless architectural segments with exact doorway openings:
+    // Segment A (Far Left to Meditation Dojo Door X = -6.3): Width 7.7m
+    const segAGeo = new THREE.BoxGeometry(7.7, 3.9, 0.08)
+    const segA = new THREE.Mesh(segAGeo, wallMat)
+    segA.position.set(-10.15, 1.95, 3.88)
+    this.hallwayGroup.add(segA)
+
+    // Lintel above Meditation Dojo Doorway (X: -6.3 to -4.7, Y: 2.9 to 3.9)
+    const lintelMedGeo = new THREE.BoxGeometry(1.6, 1.0, 0.08)
+    const lintelMed = new THREE.Mesh(lintelMedGeo, wallMat)
+    lintelMed.position.set(-5.5, 3.4, 3.88)
+    this.hallwayGroup.add(lintelMed)
+
+    // Segment B (Between Meditation Dojo & Study Room X: -4.7 to -0.8): Width 3.9m
+    const segBGeo = new THREE.BoxGeometry(3.9, 3.9, 0.08)
+    const segB = new THREE.Mesh(segBGeo, wallMat)
+    segB.position.set(-2.75, 1.95, 3.88)
+    this.hallwayGroup.add(segB)
+
+    // Lintel above Study Room Doorway (X: -0.8 to 0.8, Y: 2.9 to 3.9)
+    const lintelStudyGeo = new THREE.BoxGeometry(1.6, 1.0, 0.08)
+    const lintelStudy = new THREE.Mesh(lintelStudyGeo, wallMat)
+    lintelStudy.position.set(0, 3.4, 3.88)
+    this.hallwayGroup.add(lintelStudy)
+
+    // Segment C (Between Study Room & Library Chamber X: 0.8 to 4.7): Width 3.9m
+    const segCGeo = new THREE.BoxGeometry(3.9, 3.9, 0.08)
+    const segC = new THREE.Mesh(segCGeo, wallMat)
+    segC.position.set(2.75, 1.95, 3.88)
+    this.hallwayGroup.add(segC)
+
+    // Lintel above Library Chamber Doorway (X: 4.7 to 6.3, Y: 2.9 to 3.9)
+    const lintelLibGeo = new THREE.BoxGeometry(1.6, 1.0, 0.08)
+    const lintelLib = new THREE.Mesh(lintelLibGeo, wallMat)
+    lintelLib.position.set(5.5, 3.4, 3.88)
+    this.hallwayGroup.add(lintelLib)
+
+    // Segment D (Library Chamber to Far Right X: 6.3 to 14.0): Width 7.7m
+    const segDGeo = new THREE.BoxGeometry(7.7, 3.9, 0.08)
+    const segD = new THREE.Mesh(segDGeo, wallMat)
+    segD.position.set(10.15, 1.95, 3.88)
+    this.hallwayGroup.add(segD)
+
+    // 5. Outer Glass Shoji Wall & Scenic Moonlit Bamboo Garden (Z = 7.3)
     const glassTex = createGlassShojiDoorTexture()
     glassTex.wrapS = THREE.RepeatWrapping
     glassTex.repeat.set(7, 1)
-    const outerWallGeo = new THREE.PlaneGeometry(28, 4)
+    const outerWallGeo = new THREE.PlaneGeometry(28, 3.9)
     const outerWallMat = new THREE.MeshStandardMaterial({
       map: glassTex,
       transparent: true,
@@ -3110,7 +3176,7 @@ export class JapaneseRoomService {
       roughness: 0.15,
     })
     const outerWall = new THREE.Mesh(outerWallGeo, outerWallMat)
-    outerWall.position.set(0, 1.9, 7.3)
+    outerWall.position.set(0, 1.95, 7.3)
     outerWall.rotation.y = Math.PI
     this.hallwayGroup.add(outerWall)
 
@@ -3126,7 +3192,7 @@ export class JapaneseRoomService {
     gardenBackdrop.rotation.y = Math.PI
     this.hallwayGroup.add(gardenBackdrop)
 
-    // 4. Hallway Corridor Lighting System
+    // 6. Hallway Lighting System
     const hallAmbient = new THREE.AmbientLight('#1e293b', 0.45)
     this.hallwayLights.push(hallAmbient)
     this.hallwayGroup.add(hallAmbient)
@@ -3135,22 +3201,21 @@ export class JapaneseRoomService {
     const spotPositions = [-9.5, -4.0, 0, 4.0, 9.5]
     for (const sx of spotPositions) {
       const spot = new THREE.SpotLight('#fed7aa', 1.35, 12, Math.PI / 3.5, 0.45, 1.2)
-      spot.position.set(sx, 3.8, 5.6)
-      spot.target.position.set(sx, 0, 5.6)
+      spot.position.set(sx, 3.8, 5.59)
+      spot.target.position.set(sx, 0, 5.59)
       this.hallwayGroup.add(spot)
       this.hallwayGroup.add(spot.target)
       this.hallwayLights.push(spot)
 
-      // Small glowing recessed ceiling fixture mesh
       const fixture = new THREE.Mesh(
         new THREE.CylinderGeometry(0.12, 0.12, 0.04, 16),
         new THREE.MeshBasicMaterial({ color: '#fff7ed' })
       )
-      fixture.position.set(sx, 3.88, 5.6)
+      fixture.position.set(sx, 3.88, 5.59)
       this.hallwayGroup.add(fixture)
     }
 
-    // 5. Hallway Light Switch (Beside Study Room door in the hallway)
+    // Hallway Light Switch (Beside Study Room door in the hallway)
     const switchTex = createLightSwitchTexture(this.isHallwayLightOn)
     const switchMat = new THREE.MeshStandardMaterial({ map: switchTex, roughness: 0.4 })
     this.hallwayWallSwitch = new THREE.Mesh(new THREE.PlaneGeometry(0.18, 0.26), switchMat)
@@ -3162,22 +3227,24 @@ export class JapaneseRoomService {
   }
 
   private buildDefaultRooms() {
-    // Pre-create Room 2: Library Chamber
+    // Pre-create Room 2: Library Chamber (fixed ID matching Vue chips)
     this.createCustomRoom(
       'Library Chamber',
       'Curated Academic Literature & Reference',
       '📚',
       'library',
-      5.5
+      5.5,
+      'room-lib'
     )
 
-    // Pre-create Room 3: Meditation Dojo
+    // Pre-create Room 3: Meditation Dojo (fixed ID matching Vue chips)
     this.createCustomRoom(
       'Meditation Dojo',
       'Zen Mindfulness, Bonsai & Tea Pavilion',
       '🧘',
       'meditation',
-      -5.5
+      -5.5,
+      'room-zen'
     )
   }
 
@@ -3186,11 +3253,12 @@ export class JapaneseRoomService {
     subtitle = 'Custom Chamber',
     icon = '✨',
     theme: 'study' | 'library' | 'meditation' | 'gallery' | 'science' = 'library',
-    requestedSlot?: number
+    requestedSlot?: number,
+    fixedId?: string
   ): CustomRoomData {
-    const roomId = `room-${Date.now()}-${Math.floor(Math.random() * 1000)}`
+    const roomId = fixedId || `room-${Date.now()}-${Math.floor(Math.random() * 1000)}`
     const slotX = requestedSlot !== undefined ? requestedSlot : this.getNextAvailableSlot()
-    const roomIndex = this.customRooms.size + 2 // Study Room is #1
+    const roomIndex = this.customRooms.size + 2
 
     const roomGroup = new THREE.Group()
     const doorGroup = new THREE.Group()
@@ -3201,52 +3269,49 @@ export class JapaneseRoomService {
     const darkWood = createWoodTexture('#26140a', '#120803')
     const frameMat = new THREE.MeshStandardMaterial({ map: darkWood, roughness: 0.65 })
 
-    // 1. Room Floor (Width 5.0m, Depth 4.2m behind inner wall Z = 3.9, from Z = -0.3 to 3.9)
+    // 1. Room Floor (Width 5.0m, Depth 4.18m from Z: -0.3 to 3.88)
     let floorTex: THREE.Texture
     if (theme === 'meditation') {
       floorTex = createTatamiTexture()
     } else if (theme === 'gallery') {
-      floorTex = createWoodTexture('#f1f5f9', '#cbd5e1') // Modern polished birch
+      floorTex = createWoodTexture('#f1f5f9', '#cbd5e1')
     } else {
       floorTex = createWoodTexture('#3a2113', '#1e1008')
     }
     const floor = new THREE.Mesh(
-      new THREE.PlaneGeometry(5.0, 4.2),
+      new THREE.PlaneGeometry(5.0, 4.18),
       new THREE.MeshStandardMaterial({ map: floorTex, roughness: 0.6 })
     )
     floor.rotation.x = -Math.PI / 2
-    floor.position.set(slotX, 0.002, 1.8)
+    floor.position.set(slotX, 0.002, 1.79)
     floor.receiveShadow = true
     roomGroup.add(floor)
 
     // Back wall at Z = -0.3
-    const backWall = new THREE.Mesh(new THREE.PlaneGeometry(5.0, 3.8), wallMat)
-    backWall.position.set(slotX, 1.9, -0.3)
+    const backWall = new THREE.Mesh(new THREE.PlaneGeometry(5.0, 3.9), wallMat)
+    backWall.position.set(slotX, 1.95, -0.3)
     backWall.receiveShadow = true
     roomGroup.add(backWall)
 
     // Left wall at X = slotX - 2.5
-    const leftWall = new THREE.Mesh(new THREE.PlaneGeometry(4.2, 3.8), wallMat)
-    leftWall.position.set(slotX - 2.5, 1.9, 1.8)
+    const leftWall = new THREE.Mesh(new THREE.PlaneGeometry(4.18, 3.9), wallMat)
+    leftWall.position.set(slotX - 2.5, 1.95, 1.79)
     leftWall.rotation.y = Math.PI / 2
     roomGroup.add(leftWall)
 
     // Right wall at X = slotX + 2.5
-    const rightWall = new THREE.Mesh(new THREE.PlaneGeometry(4.2, 3.8), wallMat)
-    rightWall.position.set(slotX + 2.5, 1.9, 1.8)
+    const rightWall = new THREE.Mesh(new THREE.PlaneGeometry(4.18, 3.9), wallMat)
+    rightWall.position.set(slotX + 2.5, 1.95, 1.79)
     rightWall.rotation.y = -Math.PI / 2
     roomGroup.add(rightWall)
 
-    // Entrance wall partition at Z = 3.88
-    const leftPart = new THREE.Mesh(new THREE.PlaneGeometry(1.7, 3.8), wallMat)
-    leftPart.position.set(slotX - 1.65, 1.9, 3.88)
-    leftPart.rotation.y = Math.PI
-    roomGroup.add(leftPart)
-
-    const rightPart = new THREE.Mesh(new THREE.PlaneGeometry(1.7, 3.8), wallMat)
-    rightPart.position.set(slotX + 1.65, 1.9, 3.88)
-    rightPart.rotation.y = Math.PI
-    roomGroup.add(rightPart)
+    // Ceiling
+    const ceilingGeo = new THREE.PlaneGeometry(5.0, 4.18)
+    const ceilingMat = new THREE.MeshStandardMaterial({ color: '#161922', roughness: 0.9 })
+    const ceiling = new THREE.Mesh(ceilingGeo, ceilingMat)
+    ceiling.rotation.x = Math.PI / 2
+    ceiling.position.set(slotX, 3.9, 1.79)
+    roomGroup.add(ceiling)
 
     // Door Frame Pillars
     const lp = new THREE.Mesh(new THREE.BoxGeometry(0.12, 3.0, 0.14), frameMat)
@@ -3256,6 +3321,10 @@ export class JapaneseRoomService {
     const rp = new THREE.Mesh(new THREE.BoxGeometry(0.12, 3.0, 0.14), frameMat)
     rp.position.set(slotX + 0.86, 1.45, 3.89)
     roomGroup.add(rp)
+
+    const hb = new THREE.Mesh(new THREE.BoxGeometry(1.84, 0.16, 0.16), frameMat)
+    hb.position.set(slotX, 2.95, 3.89)
+    roomGroup.add(hb)
 
     // Sliding Shoji Door Leaves
     const doorTex = createShojiDoorPanelTexture()
@@ -3276,7 +3345,6 @@ export class JapaneseRoomService {
 
     // 2. Themed 3D Furnishings
     if (theme === 'library') {
-      // Bookshelf on back wall
       const shelf = new THREE.Mesh(
         new THREE.BoxGeometry(3.6, 2.6, 0.4),
         new THREE.MeshStandardMaterial({ map: darkWood, roughness: 0.6 })
@@ -3284,42 +3352,38 @@ export class JapaneseRoomService {
       shelf.position.set(slotX, 1.3, -0.1)
       roomGroup.add(shelf)
 
-      // Cozy reading chair
+      // Reading chair offset to side so central walkway is completely unobstructed
       const chairMat = new THREE.MeshStandardMaterial({ color: '#7f1d1d', roughness: 0.7 })
       const chairSeat = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.4, 0.8), chairMat)
-      chairSeat.position.set(slotX, 0.25, 1.6)
+      chairSeat.position.set(slotX + 1.2, 0.25, 1.2)
       roomGroup.add(chairSeat)
 
       const chairBack = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.8, 0.2), chairMat)
-      chairBack.position.set(slotX, 0.7, 1.25)
+      chairBack.position.set(slotX + 1.2, 0.7, 0.85)
       roomGroup.add(chairBack)
     } else if (theme === 'meditation') {
-      // Central stone lantern
       const lanternMat = new THREE.MeshStandardMaterial({ color: '#64748b', roughness: 0.9 })
       const lanternBase = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.25, 0.6, 8), lanternMat)
-      lanternBase.position.set(slotX, 0.3, 1.6)
+      lanternBase.position.set(slotX - 1.3, 0.3, 1.2)
       roomGroup.add(lanternBase)
 
       const lanternHead = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.35, 0.4), lanternMat)
-      lanternHead.position.set(slotX, 0.75, 1.6)
+      lanternHead.position.set(slotX - 1.3, 0.75, 1.2)
       roomGroup.add(lanternHead)
 
-      // Warm candle light inside lantern
       const candle = new THREE.PointLight('#fef08a', 0.8, 5)
-      candle.position.set(slotX, 0.75, 1.6)
+      candle.position.set(slotX - 1.3, 0.75, 1.2)
       roomLights.push(candle)
       roomGroup.add(candle)
 
-      // Bonsai tree on side pedestal
       const table = new THREE.Mesh(
         new THREE.CylinderGeometry(0.3, 0.3, 0.7, 16),
         frameMat
       )
-      table.position.set(slotX + 1.6, 0.35, 0.8)
+      table.position.set(slotX + 1.4, 0.35, 0.8)
       roomGroup.add(table)
       this.buildShelfTopPlant(roomGroup as any, 0, 0, 0)
     } else if (theme === 'gallery') {
-      // Art Easel with painted canvas
       const easelMat = new THREE.MeshStandardMaterial({ map: darkWood, roughness: 0.7 })
       const easelLeg = new THREE.Mesh(new THREE.BoxGeometry(0.06, 2.0, 0.06), easelMat)
       easelLeg.position.set(slotX, 1.0, 1.4)
@@ -3332,7 +3396,6 @@ export class JapaneseRoomService {
       canvasMesh.position.set(slotX, 1.2, 1.35)
       roomGroup.add(canvasMesh)
     } else {
-      // Science / Tech theme: Lab bench with celestial globe
       const bench = new THREE.Mesh(
         new THREE.BoxGeometry(2.4, 0.8, 0.8),
         new THREE.MeshStandardMaterial({ map: darkWood, roughness: 0.5 })
@@ -3354,8 +3417,8 @@ export class JapaneseRoomService {
     roomGroup.add(roomAmbient)
 
     const roomSpot = new THREE.SpotLight('#fed7aa', 1.6, 10, Math.PI / 3, 0.35)
-    roomSpot.position.set(slotX, 3.6, 1.8)
-    roomSpot.target.position.set(slotX, 0, 1.8)
+    roomSpot.position.set(slotX, 3.6, 1.79)
+    roomSpot.target.position.set(slotX, 0, 1.79)
     roomLights.push(roomSpot)
     roomGroup.add(roomSpot)
     roomGroup.add(roomSpot.target)
@@ -3372,13 +3435,13 @@ export class JapaneseRoomService {
     labelMesh.position.set(slotX + 1.48, 1.65, 3.96)
     this.scene.add(labelMesh)
 
-    // 5. 3D Light Switch (inside the room)
+    // 5. 3D Light Switch (inside the room facing -Z)
     const switchTex = createLightSwitchTexture(true)
     const switchMesh = new THREE.Mesh(
       new THREE.PlaneGeometry(0.18, 0.26),
       new THREE.MeshStandardMaterial({ map: switchTex, roughness: 0.4 })
     )
-    switchMesh.position.set(slotX + 0.98, 1.40, 3.86)
+    switchMesh.position.set(slotX + 0.98, 1.40, 3.83)
     switchMesh.rotation.y = Math.PI
     roomGroup.add(switchMesh)
     this.interactiveSwitches.push({ mesh: switchMesh, targetId: roomId })
@@ -3392,7 +3455,7 @@ export class JapaneseRoomService {
       icon,
       theme,
       doorX: slotX,
-      doorZ: 3.9,
+      doorZ: 3.88,
       isLightOn: true,
       group: roomGroup,
       doorGroup,
@@ -3418,14 +3481,8 @@ export class JapaneseRoomService {
     for (const slot of this.availableSlots) {
       if (!usedSlots.has(slot)) return slot
     }
-    // If all predefined slots taken, offset dynamically
-    const nextOffset = (this.customRooms.size + 1) * 5.5
-    return nextOffset
+    return 9.5
   }
-
-  // =========================================================
-  // INTERACTIVE CONTROLS: DOORS, LIGHTS & EXPLORE
-  // =========================================================
 
   public toggleDoor(roomId = 'study-room') {
     let doorLeft: THREE.Mesh | undefined
@@ -3599,17 +3656,28 @@ export class JapaneseRoomService {
     if (this.isExploreMode === enabled) return
     this.isExploreMode = enabled
 
+    gsap.killTweensOf(this.camera.position)
+    gsap.killTweensOf(this.camera.rotation)
+
     if (enabled) {
-      // Transition from Desk / Shelf view to First-Person Walking View
+      // Enter First-Person Explore Mode
+      this.state = 'explore'
+      this.currentZone = 'study-room'
+      this.playerPos.set(0, 1.65, 1.8)
+      this.playerYaw = 0 // Facing into the room & bookshelf
+      this.playerPitch = 0
+
       gsap.to(this.camera.position, {
         x: this.playerPos.x,
         y: this.playerPos.y,
         z: this.playerPos.z,
-        duration: 1.0,
+        duration: 0.8,
         ease: 'power2.inOut',
         onComplete: () => {
-          this.camera.rotation.set(this.playerPitch, this.playerYaw, 0, 'YXZ')
+          this.camera.rotation.set(0, 0, 0, 'YXZ')
           this.callbacks.onExploreModeChanged?.(true)
+          this.callbacks.onCurrentZoneChanged?.('study-room', 'Study Room')
+          this.checkDoorProximity()
         },
       })
     } else {
@@ -3620,42 +3688,78 @@ export class JapaneseRoomService {
       this.keys.right = false
       this.keys.shift = false
       this.isMouseDragging = false
+      this.currentNearPrompt = { show: false, text: '', roomId: '', isOpen: false }
+      this.callbacks.onNearDoorPrompt?.(this.currentNearPrompt)
 
       gsap.to(this.camera.position, {
         x: this.initialCamPos.x,
         y: this.initialCamPos.y,
         z: this.initialCamPos.z,
-        duration: 1.1,
+        duration: 0.9,
         ease: 'power2.inOut',
         onUpdate: () => {
           this.camera.lookAt(this.initialCamTarget)
         },
         onComplete: () => {
+          this.state = 'room-view'
+          this.currentZone = 'study-room'
+          this.camera.lookAt(this.initialCamTarget)
           this.callbacks.onExploreModeChanged?.(false)
+          this.callbacks.onCurrentZoneChanged?.('study-room', 'Study Room')
         },
       })
     }
   }
 
   public teleportToZone(zoneId: string) {
-    let targetX = 0
-    let targetZ = 1.8
-    let yaw = 0
+    gsap.killTweensOf(this.camera.position)
+    gsap.killTweensOf(this.camera.rotation)
 
     if (zoneId === 'study-room') {
+      if (!this.isExploreMode) {
+        return
+      }
+      this.state = 'explore'
+      this.currentZone = 'study-room'
+      this.playerPos.set(0, 1.65, 1.8)
+      this.playerYaw = 0
+      this.playerPitch = 0
+      this.camera.position.set(0, 1.65, 1.8)
+      this.camera.rotation.set(0, 0, 0, 'YXZ')
+      this.callbacks.onExploreModeChanged?.(true)
+      this.callbacks.onCurrentZoneChanged?.('study-room', 'Study Room')
+      this.checkDoorProximity()
+      return
+    }
+
+    this.isExploreMode = true
+    this.state = 'explore'
+    this.callbacks.onExploreModeChanged?.(true)
+
+    let targetX = 0
+    let targetZ = 5.5
+    let yaw = -Math.PI / 2 // Facing down the Grand Corridor
+
+    if (zoneId === 'hallway') {
       targetX = 0
-      targetZ = 1.8
-      yaw = 0 // Facing desk and bookshelf
-    } else if (zoneId === 'hallway') {
-      targetX = 0
-      targetZ = 5.6
-      yaw = Math.PI // Facing into hallway
+      targetZ = 5.5
+      yaw = -Math.PI / 2
+      this.currentZone = 'hallway'
     } else {
-      const room = this.customRooms.get(zoneId)
+      let room = this.customRooms.get(zoneId)
+      if (!room) {
+        for (const r of this.customRooms.values()) {
+          if (r.id === zoneId || r.name.toLowerCase() === zoneId.toLowerCase()) {
+            room = r
+            break
+          }
+        }
+      }
       if (room) {
         targetX = room.doorX
-        targetZ = 1.8
-        yaw = 0
+        targetZ = 1.9
+        yaw = 0 // Inside chamber facing interior
+        this.currentZone = room.id
       }
     }
 
@@ -3664,8 +3768,84 @@ export class JapaneseRoomService {
     this.playerPitch = 0
     this.camera.position.set(targetX, 1.65, targetZ)
     this.camera.rotation.set(0, yaw, 0, 'YXZ')
-    this.currentZone = zoneId
-    this.callbacks.onCurrentZoneChanged?.(zoneId, this.getZoneName(zoneId))
+    this.callbacks.onCurrentZoneChanged?.(this.currentZone, this.getZoneName(this.currentZone))
+    this.checkDoorProximity()
+  }
+
+  public walkThroughDoor() {
+    gsap.killTweensOf(this.playerPos)
+
+    if (this.currentZone === 'study-room' && this.isStudyDoorOpen) {
+      // Walk smoothly from inside study room out into grand corridor
+      this.playerYaw = Math.PI
+      this.playerPitch = 0
+      gsap.to(this.playerPos, {
+        x: 0,
+        z: 5.2,
+        duration: 1.1,
+        ease: 'power2.inOut',
+        onComplete: () => {
+          this.currentZone = 'hallway'
+          this.callbacks.onCurrentZoneChanged?.('hallway', 'Grand Corridor')
+          this.checkDoorProximity()
+        },
+      })
+    } else if (this.currentZone === 'hallway') {
+      // If near study room door
+      if (Math.abs(this.playerPos.x) < 1.3 && this.isStudyDoorOpen) {
+        this.playerYaw = 0
+        this.playerPitch = 0
+        gsap.to(this.playerPos, {
+          x: 0,
+          z: 2.0,
+          duration: 1.1,
+          ease: 'power2.inOut',
+          onComplete: () => {
+            this.currentZone = 'study-room'
+            this.callbacks.onCurrentZoneChanged?.('study-room', 'Study Room')
+            this.checkDoorProximity()
+          },
+        })
+      } else {
+        // Check which custom room door
+        for (const room of this.customRooms.values()) {
+          if (Math.abs(this.playerPos.x - room.doorX) < 1.3 && room.isDoorOpen) {
+            this.playerYaw = 0
+            this.playerPitch = 0
+            gsap.to(this.playerPos, {
+              x: room.doorX,
+              z: 2.0,
+              duration: 1.1,
+              ease: 'power2.inOut',
+              onComplete: () => {
+                this.currentZone = room.id
+                this.callbacks.onCurrentZoneChanged?.(room.id, room.name)
+                this.checkDoorProximity()
+              },
+            })
+            break
+          }
+        }
+      }
+    } else {
+      // Inside a custom room, walk out to hallway
+      const room = this.customRooms.get(this.currentZone)
+      if (room && room.isDoorOpen) {
+        this.playerYaw = Math.PI
+        this.playerPitch = 0
+        gsap.to(this.playerPos, {
+          x: room.doorX,
+          z: 5.2,
+          duration: 1.1,
+          ease: 'power2.inOut',
+          onComplete: () => {
+            this.currentZone = 'hallway'
+            this.callbacks.onCurrentZoneChanged?.('hallway', 'Grand Corridor')
+            this.checkDoorProximity()
+          },
+        })
+      }
+    }
   }
 
   private getZoneName(zoneId: string): string {
@@ -3681,8 +3861,87 @@ export class JapaneseRoomService {
     }
   }
 
+  private checkAllowedPosition(nextX: number, nextZ: number): { allowed: boolean; newZone?: string } {
+    if (this.currentZone === 'study-room') {
+      // Study Room Bounds: X [-2.85, 2.85], Z [-2.4, 3.88]
+      // Desk Obstacle: X [-1.2, 1.2], Z [-0.95, -0.05]
+      if (Math.abs(nextX) < 1.15 && nextZ > -0.95 && nextZ < -0.05) {
+        return { allowed: false }
+      }
+      // Doorway passage to hallway at X [-0.8, 0.8], Z = 3.88
+      if (nextZ > 3.75) {
+        const isDoor = Math.abs(nextX) < 0.8
+        if (isDoor && this.isStudyDoorOpen) {
+          if (nextZ > 4.0) {
+            return { allowed: true, newZone: 'hallway' }
+          }
+          return { allowed: true }
+        }
+        return { allowed: false }
+      }
+      if (nextX < -2.85 || nextX > 2.85 || nextZ < -2.4) {
+        return { allowed: false }
+      }
+      return { allowed: true }
+    } else if (this.currentZone === 'hallway') {
+      // Hallway Bounds: X [-13.5, 13.5], Z [4.05, 7.05]
+      if (nextX < -13.5 || nextX > 13.5 || nextZ > 7.05) {
+        return { allowed: false }
+      }
+      // Inner wall doors at Z = 3.88
+      if (nextZ < 4.1) {
+        // Study Room Door (X: 0)
+        if (Math.abs(nextX) < 0.8) {
+          if (this.isStudyDoorOpen) {
+            if (nextZ < 3.85) {
+              return { allowed: true, newZone: 'study-room' }
+            }
+            return { allowed: true }
+          }
+          return { allowed: false }
+        }
+        // Custom Room Doors (Meditation Dojo at -5.5, Library Chamber at 5.5)
+        for (const room of this.customRooms.values()) {
+          if (Math.abs(nextX - room.doorX) < 0.8) {
+            if (room.isDoorOpen) {
+              if (nextZ < 3.85) {
+                return { allowed: true, newZone: room.id }
+              }
+              return { allowed: true }
+            }
+            return { allowed: false }
+          }
+        }
+        return { allowed: false }
+      }
+      return { allowed: true }
+    } else {
+      // Inside Custom Room
+      const room = this.customRooms.get(this.currentZone)
+      if (room) {
+        const rx = room.doorX
+        if (nextX < rx - 2.3 || nextX > rx + 2.3 || nextZ < -0.15) {
+          return { allowed: false }
+        }
+        if (nextZ > 3.75) {
+          if (Math.abs(nextX - rx) < 0.8 && room.isDoorOpen) {
+            if (nextZ > 4.0) {
+              return { allowed: true, newZone: 'hallway' }
+            }
+            return { allowed: true }
+          }
+          return { allowed: false }
+        }
+      }
+      return { allowed: true }
+    }
+  }
+
   private updateExploreMovement(delta: number, elapsedTime: number) {
     if (!this.isExploreMode) return
+
+    // Ensure delta is valid and realistic (guaranteed > 0)
+    const safeDelta = (delta > 0.0005 && delta < 0.15) ? delta : (1 / 60)
 
     // 1. Calculate Horizontal Movement Vectors
     const forward = new THREE.Vector3(-Math.sin(this.playerYaw), 0, -Math.cos(this.playerYaw))
@@ -3694,96 +3953,51 @@ export class JapaneseRoomService {
     if (this.keys.left) moveVector.sub(right)
     if (this.keys.right) moveVector.add(right)
 
-    const isMoving = moveVector.lengthSq() > 0.001
+    const isMoving = moveVector.lengthSq() > 0.0001
     if (isMoving) {
       moveVector.normalize()
       const speed = this.keys.shift ? this.runSpeed : this.walkSpeed
-      const step = speed * delta
+      const step = speed * safeDelta
 
-      const nextX = this.playerPos.x + moveVector.x * step
-      const nextZ = this.playerPos.z + moveVector.z * step
+      const testX = this.playerPos.x + moveVector.x * step
+      const testZ = this.playerPos.z + moveVector.z * step
 
-      // 2. Collision Detection & Room Bounds
-      // Determine which zone player is in or moving toward
-      let allowed = true
-
-      if (this.currentZone === 'study-room') {
-        // Study Room Bounds: X [-3.6, 3.6], Z [-2.4, 3.7]
-        // Desk Obstacle: X [-1.2, 1.2], Z [-0.9, -0.1]
-        const inDesk = Math.abs(nextX) < 1.15 && nextZ > -0.95 && nextZ < -0.05
-        if (inDesk) allowed = false
-
-        // Doorway passage at X [-0.7, 0.7], Z = 3.9
-        const isNearDoorway = Math.abs(nextX) < 0.75
-        if (nextZ > 3.75) {
-          if (isNearDoorway && this.isStudyDoorOpen) {
-            // Walking through doorway into hallway!
-            this.currentZone = 'hallway'
-            this.callbacks.onCurrentZoneChanged?.('hallway', 'Grand Corridor')
-          } else if (nextZ > 3.72) {
-            allowed = false // Blocked by wall or closed door
-          }
+      // Smooth Wall Sliding: test X and Z independently
+      const checkFull = this.checkAllowedPosition(testX, testZ)
+      if (checkFull.allowed) {
+        this.playerPos.x = testX
+        this.playerPos.z = testZ
+        if (checkFull.newZone && checkFull.newZone !== this.currentZone) {
+          this.currentZone = checkFull.newZone
+          this.callbacks.onCurrentZoneChanged?.(checkFull.newZone, this.getZoneName(checkFull.newZone))
         }
-        if (nextX < -3.6 || nextX > 3.6 || nextZ < -2.4) allowed = false
-      } else if (this.currentZone === 'hallway') {
-        // Hallway Bounds: X [-13.5, 13.5], Z [4.1, 7.0]
-        // Can walk back into Study Room if doorway at X [-0.7, 0.7] is open
-        if (nextZ < 4.05) {
-          const isStudyDoor = Math.abs(nextX) < 0.75
-          if (isStudyDoor) {
-            if (this.isStudyDoorOpen) {
-              this.currentZone = 'study-room'
-              this.callbacks.onCurrentZoneChanged?.('study-room', 'Study Room')
-            } else {
-              allowed = false
-            }
-          } else {
-            // Check custom room doors
-            let enteredCustom = false
-            for (const room of this.customRooms.values()) {
-              if (Math.abs(nextX - room.doorX) < 0.75) {
-                if (room.isDoorOpen) {
-                  this.currentZone = room.id
-                  this.callbacks.onCurrentZoneChanged?.(room.id, room.name)
-                  enteredCustom = true
-                  break
-                }
-              }
-            }
-            if (!enteredCustom) allowed = false
-          }
-        }
-        if (nextZ > 7.05 || nextX < -13.5 || nextX > 13.5) allowed = false
       } else {
-        // In a Custom Room
-        const room = this.customRooms.get(this.currentZone)
-        if (room) {
-          const rx = room.doorX
-          const minX = rx - 2.3
-          const maxX = rx + 2.3
-          if (nextX < minX || nextX > maxX || nextZ < 0.0) allowed = false
-          if (nextZ > 3.75) {
-            if (Math.abs(nextX - rx) < 0.75 && room.isDoorOpen) {
-              this.currentZone = 'hallway'
-              this.callbacks.onCurrentZoneChanged?.('hallway', 'Grand Corridor')
-            } else if (nextZ > 3.72) {
-              allowed = false
-            }
+        // Slide on X
+        const checkX = this.checkAllowedPosition(testX, this.playerPos.z)
+        if (checkX.allowed) {
+          this.playerPos.x = testX
+          if (checkX.newZone && checkX.newZone !== this.currentZone) {
+            this.currentZone = checkX.newZone
+            this.callbacks.onCurrentZoneChanged?.(checkX.newZone, this.getZoneName(checkX.newZone))
+          }
+        }
+        // Slide on Z
+        const checkZ = this.checkAllowedPosition(this.playerPos.x, testZ)
+        if (checkZ.allowed) {
+          this.playerPos.z = testZ
+          if (checkZ.newZone && checkZ.newZone !== this.currentZone) {
+            this.currentZone = checkZ.newZone
+            this.callbacks.onCurrentZoneChanged?.(checkZ.newZone, this.getZoneName(checkZ.newZone))
           }
         }
       }
 
-      if (allowed) {
-        this.playerPos.x = nextX
-        this.playerPos.z = nextZ
-
-        // Footstep Audio Trigger
-        this.stepDistanceAccumulator += step
-        const stepThreshold = this.keys.shift ? 1.35 : 0.95
-        if (this.stepDistanceAccumulator >= stepThreshold) {
-          this.stepDistanceAccumulator = 0
-          this.callbacks.onPlayFootstep?.()
-        }
+      // Footstep Audio Trigger
+      this.stepDistanceAccumulator += step
+      const stepThreshold = this.keys.shift ? 1.35 : 0.95
+      if (this.stepDistanceAccumulator >= stepThreshold) {
+        this.stepDistanceAccumulator = 0
+        this.callbacks.onPlayFootstep?.()
       }
 
       // Smooth Head Bobbing Effect
@@ -3803,10 +4017,13 @@ export class JapaneseRoomService {
   private checkDoorProximity() {
     let nearPrompt: DoorPromptData = { show: false, text: '', roomId: '', isOpen: false }
 
-    // Check Study Room Door (X: 0, Z: 3.9)
-    const distToStudy = this.playerPos.distanceTo(new THREE.Vector3(0, 1.65, 3.9))
-    if (distToStudy < 2.2) {
-      const isInside = this.playerPos.z < 3.9
+    // Check Study Room Door (X: 0, Z: 3.87)
+    const dxStudy = this.playerPos.x - 0
+    const dzStudy = this.playerPos.z - 3.87
+    const distToStudy = Math.sqrt(dxStudy * dxStudy + dzStudy * dzStudy)
+
+    if (distToStudy < 1.35) {
+      const isInside = this.playerPos.z < 3.87
       const dest = isInside ? 'Hallway' : 'Study Room'
       const action = this.isStudyDoorOpen ? 'Close Door' : `Open Door to ${dest}`
       nearPrompt = {
@@ -3816,11 +4033,13 @@ export class JapaneseRoomService {
         isOpen: this.isStudyDoorOpen,
       }
     } else {
-      // Check Custom Room Doors
+      // Check Custom Room Doors (doorX, Z: 3.87)
       for (const room of this.customRooms.values()) {
-        const dist = this.playerPos.distanceTo(new THREE.Vector3(room.doorX, 1.65, 3.9))
-        if (dist < 2.2) {
-          const isInside = this.playerPos.z < 3.9
+        const dx = this.playerPos.x - room.doorX
+        const dz = this.playerPos.z - 3.87
+        const dist = Math.sqrt(dx * dx + dz * dz)
+        if (dist < 1.35) {
+          const isInside = this.playerPos.z < 3.87
           const dest = isInside ? 'Hallway' : room.name
           const action = room.isDoorOpen ? 'Close Door' : `Open Door to ${dest}`
           nearPrompt = {
@@ -3845,8 +4064,13 @@ export class JapaneseRoomService {
 
     const animate = () => {
       this.animationFrameId = requestAnimationFrame(animate)
+
+      // CRITICAL: Call getDelta() FIRST before getElapsedTime()!
+      // THREE.Clock.getElapsedTime() calls getDelta() internally, resetting oldTime.
+      // Calling getDelta() after getElapsedTime() caused delta to be ~0.00001, freezing movement!
+      const rawDelta = clock.getDelta()
+      const delta = (rawDelta > 0.0005 && rawDelta < 0.15) ? rawDelta : (1 / 60)
       const elapsedTime = clock.getElapsedTime()
-      const delta = clock.getDelta()
 
       // First-Person WASD + Shift Run Explore Controller
       if (this.isExploreMode) {
@@ -3855,29 +4079,25 @@ export class JapaneseRoomService {
 
       // 1. Environmental atmospheric micro-animations (GPU-driven fireflies & tea steam)
       if (this.dustParticles) {
-        // Slow ambient room circulation drift
         this.dustParticles.rotation.y = elapsedTime * 0.012
-
-        // Feed global time to GPU shader for 100% hardware-accelerated independent firefly motion
         const mat = this.dustParticles.material as THREE.PointsMaterial
         if (mat?.userData?.shader) {
           mat.userData.shader.uniforms.uTime.value = elapsedTime
         }
       }
 
-      // Rising delicate steam from freshly whisked hot matcha tea
       if (this.teaSteamParticles) {
         this.teaSteamParticles.rotation.y = elapsedTime * 0.15
         this.teaSteamParticles.position.y = 0.005 + Math.sin(elapsedTime * 0.8) * 0.004
       }
 
-      // Subtle outdoor garden leaf sway
       if (this.gardenBackdropMesh) {
         this.gardenBackdropMesh.position.y = 2.0 + Math.sin(elapsedTime * 0.22) * 0.008
       }
 
       // 2. Room View Camera Breathing (Smooth, natural 1.8cm arc, zero robotic shake)
-      if (this.state === 'room-view') {
+      // ONLY executes when in desk room view and NOT exploring!
+      if (this.state === 'room-view' && !this.isExploreMode) {
         this.camera.position.x = this.initialCamPos.x + Math.sin(elapsedTime * 0.25) * 0.018
         this.camera.position.y = this.initialCamPos.y + Math.cos(elapsedTime * 0.2) * 0.012
         this.camera.lookAt(this.initialCamTarget)

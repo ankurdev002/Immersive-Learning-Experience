@@ -28,7 +28,7 @@ const {
   playFootstep,
 } = useImmersiveAudio()
 
-const roomState = ref<'room-view' | 'book-flying' | 'on-table' | 'book-open'>('room-view')
+const roomState = ref<'room-view' | 'book-flying' | 'on-table' | 'book-open' | 'explore'>('room-view')
 const isLoading = ref(true)
 const loadingProgress = ref(0)
 let progressTimer: ReturnType<typeof setInterval> | null = null
@@ -118,7 +118,9 @@ const handleSelectClass = (classLevel: number) => {
 
 const handleKeyDown = (e: KeyboardEvent) => {
   if (e.key === 'Escape') {
-    if (roomState.value === 'book-open' || roomState.value === 'on-table') {
+    if (isExploreMode.value) {
+      handleToggleExploreMode()
+    } else if (roomState.value === 'book-open' || roomState.value === 'on-table') {
       handleReturnToShelf()
     } else {
       handleExitRoom()
@@ -234,6 +236,11 @@ onMounted(() => {
       },
       onExploreModeChanged: (explore: boolean) => {
         isExploreMode.value = explore
+        if (explore) {
+          roomState.value = 'explore'
+        } else {
+          roomState.value = 'room-view'
+        }
       },
       onCurrentZoneChanged: (zone: string, zoneName: string) => {
         currentZone.value = zone
@@ -374,6 +381,10 @@ const handleReturnToShelf = () => {
 }
 
 // Explore Mode & Hallway Handlers
+const handleCanvasFocus = () => {
+  window.focus()
+}
+
 const handleToggleExploreMode = () => {
   if (roomService) {
     if (roomState.value === 'book-open' || roomState.value === 'on-table') {
@@ -390,6 +401,12 @@ const handleToggleExploreMode = () => {
 const handleInteractDoor = () => {
   if (roomService && nearDoorPrompt.value.roomId) {
     roomService.toggleDoor(nearDoorPrompt.value.roomId)
+  }
+}
+
+const handleWalkThroughDoor = () => {
+  if (roomService) {
+    roomService.walkThroughDoor()
   }
 }
 
@@ -475,7 +492,7 @@ const handleExitRoom = () => {
 <template>
   <div class="immersive-room-wrapper" :class="{ 'is-night-mode': !isLightOn }">
     <!-- WebGL Canvas -->
-    <canvas ref="canvasRef" class="webgl-canvas" />
+    <canvas ref="canvasRef" class="webgl-canvas" @click="handleCanvasFocus" />
 
     <!-- Zen Immersive Loading Screen -->
     <transition name="zen-loader-fade">
@@ -625,7 +642,7 @@ const handleExitRoom = () => {
     <div class="room-action-dock">
       <!-- 1. Room View Phase: Sleek compact floating action bar -->
       <transition name="dock-fade">
-        <div v-if="roomState === 'room-view'" class="action-card action-card-compact">
+        <div v-if="roomState === 'room-view' && !isExploreMode" class="action-card action-card-compact">
           <div class="action-info">
             <span class="card-icon">📚</span>
             <div>
@@ -781,16 +798,25 @@ const handleExitRoom = () => {
         <div
           v-if="nearDoorPrompt.show"
           class="floating-door-prompt"
-          @click="handleInteractDoor"
         >
-          <div class="fd-icon-box">🚪</div>
-          <div class="fd-content">
+          <div class="fd-icon-box" @click="handleInteractDoor">🚪</div>
+          <div class="fd-content" @click="handleInteractDoor">
             <span class="fd-title">{{ nearDoorPrompt.text }}</span>
-            <span class="fd-sub">Click here or press [E] key</span>
+            <span class="fd-sub">{{ nearDoorPrompt.isOpen ? 'Door open · Walk forward with W or click button' : 'Click Slide Open or press [E] key' }}</span>
           </div>
-          <button class="fd-btn">
-            {{ nearDoorPrompt.isOpen ? 'Slide Shut' : 'Slide Open' }}
-          </button>
+          <div class="fd-btn-group">
+            <button class="fd-btn fd-toggle-btn" @click="handleInteractDoor">
+              {{ nearDoorPrompt.isOpen ? 'Slide Shut' : 'Slide Open' }}
+            </button>
+            <button
+              v-if="nearDoorPrompt.isOpen"
+              class="fd-btn fd-walk-btn"
+              title="Walk through doorway"
+              @click="handleWalkThroughDoor"
+            >
+              Walk Through ➔
+            </button>
+          </div>
         </div>
       </transition>
 
@@ -812,17 +838,21 @@ const handleExitRoom = () => {
         </div>
       </div>
 
-      <!-- Mobile / Tablet On-Screen Touch Controls -->
+      <!-- On-Screen Touch & Click D-pad Controls -->
       <div class="mobile-touch-dpad">
         <div class="dpad-cross">
           <button
             class="dpad-btn dpad-up"
+            @mousedown.prevent="handleTouchMove('forward', true)"
+            @mouseup.prevent="handleTouchMove('forward', false)"
             @touchstart.prevent="handleTouchMove('forward', true)"
             @touchend.prevent="handleTouchMove('forward', false)"
           >▲</button>
           <div class="dpad-middle">
             <button
               class="dpad-btn dpad-left"
+              @mousedown.prevent="handleTouchMove('left', true)"
+              @mouseup.prevent="handleTouchMove('left', false)"
               @touchstart.prevent="handleTouchMove('left', true)"
               @touchend.prevent="handleTouchMove('left', false)"
             >◀</button>
@@ -831,12 +861,16 @@ const handleExitRoom = () => {
             </button>
             <button
               class="dpad-btn dpad-right"
+              @mousedown.prevent="handleTouchMove('right', true)"
+              @mouseup.prevent="handleTouchMove('right', false)"
               @touchstart.prevent="handleTouchMove('right', true)"
               @touchend.prevent="handleTouchMove('right', false)"
             >▶</button>
           </div>
           <button
             class="dpad-btn dpad-down"
+            @mousedown.prevent="handleTouchMove('backward', true)"
+            @mouseup.prevent="handleTouchMove('backward', false)"
             @touchstart.prevent="handleTouchMove('backward', true)"
             @touchend.prevent="handleTouchMove('backward', false)"
           >▼</button>
@@ -1842,6 +1876,12 @@ const handleExitRoom = () => {
   color: #94a3b8;
 }
 
+.fd-btn-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .fd-btn {
   background: #0284c7;
   color: #ffffff;
@@ -1852,6 +1892,22 @@ const handleExitRoom = () => {
   font-weight: 700;
   cursor: pointer;
   box-shadow: 0 4px 12px rgba(2, 132, 199, 0.4);
+  transition: all 0.2s ease;
+}
+
+.fd-btn:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.12);
+}
+
+.fd-walk-btn {
+  background: linear-gradient(135deg, #059669, #10b981) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.45) !important;
+}
+
+.fd-walk-btn:hover {
+  box-shadow: 0 6px 18px rgba(16, 185, 129, 0.6) !important;
 }
 
 /* Corridor Chamber Dock in Bottom-Right */

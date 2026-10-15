@@ -89,19 +89,25 @@ export function createModernWallTexture(): THREE.CanvasTexture {
   const ctx = canvas.getContext('2d')!
 
   // Warm Japandi cream plaster
-  ctx.fillStyle = '#f4efe6'
+  ctx.fillStyle = '#f6f1e8'
   ctx.fillRect(0, 0, 512, 512)
 
-  // Subtle sand/plaster texture stippling
-  ctx.fillStyle = 'rgba(180, 165, 145, 0.08)'
-  for (let i = 0; i < 2000; i++) {
+  // Subtle sand/plaster texture stippling (organic, natural)
+  ctx.fillStyle = 'rgba(180, 165, 145, 0.06)'
+  for (let i = 0; i < 2500; i++) {
     ctx.fillRect(Math.random() * 512, Math.random() * 512, 2, 2)
   }
 
-  // Soft vertical wood slats accent on right side
-  ctx.fillStyle = '#3a2416'
-  for (let x = 360; x < 512; x += 18) {
-    ctx.fillRect(x, 0, 10, 512)
+  // Delicate washi fibers
+  ctx.strokeStyle = 'rgba(160, 145, 125, 0.04)'
+  ctx.lineWidth = 1
+  for (let i = 0; i < 150; i++) {
+    const sx = Math.random() * 512
+    const sy = Math.random() * 512
+    ctx.beginPath()
+    ctx.moveTo(sx, sy)
+    ctx.lineTo(sx + (Math.random() - 0.5) * 16, sy + (Math.random() - 0.5) * 16)
+    ctx.stroke()
   }
 
   const texture = new THREE.CanvasTexture(canvas)
