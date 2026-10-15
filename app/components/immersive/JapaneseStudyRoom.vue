@@ -73,6 +73,14 @@ const newRoomName = ref('')
 const newRoomSubtitle = ref('')
 const newRoomIcon = ref('📚')
 const newRoomTheme = ref<'library' | 'meditation' | 'gallery' | 'science'>('library')
+
+// 60 FPS Engine & Integrated GPU Performance Stats
+const perfStats = ref<{ fps: number; dpr: number; tier: 'low' | 'high'; isOptimized: boolean }>({
+  fps: 60,
+  dpr: 1.0,
+  tier: 'low',
+  isOptimized: true,
+})
 const customRoomsList = ref<Array<{ id: string; name: string; icon: string; theme: string }>>([
   { id: 'study-room', name: 'Study Room', icon: '📖', theme: 'study' },
   { id: 'hallway', name: 'Grand Corridor', icon: '⛩️', theme: 'hallway' as any },
@@ -271,6 +279,9 @@ onMounted(() => {
       },
       onPlayDoorSlide: () => {
         playDoorSlide()
+      },
+      onPerformanceUpdate: (stats) => {
+        perfStats.value = stats
       },
     })
   }
@@ -604,6 +615,16 @@ const handleExitRoom = () => {
           <span class="util-icon">🍵</span>
           <span>{{ isDrinkingTea ? 'Sipping...' : 'Drink Tea' }}</span>
         </button>
+
+        <!-- Real-Time 60 FPS & Integrated GPU Performance Badge -->
+        <div
+          class="hud-perf-badge"
+          :title="`Engine: ${perfStats.tier === 'low' ? 'Integrated GPU' : 'High Performance'} · Target: 60 FPS · DPR: ${perfStats.dpr.toFixed(2)}`"
+        >
+          <span class="perf-dot" :class="{ 'is-smooth': perfStats.fps >= 54, 'is-warning': perfStats.fps < 54 }" />
+          <span class="perf-fps-num">{{ perfStats.fps }} FPS</span>
+          <span class="perf-tag-pill">{{ perfStats.tier === 'low' ? 'iGPU 60Hz' : '60Hz Pro' }}</span>
+        </div>
       </div>
 
 <!-- Class pills removed as requested -->
@@ -1972,6 +1993,64 @@ const handleExitRoom = () => {
   right: 28px;
   z-index: 55;
   pointer-events: auto;
+  transform: translateZ(0);
+  will-change: transform, opacity;
+}
+
+/* Real-Time 60 FPS Performance Indicator Badge */
+.hud-perf-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 12px;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  border-radius: 9999px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 11px;
+  font-weight: 700;
+  color: #e2e8f0;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  user-select: none;
+  cursor: default;
+  transition: all 0.2s ease;
+}
+
+.perf-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 8px #22c55e;
+  animation: perf-pulse 2s ease-in-out infinite;
+}
+
+.perf-dot.is-warning {
+  background: #f59e0b;
+  box-shadow: 0 0 8px #f59e0b;
+}
+
+@keyframes perf-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.55; transform: scale(0.85); }
+}
+
+.perf-fps-num {
+  color: #38bdf8;
+  letter-spacing: 0.04em;
+}
+
+.perf-tag-pill {
+  padding: 2px 6px;
+  background: rgba(56, 189, 248, 0.15);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  border-radius: 6px;
+  font-size: 9px;
+  font-weight: 800;
+  color: #7dd3fc;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 .chamber-dropup-trigger {

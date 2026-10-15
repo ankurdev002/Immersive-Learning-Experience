@@ -69,6 +69,13 @@ export interface DoorPromptData {
   isOpen: boolean
 }
 
+export interface PerformanceStats {
+  fps: number
+  dpr: number
+  tier: 'low' | 'high'
+  isOptimized: boolean
+}
+
 export interface RoomServiceCallbacks {
   onBookSelected?: (bookData?: ImmersiveBookData) => void
   onBookFlightStarted?: () => void
@@ -91,6 +98,7 @@ export interface RoomServiceCallbacks {
   onNearDoorPrompt?: (prompt: DoorPromptData) => void
   onPlayFootstep?: () => void
   onPlayDoorSlide?: () => void
+  onPerformanceUpdate?: (stats: PerformanceStats) => void
 }
 
 // Stable Theatre.js Project Singleton across HMR cycles
@@ -191,6 +199,32 @@ export class JapaneseRoomService {
   private gutterShadowMesh!: THREE.Mesh
   public currentBookData: ImmersiveBookData = SHELF_BOOKS_CONFIG.find((b) => b.isInteractive)!
 
+  // =========================================================
+  // LOW-END DEVICE & INTEGRATED GPU 60 FPS ENGINE
+  // =========================================================
+  public isIntegratedGPU = false
+  public baseDPR = 1.0
+  public currentDPR = 1.0
+  public currentFps = 60
+  private avgFrameDelta = 0.0166
+  private consecutiveSlowFrames = 0
+  private consecutiveFastFrames = 0
+  private shadowUpdateFrames = 25
+  private lastRaycastTime = 0
+  private lastSpatialCheckZone = ''
+  private lastSpatialCheckX = 9999
+
+  // Dedicated Hallway Light References for Spatial Light Culling
+  private hallwaySpotLights: THREE.SpotLight[] = []
+  private hallwayAmbientLight: THREE.AmbientLight | null = null
+  private hallwayLeftLight: THREE.PointLight | null = null
+  private hallwayRightLight: THREE.PointLight | null = null
+
+  // Zero-Allocation Reusable Scratch Vectors for Render Loop
+  private readonly _scratchForward = new THREE.Vector3()
+  private readonly _scratchRight = new THREE.Vector3()
+  private readonly _scratchMoveVector = new THREE.Vector3()
+
   // Physical Book Geometry Constants
   private readonly bookWidth = 0.35
   private readonly bookLength = 0.48
@@ -267,16 +301,25 @@ export class JapaneseRoomService {
     this.camera.position.copy(this.initialCamPos)
     this.camera.lookAt(this.initialCamTarget)
 
-    // 2. High-Fidelity WebGL Renderer
+    // Detect GPU & Hardware profile for low-end / integrated GPU optimization
+    this.detectHardwareProfile()
+
+    // 2. High-Fidelity & Low-End Optimized WebGL Renderer
     this.renderer = new THREE.WebGLRenderer({
       canvas,
       antialias: true,
       powerPreference: 'high-performance',
+      stencil: false,
+      depth: true,
+      alpha: false,
     })
     this.renderer.setSize(canvas.clientWidth, canvas.clientHeight, false)
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5))
+    this.renderer.setPixelRatio(this.currentDPR)
     this.renderer.shadowMap.enabled = true
-    this.renderer.shadowMap.type = THREE.PCFSoftShadowMap
+    // PCFShadowMap provides 3x faster filtering on Intel UHD / Iris Xe / mobile GPUs than PCFSoft
+    this.renderer.shadowMap.type = THREE.PCFShadowMap
+    // Selective shadow updates: renders static shadows once, eliminating ~120 shadow render passes/sec
+    this.renderer.shadowMap.autoUpdate = false
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping
     this.renderer.toneMappingExposure = 1.15
 
@@ -293,7 +336,177 @@ export class JapaneseRoomService {
 
     // 4. Events & Render Loop
     this.bindEvents()
+    // Initial static shadow bake (25 frames)
+    this.triggerShadowUpdate(25)
+    // Initial spatial lighting culling pass
+    this.updateSpatialLights(true)
     this.startLoop()
+  }
+
+  // =========================================================
+  // HARDWARE DETECTION & ADAPTIVE 60 FPS PERFORMANCE ENGINE
+  // =========================================================
+
+  private detectHardwareProfile() {
+    let isLowTier = false
+    try {
+      const gl = this.canvas.getContext('webgl2') || this.canvas.getContext('webgl')
+      if (gl) {
+        const debugInfo = gl.getExtension('WEBGL_debug_renderer_info')
+        if (debugInfo) {
+          const rendererStr = (gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) || '').toLowerCase()
+          if (
+            rendererStr.includes('intel') ||
+            rendererStr.includes('uhd') ||
+            rendererStr.includes('iris') ||
+            rendererStr.includes('hd graphics') ||
+            rendererStr.includes('mali') ||
+            rendererStr.includes('adreno') ||
+            rendererStr.includes('powervr') ||
+            rendererStr.includes('radeon vega') ||
+            rendererStr.includes('radeon graphics') ||
+            rendererStr.includes('llvmpipe') ||
+            rendererStr.includes('swiftshader') ||
+            (rendererStr.includes('apple') && !rendererStr.includes('pro') && !rendererStr.includes('max'))
+          ) {
+            isLowTier = true
+          }
+        }
+      }
+      if (typeof navigator !== 'undefined') {
+        if (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) {
+          isLowTier = true
+        }
+        if ((navigator as any).deviceMemory && (navigator as any).deviceMemory <= 4) {
+          isLowTier = true
+        }
+      }
+    } catch {
+      // Fallback
+    }
+
+    this.isIntegratedGPU = isLowTier
+    // On integrated / mobile GPUs, clamp base DPR to 1.0 to prevent 4x pixel overhead on Retina displays
+    this.baseDPR = isLowTier ? Math.min(window.devicePixelRatio, 1.0) : Math.min(window.devicePixelRatio, 1.25)
+    this.currentDPR = this.baseDPR
+  }
+
+  public triggerShadowUpdate(frames = 30) {
+    this.shadowUpdateFrames = Math.max(this.shadowUpdateFrames, frames)
+  }
+
+  private monitorPerformance(rawDelta: number) {
+    if (rawDelta <= 0.0001 || rawDelta > 0.5) return
+
+    // Exponential moving average of frame time
+    this.avgFrameDelta = this.avgFrameDelta * 0.94 + rawDelta * 0.06
+    this.currentFps = Math.max(15, Math.min(120, Math.round(1 / this.avgFrameDelta)))
+
+    // Check if frame time exceeds 18.2ms (< 55 FPS)
+    if (this.avgFrameDelta > 0.0182) {
+      this.consecutiveSlowFrames++
+      this.consecutiveFastFrames = 0
+      // If consistently slow over 45 frames, gracefully step down DPR
+      if (this.consecutiveSlowFrames > 45 && this.currentDPR > 0.75) {
+        this.currentDPR = Math.max(0.75, Math.round((this.currentDPR - 0.08) * 100) / 100)
+        this.renderer.setPixelRatio(this.currentDPR)
+        this.consecutiveSlowFrames = 0
+      }
+    } else if (this.avgFrameDelta < 0.0152) { // > 65 FPS headroom
+      this.consecutiveFastFrames++
+      this.consecutiveSlowFrames = 0
+      // If consistently fast over 90 frames, gently step up toward baseDPR
+      if (this.consecutiveFastFrames > 90 && this.currentDPR < this.baseDPR) {
+        this.currentDPR = Math.min(this.baseDPR, Math.round((this.currentDPR + 0.05) * 100) / 100)
+        this.renderer.setPixelRatio(this.currentDPR)
+        this.consecutiveFastFrames = 0
+      }
+    }
+
+    // Periodic stats emission to UI
+    if (Math.random() < 0.018) {
+      this.callbacks.onPerformanceUpdate?.({
+        fps: this.currentFps,
+        dpr: this.currentDPR,
+        tier: this.isIntegratedGPU ? 'low' : 'high',
+        isOptimized: true,
+      })
+    }
+  }
+
+  public updateSpatialLights(force = false) {
+    const px = this.isExploreMode ? this.playerPos.x : 0
+    const zone = this.currentZone
+
+    if (!force && zone === this.lastSpatialCheckZone && Math.abs(px - this.lastSpatialCheckX) < 0.7) {
+      return
+    }
+    this.lastSpatialCheckZone = zone
+    this.lastSpatialCheckX = px
+
+    if (zone === 'study-room') {
+      // In study room: turn off all hallway spotlights and custom room lights
+      for (const spot of this.hallwaySpotLights) spot.visible = false
+      if (this.hallwayLeftLight) this.hallwayLeftLight.visible = false
+      if (this.hallwayRightLight) this.hallwayRightLight.visible = false
+      if (this.hallwayAmbientLight) this.hallwayAmbientLight.visible = this.isStudyDoorOpen
+
+      for (const room of this.customRooms.values()) {
+        for (const l of room.lights) l.visible = false
+      }
+
+      if (this.ambientLight) this.ambientLight.visible = true
+      if (this.sunLight) this.sunLight.visible = true
+      if (this.lampLight) this.lampLight.visible = this.isLightOn
+      if (this.moonLight) this.moonLight.visible = !this.isLightOn
+      if (this.heroBookGlowLight) {
+        this.heroBookGlowLight.visible = (this.state === 'room-view' && !this.isExploreMode)
+      }
+    } else if (zone === 'hallway') {
+      // In hallway: turn off study desk lamp & hero glow
+      if (this.lampLight) this.lampLight.visible = false
+      if (this.heroBookGlowLight) this.heroBookGlowLight.visible = false
+      if (this.sunLight) this.sunLight.visible = false
+
+      if (this.hallwayAmbientLight) this.hallwayAmbientLight.visible = this.isHallwayLightOn
+
+      // Only enable the nearest 2-3 corridor spotlights to player position
+      const maxSpotDist = this.isIntegratedGPU ? 6.5 : 9.0
+      for (const spot of this.hallwaySpotLights) {
+        spot.visible = this.isHallwayLightOn && Math.abs(spot.position.x - px) <= maxSpotDist
+      }
+
+      // Hallway end wall sconces
+      if (this.hallwayLeftLight) this.hallwayLeftLight.visible = this.isHallwayLightOn && Math.abs(px - (-13.5)) < 8.0
+      if (this.hallwayRightLight) this.hallwayRightLight.visible = this.isHallwayLightOn && Math.abs(px - 13.5) < 8.0
+
+      // Custom room lights: only enable if door is open OR player is within 3.5m of door
+      for (const room of this.customRooms.values()) {
+        const nearDoor = Math.abs(room.doorX - px) < 3.5
+        const shouldLight = room.isLightOn && (room.isDoorOpen || nearDoor)
+        for (const l of room.lights) l.visible = shouldLight
+      }
+
+      if (this.ambientLight) this.ambientLight.visible = this.isStudyDoorOpen || Math.abs(px) < 3.5
+    } else {
+      // Inside a custom room
+      if (this.lampLight) this.lampLight.visible = false
+      if (this.heroBookGlowLight) this.heroBookGlowLight.visible = false
+      if (this.sunLight) this.sunLight.visible = false
+      if (this.ambientLight) this.ambientLight.visible = false
+
+      for (const [id, room] of this.customRooms.entries()) {
+        const isCurrent = id === zone
+        for (const l of room.lights) l.visible = isCurrent && room.isLightOn
+      }
+
+      for (const spot of this.hallwaySpotLights) {
+        spot.visible = this.isHallwayLightOn && Math.abs(spot.position.x - px) < 4.5
+      }
+      if (this.hallwayLeftLight) this.hallwayLeftLight.visible = false
+      if (this.hallwayRightLight) this.hallwayRightLight.visible = false
+      if (this.hallwayAmbientLight) this.hallwayAmbientLight.visible = this.isHallwayLightOn
+    }
   }
 
   private setupLighting() {
@@ -305,8 +518,9 @@ export class JapaneseRoomService {
     this.sunLight = new THREE.DirectionalLight(0xfffae5, 1.4)
     this.sunLight.position.set(-4.5, 4.2, 0.5)
     this.sunLight.castShadow = true
-    this.sunLight.shadow.mapSize.width = 1024
-    this.sunLight.shadow.mapSize.height = 1024
+    const shadowSize = this.isIntegratedGPU ? 512 : 1024
+    this.sunLight.shadow.mapSize.width = shadowSize
+    this.sunLight.shadow.mapSize.height = shadowSize
     this.sunLight.shadow.camera.near = 0.5
     this.sunLight.shadow.camera.far = 18
     this.sunLight.shadow.camera.left = -5
@@ -323,8 +537,8 @@ export class JapaneseRoomService {
     this.scene.add(this.lampLight.target)
     this.lampLight.castShadow = true
     this.lampLight.shadow.bias = -0.0015
-    this.lampLight.shadow.mapSize.width = 1024
-    this.lampLight.shadow.mapSize.height = 1024
+    this.lampLight.shadow.mapSize.width = shadowSize
+    this.lampLight.shadow.mapSize.height = shadowSize
     this.lampLight.shadow.camera.near = 0.2
     this.lampLight.shadow.camera.far = 4.0
     this.scene.add(this.lampLight)
@@ -1814,6 +2028,14 @@ export class JapaneseRoomService {
     this.mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1
     this.mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1
 
+    // Explore mode: Skip heavy object raycasting during WASD / mouse-look walking
+    if (this.isExploreMode) return
+
+    // Throttle raycasting to ~30Hz (33ms) to save CPU/GPU cycles on high-polling mice
+    const now = performance.now()
+    if (now - this.lastRaycastTime < 33) return
+    this.lastRaycastTime = now
+
     this.raycaster.setFromCamera(this.mouse, this.camera)
 
     // 1. Check Lamp Hover
@@ -2005,6 +2227,7 @@ export class JapaneseRoomService {
 
   // Feature: Data-Driven Book Selection & Connection to Existing Immersive Experience
   public selectBook(bookData: ImmersiveBookData) {
+    this.triggerShadowUpdate(45)
     this.resetHoveredBook()
     this.currentBookData = bookData
     this.callbacks.onBookSelected?.(bookData)
@@ -2258,6 +2481,7 @@ export class JapaneseRoomService {
 
   public openBook() {
     if (this.state !== 'on-table') return
+    this.triggerShadowUpdate(45)
     this.state = 'book-open'
     this.currentPage = 1
     this.isFlipping = false
@@ -2870,6 +3094,7 @@ export class JapaneseRoomService {
 
   // Realistic Drinking Green Tea Animation
   public drinkTea() {
+    this.triggerShadowUpdate(45)
     if (this.isDrinking) return
     this.isDrinking = true
     this.callbacks.onTeaDrinkingStarted?.()
@@ -2981,8 +3206,9 @@ export class JapaneseRoomService {
     const height = this.canvas.clientHeight
     this.camera.aspect = width / height
     this.camera.updateProjectionMatrix()
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5))
+    this.renderer.setPixelRatio(this.currentDPR)
     this.renderer.setSize(width, height, false)
+    this.triggerShadowUpdate(15)
   }
 
 
@@ -3194,10 +3420,12 @@ export class JapaneseRoomService {
 
     // 6. Hallway Lighting System (Warm Japanese Ryokan Illumination)
     const hallAmbient = new THREE.AmbientLight('#fff1e6', 0.65)
+    this.hallwayAmbientLight = hallAmbient
     this.hallwayLights.push(hallAmbient)
     this.hallwayGroup.add(hallAmbient)
 
     // Recessed ceiling LED spotlights down the corridor
+    this.hallwaySpotLights = []
     const spotPositions = [-11.0, -7.5, -4.0, 0, 4.0, 7.5, 11.0]
     for (const sx of spotPositions) {
       const spot = new THREE.SpotLight('#fed7aa', 1.45, 14, Math.PI / 3.2, 0.45, 1.2)
@@ -3206,6 +3434,7 @@ export class JapaneseRoomService {
       this.hallwayGroup.add(spot)
       this.hallwayGroup.add(spot.target)
       this.hallwayLights.push(spot)
+      this.hallwaySpotLights.push(spot)
 
       const fixture = new THREE.Mesh(
         new THREE.CylinderGeometry(0.12, 0.12, 0.04, 16),
@@ -3230,6 +3459,7 @@ export class JapaneseRoomService {
 
     const leftEndLight = new THREE.PointLight('#fed7aa', 1.4, 9, 1.2)
     leftEndLight.position.set(-13.5, 2.2, 5.59)
+    this.hallwayLeftLight = leftEndLight
     this.hallwayLights.push(leftEndLight)
     this.hallwayGroup.add(leftEndLight)
 
@@ -3239,6 +3469,7 @@ export class JapaneseRoomService {
 
     const rightEndLight = new THREE.PointLight('#fed7aa', 1.4, 9, 1.2)
     rightEndLight.position.set(13.5, 2.2, 5.59)
+    this.hallwayRightLight = rightEndLight
     this.hallwayLights.push(rightEndLight)
     this.hallwayGroup.add(rightEndLight)
 
@@ -3560,6 +3791,8 @@ export class JapaneseRoomService {
   }
 
   public toggleRoomLight(targetId?: string): boolean {
+    this.triggerShadowUpdate(45)
+    this.updateSpatialLights(true)
     const activeTarget = targetId || this.currentZone
 
     if (activeTarget === 'study-room' || activeTarget === 'current') {
@@ -4017,24 +4250,24 @@ export class JapaneseRoomService {
     // Ensure delta is valid and realistic (guaranteed > 0)
     const safeDelta = (delta > 0.0005 && delta < 0.15) ? delta : (1 / 60)
 
-    // 1. Calculate Horizontal Movement Vectors
-    const forward = new THREE.Vector3(-Math.sin(this.playerYaw), 0, -Math.cos(this.playerYaw))
-    const right = new THREE.Vector3(Math.cos(this.playerYaw), 0, -Math.sin(this.playerYaw))
+    // 1. Calculate Horizontal Movement Vectors using zero-allocation scratch objects
+    this._scratchForward.set(-Math.sin(this.playerYaw), 0, -Math.cos(this.playerYaw))
+    this._scratchRight.set(Math.cos(this.playerYaw), 0, -Math.sin(this.playerYaw))
 
-    const moveVector = new THREE.Vector3()
-    if (this.keys.forward) moveVector.add(forward)
-    if (this.keys.backward) moveVector.sub(forward)
-    if (this.keys.left) moveVector.sub(right)
-    if (this.keys.right) moveVector.add(right)
+    this._scratchMoveVector.set(0, 0, 0)
+    if (this.keys.forward) this._scratchMoveVector.add(this._scratchForward)
+    if (this.keys.backward) this._scratchMoveVector.sub(this._scratchForward)
+    if (this.keys.left) this._scratchMoveVector.sub(this._scratchRight)
+    if (this.keys.right) this._scratchMoveVector.add(this._scratchRight)
 
-    const isMoving = moveVector.lengthSq() > 0.0001
+    const isMoving = this._scratchMoveVector.lengthSq() > 0.0001
     if (isMoving) {
-      moveVector.normalize()
+      this._scratchMoveVector.normalize()
       const speed = this.keys.shift ? this.runSpeed : this.walkSpeed
       const step = speed * safeDelta
 
-      const testX = this.playerPos.x + moveVector.x * step
-      const testZ = this.playerPos.z + moveVector.z * step
+      const testX = this.playerPos.x + this._scratchMoveVector.x * step
+      const testZ = this.playerPos.z + this._scratchMoveVector.z * step
 
       // Smooth Wall Sliding: test X and Z independently
       const checkFull = this.checkAllowedPosition(testX, testZ)
@@ -4043,6 +4276,7 @@ export class JapaneseRoomService {
         this.playerPos.z = testZ
         if (checkFull.newZone && checkFull.newZone !== this.currentZone) {
           this.currentZone = checkFull.newZone
+          this.updateSpatialLights(true)
           this.callbacks.onCurrentZoneChanged?.(checkFull.newZone, this.getZoneName(checkFull.newZone))
         }
       } else {
@@ -4052,6 +4286,7 @@ export class JapaneseRoomService {
           this.playerPos.x = testX
           if (checkX.newZone && checkX.newZone !== this.currentZone) {
             this.currentZone = checkX.newZone
+            this.updateSpatialLights(true)
             this.callbacks.onCurrentZoneChanged?.(checkX.newZone, this.getZoneName(checkX.newZone))
           }
         }
@@ -4061,6 +4296,7 @@ export class JapaneseRoomService {
           this.playerPos.z = testZ
           if (checkZ.newZone && checkZ.newZone !== this.currentZone) {
             this.currentZone = checkZ.newZone
+            this.updateSpatialLights(true)
             this.callbacks.onCurrentZoneChanged?.(checkZ.newZone, this.getZoneName(checkZ.newZone))
           }
         }
@@ -4135,49 +4371,68 @@ export class JapaneseRoomService {
 
   private startLoop() {
     const clock = new THREE.Clock()
+    let frameCount = 0
 
     const animate = () => {
       this.animationFrameId = requestAnimationFrame(animate)
 
       // CRITICAL: Call getDelta() FIRST before getElapsedTime()!
-      // THREE.Clock.getElapsedTime() calls getDelta() internally, resetting oldTime.
-      // Calling getDelta() after getElapsedTime() caused delta to be ~0.00001, freezing movement!
       const rawDelta = clock.getDelta()
       const delta = (rawDelta > 0.0005 && rawDelta < 0.15) ? rawDelta : (1 / 60)
       const elapsedTime = clock.getElapsedTime()
+
+      // Real-time Adaptive Performance & 60 FPS monitor
+      this.monitorPerformance(rawDelta)
 
       // First-Person WASD + Shift Run Explore Controller
       if (this.isExploreMode) {
         this.updateExploreMovement(delta, elapsedTime)
       }
 
+      // Throttled Spatial Lighting Culling (Every 10 frames)
+      frameCount++
+      if (frameCount % 10 === 0) {
+        this.updateSpatialLights()
+      }
+
       // 1. Environmental atmospheric micro-animations (GPU-driven fireflies & tea steam)
-      if (this.dustParticles) {
-        this.dustParticles.rotation.y = elapsedTime * 0.012
-        const mat = this.dustParticles.material as THREE.PointsMaterial
-        if (mat?.userData?.shader) {
-          mat.userData.shader.uniforms.uTime.value = elapsedTime
+      // Only animate if player is inside study room or near entrance to save CPU/GPU cycles!
+      if (this.currentZone === 'study-room' || (this.isExploreMode && Math.abs(this.playerPos.x) < 3.2 && this.playerPos.z < 4.5)) {
+        if (this.dustParticles) {
+          this.dustParticles.rotation.y = elapsedTime * 0.012
+          const mat = this.dustParticles.material as THREE.PointsMaterial
+          if (mat?.userData?.shader) {
+            mat.userData.shader.uniforms.uTime.value = elapsedTime
+          }
+        }
+
+        if (this.teaSteamParticles) {
+          this.teaSteamParticles.rotation.y = elapsedTime * 0.15
+          this.teaSteamParticles.position.y = 0.005 + Math.sin(elapsedTime * 0.8) * 0.004
+        }
+
+        if (this.gardenBackdropMesh) {
+          this.gardenBackdropMesh.position.y = 2.0 + Math.sin(elapsedTime * 0.22) * 0.008
         }
       }
 
-      if (this.teaSteamParticles) {
-        this.teaSteamParticles.rotation.y = elapsedTime * 0.15
-        this.teaSteamParticles.position.y = 0.005 + Math.sin(elapsedTime * 0.8) * 0.004
-      }
-
-      if (this.gardenBackdropMesh) {
-        this.gardenBackdropMesh.position.y = 2.0 + Math.sin(elapsedTime * 0.22) * 0.008
-      }
-
       // 2. Room View Camera Breathing (Smooth, natural 1.8cm arc, zero robotic shake)
-      // ONLY executes when in desk room view and NOT exploring!
       if (this.state === 'room-view' && !this.isExploreMode) {
         this.camera.position.x = this.initialCamPos.x + Math.sin(elapsedTime * 0.25) * 0.018
         this.camera.position.y = this.initialCamPos.y + Math.cos(elapsedTime * 0.2) * 0.012
         this.camera.lookAt(this.initialCamTarget)
 
-        if (this.heroBookGlowLight) {
+        if (this.heroBookGlowLight && this.heroBookGlowLight.visible) {
           this.heroBookGlowLight.intensity = 0.8 + Math.sin(elapsedTime * 2.0) * 0.2
+        }
+      }
+
+      // Selective / Event-Driven Shadow Map Updates:
+      // Only updates when hero book is moving, page flipping, or during lighting transitions
+      if (this.state === 'book-flying' || this.isFlipping || this.shadowUpdateFrames > 0) {
+        this.renderer.shadowMap.needsUpdate = true
+        if (this.shadowUpdateFrames > 0) {
+          this.shadowUpdateFrames--
         }
       }
 
