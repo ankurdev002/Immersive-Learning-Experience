@@ -299,6 +299,55 @@ function generateTeaDrinkWavUrl(): string {
  * Preloads reusable Howl objects once. Avoids instantiating Howl repeatedly.
  */
 let isPreloaded = false
+/**
+ * 11. Japanese Sliding Door Sound (0.75s)
+ * - Tactile wooden groove friction glide
+ * - Soft felt buffer deceleration
+ */
+function generateDoorSlideWavUrl(): string {
+  const sr = 22050
+  const duration = 0.75
+  const len = Math.floor(sr * duration)
+  const samples = new Float32Array(len)
+
+  for (let i = 0; i < len; i++) {
+    const t = i / sr
+    // Envelope: ramps up quickly, sustains gentle wood friction, tapers softly
+    const env = Math.sin((Math.PI * t) / duration) * Math.min(1, t * 14)
+    // Filtered wooden friction noise + low groove rumble
+    const noise = (Math.random() * 2 - 1) * 0.12 * env
+    const rumble = Math.sin(2 * Math.PI * 140 * t) * 0.08 * env
+    // Subtle wooden click at the start and gentle landing at the end
+    const clickStart = t < 0.03 ? (Math.random() * 2 - 1) * Math.exp(-t * 120) * 0.22 : 0
+    const clickEnd = t > 0.68 ? (Math.random() * 2 - 1) * Math.exp(-(t - 0.68) * 80) * 0.16 : 0
+
+    samples[i] = noise + rumble + clickStart + clickEnd
+  }
+  applyLowPass(samples, 0.35)
+  return createWavBlobUrl(sr, samples)
+}
+
+/**
+ * 12. Soft Tatami/Wood Footstep Sound (0.16s)
+ * - Gentle padded heel-to-toe contact
+ */
+function generateFootstepWavUrl(): string {
+  const sr = 22050
+  const duration = 0.16
+  const len = Math.floor(sr * duration)
+  const samples = new Float32Array(len)
+
+  for (let i = 0; i < len; i++) {
+    const t = i / sr
+    const env = Math.exp(-t * 38)
+    const impact = Math.sin(2 * Math.PI * (80 - t * 180) * t) * 0.15 * env
+    const scuff = (Math.random() * 2 - 1) * 0.06 * Math.exp(-t * 22)
+    samples[i] = impact + scuff
+  }
+  applyLowPass(samples, 0.4)
+  return createWavBlobUrl(sr, samples)
+}
+
 let ambienceHowl: Howl | null = null
 let bookSelectHowl: Howl | null = null
 let bookMoveHowl: Howl | null = null
@@ -309,6 +358,8 @@ let hoverHowl: Howl | null = null
 let lightSwitchHowl: Howl | null = null
 let teaCupHowl: Howl | null = null
 let teaDrinkHowl: Howl | null = null
+let doorSlideHowl: Howl | null = null
+let footstepHowl: Howl | null = null
 
 function preloadReusableSounds() {
   if (isPreloaded || !import.meta.client) return
@@ -385,6 +436,20 @@ function preloadReusableSounds() {
       src: [drinkUrl],
       format: ['wav'],
       volume: 0.15,
+    })
+
+    const doorUrl = generateDoorSlideWavUrl()
+    doorSlideHowl = new Howl({
+      src: [doorUrl],
+      format: ['wav'],
+      volume: 0.22,
+    })
+
+    const stepUrl = generateFootstepWavUrl()
+    footstepHowl = new Howl({
+      src: [stepUrl],
+      format: ['wav'],
+      volume: 0.18,
     })
 
     isPreloaded = true
@@ -521,6 +586,22 @@ export const useImmersiveAudio = () => {
     teaDrinkHowl?.play()
   }
 
+  // Explore Mode: Japanese Sliding Door Open/Close
+  const playDoorSlide = () => {
+    if (!import.meta.client) return
+    ensureAudioContextResumed()
+    preloadReusableSounds()
+    doorSlideHowl?.play()
+  }
+
+  // Explore Mode: Footstep on Tatami / Wood Planks
+  const playFootstep = () => {
+    if (!import.meta.client) return
+    ensureAudioContextResumed()
+    preloadReusableSounds()
+    footstepHowl?.play()
+  }
+
   return {
     playRoomAmbience,
     playBookSelect,
@@ -536,5 +617,7 @@ export const useImmersiveAudio = () => {
     playLightSwitch,
     playTeaCupClink,
     playTeaDrink,
+    playDoorSlide,
+    playFootstep,
   }
 }

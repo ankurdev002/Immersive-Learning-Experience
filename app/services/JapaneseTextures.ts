@@ -1559,3 +1559,258 @@ export function createFireflyTexture(): THREE.CanvasTexture {
   cachedFireflyTexture = texture
   return texture
 }
+
+
+// ==========================================
+// MODERN ROOM LABELS, DOORS & LIGHT SWITCHES
+// ==========================================
+
+export function createModernRoomLabelTexture(
+  title: string,
+  subtitle = 'IMMERSIVE SPACE',
+  icon = '📖',
+  isLightOn = true,
+  roomIndex = 1
+): THREE.CanvasTexture {
+  const canvas = document.createElement('canvas')
+  canvas.width = 1024
+  canvas.height = 512
+  const ctx = canvas.getContext('2d')!
+
+  // 1. Dark sleek acrylic glass panel background with rounded corners
+  const bgGrad = ctx.createLinearGradient(0, 0, 1024, 512)
+  bgGrad.addColorStop(0, '#090d1a')
+  bgGrad.addColorStop(1, '#020617')
+
+  const r = 36
+  ctx.beginPath()
+  ctx.moveTo(r, 0)
+  ctx.lineTo(1024 - r, 0)
+  ctx.quadraticCurveTo(1024, 0, 1024, r)
+  ctx.lineTo(1024, 512 - r)
+  ctx.quadraticCurveTo(1024, 512, 1024 - r, 512)
+  ctx.lineTo(r, 512)
+  ctx.quadraticCurveTo(0, 512, 0, 512 - r)
+  ctx.lineTo(0, r)
+  ctx.quadraticCurveTo(0, 0, r, 0)
+  ctx.closePath()
+  ctx.fillStyle = bgGrad
+  ctx.fill()
+
+  // 2. High-tech illuminated neon border rim
+  ctx.lineWidth = 10
+  const borderGrad = ctx.createLinearGradient(0, 0, 1024, 512)
+  if (isLightOn) {
+    borderGrad.addColorStop(0, 'rgba(56, 189, 248, 0.95)')   // Cyan neon
+    borderGrad.addColorStop(0.5, 'rgba(129, 140, 248, 0.9)')  // Violet neon
+    borderGrad.addColorStop(1, 'rgba(251, 191, 36, 0.85)')   // Warm amber
+  } else {
+    borderGrad.addColorStop(0, 'rgba(100, 116, 139, 0.45)')
+    borderGrad.addColorStop(1, 'rgba(51, 65, 85, 0.35)')
+  }
+  ctx.strokeStyle = borderGrad
+  ctx.stroke()
+
+  // 3. Status Badge Pill
+  ctx.fillStyle = isLightOn ? 'rgba(34, 197, 94, 0.18)' : 'rgba(148, 163, 184, 0.12)'
+  ctx.beginPath()
+  ctx.roundRect ? ctx.roundRect(65, 50, 310, 58, 29) : ctx.rect(65, 50, 310, 58)
+  ctx.fill()
+  ctx.strokeStyle = isLightOn ? '#4ade80' : '#64748b'
+  ctx.lineWidth = 3
+  ctx.stroke()
+
+  // Status LED Dot
+  ctx.fillStyle = isLightOn ? '#22c55e' : '#94a3b8'
+  ctx.beginPath()
+  ctx.arc(100, 79, 10, 0, Math.PI * 2)
+  ctx.fill()
+
+  ctx.fillStyle = isLightOn ? '#86efac' : '#cbd5e1'
+  ctx.font = 'bold 24px "Inter", "Segoe UI", sans-serif'
+  ctx.textAlign = 'left'
+  const indexStr = roomIndex < 10 ? `0${roomIndex}` : `${roomIndex}`
+  ctx.fillText(isLightOn ? `ROOM ${indexStr} · ACTIVE` : `ROOM ${indexStr} · STANDBY`, 125, 87)
+
+  // 4. Large Icon in circular glass capsule
+  ctx.beginPath()
+  ctx.arc(885, 145, 68, 0, Math.PI * 2)
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.08)'
+  ctx.fill()
+  ctx.strokeStyle = isLightOn ? 'rgba(56, 189, 248, 0.5)' : 'rgba(148, 163, 184, 0.25)'
+  ctx.lineWidth = 3
+  ctx.stroke()
+
+  ctx.font = '68px sans-serif'
+  ctx.textAlign = 'center'
+  ctx.fillText(icon, 885, 170)
+
+  // 5. Title (Clean modern typography)
+  ctx.fillStyle = '#ffffff'
+  ctx.font = '900 64px "Inter", "Segoe UI", -apple-system, sans-serif'
+  ctx.textAlign = 'left'
+  ctx.fillText(title.toUpperCase(), 65, 230)
+
+  // 6. Subtitle with letter spacing
+  ctx.fillStyle = '#94a3b8'
+  ctx.font = '600 28px "Inter", "Segoe UI", -apple-system, sans-serif'
+  ctx.fillText(subtitle.toUpperCase(), 65, 295)
+
+  // 7. Ambient bottom LED bar
+  ctx.fillStyle = isLightOn ? '#38bdf8' : '#334155'
+  ctx.fillRect(65, 430, 894, 8)
+
+  // Ambient glow under bottom bar
+  if (isLightOn) {
+    const barGlow = ctx.createLinearGradient(65, 430, 65, 470)
+    barGlow.addColorStop(0, 'rgba(56, 189, 248, 0.45)')
+    barGlow.addColorStop(1, 'rgba(56, 189, 248, 0)')
+    ctx.fillStyle = barGlow
+    ctx.fillRect(65, 438, 894, 32)
+  }
+
+  const texture = new THREE.CanvasTexture(canvas)
+  texture.generateMipmaps = true
+  texture.minFilter = THREE.LinearMipmapLinearFilter
+  texture.magFilter = THREE.LinearFilter
+  return texture
+}
+
+export function createLightSwitchTexture(isOn = true): THREE.CanvasTexture {
+  const canvas = document.createElement('canvas')
+  canvas.width = 256
+  canvas.height = 384
+  const ctx = canvas.getContext('2d')!
+
+  // Brushed aluminum plate background
+  const grad = ctx.createLinearGradient(0, 0, 256, 384)
+  grad.addColorStop(0, '#334155')
+  grad.addColorStop(0.5, '#1e293b')
+  grad.addColorStop(1, '#0f172a')
+  ctx.fillStyle = grad
+  ctx.fillRect(0, 0, 256, 384)
+
+  // Screws top and bottom
+  ctx.fillStyle = '#64748b'
+  ctx.beginPath()
+  ctx.arc(128, 30, 6, 0, Math.PI * 2)
+  ctx.arc(128, 354, 6, 0, Math.PI * 2)
+  ctx.fill()
+
+  // Rocker switch well
+  ctx.fillStyle = '#0b0f19'
+  ctx.fillRect(68, 90, 120, 204)
+  ctx.strokeStyle = '#475569'
+  ctx.lineWidth = 3
+  ctx.strokeRect(68, 90, 120, 204)
+
+  // Rocker body
+  const rockerY = isOn ? 94 : 144
+  ctx.fillStyle = isOn ? '#38bdf8' : '#475569'
+  ctx.fillRect(74, rockerY, 108, 146)
+
+  // Rocker label
+  ctx.fillStyle = '#ffffff'
+  ctx.font = 'bold 20px "Inter", "Segoe UI", sans-serif'
+  ctx.textAlign = 'center'
+  ctx.fillText(isOn ? 'ON' : 'OFF', 128, rockerY + 80)
+
+  // Status LED dot on top
+  ctx.fillStyle = isOn ? '#22c55e' : '#ef4444'
+  ctx.beginPath()
+  ctx.arc(128, 65, 8, 0, Math.PI * 2)
+  ctx.fill()
+
+  // Label text at bottom
+  ctx.fillStyle = '#94a3b8'
+  ctx.font = 'bold 16px "Inter", sans-serif'
+  ctx.fillText('LIGHT', 128, 325)
+
+  const texture = new THREE.CanvasTexture(canvas)
+  texture.generateMipmaps = true
+  return texture
+}
+
+export function createShojiDoorPanelTexture(): THREE.CanvasTexture {
+  const canvas = document.createElement('canvas')
+  canvas.width = 512
+  canvas.height = 1024
+  const ctx = canvas.getContext('2d')!
+
+  // Cedar wood frame outer
+  ctx.fillStyle = '#26150b'
+  ctx.fillRect(0, 0, 512, 1024)
+
+  // Frosted washi translucent paper panels
+  ctx.fillStyle = '#fdfbf7'
+  const margin = 32
+  const cols = 3
+  const rows = 6
+  const cellW = (512 - margin * 2) / cols
+  const cellH = (1024 - margin * 2) / rows
+
+  for (let c = 0; c < cols; c++) {
+    for (let r = 0; r < rows; r++) {
+      const x = margin + c * cellW + 4
+      const y = margin + r * cellH + 4
+      const w = cellW - 8
+      const h = cellH - 8
+
+      // Subtle warm gradient inside washi panel
+      const pGrad = ctx.createLinearGradient(x, y, x + w, y + h)
+      pGrad.addColorStop(0, '#fefdfa')
+      pGrad.addColorStop(1, '#f5eedb')
+      ctx.fillStyle = pGrad
+      ctx.fillRect(x, y, w, h)
+    }
+  }
+
+  // Recessed modern brushed vertical handle
+  ctx.fillStyle = '#0f172a'
+  ctx.fillRect(36, 440, 24, 144)
+  ctx.strokeStyle = '#c5a059'
+  ctx.lineWidth = 2
+  ctx.strokeRect(36, 440, 24, 144)
+
+  const texture = new THREE.CanvasTexture(canvas)
+  texture.generateMipmaps = true
+  return texture
+}
+
+export function createHallwayFloorTexture(): THREE.CanvasTexture {
+  const canvas = document.createElement('canvas')
+  canvas.width = 1024
+  canvas.height = 1024
+  const ctx = canvas.getContext('2d')!
+
+  // Dark rich cedar floor planks
+  ctx.fillStyle = '#1e1108'
+  ctx.fillRect(0, 0, 1024, 1024)
+
+  const plankCount = 12
+  const plankW = 1024 / plankCount
+
+  for (let i = 0; i < plankCount; i++) {
+    const x = i * plankW
+    const tone = i % 2 === 0 ? '#26160c' : '#1c0f07'
+    ctx.fillStyle = tone
+    ctx.fillRect(x + 2, 0, plankW - 4, 1024)
+
+    // Wood grain lines
+    ctx.strokeStyle = 'rgba(0, 0, 0, 0.25)'
+    ctx.lineWidth = 1.5
+    for (let k = 0; k < 6; k++) {
+      const gx = x + (k + 1) * (plankW / 7)
+      ctx.beginPath()
+      ctx.moveTo(gx, 0)
+      ctx.lineTo(gx + (Math.random() * 4 - 2), 1024)
+      ctx.stroke()
+    }
+  }
+
+  const texture = new THREE.CanvasTexture(canvas)
+  texture.wrapS = THREE.RepeatWrapping
+  texture.wrapT = THREE.RepeatWrapping
+  texture.repeat.set(4, 1)
+  return texture
+}

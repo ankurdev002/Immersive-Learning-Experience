@@ -24,6 +24,8 @@ const {
   playLightSwitch,
   playTeaCupClink,
   playTeaDrink,
+  playDoorSlide,
+  playFootstep,
 } = useImmersiveAudio()
 
 const roomState = ref<'room-view' | 'book-flying' | 'on-table' | 'book-open'>('room-view')
@@ -54,6 +56,38 @@ const readerControlsReady = ref(false)
 const isLightOn = ref(true)
 const isDrinkingTea = ref(false)
 const selectedClass = ref(3)
+
+// Explore Mode & Multi-Room State
+const isExploreMode = ref(false)
+const currentZone = ref('study-room')
+const currentZoneName = ref('Study Room')
+const currentRoomLight = ref(true)
+const nearDoorPrompt = ref<{ show: boolean; text: string; roomId: string; isOpen: boolean }>({
+  show: false,
+  text: '',
+  roomId: '',
+  isOpen: false,
+})
+const isCreateRoomModalOpen = ref(false)
+const newRoomName = ref('')
+const newRoomSubtitle = ref('')
+const newRoomIcon = ref('📚')
+const newRoomTheme = ref<'library' | 'meditation' | 'gallery' | 'science'>('library')
+const customRoomsList = ref<Array<{ id: string; name: string; icon: string; theme: string }>>([
+  { id: 'study-room', name: 'Study Room', icon: '📖', theme: 'study' },
+  { id: 'hallway', name: 'Grand Corridor', icon: '⛩️', theme: 'hallway' as any },
+  { id: 'room-lib', name: 'Library Chamber', icon: '📚', theme: 'library' },
+  { id: 'room-zen', name: 'Meditation Dojo', icon: '🧘', theme: 'meditation' },
+])
+const createdNotification = ref('')
+
+const availableIcons = ['📚', '🧘', '🍵', '🎨', '🔭', '🌿', '🏛️', '🏮', '💾', '🧪', '🌸', '🔮']
+const availableThemes: Array<{ id: 'library' | 'meditation' | 'gallery' | 'science'; label: string; desc: string }> = [
+  { id: 'library', label: 'Library Chamber', desc: 'Cedar bookshelves & reading armchairs' },
+  { id: 'meditation', label: 'Zen Meditation Dojo', desc: 'Tatami mats, stone lantern & bonsai' },
+  { id: 'gallery', label: 'Art Gallery', desc: 'Painted landscape canvases & track lighting' },
+  { id: 'science', label: 'Observatory & Lab', desc: 'Celestial globe & brass instruments' },
+]
 
 // Floating Tooltip / Interactive Hover State
 const hoveredTarget = ref<'lamp' | 'cup' | 'book' | null>(null)
@@ -198,6 +232,36 @@ onMounted(() => {
         isDrinkingTea.value = false
         playTeaCupClink()
       },
+      onExploreModeChanged: (explore: boolean) => {
+        isExploreMode.value = explore
+      },
+      onCurrentZoneChanged: (zone: string, zoneName: string) => {
+        currentZone.value = zone
+        currentZoneName.value = zoneName
+        if (roomService) {
+          if (zone === 'study-room') currentRoomLight.value = roomService.isLightOn
+          else if (zone === 'hallway') currentRoomLight.value = roomService.isHallwayLightOn
+          else {
+            const cr = roomService.customRooms.get(zone)
+            currentRoomLight.value = cr ? cr.isLightOn : true
+          }
+        }
+      },
+      onNearDoorPrompt: (p) => {
+        nearDoorPrompt.value = p
+      },
+      onRoomLightToggled: (roomId: string, state: boolean) => {
+        if (roomId === currentZone.value || (roomId === 'study-room' && currentZone.value === 'study-room')) {
+          currentRoomLight.value = state
+        }
+        playLightSwitch()
+      },
+      onPlayFootstep: () => {
+        playFootstep()
+      },
+      onPlayDoorSlide: () => {
+        playDoorSlide()
+      },
     })
   }
 })
@@ -309,6 +373,99 @@ const handleReturnToShelf = () => {
   }
 }
 
+// Explore Mode & Hallway Handlers
+const handleToggleExploreMode = () => {
+  if (roomService) {
+    if (roomState.value === 'book-open' || roomState.value === 'on-table') {
+      handleReturnToShelf()
+      setTimeout(() => {
+        roomService?.setExploreMode(true)
+      }, 500)
+    } else {
+      roomService.setExploreMode(!isExploreMode.value)
+    }
+  }
+}
+
+const handleInteractDoor = () => {
+  if (roomService && nearDoorPrompt.value.roomId) {
+    roomService.toggleDoor(nearDoorPrompt.value.roomId)
+  }
+}
+
+const handleToggleActiveLight = () => {
+  if (roomService) {
+    const nextState = roomService.toggleRoomLight(currentZone.value)
+    currentRoomLight.value = nextState
+    if (currentZone.value === 'study-room') {
+      isLightOn.value = nextState
+    }
+  }
+}
+
+const handleTeleportToZone = (zoneId: string) => {
+  if (roomService) {
+    if (!isExploreMode.value) {
+      roomService.setExploreMode(true)
+    }
+    roomService.teleportToZone(zoneId)
+  }
+}
+
+const handleOpenCreateModal = () => {
+  newRoomName.value = ''
+  newRoomSubtitle.value = ''
+  newRoomIcon.value = '📚'
+  newRoomTheme.value = 'library'
+  isCreateRoomModalOpen.value = true
+}
+
+const handleConfirmCreateRoom = () => {
+  const name = newRoomName.value.trim() || 'New Chamber'
+  const subtitle = newRoomSubtitle.value.trim() || 'Custom Learning Space'
+  if (roomService) {
+    const room = roomService.createCustomRoom(
+      name,
+      subtitle,
+      newRoomIcon.value,
+      newRoomTheme.value
+    )
+    if (room) {
+      customRoomsList.value.push({
+        id: room.id,
+        name: room.name,
+        icon: room.icon,
+        theme: room.theme,
+      })
+      isCreateRoomModalOpen.value = false
+      createdNotification.value = `Chamber "${name}" Created in the Corridor!`
+      setTimeout(() => {
+        createdNotification.value = ''
+      }, 4000)
+
+      // Teleport or open door
+      if (!isExploreMode.value) {
+        roomService.setExploreMode(true)
+      }
+      roomService.teleportToZone(room.id)
+    }
+  }
+}
+
+// Touch joystick helper for mobile/tablets
+const handleTouchMove = (dir: 'forward' | 'backward' | 'left' | 'right', active: boolean) => {
+  if (roomService && isExploreMode.value) {
+    roomService.keys[dir] = active
+  }
+}
+
+const handleTouchSprint = () => {
+  if (roomService && isExploreMode.value) {
+    roomService.keys.shift = !roomService.keys.shift
+    roomService.isRunning = roomService.keys.shift
+  }
+}
+
 const handleExitRoom = () => {
   stopImmersiveAudio()
   emit('exit')
@@ -348,28 +505,51 @@ const handleExitRoom = () => {
         <span>← Exit Chamber</span>
       </button>
 
-      <!-- Center Title -->
-      <div class="chamber-info-card">
-        <span class="chamber-dot" :class="{ 'is-dim': !isLightOn }" />
-        <span class="chamber-title">Japanese Modern Study Chamber</span>
-        <span class="chamber-badge">{{ isLightOn ? 'Daylight Zen' : 'Moonlight Zen' }}</span>
+      <!-- Dynamic Current Chamber Indicator -->
+      <div class="chamber-info-card" :title="`Current location: ${currentZoneName}`">
+        <span class="chamber-dot" :class="{ 'is-dim': !currentRoomLight }" />
+        <span class="chamber-title">{{ currentZoneName }}</span>
+        <span class="chamber-badge">{{ currentRoomLight ? 'Daylight Zen' : 'Night Mode' }}</span>
       </div>
 
       <!-- Quick Room Feature Toggles in Header -->
       <div class="room-utility-controls">
-        <!-- Light Switch Toggle -->
+        <!-- Explore Mode Free Walk (WASD + Shift Run) Toggle -->
         <button
-          class="hud-util-btn"
-          :class="{ 'is-off': !isLightOn }"
-          :title="isLightOn ? 'Turn off lamp (Night Mode)' : 'Turn on lamp (Day Mode)'"
-          @click="handleToggleLight"
+          class="hud-util-btn explore-toggle-btn"
+          :class="{ 'is-active': isExploreMode }"
+          :title="isExploreMode ? 'Sit down at Desk / Read Book' : 'Walk around chamber with WASD + Shift Run'"
+          @click="handleToggleExploreMode"
         >
-          <span class="util-icon">{{ isLightOn ? '💡' : '🌙' }}</span>
-          <span>{{ isLightOn ? 'Turn Off Light' : 'Turn On Light' }}</span>
+          <span class="util-icon">{{ isExploreMode ? '🛋️' : '🧭' }}</span>
+          <span>{{ isExploreMode ? 'Sit at Desk' : 'Explore Chamber (WASD)' }}</span>
         </button>
 
-        <!-- Drink Tea Button -->
+        <!-- Dynamic Chamber Light Switch Toggle -->
         <button
+          class="hud-util-btn"
+          :class="{ 'is-off': !currentRoomLight }"
+          :title="currentRoomLight ? `Turn off ${currentZoneName} light` : `Turn on ${currentZoneName} light`"
+          @click="handleToggleActiveLight"
+        >
+          <span class="util-icon">{{ currentRoomLight ? '💡' : '🌙' }}</span>
+          <span>{{ currentRoomLight ? 'Light: ON' : 'Light: OFF' }}</span>
+        </button>
+
+        <!-- Create New Chamber Button (Hallway & Explore) -->
+        <button
+          v-if="currentZone === 'hallway' || isExploreMode"
+          class="hud-util-btn create-room-btn"
+          title="Create a new room in the corridor"
+          @click="handleOpenCreateModal"
+        >
+          <span class="util-icon">✨</span>
+          <span>+ Add Room</span>
+        </button>
+
+        <!-- Drink Tea Button (Available in Study Room) -->
+        <button
+          v-if="currentZone === 'study-room' && !isExploreMode"
           class="hud-util-btn"
           :disabled="isDrinkingTea"
           title="Sip fresh green matcha tea"
@@ -560,6 +740,209 @@ const handleExitRoom = () => {
         </div>
       </transition>
     </div>
+    <!-- ========================================== -->
+    <!-- EXPLORE MODE FIRST-PERSON HUD OVERLAY      -->
+    <!-- ========================================== -->
+    <div v-if="isExploreMode" class="explore-hud-container" pointer-events="none">
+      <!-- Subtle Crosshair in Center Screen -->
+      <div class="explore-crosshair">
+        <div class="ch-dot" />
+        <div class="ch-line ch-top" />
+        <div class="ch-line ch-bottom" />
+        <div class="ch-line ch-left" />
+        <div class="ch-line ch-right" />
+      </div>
+
+      <!-- Controls Helper Badge in Bottom-Left -->
+      <div class="explore-controls-card">
+        <div class="ctrl-header">
+          <span class="ctrl-badge-dot" />
+          <span class="ctrl-mode-text">EXPLORE MODE ACTIVE</span>
+        </div>
+        <div class="ctrl-row">
+          <span class="key-cap">W</span>
+          <span class="key-cap">A</span>
+          <span class="key-cap">S</span>
+          <span class="key-cap">D</span>
+          <span class="ctrl-label">Walk</span>
+          <span class="key-cap key-wide">Shift</span>
+          <span class="ctrl-label">Run / Sprint</span>
+        </div>
+        <div class="ctrl-row sub-row">
+          <span class="key-cap key-mouse">Drag Mouse</span>
+          <span class="ctrl-label">Look 360°</span>
+          <span class="key-cap">E</span>
+          <span class="ctrl-label">Open / Close Door</span>
+        </div>
+      </div>
+
+      <!-- Door Proximity Action Banner (Floating interactive chip) -->
+      <transition name="pop-fade">
+        <div
+          v-if="nearDoorPrompt.show"
+          class="floating-door-prompt"
+          @click="handleInteractDoor"
+        >
+          <div class="fd-icon-box">🚪</div>
+          <div class="fd-content">
+            <span class="fd-title">{{ nearDoorPrompt.text }}</span>
+            <span class="fd-sub">Click here or press [E] key</span>
+          </div>
+          <button class="fd-btn">
+            {{ nearDoorPrompt.isOpen ? 'Slide Shut' : 'Slide Open' }}
+          </button>
+        </div>
+      </transition>
+
+      <!-- Corridor Chamber Fast-Navigator (Bottom-Right) -->
+      <div class="corridor-nav-dock">
+        <span class="dock-title">CHAMBERS</span>
+        <div class="dock-chips">
+          <button
+            v-for="rm in customRoomsList"
+            :key="rm.id"
+            class="dock-chip-btn"
+            :class="{ 'is-current': currentZone === rm.id }"
+            :title="`Walk or teleport to ${rm.name}`"
+            @click="handleTeleportToZone(rm.id)"
+          >
+            <span class="chip-emoji">{{ rm.icon }}</span>
+            <span class="chip-name">{{ rm.name }}</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile / Tablet On-Screen Touch Controls -->
+      <div class="mobile-touch-dpad">
+        <div class="dpad-cross">
+          <button
+            class="dpad-btn dpad-up"
+            @touchstart.prevent="handleTouchMove('forward', true)"
+            @touchend.prevent="handleTouchMove('forward', false)"
+          >▲</button>
+          <div class="dpad-middle">
+            <button
+              class="dpad-btn dpad-left"
+              @touchstart.prevent="handleTouchMove('left', true)"
+              @touchend.prevent="handleTouchMove('left', false)"
+            >◀</button>
+            <button class="dpad-btn dpad-center" @click="handleTouchSprint">
+              RUN
+            </button>
+            <button
+              class="dpad-btn dpad-right"
+              @touchstart.prevent="handleTouchMove('right', true)"
+              @touchend.prevent="handleTouchMove('right', false)"
+            >▶</button>
+          </div>
+          <button
+            class="dpad-btn dpad-down"
+            @touchstart.prevent="handleTouchMove('backward', true)"
+            @touchend.prevent="handleTouchMove('backward', false)"
+          >▼</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- CREATE NEW CHAMBER MODAL                   -->
+    <!-- ========================================== -->
+    <transition name="modal-fade">
+      <div
+        v-if="isCreateRoomModalOpen"
+        class="create-chamber-backdrop"
+        @click.self="isCreateRoomModalOpen = false"
+      >
+        <div class="create-chamber-modal">
+          <div class="modal-top">
+            <div class="modal-title-group">
+              <span class="modal-avatar-badge">{{ newRoomIcon }}</span>
+              <div>
+                <h3 class="modal-h3">Construct New Chamber</h3>
+                <p class="modal-p">Add an authentic architectural room to the Grand Corridor</p>
+              </div>
+            </div>
+            <button class="modal-close" @click="isCreateRoomModalOpen = false">✕</button>
+          </div>
+
+          <div class="modal-form">
+            <!-- Room Name -->
+            <div class="form-group">
+              <label class="form-label">Chamber Title / Name</label>
+              <input
+                v-model="newRoomName"
+                type="text"
+                class="modern-input"
+                placeholder="e.g. Library Chamber, Tea Pavilion, Astronomy Lab"
+                maxlength="32"
+                autofocus
+              />
+            </div>
+
+            <!-- Subtitle -->
+            <div class="form-group">
+              <label class="form-label">Sublabel / Knowledge Purpose</label>
+              <input
+                v-model="newRoomSubtitle"
+                type="text"
+                class="modern-input"
+                placeholder="e.g. Classical Literature, Mindfulness & Tea, Star Charts"
+                maxlength="45"
+              />
+            </div>
+
+            <!-- Icon Picker -->
+            <div class="form-group">
+              <label class="form-label">Emblem / Icon</label>
+              <div class="emblem-grid">
+                <button
+                  v-for="ic in availableIcons"
+                  :key="ic"
+                  type="button"
+                  class="emblem-opt"
+                  :class="{ 'is-active': newRoomIcon === ic }"
+                  @click="newRoomIcon = ic"
+                >
+                  {{ ic }}
+                </button>
+              </div>
+            </div>
+
+            <!-- Theme Selector -->
+            <div class="form-group">
+              <label class="form-label">Architectural Theme &amp; Furnishings</label>
+              <div class="themes-grid">
+                <div
+                  v-for="th in availableThemes"
+                  :key="th.id"
+                  class="theme-card"
+                  :class="{ 'is-active': newRoomTheme === th.id }"
+                  @click="newRoomTheme = th.id"
+                >
+                  <span class="theme-card-name">{{ th.label }}</span>
+                  <span class="theme-card-desc">{{ th.desc }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-bottom">
+            <button class="btn-cancel" @click="isCreateRoomModalOpen = false">Cancel</button>
+            <button class="btn-construct" @click="handleConfirmCreateRoom">
+              ✨ Construct Chamber in Corridor
+            </button>
+          </div>
+        </div>
+      </div>
+    </transition>
+
+    <!-- Creation Success Toast Notification -->
+    <transition name="pop-fade">
+      <div v-if="createdNotification" class="creation-toast-card">
+        <span class="toast-icon">⛩️</span>
+        <span class="toast-text">{{ createdNotification }}</span>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -1243,5 +1626,576 @@ const handleExitRoom = () => {
 .zen-loader-fade-leave-to {
   opacity: 0;
   transform: scale(1.02);
+}
+
+/* =========================================================
+   EXPLORE MODE, MULTI-ROOM & GRAND CORRIDOR STYLES
+   ========================================================= */
+
+/* Header Explore & Room Buttons */
+.explore-toggle-btn.is-active {
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%) !important;
+  color: #ffffff !important;
+  border-color: #38bdf8 !important;
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.45) !important;
+}
+
+.create-room-btn {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.25) 0%, rgba(126, 34, 206, 0.25) 100%) !important;
+  color: #e9d5ff !important;
+  border-color: rgba(192, 132, 252, 0.45) !important;
+}
+
+.create-room-btn:hover {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.4) 0%, rgba(126, 34, 206, 0.4) 100%) !important;
+  box-shadow: 0 0 14px rgba(192, 132, 252, 0.4) !important;
+}
+
+/* Explore Mode Crosshair */
+.explore-hud-container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 40;
+}
+
+.explore-crosshair {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 24px;
+  height: 24px;
+  pointer-events: none;
+}
+
+.ch-dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.9);
+}
+
+.ch-line {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.ch-top {
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 6px;
+}
+
+.ch-bottom {
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 6px;
+}
+
+.ch-left {
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 1px;
+}
+
+.ch-right {
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 1px;
+}
+
+/* Controls Guide Card in Bottom-Left */
+.explore-controls-card {
+  position: absolute;
+  bottom: 32px;
+  left: 32px;
+  background: rgba(15, 23, 42, 0.82);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  padding: 12px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+  pointer-events: auto;
+}
+
+.ctrl-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ctrl-badge-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #38bdf8;
+  box-shadow: 0 0 8px #38bdf8;
+  animation: pulse 2s infinite;
+}
+
+.ctrl-mode-text {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #7dd3fc;
+}
+
+.ctrl-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sub-row {
+  margin-top: 2px;
+}
+
+.key-cap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 26px;
+  height: 26px;
+  padding: 0 6px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.key-wide {
+  min-width: 48px;
+}
+
+.key-mouse {
+  min-width: 74px;
+}
+
+.ctrl-label {
+  font-size: 12px;
+  color: #94a3b8;
+  margin-right: 10px;
+}
+
+/* Floating Door Proximity Prompt */
+.floating-door-prompt {
+  position: absolute;
+  top: 75%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(15, 23, 42, 0.92);
+  backdrop-filter: blur(16px);
+  border: 1.5px solid rgba(56, 189, 248, 0.6);
+  border-radius: 36px;
+  padding: 10px 24px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 24px rgba(56, 189, 248, 0.35);
+  pointer-events: auto;
+  cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
+}
+
+.floating-door-prompt:hover {
+  transform: translate(-50%, -54%) scale(1.03);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.7), 0 0 32px rgba(56, 189, 248, 0.55);
+}
+
+.fd-icon-box {
+  font-size: 24px;
+}
+
+.fd-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.fd-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.fd-sub {
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+.fd-btn {
+  background: #0284c7;
+  color: #ffffff;
+  border: none;
+  border-radius: 20px;
+  padding: 6px 16px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.4);
+}
+
+/* Corridor Chamber Dock in Bottom-Right */
+.corridor-nav-dock {
+  position: absolute;
+  bottom: 32px;
+  right: 32px;
+  background: rgba(15, 23, 42, 0.82);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  pointer-events: auto;
+}
+
+.dock-title {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: #64748b;
+}
+
+.dock-chips {
+  display: flex;
+  gap: 8px;
+}
+
+.dock-chip-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 20px;
+  padding: 6px 12px;
+  font-size: 12px;
+  color: #e2e8f0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dock-chip-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.dock-chip-btn.is-current {
+  background: rgba(2, 132, 199, 0.35);
+  border-color: #38bdf8;
+  color: #38bdf8;
+  font-weight: 700;
+}
+
+/* Mobile D-pad */
+.mobile-touch-dpad {
+  display: none;
+  position: absolute;
+  bottom: 32px;
+  left: 32px;
+  pointer-events: auto;
+}
+
+@media (pointer: coarse), (max-width: 768px) {
+  .mobile-touch-dpad {
+    display: block;
+  }
+}
+
+.dpad-cross {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.dpad-middle {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.dpad-btn {
+  width: 46px;
+  height: 46px;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.dpad-btn:active {
+  background: #0284c7;
+}
+
+.dpad-center {
+  font-size: 10px;
+}
+
+/* =========================================================
+   CREATE CHAMBER MODAL
+   ========================================================= */
+.create-chamber-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(3, 7, 18, 0.75);
+  backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 20px;
+}
+
+.create-chamber-modal {
+  width: 100%;
+  max-width: 540px;
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.95) 0%, rgba(15, 23, 42, 0.98) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 24px;
+  padding: 28px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.65), 0 0 32px rgba(56, 189, 248, 0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  color: #ffffff;
+}
+
+.modal-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal-title-group {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.modal-avatar-badge {
+  font-size: 34px;
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.modal-h3 {
+  font-size: 20px;
+  font-weight: 800;
+  margin: 0;
+  color: #f8fafc;
+}
+
+.modal-p {
+  font-size: 13px;
+  color: #94a3b8;
+  margin: 2px 0 0;
+}
+
+.modal-close {
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.modal-close:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #cbd5e1;
+}
+
+.modern-input {
+  background: rgba(15, 23, 42, 0.8);
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-size: 14px;
+  color: #ffffff;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.modern-input:focus {
+  border-color: #38bdf8;
+  box-shadow: 0 0 14px rgba(56, 189, 248, 0.3);
+}
+
+.emblem-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.emblem-opt {
+  font-size: 22px;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1.5px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+
+.emblem-opt:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.emblem-opt.is-active {
+  background: rgba(2, 132, 199, 0.35);
+  border-color: #38bdf8;
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
+}
+
+.themes-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.theme-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1.5px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  padding: 12px 14px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: all 0.2s ease;
+}
+
+.theme-card:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.theme-card.is-active {
+  background: rgba(2, 132, 199, 0.25);
+  border-color: #38bdf8;
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.25);
+}
+
+.theme-card-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: #f8fafc;
+}
+
+.theme-card-desc {
+  font-size: 11px;
+  color: #94a3b8;
+  line-height: 1.3;
+}
+
+.modal-bottom {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.btn-cancel {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #cbd5e1;
+  border-radius: 12px;
+  padding: 10px 20px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.btn-construct {
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+  border: 1px solid #38bdf8;
+  color: #ffffff;
+  border-radius: 12px;
+  padding: 10px 24px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(2, 132, 199, 0.45);
+  transition: all 0.2s ease;
+}
+
+.btn-construct:hover {
+  box-shadow: 0 8px 24px rgba(56, 189, 248, 0.6);
+  transform: translateY(-1px);
+}
+
+/* Toast Card */
+.creation-toast-card {
+  position: absolute;
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(15, 23, 42, 0.95);
+  border: 1.5px solid #4ade80;
+  border-radius: 30px;
+  padding: 12px 28px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #f0fdf4;
+  font-size: 14px;
+  font-weight: 700;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6), 0 0 20px rgba(74, 222, 128, 0.35);
+  z-index: 110;
 }
 </style>
