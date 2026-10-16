@@ -288,18 +288,50 @@ export class ArtGallery {
       this.box(g, this.mats.darkWood, STAIR.x1 - STAIR.x0, 0.025, 0.04, (STAIR.x0 + STAIR.x1) / 2, (k + 1) * rise - 0.012, STAIR.z0 + k * run + 0.02, 0.6)
     }
 
-    // Handrail along the open side of the stairs, continuing round the mezzanine edge
+    // Closed strings: a smooth sloped board on each side hides the stepped ends of the treads, and
+    // a plastered panel fills the space below it on the walkway side (as in a real closed stair)
+    const stringTop = (z: number) => Math.min(F + 0.05, ((z - STAIR.z0) / run) * rise + rise * 0.6 + 0.05)
+    const zTop = STAIR.z0 + ((F - rise * 0.6) / rise) * run
+    const zFoot = STAIR.z0 - 0.03
+    const panelShape = new THREE.Shape()
+    panelShape.moveTo(zFoot, 0)
+    panelShape.lineTo(7.3, 0)
+    panelShape.lineTo(7.3, F)
+    panelShape.lineTo(zTop, F + 0.05)
+    panelShape.lineTo(zFoot, stringTop(STAIR.z0))
+    panelShape.lineTo(zFoot, 0)
+    const panel = new THREE.Mesh(new THREE.ShapeGeometry(panelShape), this.mats.wall)
+    panel.rotation.y = -Math.PI / 2
+    panel.position.x = STAIR.x0 - 0.012
+    panel.receiveShadow = true
+    g.add(panel)
+    const slopeLen = Math.hypot(zTop - zFoot, F + 0.05 - stringTop(STAIR.z0))
+    const slopeAngle = Math.atan2(F + 0.05 - stringTop(STAIR.z0), zTop - zFoot)
+    const yMid = (stringTop(STAIR.z0) + F + 0.05) / 2 - 0.09
+    for (const [sx, w] of [
+      [STAIR.x0 - 0.03, 0.045],
+      [(STAIR.x1 + 18.4) / 2, 18.4 - STAIR.x1 + 0.01],
+    ] as const) {
+      const board = this.box(g, this.mats.darkWood, w, 0.24, slopeLen + 0.02, sx, yMid, (zFoot + zTop) / 2, 0.6)
+      board.rotation.x = -slopeAngle
+    }
+    // Skirting along the foot of the panel
+    this.box(g, this.mats.darkWood, 0.03, 0.1, 7.3 - zFoot, STAIR.x0 - 0.028, 0.05, (zFoot + 7.3) / 2, 0.6)
+
+    // Handrail on the string, continuing round the mezzanine edge upstairs
     const railX = STAIR.x0 - 0.04
     const rail = (z0: number, y0: number, z1: number, y1: number) => {
       const len = Math.hypot(z1 - z0, y1 - y0)
       const r = this.box(g, this.mats.darkWood, 0.06, 0.07, len, railX, (y0 + y1) / 2, (z0 + z1) / 2, 0.6)
       r.rotation.x = -Math.atan2(y1 - y0, z1 - z0)
     }
-    rail(STAIR.z0, 0.95, STAIR.z1, F + 0.95)
+    rail(zFoot, stringTop(STAIR.z0) + 0.9, zTop, F + 0.95)
     rail(-0.25, F + 0.95, STAIR.z1, F + 0.95)
-    for (let z = STAIR.z0 + 0.1; z < STAIR.z1; z += 0.52) {
-      const h = ((z - STAIR.z0) / (STAIR.z1 - STAIR.z0)) * F
-      this.box(g, this.mats.darkWood, 0.04, 0.95, 0.04, railX, h + 0.475, z, 0.6)
+    // Newel post at the foot of the stairs
+    this.box(g, this.mats.darkWood, 0.1, stringTop(STAIR.z0) + 1.0, 0.1, railX, (stringTop(STAIR.z0) + 1.0) / 2, zFoot, 0.6)
+    for (let z = STAIR.z0 + 0.45; z < zTop - 0.1; z += 0.52) {
+      const base = stringTop(z)
+      this.box(g, this.mats.darkWood, 0.035, 0.9, 0.035, railX, base + 0.45, z, 0.6)
     }
     for (let z = -0.2; z < STAIR.z1; z += 0.52) this.box(g, this.mats.darkWood, 0.04, 0.95, 0.04, railX, F + 0.475, z, 0.6)
 
