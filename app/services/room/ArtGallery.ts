@@ -7,7 +7,7 @@ import { GALLERY_EXHIBITS, type GalleryExhibitInfo } from './GalleryCatalog'
 /**
  * Upstairs art gallery, built only when the visitor creates an "Art Gallery" room.
  *
- * - A stair annex east of the corridor (x 14..18.4): a doorway in the corridor's east wall opens
+ * - A stair annex east of the corridor (x 14..20): a doorway in the corridor's east wall opens
  *   onto a ground-floor walkway beside a solid timber staircase that climbs to a mezzanine.
  * - From the mezzanine, an opening leads into a 28 m long exhibition hall over the corridor and
  *   rooms, walled on every side, in the style of a Japanese museum: light-wood glass vitrine along
@@ -18,7 +18,10 @@ import { GALLERY_EXHIBITS, type GalleryExhibitInfo } from './GalleryCatalog'
 
 export const GALLERY_FLOOR = 4.3
 const CEIL = 8.4
-const STAIR = { x0: 16.25, x1: 18.25, z0: 0.3, z1: 6.54 }
+/** Inner face of the stair annex's east wall */
+const ANNEX_X1 = 20.0
+/** The staircase stands free in the annex: walkway on its west side, ~1.9 m of open floor to the east */
+const STAIR = { x0: 16.25, x1: 18.05, z0: 0.3, z1: 6.54 }
 /** Doorway in the corridor's east end wall (corridor ↔ annex walkway) */
 export const GALLERY_OPENING = { z0: 5.15, z1: 6.95 }
 /** Opening from the mezzanine into the hall */
@@ -121,6 +124,7 @@ export class ArtGallery {
       partition: pbr.material('plaster', { noColorMap: true, color: '#f3f0e9', normalScale: 0.35, name: 'gallery-partition' }),
       floor: pbr.material('darkWalnut', { color: '#7a5f4c', roughness: 0.55, name: 'gallery-floor' }),
       stairWood: pbr.material('cedar', { color: '#a68a72', roughness: 0.6, name: 'gallery-stair' }),
+      riser: pbr.material('cedar', { color: '#7d6552', roughness: 0.7, name: 'gallery-riser' }),
       lightWood: pbr.material('walnut', { color: '#f0cf9f', roughness: 0.55, name: 'gallery-light-wood' }),
       darkWood: this.p.walnutDark,
       fabric: pbr.material('hessian', { noColorMap: true, color: '#e8dcc4', name: 'gallery-fabric' }),
@@ -135,7 +139,7 @@ export class ArtGallery {
   }
 
   /** Box with real-world UVs (tile in metres). */
-  private box(parent: THREE.Object3D, mat: THREE.Material, w: number, h: number, d: number, x: number, y: number, z: number, tile = 0.8, rotY = 0) {
+  private box(parent: THREE.Object3D, mat: THREE.Material | THREE.Material[], w: number, h: number, d: number, x: number, y: number, z: number, tile = 0.8, rotY = 0) {
     const g = new THREE.BoxGeometry(w, h, d)
     projectWoodUVs(g, tile)
     g.userData.worldUV = true
@@ -248,104 +252,136 @@ export class ArtGallery {
     const F = GALLERY_FLOOR
     const wall = this.mats.wall
     // Ground floor
-    const floorGeo = new THREE.BoxGeometry(4.34, 0.02, 7.6)
+    const annexW = ANNEX_X1 - 14.06
+    const annexCx = (ANNEX_X1 + 14.06) / 2
+    const floorGeo = new THREE.BoxGeometry(annexW, 0.02, 7.6)
     projectWoodUVs(floorGeo, 1.0)
     const floor = new THREE.Mesh(floorGeo, this.mats.stairWood)
-    floor.position.set(16.23, -0.008, 3.5)
+    floor.position.set(annexCx, -0.008, 3.5)
     floor.receiveShadow = true
     g.add(floor)
     // Ground-floor wall shared with the room slot next door, and the full-height outer walls
     this.box(g, wall, 0.12, 3.9, 4.18, 14.0, 1.95, 1.79, 0.8)
-    this.box(g, wall, 0.12, 8.95, 7.84, 18.46, 4.1, 3.5, 0.8)
-    this.box(g, wall, 4.52, 8.95, 0.12, 16.26, 4.1, -0.36, 0.8)
-    this.box(g, wall, 4.52, 8.95, 0.12, 16.26, 4.1, 7.36, 0.8)
+    this.box(g, wall, 0.12, 8.95, 7.84, ANNEX_X1 + 0.06, 4.1, 3.5, 0.8)
+    this.box(g, wall, ANNEX_X1 + 0.12 - 14.0, 8.95, 0.12, (14.0 + ANNEX_X1 + 0.12) / 2, 4.1, -0.36, 0.8)
+    this.box(g, wall, ANNEX_X1 + 0.12 - 14.0, 8.95, 0.12, (14.0 + ANNEX_X1 + 0.12) / 2, 4.1, 7.36, 0.8)
     // Mezzanine over the walkway and the landing at the head of the stairs
-    this.box(g, this.mats.floor, 2.19, 0.35, 7.6, 15.155, F - 0.175, 3.5, 1.2)
-    this.box(g, this.mats.floor, 2.15, 0.35, 7.3 - STAIR.z1, 17.325, F - 0.175, (STAIR.z1 + 7.3) / 2, 1.2)
+    // (walnut floor on top; the edges round the stairwell and the underside are plastered)
+    const slabMats = [this.mats.wall, this.mats.wall, this.mats.floor, this.mats.wall, this.mats.wall, this.mats.wall]
+    this.box(g, slabMats, 2.19, 0.35, 7.6, 15.155, F - 0.175, 3.5, 1.2)
+    this.box(g, slabMats, ANNEX_X1 - STAIR.x0, 0.35, 7.3 - STAIR.z1, (STAIR.x0 + ANNEX_X1) / 2, F - 0.175, (STAIR.z1 + 7.3) / 2, 1.2)
     // Annex ceiling high above the stairwell
-    this.box(g, this.mats.ceiling, 4.34, 0.1, 7.6, 16.23, CEIL + 0.05, 3.5, 1.5)
+    this.box(g, this.mats.ceiling, annexW, 0.1, 7.6, annexCx, CEIL + 0.05, 3.5, 1.5)
 
-    // Solid timber staircase rising toward +z
+    // Timber staircase rising toward +z: separate treads (with a nosing lip over the step below)
+    // and slightly recessed risers, each with its own wood grain running across the stair
     const risers = 24
     const rise = F / risers
     const run = (STAIR.z1 - STAIR.z0) / risers
-    const steps: THREE.BufferGeometry[] = []
+    const width = STAIR.x1 - STAIR.x0
+    const cx = (STAIR.x0 + STAIR.x1) / 2
+    const treadT = 0.04
+    const nosing = 0.03
+    const treadGeos: THREE.BufferGeometry[] = []
+    const riserGeos: THREE.BufferGeometry[] = []
     for (let k = 0; k < risers; k++) {
-      const h = (k + 1) * rise
-      const s = new THREE.BoxGeometry(STAIR.x1 - STAIR.x0, h, run + 0.002)
-      s.translate((STAIR.x0 + STAIR.x1) / 2, h / 2, STAIR.z0 + (k + 0.5) * run)
-      steps.push(s)
+      const top = (k + 1) * rise
+      const front = STAIR.z0 + k * run
+      const tread = new THREE.BoxGeometry(width, treadT, run + nosing)
+      projectWoodUVs(tread, 0.9)
+      tread.translate(cx, top - treadT / 2, front + run / 2 - nosing / 2)
+      treadGeos.push(tread)
+      const riserH = rise - treadT + 0.002
+      const riser = new THREE.BoxGeometry(width, riserH, 0.02)
+      projectWoodUVs(riser, 0.9)
+      riser.translate(cx, k * rise + riserH / 2, front + 0.012)
+      riserGeos.push(riser)
     }
-    const stairGeo = mergeGeometries(steps, false)!
-    steps.forEach((s) => s.dispose())
-    projectWoodUVs(stairGeo, 0.9)
-    const stair = new THREE.Mesh(stairGeo, this.mats.stairWood)
-    stair.castShadow = true
-    stair.receiveShadow = true
-    g.add(stair)
-    // Dark nosing strips on each tread edge
-    for (let k = 0; k < risers; k++) {
-      this.box(g, this.mats.darkWood, STAIR.x1 - STAIR.x0, 0.025, 0.04, (STAIR.x0 + STAIR.x1) / 2, (k + 1) * rise - 0.012, STAIR.z0 + k * run + 0.02, 0.6)
+    for (const [geos, mat] of [
+      [treadGeos, this.mats.stairWood],
+      [riserGeos, this.mats.riser],
+    ] as const) {
+      const merged = mergeGeometries(geos, false)!
+      geos.forEach((gg) => gg.dispose())
+      const mesh = new THREE.Mesh(merged, mat)
+      mesh.castShadow = true
+      mesh.receiveShadow = true
+      g.add(mesh)
     }
 
     // Closed strings: a smooth sloped board on each side hides the stepped ends of the treads, and
     // a plastered panel fills the space below it on the walkway side (as in a real closed stair)
-    const stringTop = (z: number) => Math.min(F + 0.05, ((z - STAIR.z0) / run) * rise + rise * 0.6 + 0.05)
-    const zTop = STAIR.z0 + ((F - rise * 0.6) / rise) * run
+    // The string rides just above the treads' nosings so no step corner pokes through it
+    const stringCap = F + 0.08
+    const stringTop = (z: number) => Math.min(stringCap, ((z - STAIR.z0) / run) * rise + rise * 0.6 + 0.1)
+    const zTop = STAIR.z0 + ((stringCap - 0.1 - rise * 0.6) / rise) * run
     const zFoot = STAIR.z0 - 0.03
-    const panelShape = new THREE.Shape()
-    panelShape.moveTo(zFoot, 0)
-    panelShape.lineTo(7.3, 0)
-    panelShape.lineTo(7.3, F)
-    panelShape.lineTo(zTop, F + 0.05)
-    panelShape.lineTo(zFoot, stringTop(STAIR.z0))
-    panelShape.lineTo(zFoot, 0)
-    const panel = new THREE.Mesh(new THREE.ShapeGeometry(panelShape), this.mats.wall)
-    panel.rotation.y = -Math.PI / 2
-    panel.position.x = STAIR.x0 - 0.012
-    panel.receiveShadow = true
-    g.add(panel)
-    const slopeLen = Math.hypot(zTop - zFoot, F + 0.05 - stringTop(STAIR.z0))
-    const slopeAngle = Math.atan2(F + 0.05 - stringTop(STAIR.z0), zTop - zFoot)
-    const yMid = (stringTop(STAIR.z0) + F + 0.05) / 2 - 0.09
-    for (const [sx, w] of [
-      [STAIR.x0 - 0.03, 0.045],
-      [(STAIR.x1 + 18.4) / 2, 18.4 - STAIR.x1 + 0.01],
-    ] as const) {
-      const board = this.box(g, this.mats.darkWood, w, 0.24, slopeLen + 0.02, sx, yMid, (zFoot + zTop) / 2, 0.6)
-      board.rotation.x = -slopeAngle
+    // Plastered panel under each string (the stair stands free, so both sides are finished).
+    // `dir` = -1 for the west side (faces the walkway), +1 for the east side (faces the open floor)
+    const sidePanel = (dir: -1 | 1) => {
+      const shape = new THREE.Shape()
+      const zc = (z: number) => -dir * z // mirrored for the east side so the face points outward
+      shape.moveTo(zc(zFoot), 0)
+      shape.lineTo(zc(7.3), 0)
+      shape.lineTo(zc(7.3), F)
+      shape.lineTo(zc(zTop), stringCap)
+      shape.lineTo(zc(zFoot), stringTop(STAIR.z0))
+      shape.lineTo(zc(zFoot), 0)
+      const panel = new THREE.Mesh(new THREE.ShapeGeometry(shape), this.mats.wall)
+      panel.rotation.y = dir * Math.PI / 2
+      panel.position.x = dir < 0 ? STAIR.x0 - 0.012 : STAIR.x1 + 0.012
+      panel.receiveShadow = true
+      g.add(panel)
     }
-    // Skirting along the foot of the panel
-    this.box(g, this.mats.darkWood, 0.03, 0.1, 7.3 - zFoot, STAIR.x0 - 0.028, 0.05, (zFoot + 7.3) / 2, 0.6)
-
-    // Handrail on the string, continuing round the mezzanine edge upstairs
-    const railX = STAIR.x0 - 0.04
-    const rail = (z0: number, y0: number, z1: number, y1: number) => {
+    sidePanel(-1)
+    sidePanel(1)
+    const slopeLen = Math.hypot(zTop - zFoot, stringCap - stringTop(STAIR.z0))
+    const slopeAngle = Math.atan2(stringCap - stringTop(STAIR.z0), zTop - zFoot)
+    const yMid = (stringTop(STAIR.z0) + stringCap) / 2 - 0.09
+    const rail = (x: number, z0: number, y0: number, z1: number, y1: number) => {
       const len = Math.hypot(z1 - z0, y1 - y0)
-      const r = this.box(g, this.mats.darkWood, 0.06, 0.07, len, railX, (y0 + y1) / 2, (z0 + z1) / 2, 0.6)
+      const r = this.box(g, this.mats.darkWood, 0.06, 0.07, len, x, (y0 + y1) / 2, (z0 + z1) / 2, 0.6)
       r.rotation.x = -Math.atan2(y1 - y0, z1 - z0)
     }
-    rail(zFoot, stringTop(STAIR.z0) + 0.9, zTop, F + 0.95)
-    rail(-0.25, F + 0.95, STAIR.z1, F + 0.95)
-    // Newel post at the foot of the stairs
-    this.box(g, this.mats.darkWood, 0.1, stringTop(STAIR.z0) + 1.0, 0.1, railX, (stringTop(STAIR.z0) + 1.0) / 2, zFoot, 0.6)
-    for (let z = STAIR.z0 + 0.45; z < zTop - 0.1; z += 0.52) {
-      const base = stringTop(z)
-      this.box(g, this.mats.darkWood, 0.035, 0.9, 0.035, railX, base + 0.45, z, 0.6)
+    for (const side of [-1, 1] as const) {
+      const stringX = side < 0 ? STAIR.x0 - 0.03 : STAIR.x1 + 0.03
+      const board = this.box(g, this.mats.darkWood, 0.045, 0.24, slopeLen + 0.02, stringX, yMid, (zFoot + zTop) / 2, 0.6)
+      board.rotation.x = -slopeAngle
+      // Skirting along the foot of the panel
+      this.box(g, this.mats.darkWood, 0.03, 0.1, 7.3 - zFoot, stringX + side * 0.002, 0.05, (zFoot + 7.3) / 2, 0.6)
+      // Handrail on the string, with balusters and a newel post at the foot
+      const railX = side < 0 ? STAIR.x0 - 0.04 : STAIR.x1 + 0.04
+      rail(railX, zFoot, stringTop(STAIR.z0) + 0.9, zTop, stringCap + 0.9)
+      this.box(g, this.mats.darkWood, 0.1, stringTop(STAIR.z0) + 1.0, 0.1, railX, (stringTop(STAIR.z0) + 1.0) / 2, zFoot, 0.6)
+      for (let z = STAIR.z0 + 0.45; z < zTop - 0.1; z += 0.52) {
+        this.box(g, this.mats.darkWood, 0.035, 0.9, 0.035, railX, stringTop(z) + 0.45, z, 0.6)
+      }
     }
-    for (let z = -0.2; z < STAIR.z1; z += 0.52) this.box(g, this.mats.darkWood, 0.04, 0.95, 0.04, railX, F + 0.475, z, 0.6)
+    // Upstairs: railing along the mezzanine edge over the stairwell, and along the landing's edge
+    // above the open floor east of the stairs
+    const westRailX = STAIR.x0 - 0.04
+    rail(westRailX, -0.25, F + 0.95, STAIR.z1, F + 0.95)
+    for (let z = -0.2; z < STAIR.z1; z += 0.52) this.box(g, this.mats.darkWood, 0.04, 0.95, 0.04, westRailX, F + 0.475, z, 0.6)
+    const edgeZ = STAIR.z1 + 0.04
+    const edge = this.box(g, this.mats.darkWood, ANNEX_X1 - STAIR.x1, 0.07, 0.06, (STAIR.x1 + ANNEX_X1) / 2, F + 0.95, edgeZ, 0.6)
+    void edge
+    for (let x = STAIR.x1 + 0.3; x < ANNEX_X1 - 0.1; x += 0.5) this.box(g, this.mats.darkWood, 0.04, 0.95, 0.04, x, F + 0.475, edgeZ, 0.6)
+
+    // A welcome panel on the east wall, beside the open floor at the foot of the stairs
+    this.textPanel(g, ['美', 'Art Gallery · 2F', 'Japanese masterworks, ink, gold and the samurai, one floor up.'], 1.5, 1.05, ANNEX_X1 - 0.01, 1.75, 3.6, -Math.PI / 2)
 
     // Big paper lantern hanging in the stairwell
     const paper = new THREE.MeshStandardMaterial({ color: '#f6ead2', emissive: '#ffcf8f', emissiveIntensity: 1.1, roughness: 0.9, name: 'gallery-lantern' })
     paper.userData.onIntensity = 1.1
     this.glowMaterials.push(paper)
     const lantern = new THREE.Mesh(new THREE.CylinderGeometry(0.32, 0.32, 0.9, 20), paper)
-    lantern.position.set(17.25, 6.6, 3.2)
+    lantern.position.set((STAIR.x1 + ANNEX_X1) / 2, 6.6, 3.2)
     g.add(lantern)
-    this.box(g, this.mats.darkWood, 0.7, 0.05, 0.7, 17.25, 7.07, 3.2, 0.6)
-    this.box(g, this.mats.darkWood, 0.7, 0.05, 0.7, 17.25, 6.13, 3.2, 0.6)
-    this.box(g, this.mats.black, 0.015, CEIL - 7.1, 0.015, 17.25, (CEIL + 7.1) / 2, 3.2, 0.6)
+    this.box(g, this.mats.darkWood, 0.7, 0.05, 0.7, (STAIR.x1 + ANNEX_X1) / 2, 7.07, 3.2, 0.6)
+    this.box(g, this.mats.darkWood, 0.7, 0.05, 0.7, (STAIR.x1 + ANNEX_X1) / 2, 6.13, 3.2, 0.6)
+    this.box(g, this.mats.black, 0.015, CEIL - 7.1, 0.015, (STAIR.x1 + ANNEX_X1) / 2, (CEIL + 7.1) / 2, 3.2, 0.6)
     this.spotPlacements.push({ position: new THREE.Vector3(15.2, CEIL - 0.1, 3.4), target: new THREE.Vector3(15.2, F, 3.4) })
+    this.spotPlacements.push({ position: new THREE.Vector3(19.0, CEIL - 0.1, 3.6), target: new THREE.Vector3(19.4, 0, 3.6) })
   }
 
   private buildShell() {
@@ -372,7 +408,7 @@ export class ArtGallery {
 
     // Hipped tile roof over the hall and annex
     const x0 = -14.8
-    const x1 = 19.1
+    const x1 = ANNEX_X1 + 0.7
     const zA = -1.0
     const zB = 8.0
     const eave = CEIL + 0.25
@@ -1124,10 +1160,13 @@ export class ArtGallery {
   private walkable(level: number, x: number, z: number): boolean {
     const walkway = x >= 14.18 && x <= 16.1 && z >= -0.1 && z <= 7.1
     if (level === 0) {
-      return walkway || (x >= 16.1 && x <= 18.2 && z >= -0.1 && z <= STAIR.z0)
+      // Walkway, the floor in front of the stairs' foot, and the open floor east of the stairs
+      const foot = x >= 16.1 && x <= ANNEX_X1 - 0.18 && z >= -0.1 && z <= STAIR.z0
+      const east = x >= STAIR.x1 + 0.15 && x <= ANNEX_X1 - 0.18 && z >= -0.1 && z <= 7.1
+      return walkway || foot || east
     }
     if (walkway) return true
-    if (x >= 16.1 && x <= 18.2 && z >= STAIR.z1 && z <= 7.1) return true
+    if (x >= 16.1 && x <= ANNEX_X1 - 0.18 && z >= STAIR.z1 + 0.12 && z <= 7.1) return true
     if (x >= 13.7 && x < 14.18) return z >= ENTRANCE.z0 + 0.1 && z <= ENTRANCE.z1 - 0.02
     if (x >= -13.75 && x < 13.7 && z >= 0.05 && z <= 7.05) {
       for (const c of this.colliders) if (x > c.minX && x < c.maxX && z > c.minZ && z < c.maxZ) return false
