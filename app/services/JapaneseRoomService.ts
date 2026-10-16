@@ -5,6 +5,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js'
 import { PbrTextureLibrary } from './room/PbrTextures'
 import { OutdoorWorld } from './room/OutdoorWorld'
+import { RegionLighting, type RegionLight } from './room/RegionLighting'
 import { createGlassDoorWall, createPictureWindow, createWindowGlass } from './room/Windows'
 import { HandRig, type HandPose } from './room/HandRig'
 import { CurvedStack, CurvedSheet, stackSurfaceHeight, gutterShade } from './room/BookGeometry'
@@ -342,6 +343,11 @@ export class JapaneseRoomService {
   /** Real garden + sky outside the glass (front: corridor side, back: courtyard behind the rooms) */
   private outdoor: OutdoorWorld | null = null
   private readonly windowGlass = createWindowGlass()
+  /** Per-area ambient / reflections / light masks (replaces camera-zone light switching) */
+  private readonly regionLighting = new RegionLighting()
+  /** Eased 0..1 opening of each door, for the light spilling through it */
+  private readonly doorGlow = new Map<string, number>()
+  private readonly regionColors = new Map<string, THREE.Color>()
   private hallwayLanternPaper!: THREE.MeshStandardMaterial
   private studyPaperGlow!: THREE.MeshStandardMaterial
   private lampBulbMaterial: THREE.MeshStandardMaterial | null = null
@@ -563,7 +569,8 @@ export class JapaneseRoomService {
     // wood real reflections and soft bounce light on every tier (one small cubemap, built once).
     const pmrem = new THREE.PMREMGenerator(this.renderer)
     this.scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture
-    this.scene.environmentIntensity = 0.45
+    // Reflections are scaled per area by RegionLighting
+    this.scene.environmentIntensity = 1
     pmrem.dispose()
 
     // Sharper book pages on capable GPUs (1536x2048), lean memory budget on low-end ones
@@ -790,7 +797,7 @@ export class JapaneseRoomService {
 
   private setRoomLightsActive(room: CustomRoomData, active: boolean) {
     for (const light of room.lights) {
-      if (light instanceof THREE.AmbientLight) light.visible = active
+      if (light instanceof THREE.AmbientLight) continue // area light data, never a global light
       else light.active = active
     }
   }
@@ -829,46 +836,37 @@ export class JapaneseRoomService {
       for (const spot of this.hallwaySpotLights) spot.active = false
       if (this.hallwayLeftLight) this.hallwayLeftLight.active = false
       if (this.hallwayRightLight) this.hallwayRightLight.active = false
-      // Ambient light is global, so only the zone you're in contributes it
-      if (this.hallwayAmbientLight) this.hallwayAmbientLight.visible = false
+      // The corridor's own lights are needed only when you can see it through the open door
+      for (const spot of this.hallwaySpotLights) spot.active = this.isStudyDoorOpen
 
       for (const room of this.customRooms.values()) this.setRoomLightsActive(room, false)
 
-      this.ambientLight.visible = true
       this.zoneMask.sun = 1
       this.zoneMask.lamp = 1
       this.zoneMask.moon = 1
       this.heroBookGlow.active = this.state === 'room-view' && !this.isExploreMode
     } else if (zone === 'hallway') {
-      this.zoneMask.sun = 0
-      this.zoneMask.lamp = 0
-      this.zoneMask.moon = 0
+      // Every light is masked to its own area in the shader (RegionLighting), so the study's window
+      // light and desk lamp can stay on: they light the study seen through its open door, not the corridor
+      this.zoneMask.sun = 1
+      this.zoneMask.lamp = 1
+      this.zoneMask.moon = 1
       this.heroBookGlow.active = false
 
-      if (this.hallwayAmbientLight) this.hallwayAmbientLight.visible = true
       // The pool lights the nearest fixtures; switching the corridor off fades them via intensity
       for (const spot of this.hallwaySpotLights) spot.active = true
       if (this.hallwayLeftLight) this.hallwayLeftLight.active = true
       if (this.hallwayRightLight) this.hallwayRightLight.active = true
 
-      // Room lights reach the corridor only through an open door. Their ambient light is global (it
-      // would brighten the whole corridor, even with the corridor switched off), and their unshadowed
-      // ceiling lights would leak through a closed door, so neither is used from out here.
-      for (const room of this.customRooms.values()) {
-        for (const light of room.lights) {
-          if (light instanceof THREE.AmbientLight) light.visible = false
-          else light.active = room.isDoorOpen
-        }
-      }
-
-      this.ambientLight.visible = false
+      // A room's own lights are only needed when you can see into it through its open door; they're
+      // masked to the room, and the glow through the doorway comes from RegionLighting's door spill
+      for (const room of this.customRooms.values()) this.setRoomLightsActive(room, room.isDoorOpen)
     } else {
       // Inside a custom room
-      this.zoneMask.sun = 0
-      this.zoneMask.lamp = 0
-      this.zoneMask.moon = 0
+      this.zoneMask.sun = 1
+      this.zoneMask.lamp = 1
+      this.zoneMask.moon = 1
       this.heroBookGlow.active = false
-      this.ambientLight.visible = false
 
       for (const [id, room] of this.customRooms.entries()) {
         this.setRoomLightsActive(room, id === zone)
@@ -881,8 +879,70 @@ export class JapaneseRoomService {
       }
       if (this.hallwayLeftLight) this.hallwayLeftLight.active = false
       if (this.hallwayRightLight) this.hallwayRightLight.active = false
-      if (this.hallwayAmbientLight) this.hallwayAmbientLight.visible = false
     }
+  }
+
+  private regionColor(key: string): THREE.Color {
+    let c = this.regionColors.get(key)
+    if (!c) {
+      c = new THREE.Color()
+      this.regionColors.set(key, c)
+    }
+    return c
+  }
+
+  /**
+   * Feeds RegionLighting each frame: every area's ambient light and reflection level (tweened by the
+   * light switches), the eased glow through each open door, and which area each real light is in.
+   */
+  private updateRegionLighting(delta: number) {
+    const ambientOf = (light: THREE.AmbientLight | null | undefined, key: string) => {
+      const c = this.regionColor(key)
+      return light ? c.copy(light.color).multiplyScalar(light.intensity) : c.setRGB(0, 0, 0)
+    }
+    const envOf = (id: string) => this.envLevels.get(id)?.value ?? 0.45
+    const glow = (id: string, open: boolean) => {
+      const g = this.doorGlow.get(id) ?? 0
+      const next = g + ((open ? 1 : 0) - g) * Math.min(1, delta * 3)
+      this.doorGlow.set(id, next)
+      return next
+    }
+    const study = ambientOf(this.ambientLight, 'study')
+    const hall = ambientOf(this.hallwayAmbientLight, 'hallway')
+    const hallSpill = this.regionColor('hallway-spill').copy(hall).multiplyScalar(1.2)
+    const regions: RegionLight[] = [
+      { box: { minX: -3, maxX: 3, minZ: -3.1, maxZ: 3.88 }, ambient: study, env: envOf('study-room') },
+      { box: { minX: -14, maxX: 14, minZ: 3.88, maxZ: 7.3 }, ambient: hall, env: envOf('hallway') },
+    ]
+    const doors = [
+      {
+        x: 0,
+        z: 3.88,
+        open: glow('study-room', this.isStudyDoorOpen),
+        inside: this.regionColor('study-spill').copy(study).multiplyScalar(1.2),
+        outside: hallSpill,
+      },
+    ]
+    for (const room of this.customRooms.values()) {
+      const ambientLight = room.lights.find((l): l is THREE.AmbientLight => l instanceof THREE.AmbientLight)
+      const ambient = ambientOf(ambientLight, room.id)
+      regions.push({
+        box: { minX: room.doorX - 2.5, maxX: room.doorX + 2.5, minZ: -0.3, maxZ: 3.88 },
+        ambient,
+        env: envOf(room.id),
+      })
+      doors.push({
+        x: room.doorX,
+        z: 3.88,
+        open: glow(room.id, room.isDoorOpen),
+        inside: this.regionColor(`${room.id}-spill`).copy(ambient).multiplyScalar(1.5),
+        outside: hallSpill,
+      })
+    }
+    this.regionLighting.setRegions(regions, { ambient: study, env: envOf('study-room') })
+    this.regionLighting.setDoors(doors)
+    // three.js uploads shadow-casting spots first (the desk lamp), then the rest in scene order
+    this.regionLighting.setLightRegions([this.lampLight, ...this.spotPool], this.pointPool)
   }
 
   /** Applies zone masks and maps the nearest active virtual fixtures onto the fixed real light pools. */
@@ -1214,6 +1274,7 @@ export class JapaneseRoomService {
    * hands) and compile every shader up front instead of stuttering the first time each appears.
    */
   private warmUpShaders() {
+    this.regionLighting.patchScene(this.scene)
     const hidden: THREE.Object3D[] = []
     this.scene.traverse((obj) => {
       if (!obj.visible) {
@@ -1289,6 +1350,8 @@ export class JapaneseRoomService {
   private setupLighting() {
     // Warm atmospheric ambient fill
     this.ambientLight = new THREE.AmbientLight(0xffeed8, 0.75)
+    // Never rendered as a (global) light: RegionLighting applies it to the study's surfaces only
+    this.ambientLight.visible = false
     this.scene.add(this.ambientLight)
 
     const shadowSize = this.preset.shadowMapSize
@@ -4749,6 +4812,7 @@ export class JapaneseRoomService {
 
     // 6. Hallway Lighting System (Warm Japanese Ryokan Illumination)
     const hallAmbient = new THREE.AmbientLight('#fff1e6', 0.65)
+    hallAmbient.visible = false // applied to the corridor's surfaces by RegionLighting
     this.hallwayAmbientLight = hallAmbient
     this.hallwayLights.push(hallAmbient)
     this.hallwayGroup.add(hallAmbient)
@@ -4989,6 +5053,7 @@ export class JapaneseRoomService {
 
     // 3. Room Dedicated Lighting System
     const roomAmbient = new THREE.AmbientLight('#f1f5f9', 0.5)
+    roomAmbient.visible = false // applied to this room's surfaces by RegionLighting
     roomLights.push(roomAmbient)
     roomGroup.add(roomAmbient)
 
@@ -6125,7 +6190,9 @@ export class JapaneseRoomService {
         monk.torso.scale.set(1 + breath * 0.008, 1 + breath * 0.014, 1 + breath * 0.01)
         monk.head.rotation.x = 0.12 + breath * 0.012
       }
-      this.scene.environmentIntensity = (this.envLevels.get(this.currentZone) ?? this.envLevels.get('hallway')!).value
+      this.updateRegionLighting(delta)
+      // Materials created at runtime (new rooms, loaded models) join the per-area lighting
+      if (frameCount % 60 === 0) this.regionLighting.patchScene(this.scene)
       if (this.heroBookGroup.visible) this.syncBookSurfaces()
       this.renderer.render(this.scene, this.camera)
     }

@@ -579,6 +579,8 @@ export class OutdoorWorld {
     if (flags.glow) defines.OUT_GLOW = ''
     ;(mat as any).defines = { ...((mat as any).defines ?? {}), ...defines }
     const sway = flags.sway
+    // Lit by its own outdoor model, never by the indoor per-area lighting
+    mat.userData.ireSkip = true
     mat.onBeforeCompile = (shader) => {
       for (const key of ['uTime', 'uLightDir', 'uLightColor', 'uSkyLight', 'uGroundLight', 'uNight', 'uLampPos', 'uLampColor', 'uSpill', 'uRake'] as const) {
         shader.uniforms[key] = u[key]
