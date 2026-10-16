@@ -33,8 +33,11 @@ const ENTRANCE = { z0: 5.4, z1: 7.0 }
 
 export interface ExhibitStand {
   info: GalleryExhibitInfo
+  /** Where the reader stands to read it (for the proximity prompt) */
   x: number
   z: number
+  /** A ledge on the partition wall rather than a free-standing lectern (no floor footprint) */
+  onWall?: boolean
 }
 
 interface Collider {
@@ -507,8 +510,8 @@ export class ArtGallery {
       const info = get(id)
       this.foldingScreen(h, this.art(info.image!), 3.6, 1.62, cx, deck, 0.25)
       this.wash(h, 3.8, 2.9, cx, deck + 1.45, -0.26, 0, 0.35)
-      this.stands.push({ info, x: cx + 1.1, z: 1.5 })
-      this.lectern(h, info, cx + 1.1, 1.5, 0)
+      this.stands.push({ info, x: cx, z: 1.5 })
+      this.lectern(h, info, cx, 1.5, 0)
     }
     const scrollAt = (id: string, cx: number) => {
       const info = get(id)
@@ -545,14 +548,16 @@ export class ArtGallery {
             hh = maxH
             w = hh * info.aspect
           }
-          this.framedPicture(h, this.art(info.image!), w, hh, faceX + side * 0.02, F + 1.7, (z0 + z1) / 2, rot)
-          this.wash(h, Math.max(1.6, w + 0.8), 3.0, faceX + side * 0.006, F + 1.75, (z0 + z1) / 2, rot, 0.42)
-          const sx = px + side * 0.95
-          this.stands.push({ info, x: sx, z: z1 + 0.35 })
-          this.lectern(h, info, sx, z1 + 0.35, side < 0 ? -Math.PI / 2 : Math.PI / 2)
+          const zc = (z0 + z1) / 2
+          this.framedPicture(h, this.art(info.image!), w, hh, faceX + side * 0.02, F + 1.95, zc, rot)
+          this.wash(h, Math.max(1.6, w + 0.8), 3.0, faceX + side * 0.006, F + 1.95, zc, rot, 0.42)
+          // Reading ledge fixed to the partition right beneath the picture (museum label rail style),
+          // so there are no lecterns crowding the partition ends
+          this.lectern(h, info, faceX, zc, rot, true)
+          this.stands.push({ info, x: faceX + side * 0.75, z: zc, onWall: true })
           this.spotPlacements.push({
             position: new THREE.Vector3(px + side * 2.2, CEIL - 0.3, (z0 + z1) / 2),
-            target: new THREE.Vector3(faceX, F + 1.7, (z0 + z1) / 2),
+            target: new THREE.Vector3(faceX, F + 1.95, (z0 + z1) / 2),
           })
         } else if (panelText) {
           this.textPanel(h, panelText, 1.9, 1.3, faceX + side * 0.01, F + 1.75, (z0 + z1) / 2, rot)
@@ -578,8 +583,8 @@ export class ArtGallery {
 
     // --- Chōjū-giga handscroll in a low sloped case along the front wall ---
     this.handscrollCase(h, this.art(get('choju-giga').image!), -4.0, 6.75, 4.2)
-    this.stands.push({ info: get('choju-giga'), x: -1.25, z: 5.75 })
-    this.lectern(h, get('choju-giga'), -1.25, 5.75, Math.PI)
+    this.stands.push({ info: get('choju-giga'), x: -4.0, z: 5.6 })
+    this.lectern(h, get('choju-giga'), -4.0, 5.6, Math.PI)
     this.wash(h, 4.8, 2.6, -4.0, F + 1.6, 7.29, Math.PI, 0.3)
 
     // --- Title wall at the far (west) end ---
@@ -606,7 +611,9 @@ export class ArtGallery {
     h.add(headMesh)
 
     // Lectern colliders
-    for (const s of this.stands) this.colliders.push({ minX: s.x - 0.28, maxX: s.x + 0.28, minZ: s.z - 0.28, maxZ: s.z + 0.28 })
+    for (const s of this.stands) {
+      if (!s.onWall) this.colliders.push({ minX: s.x - 0.28, maxX: s.x + 0.28, minZ: s.z - 0.28, maxZ: s.z + 0.28 })
+    }
   }
 
   private spotHead(x: number, z: number, target: THREE.Vector3): THREE.Matrix4 {
@@ -794,17 +801,28 @@ export class ArtGallery {
   }
 
   /** Small lectern with an open book showing the piece's title. */
-  private lectern(parent: THREE.Object3D, info: GalleryExhibitInfo, x: number, z: number, rotY: number) {
+  /**
+   * Open book on a slanted board facing local +Z: on a post (free-standing lectern) or, `onWall`,
+   * on a small bracket fixed to a wall at (x, z) whose face points along local +Z.
+   */
+  private lectern(parent: THREE.Object3D, info: GalleryExhibitInfo, x: number, z: number, rotY: number, onWall = false) {
     const F = GALLERY_FLOOR
     const g = new THREE.Group()
     g.position.set(x, F, z)
     g.rotation.y = rotY
-    this.box(g, this.mats.darkWood, 0.34, 0.03, 0.3, 0, 0.015, 0, 0.5)
-    this.box(g, this.mats.darkWood, 0.05, 0.86, 0.05, 0, 0.45, 0, 0.5)
     const board = new THREE.Group()
-    board.position.set(0, 0.9, 0)
-    // Tilted up at the back, toward the reader standing on the lectern's +Z side
-    board.rotation.x = 0.45
+    if (onWall) {
+      // Bracket under the board, fixed to the wall
+      this.box(g, this.mats.darkWood, 0.42, 0.05, 0.2, 0, 0.8, 0.1, 0.5)
+      board.position.set(0, 0.86, 0.17)
+      board.rotation.x = 0.55
+    } else {
+      this.box(g, this.mats.darkWood, 0.34, 0.03, 0.3, 0, 0.015, 0, 0.5)
+      this.box(g, this.mats.darkWood, 0.05, 0.86, 0.05, 0, 0.45, 0, 0.5)
+      board.position.set(0, 0.9, 0)
+      // Tilted up at the back, toward the reader standing on the lectern's +Z side
+      board.rotation.x = 0.45
+    }
     this.box(board, this.mats.darkWood, 0.46, 0.022, 0.34, 0, 0, 0, 0.5)
     // Open book: two pages in a shallow V, with the title painted on
     const [c, ctx] = canvas(512, 256)

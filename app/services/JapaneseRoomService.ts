@@ -6275,8 +6275,12 @@ export class JapaneseRoomService {
     const dzStudy = 3.87 - this.playerPos.z
     const distToStudy = Math.hypot(dxStudy, dzStudy)
 
-    // Only prompt when close AND looking towards the door (prevents prompting when facing desk/bookshelf)
-    if (distToStudy < 1.85 && this.isPlayerFacing(0, 3.87, 0.25)) {
+    // Doors are all on the ground-floor corridor: none is in reach from the gallery (its stair hall
+    // or the hall upstairs, which sits right above the room doors)
+    if (this.currentZone === 'gallery') {
+      // no door prompt
+    } else if (distToStudy < 1.85 && this.isPlayerFacing(0, 3.87, 0.25)) {
+      // Only prompt when close AND looking towards the door (prevents prompting when facing desk/bookshelf)
       const isInside = this.playerPos.z < 3.87
       const dest = isInside ? 'Grand Corridor' : 'Study Room'
       const action = this.isStudyDoorOpen ? 'Close Chamber Door' : `Open Door to ${dest}`
