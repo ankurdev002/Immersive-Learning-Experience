@@ -991,7 +991,7 @@ export class JapaneseRoomService {
       const env = envOf('gallery')
       regions.push(
         { box: { minX: -14.12, maxX: 14.06, minZ: -0.42, maxZ: 7.42, minY: 4.1, maxY: 50 }, ambient, env },
-        { box: { minX: 14.06, maxX: 20.2, minZ: -0.42, maxZ: 7.42, minY: -50, maxY: 50 }, ambient, env }
+        { box: { minX: 14.06, maxX: 20.2, minZ: -2.4, maxZ: 7.42, minY: -50, maxY: 50 }, ambient, env }
       )
     }
     this.regionLighting.setRegions(regions, { ambient: study, env: envOf('study-room') })

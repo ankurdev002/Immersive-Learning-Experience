@@ -20,6 +20,8 @@ export const GALLERY_FLOOR = 4.3
 const CEIL = 8.4
 /** Inner face of the stair annex's east wall */
 const ANNEX_X1 = 20.0
+/** Inner face of the annex's back wall: it projects past the rooms so there's ~2.5 m of floor in front of the stairs */
+const ANNEX_Z0 = -2.2
 /** The staircase stands free in the annex: walkway on its west side, ~1.9 m of open floor to the east */
 const STAIR = { x0: 16.25, x1: 18.05, z0: 0.3, z1: 6.54 }
 /** Doorway in the corridor's east end wall (corridor ↔ annex walkway) */
@@ -254,24 +256,28 @@ export class ArtGallery {
     // Ground floor
     const annexW = ANNEX_X1 - 14.06
     const annexCx = (ANNEX_X1 + 14.06) / 2
-    const floorGeo = new THREE.BoxGeometry(annexW, 0.02, 7.6)
+    const annexD = 7.3 - ANNEX_Z0
+    const annexCz = (7.3 + ANNEX_Z0) / 2
+    const floorGeo = new THREE.BoxGeometry(annexW, 0.02, annexD)
     projectWoodUVs(floorGeo, 1.0)
     const floor = new THREE.Mesh(floorGeo, this.mats.stairWood)
-    floor.position.set(annexCx, -0.008, 3.5)
+    floor.position.set(annexCx, -0.008, annexCz)
     floor.receiveShadow = true
     g.add(floor)
     // Ground-floor wall shared with the room slot next door, and the full-height outer walls
     this.box(g, wall, 0.12, 3.9, 4.18, 14.0, 1.95, 1.79, 0.8)
-    this.box(g, wall, 0.12, 8.95, 7.84, ANNEX_X1 + 0.06, 4.1, 3.5, 0.8)
-    this.box(g, wall, ANNEX_X1 + 0.12 - 14.0, 8.95, 0.12, (14.0 + ANNEX_X1 + 0.12) / 2, 4.1, -0.36, 0.8)
+    this.box(g, wall, 0.12, 8.95, annexD + 0.24, ANNEX_X1 + 0.06, 4.1, annexCz, 0.8)
+    this.box(g, wall, ANNEX_X1 + 0.12 - 14.0, 8.95, 0.12, (14.0 + ANNEX_X1 + 0.12) / 2, 4.1, ANNEX_Z0 - 0.06, 0.8)
+    // West wall of the part that projects beyond the rooms' back wall
+    this.box(g, wall, 0.12, 8.95, -0.3 - ANNEX_Z0 + 0.12, 14.0, 4.1, (ANNEX_Z0 - 0.42) / 2 + 0.06, 0.8)
     this.box(g, wall, ANNEX_X1 + 0.12 - 14.0, 8.95, 0.12, (14.0 + ANNEX_X1 + 0.12) / 2, 4.1, 7.36, 0.8)
     // Mezzanine over the walkway and the landing at the head of the stairs
     // (walnut floor on top; the edges round the stairwell and the underside are plastered)
     const slabMats = [this.mats.wall, this.mats.wall, this.mats.floor, this.mats.wall, this.mats.wall, this.mats.wall]
-    this.box(g, slabMats, 2.19, 0.35, 7.6, 15.155, F - 0.175, 3.5, 1.2)
+    this.box(g, slabMats, 2.19, 0.35, annexD, 15.155, F - 0.175, annexCz, 1.2)
     this.box(g, slabMats, ANNEX_X1 - STAIR.x0, 0.35, 7.3 - STAIR.z1, (STAIR.x0 + ANNEX_X1) / 2, F - 0.175, (STAIR.z1 + 7.3) / 2, 1.2)
     // Annex ceiling high above the stairwell
-    this.box(g, this.mats.ceiling, annexW, 0.1, 7.6, annexCx, CEIL + 0.05, 3.5, 1.5)
+    this.box(g, this.mats.ceiling, annexW, 0.1, annexD, annexCx, CEIL + 0.05, annexCz, 1.5)
 
     // Timber staircase rising toward +z: separate treads (with a nosing lip over the step below)
     // and slightly recessed risers, each with its own wood grain running across the stair
@@ -360,8 +366,8 @@ export class ArtGallery {
     // Upstairs: railing along the mezzanine edge over the stairwell, and along the landing's edge
     // above the open floor east of the stairs
     const westRailX = STAIR.x0 - 0.04
-    rail(westRailX, -0.25, F + 0.95, STAIR.z1, F + 0.95)
-    for (let z = -0.2; z < STAIR.z1; z += 0.52) this.box(g, this.mats.darkWood, 0.04, 0.95, 0.04, westRailX, F + 0.475, z, 0.6)
+    rail(westRailX, ANNEX_Z0 + 0.05, F + 0.95, STAIR.z1, F + 0.95)
+    for (let z = ANNEX_Z0 + 0.1; z < STAIR.z1; z += 0.52) this.box(g, this.mats.darkWood, 0.04, 0.95, 0.04, westRailX, F + 0.475, z, 0.6)
     const edgeZ = STAIR.z1 + 0.04
     const edge = this.box(g, this.mats.darkWood, ANNEX_X1 - STAIR.x1, 0.07, 0.06, (STAIR.x1 + ANNEX_X1) / 2, F + 0.95, edgeZ, 0.6)
     void edge
@@ -437,6 +443,9 @@ export class ArtGallery {
     roof.material.side = THREE.DoubleSide
     s.add(roof)
     this.box(s, this.mats.roof, x1 - x0 - 2 * inset + 0.3, 0.22, 0.32, (x0 + x1) / 2, ridge + 0.06, (zA + zB) / 2, 1)
+    // Lean-to roof over the part of the stair annex that projects into the courtyard
+    const lean = this.box(s, this.mats.roof, x1 - 13.6, 0.12, zA - (ANNEX_Z0 - 0.7) + 0.4, (13.6 + x1) / 2, eave + 0.18, (zA + ANNEX_Z0 - 0.7) / 2 + 0.2, 1)
+    lean.rotation.x = -0.12
   }
 
   // =========================================================
@@ -1158,11 +1167,11 @@ export class ArtGallery {
   }
 
   private walkable(level: number, x: number, z: number): boolean {
-    const walkway = x >= 14.18 && x <= 16.1 && z >= -0.1 && z <= 7.1
+    const walkway = x >= 14.18 && x <= 16.1 && z >= ANNEX_Z0 + 0.18 && z <= 7.1
     if (level === 0) {
       // Walkway, the floor in front of the stairs' foot, and the open floor east of the stairs
-      const foot = x >= 16.1 && x <= ANNEX_X1 - 0.18 && z >= -0.1 && z <= STAIR.z0
-      const east = x >= STAIR.x1 + 0.15 && x <= ANNEX_X1 - 0.18 && z >= -0.1 && z <= 7.1
+      const foot = x >= 16.1 && x <= ANNEX_X1 - 0.18 && z >= ANNEX_Z0 + 0.18 && z <= STAIR.z0
+      const east = x >= STAIR.x1 + 0.15 && x <= ANNEX_X1 - 0.18 && z >= ANNEX_Z0 + 0.18 && z <= 7.1
       return walkway || foot || east
     }
     if (walkway) return true
