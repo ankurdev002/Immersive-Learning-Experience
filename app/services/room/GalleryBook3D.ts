@@ -174,8 +174,10 @@ export class GalleryBook3D {
     }
     this.rightSheet = new CurvedSheet(PAGE_W, PAGE_L, 'right', 56)
     this.leftSheet = new CurvedSheet(PAGE_W, PAGE_L, 'left', 56)
-    this.rightSheetMat = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.9 })
-    this.leftSheetMat = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.9 })
+    // Every page material starts with a page texture, so turning pages only swaps textures and
+    // never makes the GPU rebuild a shader mid-turn
+    this.rightSheetMat = new THREE.MeshStandardMaterial({ map: this.tex('title'), vertexColors: true, roughness: 0.9 })
+    this.leftSheetMat = new THREE.MeshStandardMaterial({ map: this.tex('image'), vertexColors: true, roughness: 0.9 })
     this.rightSheetMesh = new THREE.Mesh(this.rightSheet.geometry, this.rightSheetMat)
     this.leftSheetMesh = new THREE.Mesh(this.leftSheet.geometry, this.leftSheetMat)
     for (const m of [this.rightSheetMesh, this.leftSheetMesh]) {
@@ -200,8 +202,8 @@ export class GalleryBook3D {
 
     // The turning leaf: one grid, two faces (front shows the page being turned, back the next one)
     this.buildLeafGeometry()
-    this.leafFrontMat = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.9, side: THREE.FrontSide })
-    this.leafBackMat = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.9, side: THREE.BackSide })
+    this.leafFrontMat = new THREE.MeshStandardMaterial({ map: this.tex('title'), vertexColors: true, roughness: 0.9, side: THREE.FrontSide })
+    this.leafBackMat = new THREE.MeshStandardMaterial({ map: this.tex('s1'), vertexColors: true, roughness: 0.9, side: THREE.BackSide })
     this.leafFront = new THREE.Mesh(this.leafGeo, this.leafFrontMat)
     this.leafBack = new THREE.Mesh(this.leafBackGeo, this.leafBackMat)
     for (const m of [this.leafFront, this.leafBack]) {
@@ -311,8 +313,6 @@ export class GalleryBook3D {
       const back = dir > 0 ? SPREADS[to]![0]! : SPREADS[from]![0]!
       this.leafFrontMat.map = this.tex(front)
       this.leafBackMat.map = this.tex(back)
-      this.leafFrontMat.needsUpdate = true
-      this.leafBackMat.needsUpdate = true
       // Underneath: the pages revealed once the leaf has moved
       this.setSheetMap(this.rightSheetMat, this.tex(SPREADS[dir > 0 ? to : from]![1]))
       this.setSheetMap(this.leftSheetMat, this.tex(SPREADS[dir > 0 ? from : to]![0]!))
@@ -324,7 +324,6 @@ export class GalleryBook3D {
   private setSheetMap(mat: THREE.MeshStandardMaterial, map: THREE.Texture) {
     if (mat.map === map) return
     mat.map = map
-    mat.needsUpdate = true
   }
 
   /** Poses everything for a spread `s` blended toward `s2` by `k` (used by page turns). */
@@ -418,7 +417,14 @@ export class GalleryBook3D {
       return Math.atan((b - a) / ((u + du - Math.max(0, u - du)) * PAGE_W))
     }
     const root = stackSurfaceHeight(0, rh) // the binding pins both stacks at the same valley
-    const lift = 0.0008
+    // Height above the page beneath. With the rest poses below matching the sheets' own curve, this
+    // clears the sheets' straight segments across the gutter dip, so the page underneath can never
+    // show through the turning page (which looked as if its text were being erased)
+    const lift = 0.0012
+    const progress = (s: number, lag: number) => {
+      const g = smooth(t * (1 + LAG) - lag * Math.pow(s, 1.15))
+      return dir > 0 ? g : 1 - g // 0 = lying on the right-hand stack, 1 = lying on the left-hand one
+    }
     let flight = 0
     for (let r = 0; r <= LEAF_ROWS; r++) {
       const v = r / LEAF_ROWS - 0.5
@@ -429,17 +435,25 @@ export class GalleryBook3D {
       for (let c = 0; c <= LEAF_COLS; c++) {
         const s = c / LEAF_COLS
         const i = r * (LEAF_COLS + 1) + c
-        pos.setXYZ(i, x, y + lift, v * PAGE_L)
-        // Progress of this bit of paper; forward turns travel right→left, backward left→right
+        // Where the paper is still lying on (or has just landed on) a stack, it takes exactly the
+        // shape of the page sheet there; in between it follows the bending curl
+        const Ev = progress(s, lag)
+        const onRight = 1 - smooth(Ev / 0.14)
+        const onLeft = 1 - smooth((1 - Ev) / 0.14)
+        const curl = 1 - onRight - onLeft
+        const px = x * curl + s * PAGE_W * onRight - s * PAGE_W * onLeft
+        const py = y * curl + stackSurfaceHeight(s, rh) * onRight + stackSurfaceHeight(s, lh) * onLeft
+        pos.setXYZ(i, px, py + lift, v * PAGE_L)
+        // Integrate the curl along the paper (inextensible): tangent from the stack it leaves to
+        // the stack it lands on, each bit of paper on its own slightly delayed progress
         const sm = s + ds / 2
-        const g = smooth(t * (1 + LAG) - lag * Math.pow(sm, 1.15))
-        const E = dir > 0 ? g : 1 - g
+        const E = progress(sm, lag)
         const phi = slope(rh, sm) * (1 - E) + (Math.PI - slope(lh, sm)) * E
         x += Math.cos(phi) * ds * PAGE_W
         y += Math.sin(phi) * ds * PAGE_W
-        flight = Math.max(flight, Math.sin(Math.PI * E))
+        flight = Math.max(flight, Math.sin(Math.PI * Ev))
         // Gutter shading fades out as the paper lifts into the light
-        const rest = 1 - Math.sin(Math.PI * E)
+        const rest = 1 - Math.sin(Math.PI * Ev)
         const shade = 1 - (1 - gutterShade(s)) * rest
         col.setXYZ(i, shade, shade, shade)
       }
