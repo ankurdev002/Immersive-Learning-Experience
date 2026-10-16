@@ -2354,112 +2354,94 @@ export class JapaneseRoomService {
     return { leftH, rightH }
   }
 
-  // Advanced Fluid Paper Curvature Engine: Cylindrical Peel, Conical Corner Roll & Aerodynamic Billow
+  /**
+   * Shapes the turning leaf (the same model as the gallery's history books). The page pivot stays
+   * unrotated at the cover board; every vertex is placed directly in book space. Each row of paper
+   * is integrated outward from the spine, so the sheet never stretches: its tangent blends from the
+   * curve of the stack it leaves to the curve of the stack it lands on, and every bit of paper runs
+   * slightly behind the part nearer the binding (more at the top edge, less at the lower corner the
+   * hand holds). Where the paper still lies on, or has landed on, a stack it takes exactly that
+   * page's curved shape, a hair above it, so the page beneath can never show through.
+   */
   private applyPageCurl(progress: number, isForward: boolean) {
     if (!this.pageFrontMesh || !this.pageBackMesh) return
-
-    const p = Math.max(0, Math.min(1, progress))
-    const bend = Math.sin(Math.PI * p)
-
+    const baseF = this.pageFrontBasePositions
+    if (!baseF) return
     const geoF = this.pageFrontMesh.geometry as THREE.BufferGeometry
     const geoB = this.pageBackMesh.geometry as THREE.BufferGeometry
+    const posF = geoF.getAttribute('position') as THREE.BufferAttribute
+    const posB = geoB.getAttribute('position') as THREE.BufferAttribute
+    const colF = geoF.getAttribute('color') as THREE.BufferAttribute | undefined
+    const colB = geoB.getAttribute('color') as THREE.BufferAttribute | undefined
 
-    const posAttrF = geoF.getAttribute('position') as THREE.BufferAttribute | undefined
-    const posAttrB = geoB.getAttribute('position') as THREE.BufferAttribute | undefined
-    if (!posAttrF || !posAttrB) return
-
-    const posF = posAttrF.array as Float32Array
-    const posB = posAttrB.array as Float32Array
-
-    const baseF = this.pageFrontBasePositions
-    const baseB = this.pageBackBasePositions
-    if (!baseF || !baseB) return
-
-    const count = Math.floor(baseF.length / 3)
-    const bookWidth = 0.35
-    const pageWidth = bookWidth * 0.96
-    const bookLength = 0.48
-    const pageLength = bookLength * 0.96
-    const profileWidth = bookWidth * 0.97
-
-    // Resting shape: the leaf leaves one curved stack and lands on the other. In pivot space the
-    // landing side is upside down (the pivot has turned 180°), hence the sign flip. It also floats
-    // 0.7mm above the page sheet (which sits 0.3mm up), so the page underneath can never show
-    // through it before it lifts.
-    const settle = (1 - Math.cos(Math.PI * p)) / 2
-    const fromSign = isForward ? 1 : -1
-    const fromH = this.curlRest.fromH
-    const toH = this.curlRest.toH
-    const lift = 0.0007 * (1 - 2 * settle)
-
-    for (let i = 0; i < count; i++) {
-      const idx = i * 3
-      const x0 = baseF[idx] ?? 0
-      const z0 = baseF[idx + 2] ?? 0
-
-      // Normalized coordinates:
-      // u in [0, 1]: 0 = spine binding, 1 = free fore-edge
-      // v in [-0.5, 0.5]: -0.5 = top edge, +0.5 = bottom edge
-      const u = Math.max(0, Math.min(1, x0 / pageWidth))
-      const v = z0 / pageLength
-      const uRest = x0 / profileWidth
-      const offFrom = stackSurfaceHeight(uRest, fromH) - fromH
-      const offTo = stackSurfaceHeight(uRest, toH) - toH
-      const dyRest = fromSign * ((1 - settle) * offFrom - settle * offTo + lift)
-
-      let dy = 0
-      if (isForward) {
-        // Forward turn (Right to Left):
-        // 1. Dynamic Angular Peel & Roll: free outer edge leads lift-off ($p < 0.5$), then lags as it lands on cushion of air
-        const peelAngle = p < 0.5
-          ? 0.55 * bend * (1.0 - 0.3 * p) * Math.pow(u, 1.35)
-          : -0.38 * bend * (p - 0.2) * Math.pow(u, 1.35)
-
-        // 2. Conical Diagonal Corner Twist: the bottom-outer corner (held by the fingers) leads the peel
-        const cornerTwist = 0.22 * bend * Math.pow(u, 2.0) * (0.5 + v)
-
-        // 3. Aerodynamic Billow Dome: paper catches air in mid-flight and bulges like a sail
-        const billowDome = 0.026 * Math.pow(bend, 1.15) * Math.pow(Math.sin(Math.PI * u * 0.95), 0.85) * (1.0 - 0.25 * v * v)
-
-        // 4. Subtle Hydrodynamic Wave / Flutter in mid-flight transition
-        const waveFlutter = 0.009 * Math.sin(2.0 * Math.PI * p) * Math.sin(1.5 * Math.PI * u) * u
-
-        // Combine into unified 3D paper deflection
-        const totalAngle = peelAngle + cornerTwist
-        dy = u * pageWidth * Math.sin(totalAngle * 0.5) + billowDome + waveFlutter
-      } else {
-        // Backward turn (Left to Right): Symmetric reverse curl
-        const peelAngle = p < 0.5
-          ? 0.55 * bend * (1.0 - 0.3 * p) * Math.pow(u, 1.35)
-          : -0.38 * bend * (p - 0.2) * Math.pow(u, 1.35)
-
-        const cornerTwist = 0.22 * bend * Math.pow(u, 2.0) * (0.5 + v)
-        const billowDome = 0.026 * Math.pow(bend, 1.15) * Math.pow(Math.sin(Math.PI * u * 0.95), 0.85) * (1.0 - 0.25 * v * v)
-        const waveFlutter = 0.009 * Math.sin(2.0 * Math.PI * p) * Math.sin(1.5 * Math.PI * u) * u
-
-        const totalAngle = peelAngle + cornerTwist
-        dy = -(u * pageWidth * Math.sin(totalAngle * 0.5) + billowDome + waveFlutter)
-      }
-
-      // Exact inextensibility conservation: preserves paper width along the curve
-      const dx = -(dy * dy) / (2.0 * pageWidth)
-      dy += dyRest
-
-      // Apply to Front face
-      posF[idx] = (baseF[idx] ?? 0) + dx
-      posF[idx + 1] = (baseF[idx + 1] ?? 0) + dy
-      posF[idx + 2] = baseF[idx + 2] ?? 0
-
-      // Apply to Back face (exact same 3D deflection, unified single sheet)
-      posB[idx] = (baseB[idx] ?? 0) + dx
-      posB[idx + 1] = (baseB[idx + 1] ?? 0) + dy
-      posB[idx + 2] = baseB[idx + 2] ?? 0
+    const t = Math.max(0, Math.min(1, progress))
+    const pageWidth = this.bookWidth * 0.96
+    const pageLength = this.bookLength * 0.96
+    const profileWidth = this.bookWidth * 0.97 // width the curved sheets / stacks are profiled on
+    const T = this.pageBlockThickness
+    const lh = this.leftPageBlockMesh.scale.y * T
+    const rh = this.rightPageBlockMesh.scale.y * T
+    const open = this.pageOpenness.value
+    const surface = (u: number, h: number) => stackSurfaceHeight(u, h, open) + 0.0003 // sheets' own lift
+    const lift = 0.0012
+    const LAG = 0.75
+    const smooth = (x: number) => {
+      const k = Math.min(1, Math.max(0, x))
+      return k * k * (3 - 2 * k)
+    }
+    const slope = (h: number, u: number) => {
+      const du = 0.004
+      const u0 = Math.max(0, u - du)
+      return Math.atan((surface(u + du, h) - surface(u0, h)) / ((u + du - u0) * profileWidth))
+    }
+    const dir = isForward ? 1 : -1
+    // 0 = lying on the right-hand stack, 1 = lying on the left-hand one
+    const progressAt = (s: number, lag: number) => {
+      const g = smooth(t * (1 + LAG) - lag * Math.pow(s, 1.15))
+      return dir > 0 ? g : 1 - g
     }
 
-    posAttrF.needsUpdate = true
-    posAttrB.needsUpdate = true
+    // The grid is PlaneGeometry order: rows along the page length, columns from spine to fore-edge
+    const cols = 49
+    const rows = Math.round(posF.count / cols)
+    const ds = 1 / (cols - 1)
+    const sw = pageWidth / profileWidth
+    for (let r = 0; r < rows; r++) {
+      const z = baseF[(r * cols) * 3 + 2] ?? 0
+      const v = z / pageLength // -0.5 top edge (far) .. +0.5 bottom edge (near the reader)
+      const lag = LAG * (1 - 0.5 * (v + 0.5))
+      let x = 0
+      let y = surface(0, rh) // the binding pins both stacks at the same valley
+      for (let c = 0; c < cols; c++) {
+        const s = c / (cols - 1)
+        const i = r * cols + c
+        const Ev = progressAt(s, lag)
+        const onRight = 1 - smooth(Ev / 0.14)
+        const onLeft = 1 - smooth((1 - Ev) / 0.14)
+        const curl = 1 - onRight - onLeft
+        const px = x * curl + s * pageWidth * onRight - s * pageWidth * onLeft
+        const py = y * curl + surface(s * sw, rh) * onRight + surface(s * sw, lh) * onLeft + lift
+        posF.setXYZ(i, px, py, z)
+        posB.setXYZ(i, px, py, z)
+        const sm = s + ds / 2
+        const E = progressAt(sm, lag)
+        const phi = slope(rh, sm * sw) * (1 - E) + (Math.PI - slope(lh, sm * sw)) * E
+        x += Math.cos(phi) * ds * pageWidth
+        y += Math.sin(phi) * ds * pageWidth
+        // Gutter shading fades out as the paper lifts into the light
+        const shade = 1 - (1 - gutterShade(s * sw)) * (1 - Math.sin(Math.PI * Ev))
+        colF?.setXYZ(i, shade, shade, shade)
+        colB?.setXYZ(i, shade, shade, shade)
+      }
+    }
+    posF.needsUpdate = true
+    posB.needsUpdate = true
+    if (colF) colF.needsUpdate = true
+    if (colB) colB.needsUpdate = true
     geoF.computeVertexNormals()
     geoB.computeVertexNormals()
+    geoF.computeBoundingSphere()
+    geoB.computeBoundingSphere()
   }
 
   private buildHeroBook() {
@@ -4146,8 +4128,9 @@ export class JapaneseRoomService {
       }
 
       // Initialize turning leaf on top of right stack
+      // The leaf is shaped directly in book space (applyPageCurl): the pivot stays put
       this.pagePivot.rotation.z = 0
-      this.pagePivot.position.set(0, coverThickness + prevRightH, 0)
+      this.pagePivot.position.set(0, coverThickness, 0)
       this.pagePivot.visible = true
       this.curlRest.fromH = prevRightH
       this.curlRest.toH = targetLeftH
@@ -4200,8 +4183,11 @@ export class JapaneseRoomService {
       const flipStart = this.beginHandTurn(tl, isFlippingForward)
       tl.to(anim, {
         p: 1,
-        duration: flipStart > 0 ? 0.95 : 0.88,
-        ease: 'power2.inOut',
+        // Linear progress, like the gallery books: the paper model eases each part of the sheet itself
+        // (binding first, free edge last), so an eased timeline on top would crowd the whole turn
+        // into a snap in the middle
+        duration: PAGE_TURN_SECONDS,
+        ease: 'none',
         onUpdate: () => {
           const p = anim.p
           const curLeftH = prevLeftH + (targetLeftH - prevLeftH) * p
@@ -4223,7 +4209,9 @@ export class JapaneseRoomService {
 
           // Preload targetVerso onto leftCurvedPageMesh as turning page descends over the left stack (p >= 0.65)
           // so by the time it lands, the underlying page already has the new texture ready in WebGL!
-          if (!hasPreloadedLeft && p >= 0.65) {
+          // Only once the leaf has fully landed and covers it: earlier, the still-visible part of
+          // the page underneath would change content before the leaf reached it
+          if (!hasPreloadedLeft && p >= 1) {
             hasPreloadedLeft = true
             if (this.leftCurvedPageMesh) {
               const lMat = this.leftCurvedPageMesh.material as THREE.MeshStandardMaterial
@@ -4235,14 +4223,6 @@ export class JapaneseRoomService {
               leftBlockMats[2].needsUpdate = true
             }
           }
-
-          // Continuous organic page turnover from 0 to 180 deg
-          this.pagePivot.rotation.z = p * Math.PI
-
-          // Dynamic elevation: rises from right stack, arches in flight, lands flush onto left stack
-          const baseY = (1 - p) * curRightH + p * curLeftH
-          const airLift = 0.018 * Math.sin(Math.PI * p)
-          this.pagePivot.position.y = coverThickness + baseY + airLift
 
           // Deform paper vertices with unified 3D bending physics
           this.applyPageCurl(p, true)
@@ -4278,8 +4258,8 @@ export class JapaneseRoomService {
       }
 
       // Initialize turning leaf on top of left stack
-      this.pagePivot.rotation.z = Math.PI
-      this.pagePivot.position.set(0, coverThickness + prevLeftH, 0)
+      this.pagePivot.rotation.z = 0
+      this.pagePivot.position.set(0, coverThickness, 0)
       this.pagePivot.visible = true
       this.curlRest.fromH = prevLeftH
       this.curlRest.toH = targetRightH
@@ -4330,8 +4310,11 @@ export class JapaneseRoomService {
       const flipStart = this.beginHandTurn(tl, isFlippingForward)
       tl.to(anim, {
         p: 1,
-        duration: flipStart > 0 ? 0.95 : 0.88,
-        ease: 'power2.inOut',
+        // Linear progress, like the gallery books: the paper model eases each part of the sheet itself
+        // (binding first, free edge last), so an eased timeline on top would crowd the whole turn
+        // into a snap in the middle
+        duration: PAGE_TURN_SECONDS,
+        ease: 'none',
         onUpdate: () => {
           const p = anim.p
           const curLeftH = prevLeftH + (targetLeftH - prevLeftH) * p
@@ -4350,7 +4333,9 @@ export class JapaneseRoomService {
             this.rightCurvedPageMesh.position.y = coverThickness + curRightH + 0.0003
           }
 
-          if (!hasPreloadedRight && p >= 0.65) {
+          // Only once the leaf has fully landed and covers it: earlier, the still-visible part of
+          // the page underneath would change content before the leaf reached it
+          if (!hasPreloadedRight && p >= 1) {
             hasPreloadedRight = true
             if (this.rightCurvedPageMesh) {
               const rMat = this.rightCurvedPageMesh.material as THREE.MeshStandardMaterial
@@ -4362,12 +4347,6 @@ export class JapaneseRoomService {
               rightBlockMats[2].needsUpdate = true
             }
           }
-
-          this.pagePivot.rotation.z = (1 - p) * Math.PI
-
-          const baseY = p * curRightH + (1 - p) * curLeftH
-          const airLift = 0.018 * Math.sin(Math.PI * p)
-          this.pagePivot.position.y = coverThickness + baseY + airLift
 
           this.applyPageCurl(p, false)
           this.onHandTurnProgress(p)
@@ -6535,6 +6514,9 @@ function wallWithOpening(w: number, h: number, holeW: number, holeH: number, hol
   shape.holes.push(hole)
   return new THREE.ShapeGeometry(shape)
 }
+
+/** Length of one page turn (the gallery's history books take 1.15 s for their smaller pages). */
+const PAGE_TURN_SECONDS = 1.3
 
 /**
  * Book paper that stays readable under any room lighting: part of the page is emitted from its own
