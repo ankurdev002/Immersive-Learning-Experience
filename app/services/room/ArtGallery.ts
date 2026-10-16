@@ -22,8 +22,10 @@ const CEIL = 8.4
 const ANNEX_X1 = 20.0
 /** Inner face of the annex's back wall: it projects past the rooms so there's ~2.5 m of floor in front of the stairs */
 const ANNEX_Z0 = -2.2
-/** The staircase stands free in the annex: walkway on its west side, ~1.9 m of open floor to the east */
-const STAIR = { x0: 16.25, x1: 18.05, z0: 0.3, z1: 6.54 }
+/** Edge of the upstairs walkway (mezzanine) over the ground-floor walkway */
+const MEZZ_EDGE = 16.25
+/** The staircase runs up against the annex's east wall; open floor lies between it and the walkway */
+const STAIR = { x0: ANNEX_X1 - 1.86, x1: ANNEX_X1 - 0.04, z0: 0.3, z1: 6.54 }
 /** Doorway in the corridor's east end wall (corridor ↔ annex walkway) */
 export const GALLERY_OPENING = { z0: 5.15, z1: 6.95 }
 /** Opening from the mezzanine into the hall */
@@ -275,7 +277,7 @@ export class ArtGallery {
     // (walnut floor on top; the edges round the stairwell and the underside are plastered)
     const slabMats = [this.mats.wall, this.mats.wall, this.mats.floor, this.mats.wall, this.mats.wall, this.mats.wall]
     this.box(g, slabMats, 2.19, 0.35, annexD, 15.155, F - 0.175, annexCz, 1.2)
-    this.box(g, slabMats, ANNEX_X1 - STAIR.x0, 0.35, 7.3 - STAIR.z1, (STAIR.x0 + ANNEX_X1) / 2, F - 0.175, (STAIR.z1 + 7.3) / 2, 1.2)
+    this.box(g, slabMats, ANNEX_X1 - MEZZ_EDGE, 0.35, 7.3 - STAIR.z1, (MEZZ_EDGE + ANNEX_X1) / 2, F - 0.175, (STAIR.z1 + 7.3) / 2, 1.2)
     // Annex ceiling high above the stairwell
     this.box(g, this.mats.ceiling, annexW, 0.1, annexD, annexCx, CEIL + 0.05, annexCz, 1.5)
 
@@ -340,7 +342,6 @@ export class ArtGallery {
       g.add(panel)
     }
     sidePanel(-1)
-    sidePanel(1)
     const slopeLen = Math.hypot(zTop - zFoot, stringCap - stringTop(STAIR.z0))
     const slopeAngle = Math.atan2(stringCap - stringTop(STAIR.z0), zTop - zFoot)
     const yMid = (stringTop(STAIR.z0) + stringCap) / 2 - 0.09
@@ -349,45 +350,51 @@ export class ArtGallery {
       const r = this.box(g, this.mats.darkWood, 0.06, 0.07, len, x, (y0 + y1) / 2, (z0 + z1) / 2, 0.6)
       r.rotation.x = -Math.atan2(y1 - y0, z1 - z0)
     }
-    for (const side of [-1, 1] as const) {
-      const stringX = side < 0 ? STAIR.x0 - 0.03 : STAIR.x1 + 0.03
+    // Open (west) side: string board, skirting, handrail with balusters and a newel post
+    {
+      const stringX = STAIR.x0 - 0.03
       const board = this.box(g, this.mats.darkWood, 0.045, 0.24, slopeLen + 0.02, stringX, yMid, (zFoot + zTop) / 2, 0.6)
       board.rotation.x = -slopeAngle
-      // Skirting along the foot of the panel
-      this.box(g, this.mats.darkWood, 0.03, 0.1, 7.3 - zFoot, stringX + side * 0.002, 0.05, (zFoot + 7.3) / 2, 0.6)
-      // Handrail on the string, with balusters and a newel post at the foot
-      const railX = side < 0 ? STAIR.x0 - 0.04 : STAIR.x1 + 0.04
+      this.box(g, this.mats.darkWood, 0.03, 0.1, 7.3 - zFoot, stringX - 0.002, 0.05, (zFoot + 7.3) / 2, 0.6)
+      const railX = STAIR.x0 - 0.04
       rail(railX, zFoot, stringTop(STAIR.z0) + 0.9, zTop, stringCap + 0.9)
       this.box(g, this.mats.darkWood, 0.1, stringTop(STAIR.z0) + 1.0, 0.1, railX, (stringTop(STAIR.z0) + 1.0) / 2, zFoot, 0.6)
       for (let z = STAIR.z0 + 0.45; z < zTop - 0.1; z += 0.52) {
         this.box(g, this.mats.darkWood, 0.035, 0.9, 0.035, railX, stringTop(z) + 0.45, z, 0.6)
       }
     }
-    // Upstairs: railing along the mezzanine edge over the stairwell, and along the landing's edge
-    // above the open floor east of the stairs
-    const westRailX = STAIR.x0 - 0.04
-    rail(westRailX, ANNEX_Z0 + 0.05, F + 0.95, STAIR.z1, F + 0.95)
-    for (let z = ANNEX_Z0 + 0.1; z < STAIR.z1; z += 0.52) this.box(g, this.mats.darkWood, 0.04, 0.95, 0.04, westRailX, F + 0.475, z, 0.6)
+    // Wall side: a wall string fixed to the east wall, closing the small gap between treads and wall
+    {
+      const w = ANNEX_X1 - STAIR.x1 + 0.03
+      const board = this.box(g, this.mats.darkWood, w, 0.24, slopeLen + 0.02, ANNEX_X1 - w / 2, yMid, (zFoot + zTop) / 2, 0.6)
+      board.rotation.x = -slopeAngle
+    }
+    // Upstairs: railing along the mezzanine edge over the open stairwell, and along the landing's
+    // edge above it (between the mezzanine and the top of the stairs)
+    const mezzRailX = MEZZ_EDGE - 0.04
+    rail(mezzRailX, ANNEX_Z0 + 0.05, F + 0.95, STAIR.z1, F + 0.95)
+    for (let z = ANNEX_Z0 + 0.1; z < STAIR.z1; z += 0.52) this.box(g, this.mats.darkWood, 0.04, 0.95, 0.04, mezzRailX, F + 0.475, z, 0.6)
     const edgeZ = STAIR.z1 + 0.04
-    const edge = this.box(g, this.mats.darkWood, ANNEX_X1 - STAIR.x1, 0.07, 0.06, (STAIR.x1 + ANNEX_X1) / 2, F + 0.95, edgeZ, 0.6)
-    void edge
-    for (let x = STAIR.x1 + 0.3; x < ANNEX_X1 - 0.1; x += 0.5) this.box(g, this.mats.darkWood, 0.04, 0.95, 0.04, x, F + 0.475, edgeZ, 0.6)
+    this.box(g, this.mats.darkWood, STAIR.x0 - MEZZ_EDGE, 0.07, 0.06, (MEZZ_EDGE + STAIR.x0) / 2, F + 0.95, edgeZ, 0.6)
+    for (let x = MEZZ_EDGE + 0.3; x < STAIR.x0 - 0.1; x += 0.5) this.box(g, this.mats.darkWood, 0.04, 0.95, 0.04, x, F + 0.475, edgeZ, 0.6)
 
-    // A welcome panel on the east wall, beside the open floor at the foot of the stairs
-    this.textPanel(g, ['美', 'Art Gallery · 2F', 'Japanese masterworks, ink, gold and the samurai, one floor up.'], 1.5, 1.05, ANNEX_X1 - 0.01, 1.75, 3.6, -Math.PI / 2)
+    // The gallery poster hangs on the back wall, right in front of the foot of the stairs
+    const stairCx = (STAIR.x0 + STAIR.x1) / 2
+    this.textPanel(g, ['美', 'Art Gallery · 2F', 'Japanese masterworks, ink, gold and the samurai, one floor up.'], 1.5, 1.05, stairCx, 1.75, ANNEX_Z0 + 0.01, 0)
+    this.wash(g, 2.4, 2.8, stairCx, 1.85, ANNEX_Z0 + 0.006, 0, 0.32)
 
     // Big paper lantern hanging in the stairwell
     const paper = new THREE.MeshStandardMaterial({ color: '#f6ead2', emissive: '#ffcf8f', emissiveIntensity: 1.1, roughness: 0.9, name: 'gallery-lantern' })
     paper.userData.onIntensity = 1.1
     this.glowMaterials.push(paper)
     const lantern = new THREE.Mesh(new THREE.CylinderGeometry(0.32, 0.32, 0.9, 20), paper)
-    lantern.position.set((STAIR.x1 + ANNEX_X1) / 2, 6.6, 3.2)
+    lantern.position.set((MEZZ_EDGE + STAIR.x0) / 2, 6.6, 3.2)
     g.add(lantern)
-    this.box(g, this.mats.darkWood, 0.7, 0.05, 0.7, (STAIR.x1 + ANNEX_X1) / 2, 7.07, 3.2, 0.6)
-    this.box(g, this.mats.darkWood, 0.7, 0.05, 0.7, (STAIR.x1 + ANNEX_X1) / 2, 6.13, 3.2, 0.6)
-    this.box(g, this.mats.black, 0.015, CEIL - 7.1, 0.015, (STAIR.x1 + ANNEX_X1) / 2, (CEIL + 7.1) / 2, 3.2, 0.6)
+    this.box(g, this.mats.darkWood, 0.7, 0.05, 0.7, (MEZZ_EDGE + STAIR.x0) / 2, 7.07, 3.2, 0.6)
+    this.box(g, this.mats.darkWood, 0.7, 0.05, 0.7, (MEZZ_EDGE + STAIR.x0) / 2, 6.13, 3.2, 0.6)
+    this.box(g, this.mats.black, 0.015, CEIL - 7.1, 0.015, (MEZZ_EDGE + STAIR.x0) / 2, (CEIL + 7.1) / 2, 3.2, 0.6)
     this.spotPlacements.push({ position: new THREE.Vector3(15.2, CEIL - 0.1, 3.4), target: new THREE.Vector3(15.2, F, 3.4) })
-    this.spotPlacements.push({ position: new THREE.Vector3(19.0, CEIL - 0.1, 3.6), target: new THREE.Vector3(19.4, 0, 3.6) })
+    this.spotPlacements.push({ position: new THREE.Vector3(stairCx, CEIL - 0.1, ANNEX_Z0 + 1.6), target: new THREE.Vector3(stairCx, 1.75, ANNEX_Z0) })
   }
 
   private buildShell() {
@@ -1169,13 +1176,16 @@ export class ArtGallery {
   private walkable(level: number, x: number, z: number): boolean {
     const walkway = x >= 14.18 && x <= 16.1 && z >= ANNEX_Z0 + 0.18 && z <= 7.1
     if (level === 0) {
-      // Walkway, the floor in front of the stairs' foot, and the open floor east of the stairs
-      const foot = x >= 16.1 && x <= ANNEX_X1 - 0.18 && z >= ANNEX_Z0 + 0.18 && z <= STAIR.z0
-      const east = x >= STAIR.x1 + 0.15 && x <= ANNEX_X1 - 0.18 && z >= ANNEX_Z0 + 0.18 && z <= 7.1
-      return walkway || foot || east
+      // The whole ground floor of the annex is open floor apart from the staircase itself
+      // (inStair() handles stepping onto it, only at its foot)
+      // (the space under the top landing, behind the stairs' side panel, is closed off)
+      if (x > STAIR.x0 - 0.12 && z > STAIR.z1 - 0.05) return false
+      return x >= 14.18 && x <= ANNEX_X1 - 0.18 && z >= ANNEX_Z0 + 0.18 && z <= 7.1
     }
     if (walkway) return true
-    if (x >= 16.1 && x <= ANNEX_X1 - 0.18 && z >= STAIR.z1 + 0.12 && z <= 7.1) return true
+    // Landing: straight on from the top step, but kept clear of the railing over the stairwell
+    if (x >= STAIR.x0 - 0.05 && x <= ANNEX_X1 - 0.18 && z >= STAIR.z1 - 0.02 && z <= 7.1) return true
+    if (x >= 16.1 && x < STAIR.x0 && z >= STAIR.z1 + 0.14 && z <= 7.1) return true
     if (x >= 13.7 && x < 14.18) return z >= ENTRANCE.z0 + 0.1 && z <= ENTRANCE.z1 - 0.02
     if (x >= -13.75 && x < 13.7 && z >= 0.05 && z <= 7.05) {
       for (const c of this.colliders) if (x > c.minX && x < c.maxX && z > c.minZ && z < c.maxZ) return false
