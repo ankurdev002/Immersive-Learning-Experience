@@ -2420,7 +2420,12 @@ export class JapaneseRoomService {
         const onLeft = 1 - smooth((1 - Ev) / 0.14)
         const curl = 1 - onRight - onLeft
         const px = x * curl + s * pageWidth * onRight - s * pageWidth * onLeft
-        const py = y * curl + surface(s * sw, rh) * onRight + surface(s * sw, lh) * onLeft + lift
+        let py = y * curl + surface(s * sw, rh) * onRight + surface(s * sw, lh) * onLeft + lift
+        // Paper can never pass through the stack beneath it: wherever it is over a stack (most of all
+        // while landing, as the airborne curve blends into the resting shape) it stays a hair above
+        // that page, so the two pages' text never interleaves
+        const under = surface(Math.abs(px) / profileWidth, px >= 0 ? rh : lh) + lift
+        if (py < under) py = under
         posF.setXYZ(i, px, py, z)
         posB.setXYZ(i, px, py, z)
         const sm = s + ds / 2

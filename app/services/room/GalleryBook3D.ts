@@ -442,7 +442,10 @@ export class GalleryBook3D {
         const onLeft = 1 - smooth((1 - Ev) / 0.14)
         const curl = 1 - onRight - onLeft
         const px = x * curl + s * PAGE_W * onRight - s * PAGE_W * onLeft
-        const py = y * curl + stackSurfaceHeight(s, rh) * onRight + stackSurfaceHeight(s, lh) * onLeft
+        let py = y * curl + stackSurfaceHeight(s, rh) * onRight + stackSurfaceHeight(s, lh) * onLeft
+        // Paper can never pass through the stack beneath it (most of all while landing)
+        const under = stackSurfaceHeight(Math.abs(px) / PAGE_W, px >= 0 ? rh : lh)
+        if (py < under) py = under
         pos.setXYZ(i, px, py + lift, v * PAGE_L)
         // Integrate the curl along the paper (inextensible): tangent from the stack it leaves to
         // the stack it lands on, each bit of paper on its own slightly delayed progress
