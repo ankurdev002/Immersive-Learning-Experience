@@ -11,6 +11,8 @@ import {
 import { useImmersiveAudio } from '~/composables/useImmersiveAudio'
 import type { GalleryExhibitInfo } from '~/services/room/GalleryCatalog'
 import GalleryBookReader from './GalleryBookReader.vue'
+import { useGalleryMusic, GALLERY_TRACK } from '~/composables/useGalleryMusic'
+import { useAudioPlayer } from '~/composables/useAudioPlayer'
 import type { ImmersiveBookData } from '~/types/learning-journey'
 
 const emit = defineEmits<{
@@ -234,6 +236,19 @@ const selectedClass = ref(3)
 // Explore Mode & Multi-Room State
 const isExploreMode = ref(false)
 const currentZone = ref('study-room')
+
+// Soft music in the upstairs Art Gallery (stair hall included), streamed from SoundCloud
+const galleryMusic = useGalleryMusic()
+const { isMuted: appMuted } = useAudioPlayer()
+const galleryMusicPlaying = galleryMusic.playing
+const galleryMusicEnabled = galleryMusic.enabled
+const galleryMusicFailed = galleryMusic.failed
+watch(currentZone, (zone) => {
+  if (zone === 'gallery') void galleryMusic.start(appMuted.value)
+  else galleryMusic.stop()
+})
+watch(appMuted, (muted) => galleryMusic.setMuted(muted))
+const toggleGalleryMusic = () => galleryMusic.toggle(appMuted.value)
 const currentZoneName = ref('Study Room')
 const currentRoomLight = ref(true)
 const nearDoorPrompt = ref<{ show: boolean; text: string; roomId: string; isOpen: boolean }>({
@@ -512,6 +527,7 @@ onMounted(() => {
 })
 
 onUnmounted(() => {
+  galleryMusic.dispose()
   if (meditationTimer) clearInterval(meditationTimer)
   window.removeEventListener('keydown', handleKeyDown)
   window.removeEventListener('click', closeChamberMenu)
@@ -1099,6 +1115,20 @@ const handleExitRoom = () => {
       </div>
 
       <!-- Door Proximity Action Banner (Floating interactive chip) -->
+      <!-- Gallery music: what's playing, with credit, and an on / off switch -->
+      <transition name="pop-fade">
+        <div v-if="currentZone === 'gallery' && galleryMusicPlaying" class="gallery-music-chip">
+          <span class="gm-note" :class="{ 'gm-off': !galleryMusicEnabled || galleryMusicFailed }">♪</span>
+          <span class="gm-text">
+            <span class="gm-title">{{ GALLERY_TRACK.title }}</span>
+            <span class="gm-sub">{{ galleryMusicFailed ? 'Music unavailable (offline?)' : `${GALLERY_TRACK.uploader} · on SoundCloud` }}</span>
+          </span>
+          <button v-if="!galleryMusicFailed" class="gm-btn" @click.stop="toggleGalleryMusic">
+            {{ galleryMusicEnabled ? 'Music On' : 'Music Off' }}
+          </button>
+        </div>
+      </transition>
+
       <!-- Gallery: read the history of the piece you're standing at -->
       <transition name="pop-fade">
         <div
@@ -1480,6 +1510,63 @@ const handleExitRoom = () => {
 </template>
 
 <style scoped>
+.gallery-music-chip {
+  position: fixed;
+  right: 32px;
+  bottom: 96px;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px 8px 14px;
+  border-radius: 14px;
+  background: rgba(17, 24, 39, 0.78);
+  border: 1px solid rgba(201, 162, 74, 0.35);
+  backdrop-filter: blur(8px);
+  color: #f3e7cf;
+  font: 12px system-ui, sans-serif;
+  max-width: min(360px, calc(100vw - 64px));
+}
+.gm-note {
+  font-size: 18px;
+  color: #c9a24a;
+  animation: gm-pulse 2.4s ease-in-out infinite;
+}
+.gm-note.gm-off {
+  animation: none;
+  opacity: 0.4;
+}
+@keyframes gm-pulse {
+  50% {
+    opacity: 0.45;
+  }
+}
+.gm-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.gm-title {
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.gm-sub {
+  color: #b9a988;
+  font-size: 11px;
+}
+.gm-btn {
+  font: 600 11px system-ui, sans-serif;
+  color: #f3e7cf;
+  background: rgba(40, 30, 22, 0.85);
+  border: 1px solid rgba(201, 162, 74, 0.5);
+  border-radius: 999px;
+  padding: 5px 10px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
 .immersive-room-wrapper {
   position: fixed;
   inset: 0;
