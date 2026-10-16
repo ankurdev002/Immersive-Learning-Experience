@@ -561,6 +561,7 @@ export class JapaneseRoomService {
     this.camera = new THREE.PerspectiveCamera(48, aspect, 0.1, 200)
     this.camera.position.copy(this.initialCamPos)
     this.camera.lookAt(this.initialCamTarget)
+    this.fitReadingCamera()
 
     // Pick a quality tier (manual override > GPU/device heuristics); antialias must be decided before
     // the WebGL context exists, everything else can still adapt at runtime.
@@ -785,11 +786,14 @@ export class JapaneseRoomService {
       this.consecutiveFastFrames = 0
       if (this.consecutiveSlowFrames > 30) {
         this.consecutiveSlowFrames = 0
-        if (this.currentDPR > this.preset.minDPR + 0.001) {
-          this.currentDPR = Math.max(this.preset.minDPR, Math.round((this.currentDPR - 0.1) * 100) / 100)
+        // While a book is open the view is a still page: sharp text matters more than frame rate,
+        // so resolution never drops below a reading floor (and the tier isn't stepped down)
+        const minDPR = this.readingBoost ? Math.max(this.preset.minDPR, Math.min(this.baseDPR, this.readingFloorDPR())) : this.preset.minDPR
+        if (this.currentDPR > minDPR + 0.001) {
+          this.currentDPR = Math.max(minDPR, Math.round((this.currentDPR - 0.1) * 100) / 100)
           this.renderer.setPixelRatio(this.currentDPR)
           this.lastDprDropTime = performance.now()
-        } else if (!this.isManualTier && this.qualityTier !== 'low') {
+        } else if (!this.readingBoost && !this.isManualTier && this.qualityTier !== 'low') {
           this.slowFramesAtMinDPR++
           if (this.slowFramesAtMinDPR >= 6) {
             const lowerTier = TIER_ORDER[TIER_ORDER.indexOf(this.qualityTier) - 1]!
@@ -2596,12 +2600,12 @@ export class JapaneseRoomService {
     this.rightSheet = new CurvedSheet(blockWidth, blockLength, 'right')
     const geoRight = this.rightSheet.geometry
 
-    const rightCurvedMat = new THREE.MeshStandardMaterial({
+    const rightCurvedMat = selfLitPage(new THREE.MeshStandardMaterial({
       map: page1Tex,
       roughness: 0.85,
       side: THREE.FrontSide,
       vertexColors: true,
-    })
+    }))
     this.rightCurvedPageMesh = new THREE.Mesh(geoRight, rightCurvedMat)
     this.rightCurvedPageMesh.position.set(0, coverThickness + pageBlockThickness + 0.0003, 0)
     this.rightCurvedPageMesh.castShadow = true
@@ -2613,12 +2617,12 @@ export class JapaneseRoomService {
     this.leftSheet = new CurvedSheet(blockWidth, blockLength, 'left')
     const geoLeft = this.leftSheet.geometry
 
-    const leftCurvedMat = new THREE.MeshStandardMaterial({
+    const leftCurvedMat = selfLitPage(new THREE.MeshStandardMaterial({
       map: insideCoverTex,
       roughness: 0.85,
       side: THREE.FrontSide,
       vertexColors: true,
-    })
+    }))
     this.leftCurvedPageMesh = new THREE.Mesh(geoLeft, leftCurvedMat)
     this.leftCurvedPageMesh.position.set(0, coverThickness + this.minStackH + 0.0003, 0)
     this.leftCurvedPageMesh.castShadow = true
@@ -2711,12 +2715,12 @@ export class JapaneseRoomService {
     geoFront.translate(pageWidth / 2, 0, 0)
     geoFront.rotateX(-Math.PI / 2)
 
-    const frontMat = new THREE.MeshStandardMaterial({
+    const frontMat = selfLitPage(new THREE.MeshStandardMaterial({
       map: page1Tex,
       roughness: 0.85,
       side: THREE.FrontSide,
       vertexColors: true,
-    })
+    }))
     this.pageFrontMesh = new THREE.Mesh(geoFront, frontMat)
     this.pageFrontMesh.position.set(0, 0, 0)
     this.pageFrontMesh.castShadow = true
@@ -2759,12 +2763,12 @@ export class JapaneseRoomService {
     const posAttrBack = geoBack.getAttribute('position') as THREE.BufferAttribute
     this.pageBackBasePositions = new Float32Array(posAttrBack.array)
 
-    const backMat = new THREE.MeshStandardMaterial({
+    const backMat = selfLitPage(new THREE.MeshStandardMaterial({
       map: insideCoverTex,
       roughness: 0.85,
       side: THREE.FrontSide,
       vertexColors: true,
-    })
+    }))
     this.pageBackMesh = new THREE.Mesh(geoBack, backMat)
     this.pageBackMesh.position.set(0, 0, 0)
     this.pageBackMesh.castShadow = true
@@ -3800,6 +3804,11 @@ export class JapaneseRoomService {
    * density (text stays crisp on retina screens). The adaptive monitor still steps it down if a
    * device can't hold 60fps.
    */
+  /** Lowest render resolution allowed while reading (text must stay crisp). */
+  private readingFloorDPR(): number {
+    return this.qualityTier === 'low' ? 1.25 : 1.6
+  }
+
   private setReadingResolution(on: boolean) {
     this.readingBoost = on
     const deviceDPR = typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1
@@ -4686,12 +4695,33 @@ export class JapaneseRoomService {
     })
   }
 
+  /**
+   * Places the reading camera (square-on to the tilted reading stand) as close as the screen allows
+   * while keeping the whole open spread in view, leaving room for the top bar and the book controls.
+   * The bigger the pages on screen, the more legible the text.
+   */
+  private fitReadingCamera() {
+    const dir = new THREE.Vector3(0, 0.179, 0.841).normalize()
+    const vHalf = THREE.MathUtils.degToRad(this.camera.fov / 2)
+    const hHalf = Math.atan(Math.tan(vHalf) * this.camera.aspect)
+    const halfSpread = this.bookWidth + 0.025
+    const halfLength = this.bookLength / 2 + 0.02
+    // ~18% of the height is covered by the HUD bars
+    const dist = Math.max(halfSpread / Math.tan(hHalf), halfLength / (Math.tan(vHalf) * 0.82))
+    this.readCamPos.copy(this.readCamTarget).addScaledVector(dir, dist)
+    if (this.state === 'book-open' && !gsap.isTweening(this.camera.position)) {
+      this.camera.position.copy(this.readCamPos)
+      this.camera.lookAt(this.readCamTarget)
+    }
+  }
+
   private onResize = () => {
     if (!this.canvas) return
     const width = this.canvas.clientWidth
     const height = this.canvas.clientHeight
     this.camera.aspect = width / height
     this.camera.updateProjectionMatrix()
+    this.fitReadingCamera()
     this.renderer.setPixelRatio(this.currentDPR)
     this.renderer.setSize(width, height, false)
     this.triggerShadowUpdate(15)
@@ -6400,7 +6430,9 @@ export class JapaneseRoomService {
       // Materials created at runtime (new rooms, loaded models) join the per-area lighting
       if (frameCount % 60 === 0) this.regionLighting.patchScene(this.scene)
       if (this.heroBookGroup.visible) this.syncBookSurfaces()
-      this.renderer.render(this.scene, this.camera)
+      // While a gallery history book is open the room is only a blurred backdrop behind it: redraw
+      // it at a quarter of the rate and leave the GPU to the book
+      if (!this.readerOpen || frameCount % 4 === 0) this.renderer.render(this.scene, this.camera)
     }
 
     animate()
@@ -6502,4 +6534,31 @@ function wallWithOpening(w: number, h: number, holeW: number, holeH: number, hol
   hole.lineTo(-holeW / 2, holeY - holeH / 2)
   shape.holes.push(hole)
   return new THREE.ShapeGeometry(shape)
+}
+
+/**
+ * Book paper that stays readable under any room lighting: part of the page is emitted from its own
+ * texture (white paper stays white, ink stays dark), still darkened by the gutter's vertex shading.
+ * The map is swapped page by page, so the emissive map follows it.
+ */
+function selfLitPage(material: THREE.MeshStandardMaterial): THREE.MeshStandardMaterial {
+  material.emissive.set('#ffffff')
+  material.emissiveIntensity = 0.5
+  material.onBeforeCompile = (shader) => {
+    shader.fragmentShader = shader.fragmentShader
+      // Sample the page a little sharper than the GPU's default mip choice: thin ink strokes stay
+      // dark instead of averaging into grey when the page is minified
+      .replace('#include <map_fragment>', THREE.ShaderChunk.map_fragment.replace('texture2D( map, vMapUv )', 'texture2D( map, vMapUv, -0.65 )'))
+      .replace(
+      '#include <emissivemap_fragment>',
+      `#ifdef USE_MAP
+      totalEmissiveRadiance *= sampledDiffuseColor.rgb;
+      #endif
+      #if defined( USE_COLOR )
+      totalEmissiveRadiance *= vColor.rgb;
+      #endif`
+    )
+  }
+  material.customProgramCacheKey = () => 'self-lit-page'
+  return material
 }

@@ -27,6 +27,9 @@ export function configurePageTextures(scale: number, cacheSize: number) {
   maxCachedPageTextures = cacheSize
 }
 
+/** Body text of book pages: a weight heavy enough to stay solid black when the page is seen small. */
+const BODY_FONT = '600 30px "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, sans-serif'
+
 /** A canvas sized for the 1200x1600 page layout at the configured resolution. */
 function createPageCanvas(): { canvas: HTMLCanvasElement; ctx: CanvasRenderingContext2D } {
   const canvas = document.createElement('canvas')
@@ -874,8 +877,8 @@ export function createBookPageTexture(
 
       // Bullet Points / Text below diagram
       if (pageData.bulletPoints && pageData.bulletPoints.length > 0) {
-        ctx.fillStyle = '#0f172a'
-        ctx.font = '500 29px "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, sans-serif'
+        ctx.fillStyle = '#0b1220'
+        ctx.font = BODY_FONT
         for (const bp of pageData.bulletPoints) {
           if (currentY > MAX_CONTENT_Y - 30) break
           currentY = wrapText(ctx, `• ${bp}`, 140, currentY, 920, 47, MAX_CONTENT_Y)
@@ -887,8 +890,8 @@ export function createBookPageTexture(
     // Normal Text Pages
     // Learning Objectives (if defined)
     if (pageData?.objectives && pageData.objectives.length > 0) {
-      ctx.fillStyle = '#0f172a'
-      ctx.font = '500 29px "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, sans-serif'
+      ctx.fillStyle = '#0b1220'
+      ctx.font = BODY_FONT
       for (const obj of pageData.objectives) {
         if (currentY > MAX_CONTENT_Y - 30) break
         currentY = wrapText(ctx, `• ${obj}`, 140, currentY, 920, 47, MAX_CONTENT_Y)
@@ -898,8 +901,8 @@ export function createBookPageTexture(
 
     // Bullet Points (if defined)
     if (pageData?.bulletPoints && pageData.bulletPoints.length > 0) {
-      ctx.fillStyle = '#0f172a'
-      ctx.font = '500 29px "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, sans-serif'
+      ctx.fillStyle = '#0b1220'
+      ctx.font = BODY_FONT
       for (const bp of pageData.bulletPoints) {
         if (currentY > MAX_CONTENT_Y - 30) break
         currentY = wrapText(ctx, `• ${bp}`, 140, currentY, 920, 47, MAX_CONTENT_Y)
