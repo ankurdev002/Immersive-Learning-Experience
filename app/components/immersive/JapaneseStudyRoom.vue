@@ -9,6 +9,8 @@ import {
   type SwitchPromptData,
 } from '~/services/JapaneseRoomService'
 import { useImmersiveAudio } from '~/composables/useImmersiveAudio'
+import type { GalleryExhibitInfo } from '~/services/room/GalleryCatalog'
+import GalleryBookReader from './GalleryBookReader.vue'
 import type { ImmersiveBookData } from '~/types/learning-journey'
 
 const emit = defineEmits<{
@@ -98,6 +100,16 @@ const PRACTICES: Practice[] = [
 
 type MonkStep = 'greet' | 'explain' | 'choose' | 'ready'
 const nearMonk = ref(false)
+// Upstairs gallery: the exhibit whose lectern you're standing at, and the open history book
+const nearExhibit = ref<{ show: boolean; id: string; title: string }>({ show: false, id: '', title: '' })
+const readerExhibit = ref<GalleryExhibitInfo | null>(null)
+const openExhibitReader = () => {
+  roomService?.openExhibit(nearExhibit.value.id)
+}
+const closeExhibitReader = () => {
+  readerExhibit.value = null
+  roomService?.setReaderOpen(false)
+}
 const monkDialog = ref<{ roomId: string; step: MonkStep; practice: Practice | null } | null>(null)
 const isMeditating = ref(false)
 const meditationSession = ref<{ practice: Practice; elapsed: number; total: number; complete: boolean } | null>(null)
@@ -266,7 +278,7 @@ const availableIcons = ['📚', '🧘', '🍵', '🎨', '🔭', '🌿', '🏛️
 const availableThemes: Array<{ id: 'library' | 'meditation' | 'gallery' | 'science'; label: string; desc: string }> = [
   { id: 'library', label: 'Library Chamber', desc: 'Cedar bookshelves & reading armchairs' },
   { id: 'meditation', label: 'Zen Meditation Dojo', desc: 'Tatami mats, stone lantern & bonsai' },
-  { id: 'gallery', label: 'Art Gallery', desc: 'Painted landscape canvases & track lighting' },
+  { id: 'gallery', label: 'Art Gallery', desc: 'Upstairs hall of Japanese masterworks, samurai armour & katana' },
   { id: 'science', label: 'Observatory & Lab', desc: 'Celestial globe & brass instruments' },
 ]
 
@@ -459,6 +471,14 @@ onMounted(() => {
       },
       onMonkInteract: (roomId) => {
         openMonkDialog(roomId)
+      },
+      onNearExhibit: (near) => {
+        nearExhibit.value = near
+      },
+      onOpenExhibit: (exhibit) => {
+        readerExhibit.value = exhibit
+        roomService?.setReaderOpen(true)
+        playPageFlip()
       },
       onMeditationChanged: (meditating) => {
         isMeditating.value = meditating
@@ -707,19 +727,25 @@ const handleConfirmCreateRoom = () => {
         theme: room.theme,
       })
       isCreateRoomModalOpen.value = false
-      createdNotification.value = `Chamber "${name}" Created in the Corridor!`
+      const isGallery = room.theme === 'gallery'
+      createdNotification.value = isGallery
+        ? `"${name}" is open upstairs: take the stairs at the east end of the corridor!`
+        : `Chamber "${name}" Created in the Corridor!`
       setTimeout(() => {
         createdNotification.value = ''
-      }, 4000)
+      }, isGallery ? 6000 : 4000)
 
-      // Teleport or open door
+      // Teleport or open door (the gallery: stand in the corridor facing the new stairway)
       if (!isExploreMode.value) {
         roomService.setExploreMode(true)
       }
-      roomService.teleportToZone(room.id)
+      roomService.teleportToZone(isGallery ? 'gallery-stairs' : room.id)
     } else {
       isCreateRoomModalOpen.value = false
-      createdNotification.value = 'The corridor is full: every room slot is already in use.'
+      createdNotification.value =
+        newRoomTheme.value === 'gallery'
+          ? 'The Art Gallery already exists: take the stairs at the east end of the corridor.'
+          : 'The corridor is full: every room slot is already in use.'
       setTimeout(() => {
         createdNotification.value = ''
       }, 4000)
@@ -1073,6 +1099,31 @@ const handleExitRoom = () => {
       </div>
 
       <!-- Door Proximity Action Banner (Floating interactive chip) -->
+      <!-- Gallery: read the history of the piece you're standing at -->
+      <transition name="pop-fade">
+        <div
+          v-if="nearExhibit.show && !readerExhibit"
+          class="floating-door-prompt monk-prompt"
+          @click="openExhibitReader"
+        >
+          <div class="fd-icon-box">📜</div>
+          <div class="fd-content">
+            <span class="fd-title">{{ nearExhibit.title }}</span>
+            <span class="fd-sub">Press [E] or click to read about its history</span>
+          </div>
+          <div class="fd-btn-group">
+            <button class="fd-btn fd-toggle-btn" @click.stop="openExhibitReader">Read History</button>
+          </div>
+        </div>
+      </transition>
+      <GalleryBookReader
+        v-if="readerExhibit"
+        :key="readerExhibit.id"
+        :exhibit="readerExhibit"
+        @close="closeExhibitReader"
+        @flip="playPageFlip"
+      />
+
       <!-- Meditation dojo: talk to the monk -->
       <transition name="pop-fade">
         <div

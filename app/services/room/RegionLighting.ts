@@ -15,13 +15,16 @@ import * as THREE from 'three'
  * Cost: two short loops of uniform maths per pixel, no extra passes, no shader recompiles at runtime.
  */
 
-export const MAX_REGIONS = 6
+export const MAX_REGIONS = 8
 export const MAX_DOORS = 6
+/** Top of the ground-floor areas (the gallery storey starts above it) */
+const GROUND_FLOOR_TOP = 4.1
 /** Upper bound for real spot / point lights in the scene (lamp + pools) */
 export const MAX_LOCAL_LIGHTS = 8
 
 const PARS = /* glsl */ `
 uniform vec4 uIreBox[${MAX_REGIONS}];
+uniform vec2 uIreBoxY[${MAX_REGIONS}];
 uniform vec4 uIreLight[${MAX_REGIONS}];
 uniform vec4 uIreOutside;
 uniform vec4 uIreDoor[${MAX_DOORS}];
@@ -42,7 +45,8 @@ for ( int i = 0; i < ${MAX_REGIONS}; i ++ ) {
   vec4 b = uIreBox[ i ];
   vec2 lo = ireP.xz - b.xz;
   vec2 hi = b.yw - ireP.xz;
-  float w = smoothstep( -0.04, 0.04, min( min( lo.x, lo.y ), min( hi.x, hi.y ) ) );
+  vec2 by = uIreBoxY[ i ];
+  float w = smoothstep( -0.04, 0.04, min( min( min( lo.x, lo.y ), min( hi.x, hi.y ) ), min( ireP.y - by.x, by.y - ireP.y ) ) );
   ireW[ i ] = w;
   ireSum += w;
   ireAmb += w * uIreLight[ i ].rgb;
@@ -67,7 +71,7 @@ for ( int i = 0; i < ${MAX_DOORS}; i ++ ) {
   // opening (the floor in front of it, the far wall), not the wall the door is set in
   vec3 ireToDoor = vec3( d.x, 1.2, d.y ) - ireP;
   float ireFacing = clamp( dot( ireWorldN, normalize( ireToDoor ) ) * 0.9 + 0.1, 0.0, 1.0 );
-  float fall = exp( - ( q.x * q.x * 0.8 + q.y * q.y ) / ( d.z * d.z ) ) * d.w * ireFacing;
+  float fall = exp( - ( q.x * q.x * 0.8 + q.y * q.y ) / ( d.z * d.z ) ) * d.w * ireFacing * step( ireP.y, 4.1 );
   vec3 spill = mix( uIreDoorOut[ i ], uIreDoorIn[ i ], smoothstep( -0.05, 0.05, q.y ) ) * fall;
   ireAmb += spill;
   ireEnv += fall * 0.35 * dot( spill, vec3( 0.3333 ) );
@@ -112,8 +116,8 @@ function lightsBegin(): string {
 }
 
 export interface RegionLight {
-  /** World-space XZ extent */
-  box: { minX: number; maxX: number; minZ: number; maxZ: number }
+  /** World-space extent (height defaults to the ground floor, below the gallery storey) */
+  box: { minX: number; maxX: number; minZ: number; maxZ: number; minY?: number; maxY?: number }
   /** Ambient light colour already multiplied by its intensity */
   ambient: THREE.Color
   /** Environment (IBL) level */
@@ -123,6 +127,7 @@ export interface RegionLight {
 export class RegionLighting {
   readonly uniforms = {
     uIreBox: { value: Array.from({ length: MAX_REGIONS }, () => new THREE.Vector4(1e5, -1e5, 1e5, -1e5)) },
+    uIreBoxY: { value: Array.from({ length: MAX_REGIONS }, () => new THREE.Vector2(1e5, -1e5)) },
     uIreLight: { value: Array.from({ length: MAX_REGIONS }, () => new THREE.Vector4()) },
     uIreOutside: { value: new THREE.Vector4(0.5, 0.5, 0.5, 0.45) },
     uIreDoor: { value: Array.from({ length: MAX_DOORS }, () => new THREE.Vector4()) },
@@ -135,7 +140,7 @@ export class RegionLighting {
 
   /** Region 0 must be the study: only it (and anything outside every region) receives directional light. */
   setRegions(regions: RegionLight[], outside: { ambient: THREE.Color; env: number }) {
-    const { uIreBox, uIreLight, uIreOutside } = this.uniforms
+    const { uIreBox, uIreBoxY, uIreLight, uIreOutside } = this.uniforms
     for (let i = 0; i < MAX_REGIONS; i++) {
       const r = regions[i]
       if (!r) {
@@ -145,6 +150,7 @@ export class RegionLighting {
         continue
       }
       uIreBox.value[i]!.set(r.box.minX, r.box.maxX, r.box.minZ, r.box.maxZ)
+      uIreBoxY.value[i]!.set(r.box.minY ?? -50, r.box.maxY ?? GROUND_FLOOR_TOP)
       this.boxes[i] = r.box
       uIreLight.value[i]!.set(r.ambient.r, r.ambient.g, r.ambient.b, r.env)
     }
@@ -152,10 +158,11 @@ export class RegionLighting {
   }
 
   /** Index of the region containing a world position, or -1. */
-  regionOf(x: number, z: number): number {
+  regionOf(x: number, y: number, z: number): number {
     for (let i = 0; i < this.boxes.length; i++) {
       const b = this.boxes[i]
-      if (b && x >= b.minX && x <= b.maxX && z >= b.minZ && z <= b.maxZ) return i
+      if (!b || x < b.minX || x > b.maxX || z < b.minZ || z > b.maxZ) continue
+      if (y >= (b.minY ?? -50) && y <= (b.maxY ?? GROUND_FLOOR_TOP)) return i
     }
     return -1
   }
@@ -168,7 +175,7 @@ export class RegionLighting {
     const assign = (lights: THREE.Light[], out: number[]) => {
       for (let i = 0; i < MAX_LOCAL_LIGHTS; i++) {
         const l = lights[i]
-        out[i] = l ? this.regionOf(l.position.x, l.position.z) : -1
+        out[i] = l ? this.regionOf(l.position.x, l.position.y, l.position.z) : -1
       }
     }
     assign(spots, this.uniforms.uIreSpotRegion.value)

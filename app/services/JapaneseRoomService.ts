@@ -6,6 +6,8 @@ import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment
 import { PbrTextureLibrary } from './room/PbrTextures'
 import { OutdoorWorld } from './room/OutdoorWorld'
 import { RegionLighting, type RegionLight } from './room/RegionLighting'
+import { ArtGallery, GALLERY_FLOOR, GALLERY_OPENING } from './room/ArtGallery'
+import { GALLERY_EXHIBITS, type GalleryExhibitInfo } from './room/GalleryCatalog'
 import { createGlassDoorWall, createPictureWindow, createWindowGlass } from './room/Windows'
 import { HandRig, type HandPose } from './room/HandRig'
 import { CurvedStack, CurvedSheet, stackSurfaceHeight, gutterShade } from './room/BookGeometry'
@@ -105,6 +107,15 @@ export interface CustomRoomData {
   colliders: RoomCollider[]
   /** Lamp / lantern paper that dims with the room's light switch */
   glowMaterials: THREE.MeshStandardMaterial[]
+}
+
+/** What the UI needs to list the gallery alongside the corridor rooms */
+export interface GalleryRoomInfo {
+  id: 'gallery'
+  name: string
+  subtitle: string
+  icon: string
+  theme: 'gallery'
 }
 
 export interface RoomCollider {
@@ -275,6 +286,10 @@ export interface RoomServiceCallbacks {
   /** Player pressed [E] / clicked the monk: open the conversation */
   onMonkInteract?: (roomId: string) => void
   onMeditationChanged?: (meditating: boolean) => void
+  /** Standing by an exhibit's book in the gallery (show = false when walking away) */
+  onNearExhibit?: (near: { show: boolean; id: string; title: string }) => void
+  /** Player pressed [E] by an exhibit: open its history book */
+  onOpenExhibit?: (exhibit: GalleryExhibitInfo) => void
   onPlayFootstep?: () => void
   onPlayDoorSlide?: () => void
   onPerformanceUpdate?: (stats: PerformanceStats) => void
@@ -348,6 +363,19 @@ export class JapaneseRoomService {
   /** Eased 0..1 opening of each door, for the light spilling through it */
   private readonly doorGlow = new Map<string, number>()
   private readonly regionColors = new Map<string, THREE.Color>()
+
+  // Upstairs art gallery (exists only once the visitor creates it)
+  private gallery: ArtGallery | null = null
+  private galleryInfo: GalleryRoomInfo | null = null
+  /** 0 = ground floor (annex walkway), 1 = gallery storey; stairs switch between them */
+  private galleryLevel = 0
+  private readonly galleryAmbient = new THREE.AmbientLight('#fff0dc', 0.5)
+  private galleryLightOn = true
+  private galleryFixtures: VirtualLight[] = []
+  private nearExhibitId = ''
+  private readerOpen = false
+  private hallwayRightEndWall: THREE.Mesh | null = null
+  private hallwayRightSconce: THREE.Mesh | null = null
   private hallwayLanternPaper!: THREE.MeshStandardMaterial
   private studyPaperGlow!: THREE.MeshStandardMaterial
   private lampBulbMaterial: THREE.MeshStandardMaterial | null = null
@@ -810,7 +838,8 @@ export class JapaneseRoomService {
     const px = this.isExploreMode ? this.playerPos.x : 0
     const zone = this.currentZone
 
-    if (!force && zone === this.lastSpatialCheckZone && Math.abs(px - this.lastSpatialCheckX) < 0.7) {
+    // In the gallery, what's visible depends on height on the stairs as well, so always re-evaluate
+    if (!force && zone !== 'gallery' && zone === this.lastSpatialCheckZone && Math.abs(px - this.lastSpatialCheckX) < 0.7) {
       return
     }
     this.lastSpatialCheckZone = zone
@@ -831,6 +860,20 @@ export class JapaneseRoomService {
     // Seen from outside, the dojo window shows a stand-in room whenever the real interior is hidden
     const proxy = this.outdoor?.dojoInteriorProxy
     if (proxy) proxy.visible = ![...this.customRooms.values()].some((r) => r.theme === 'meditation' && r.interior.visible)
+
+    if (this.gallery) {
+      const inGallery = zone === 'gallery'
+      const upstairs = inGallery && this.galleryLevel === 1
+      this.gallery.hall.visible = inGallery && this.gallery.canSeeHall(this.galleryLevel, this.playerPos.x, this.playerPos.z)
+      for (const f of this.galleryFixtures) f.active = inGallery
+      // Upstairs the whole ground floor is out of sight (closed hall): skip drawing it
+      this.hallwayGroup.visible = !upstairs
+      for (const room of this.customRooms.values()) room.group.visible = !upstairs
+      if (upstairs && this.outdoor) {
+        this.outdoor.front.visible = false
+        this.outdoor.back.visible = false
+      }
+    }
 
     if (zone === 'study-room') {
       for (const spot of this.hallwaySpotLights) spot.active = false
@@ -938,6 +981,14 @@ export class JapaneseRoomService {
         inside: this.regionColor(`${room.id}-spill`).copy(ambient).multiplyScalar(1.5),
         outside: hallSpill,
       })
+    }
+    if (this.gallery) {
+      const ambient = ambientOf(this.galleryAmbient, 'gallery')
+      const env = envOf('gallery')
+      regions.push(
+        { box: { minX: -14.12, maxX: 14.06, minZ: -0.42, maxZ: 7.42, minY: 4.1, maxY: 50 }, ambient, env },
+        { box: { minX: 14.06, maxX: 18.52, minZ: -0.42, maxZ: 7.42, minY: -50, maxY: 50 }, ambient, env }
+      )
     }
     this.regionLighting.setRegions(regions, { ambient: study, env: envOf('study-room') })
     this.regionLighting.setDoors(doors)
@@ -2847,6 +2898,10 @@ export class JapaneseRoomService {
     add(this.gardenBackdropMesh)
     add(this.outdoor?.sky)
     add(this.outdoor?.dojoInteriorProxy)
+    // Replaced when the gallery's stair annex is built
+    add(this.hallwayRightEndWall)
+    add(this.hallwayRightSconce)
+    add(this.outdoor?.eastEnd)
     add(this.dustParticles)
     add(this.teaSteamParticles)
     this.shelfInteractiveMeshes.forEach(add)
@@ -4763,6 +4818,7 @@ export class JapaneseRoomService {
     this.hallwayGroup.add(leftEndWall)
 
     const rightEndWall = new THREE.Mesh(endWallGeo, wallMat)
+    this.hallwayRightEndWall = rightEndWall
     rightEndWall.position.set(14.0, 1.95, 5.59)
     this.hallwayGroup.add(rightEndWall)
 
@@ -4864,6 +4920,7 @@ export class JapaneseRoomService {
 
     const rightLantern = new THREE.Mesh(lanternGeo, lanternMat)
     rightLantern.position.set(13.88, 2.2, 5.59)
+    this.hallwayRightSconce = rightLantern
     this.hallwayGroup.add(rightLantern)
 
     const rightEndLight = createVirtualLight('point', '#fed7aa', 1.4, 9, 1.2, new THREE.Vector3(13.5, 2.2, 5.59))
@@ -4953,7 +5010,9 @@ export class JapaneseRoomService {
     theme: 'study' | 'library' | 'meditation' | 'gallery' | 'science' = 'library',
     requestedSlot?: number,
     fixedId?: string
-  ): CustomRoomData | null {
+  ): CustomRoomData | GalleryRoomInfo | null {
+    // The art gallery is the upstairs hall, reached by stairs at the corridor's east end
+    if (theme === 'gallery') return this.createGallery(name, subtitle, icon)
     const roomId = fixedId || `room-${Date.now()}-${Math.floor(Math.random() * 1000)}`
     const slotX = requestedSlot !== undefined ? requestedSlot : this.getNextAvailableSlot()
     // Every corridor slot is taken (a further room would overlap an existing one)
@@ -4978,7 +5037,7 @@ export class JapaneseRoomService {
         : this.pbr.material('cedar', {
             repeat: [5.0 / 1.0, 4.18 / 1.0],
             rotation: Math.PI / 2,
-            color: theme === 'gallery' ? '#e6d3c2' : '#b98d70',
+            color: '#b98d70',
             roughness: 0.75,
           })
     const floor = new THREE.Mesh(new THREE.PlaneGeometry(5.0, 4.18), floorMat)
@@ -5125,6 +5184,48 @@ export class JapaneseRoomService {
     this.triggerShadowUpdate(10)
     this.callbacks.onRoomCreated?.({ id: roomId, name, icon, theme })
     return roomData
+  }
+
+  /**
+   * Builds the upstairs art gallery: a doorway in the corridor's east end wall, the stair annex and
+   * the exhibition hall. Only one gallery exists; returns null if it's already built.
+   */
+  private createGallery(name: string, subtitle: string, icon: string): GalleryRoomInfo | null {
+    if (this.gallery) return null
+    const gallery = new ArtGallery({
+      palette: this.palette,
+      pbr: this.pbr,
+      glass: this.windowGlass,
+      corridorPlaster: this.worldPlaster,
+      lowTier: this.qualityTier === 'low',
+      anisotropy: this.preset.anisotropy,
+    })
+    this.gallery = gallery
+    gallery.hall.visible = false
+    this.scene.add(gallery.annex, gallery.hall, gallery.shell, gallery.corridorEnd)
+
+    // The solid end wall gives way to the new doorway; its lantern moves beside it
+    if (this.hallwayRightEndWall) this.hallwayRightEndWall.visible = false
+    if (this.hallwayRightSconce) this.hallwayRightSconce.position.z = 4.5
+    if (this.outdoor) this.outdoor.eastEnd.visible = false
+
+    this.galleryAmbient.visible = false // area light data for RegionLighting, never a global light
+    this.envLevels.set('gallery', { value: 0.32 })
+    this.galleryLightOn = true
+    this.galleryFixtures = gallery.spotPlacements.map(({ position, target }) =>
+      createVirtualLight('spot', '#ffefd6', 2.6, 9, 1.2, position, target, Math.PI / 7, 0.55)
+    )
+    for (const f of this.galleryFixtures) {
+      f.active = false
+      this.spotFixtures.push(f)
+    }
+
+    this.galleryInfo = { id: 'gallery', name: name || 'Art Gallery', subtitle, icon, theme: 'gallery' }
+    this.regionLighting.patchScene(this.scene)
+    this.warmUpShaders()
+    this.triggerShadowUpdate(10)
+    this.updateSpatialLights(true)
+    return this.galleryInfo
   }
 
   private getNextAvailableSlot(): number | null {
@@ -5285,6 +5386,19 @@ export class JapaneseRoomService {
     const activeTarget = targetId || this.currentZone
     // Refresh the "near a switch" prompt once the state has flipped
     queueMicrotask(() => this.checkSwitchProximity(true))
+
+    if (activeTarget === 'gallery' && this.gallery) {
+      this.galleryLightOn = !this.galleryLightOn
+      const on = this.galleryLightOn
+      gsap.to(this.galleryAmbient, { intensity: on ? 0.5 : 0.04, duration: 0.5 })
+      gsap.to(this.envLevels.get('gallery')!, { value: on ? 0.32 : 0.04, duration: 0.5 })
+      for (const f of this.galleryFixtures) gsap.to(f, { intensity: on ? 2.6 : 0, duration: 0.5 })
+      for (const m of this.gallery.washMaterials) gsap.to(m, { opacity: on ? (m.userData.onOpacity ?? 0.4) : 0, duration: 0.5 })
+      for (const m of this.gallery.glowMaterials) gsap.to(m, { emissiveIntensity: on ? (m.userData.onIntensity ?? 1) : 0.05, duration: 0.5 })
+      for (const m of this.gallery.artMaterials) gsap.to(m, { emissiveIntensity: on ? (m.userData.onEmissive ?? 0.42) : 0.03, duration: 0.5 })
+      this.callbacks.onRoomLightToggled?.('gallery', on)
+      return on
+    }
 
     if (activeTarget === 'study-room' || activeTarget === 'current') {
       this.isLightOn = !this.isLightOn
@@ -5490,6 +5604,26 @@ export class JapaneseRoomService {
     this.state = 'explore'
     this.callbacks.onExploreModeChanged?.(true)
 
+    if ((zoneId === 'gallery' || zoneId === 'gallery-stairs') && this.gallery) {
+      // 'gallery': just inside the hall entrance; 'gallery-stairs': the corridor, facing the stairs
+      const upstairs = zoneId === 'gallery'
+      this.currentZone = upstairs ? 'gallery' : 'hallway'
+      this.galleryLevel = upstairs ? 1 : 0
+      const x = upstairs ? 12.6 : 11.4
+      const y = (upstairs ? GALLERY_FLOOR : 0) + 1.65
+      const z = 6.1
+      const yaw = upstairs ? Math.PI / 2 : -Math.PI / 2
+      this.playerPos.set(x, y, z)
+      this.playerYaw = yaw
+      this.playerPitch = 0
+      this.camera.position.set(x, y, z)
+      this.camera.rotation.set(0, yaw, 0, 'YXZ')
+      this.updateSpatialLights(true)
+      this.callbacks.onCurrentZoneChanged?.(this.currentZone, this.getZoneName(this.currentZone))
+      this.checkDoorProximity()
+      return
+    }
+
     let targetX = 0
     let targetZ = 5.5
     let yaw = -Math.PI / 2 // Facing down the Grand Corridor
@@ -5517,6 +5651,7 @@ export class JapaneseRoomService {
       }
     }
 
+    this.galleryLevel = 0
     this.playerPos.set(targetX, 1.65, targetZ)
     this.playerYaw = yaw
     this.playerPitch = 0
@@ -5605,12 +5740,53 @@ export class JapaneseRoomService {
   private getZoneName(zoneId: string): string {
     if (zoneId === 'study-room') return 'Study Room'
     if (zoneId === 'hallway') return 'Grand Corridor'
+    if (zoneId === 'gallery') return this.galleryInfo?.name || 'Art Gallery'
     const custom = this.customRooms.get(zoneId)
     return custom?.name || 'Chamber'
   }
 
+  /** Standing by an exhibit's lectern upstairs offers its history book. */
+  private checkExhibitProximity() {
+    let id = ''
+    let title = ''
+    if (this.isExploreMode && !this.readerOpen && this.currentZone === 'gallery' && this.galleryLevel === 1 && this.gallery) {
+      const stand = this.gallery.nearestStand(this.playerPos.x, this.playerPos.z, 1.75)
+      if (stand && this.isPlayerFacing(stand.x, stand.z, -0.3)) {
+        id = stand.info.id
+        title = stand.info.title
+      }
+    }
+    if (id !== this.nearExhibitId) {
+      this.nearExhibitId = id
+      this.callbacks.onNearExhibit?.({ show: !!id, id, title })
+    }
+  }
+
+  /** Open the history book of an exhibit (by id); the UI shows the reader. */
+  public openExhibit(id = this.nearExhibitId): GalleryExhibitInfo | null {
+    const info = GALLERY_EXHIBITS.find((e) => e.id === id) ?? null
+    if (info) this.callbacks.onOpenExhibit?.(info)
+    return info
+  }
+
+  /** While the history book is open, walking and looking are paused. */
+  public setReaderOpen(open: boolean) {
+    this.readerOpen = open
+    this.keys.forward = this.keys.backward = this.keys.left = this.keys.right = this.keys.shift = false
+    this.isMouseDragging = false
+    if (!open) this.checkExhibitProximity()
+    else if (this.nearExhibitId) {
+      this.nearExhibitId = ''
+      this.callbacks.onNearExhibit?.({ show: false, id: '', title: '' })
+    }
+  }
+
   private interactNearest() {
-    if (this.isMeditating) return
+    if (this.isMeditating || this.readerOpen) return
+    if (this.nearExhibitId) {
+      this.openExhibit(this.nearExhibitId)
+      return
+    }
     if (this.nearMonkRoomId) {
       this.callbacks.onMonkInteract?.(this.nearMonkRoomId)
       return
@@ -5881,6 +6057,14 @@ export class JapaneseRoomService {
       }
       return { allowed: true }
     } else if (this.currentZone === 'hallway') {
+      // Doorway in the east end wall to the gallery stairs
+      if (this.gallery && nextX > 13.6 && nextZ > GALLERY_OPENING.z0 + 0.2 && nextZ < GALLERY_OPENING.z1 - 0.2) {
+        if (nextX > 14.05) {
+          this.galleryLevel = 0
+          return { allowed: true, newZone: 'gallery' }
+        }
+        return { allowed: true }
+      }
       // Hallway Bounds: X [-13.6, 13.6], Z [4.05, 7.05]
       // 1. Outer Glass Shoji Wall & End Walls
       if (nextX < -13.6 || nextX > 13.6 || nextZ > 7.05) {
@@ -5912,6 +6096,16 @@ export class JapaneseRoomService {
         }
         return { allowed: false }
       }
+      return { allowed: true }
+    } else if (this.currentZone === 'gallery' && this.gallery) {
+      const r = this.gallery.move(this.galleryLevel, this.playerPos.x, this.playerPos.z, nextX, nextZ)
+      if (!r.allowed) return { allowed: false }
+      if (r.level !== this.galleryLevel) {
+        this.galleryLevel = r.level
+        // Changing floor changes what's visible: refresh on the next culling pass
+        this.lastSpatialCheckZone = ''
+      }
+      if (r.exitToCorridor) return { allowed: true, newZone: 'hallway' }
       return { allowed: true }
     } else {
       // Inside Custom Room
@@ -5951,6 +6145,13 @@ export class JapaneseRoomService {
 
     // Ensure delta is valid and realistic (guaranteed > 0)
     const safeDelta = (delta > 0.0005 && delta < 0.15) ? delta : (1 / 60)
+
+    if (this.readerOpen) {
+      this.camera.position.set(this.playerPos.x, this.playerPos.y, this.playerPos.z)
+      this.camera.rotation.set(this.playerPitch, this.playerYaw, 0, 'YXZ')
+      this.turnVelocity = 0
+      return
+    }
 
     if (this.isMeditating) {
       // Seated: no walking, just a slow breath rising and falling (12s, like the on-screen guide)
@@ -6034,6 +6235,10 @@ export class JapaneseRoomService {
       this.headBobTimer += delta * (this.keys.shift ? 16 : 10)
     }
 
+    // Eye height follows the floor: stairs and the gallery storey
+    const floorY = this.currentZone === 'gallery' && this.gallery ? this.gallery.floorAt(this.galleryLevel, this.playerPos.x, this.playerPos.z) : 0
+    this.playerPos.y += (floorY + 1.65 - this.playerPos.y) * Math.min(1, safeDelta * 12)
+
     const bobOffset = isMoving ? Math.sin(this.headBobTimer) * 0.03 : 0
     this.camera.position.x = this.playerPos.x
     this.camera.position.z = this.playerPos.z
@@ -6047,6 +6252,7 @@ export class JapaneseRoomService {
   private checkDoorProximity() {
     this.checkSwitchProximity()
     this.checkMonkProximity()
+    this.checkExhibitProximity()
     if (this.isMeditating) return
     let nearPrompt: DoorPromptData = { show: false, text: '', roomId: '', isOpen: false }
 

@@ -524,6 +524,8 @@ export class OutdoorWorld {
   private skyMaterial: THREE.ShaderMaterial | null = null
   /** Stand-in for the dojo interior, seen through its window from outside (see buildBuildingExterior) */
   dojoInteriorProxy: THREE.Mesh | null = null
+  /** Outside wall + eave at the building's east end (replaced by the gallery's stair annex) */
+  readonly eastEnd = new THREE.Group()
   private readonly mats: ReturnType<OutdoorWorld['createMaterials']>
   private readonly treePlacements = {
     front: { maple: [] as Placement[], pine: [] as Placement[], bamboo: [] as Placement[] },
@@ -984,6 +986,7 @@ export class OutdoorWorld {
     // The building's two end walls (rooms + corridor, z -0.36..7.36): without them the far ends of
     // the courtyard looked straight into the open side of the building
     for (const side of [-1, 1]) {
+      const parent = side > 0 ? this.eastEnd : back
       // 2cm proud of the corridor end walls' outer faces (x = ±14.06) so the two never z-fight
       const x = side * 14.08
       const wall = new THREE.Mesh(new THREE.PlaneGeometry(7.72, 4.0 - (GROUND_Y - 0.05)), this.mats.plasterShape)
@@ -991,10 +994,12 @@ export class OutdoorWorld {
       for (let i = 0; i < uv.count; i++) uv.setXY(i, uv.getX(i) * 7.72, uv.getY(i) * 4.35)
       wall.rotation.y = side * Math.PI / 2
       wall.position.set(x, (4.0 + GROUND_Y - 0.05) / 2, 3.5)
-      back.add(wall)
-      this.box(back, this.mats.carved, 0.12, 0.42, 7.72, x + side * 0.04, GROUND_Y + 0.13, 3.5, 0.7)
-      this.eave(back, new THREE.Vector3(x, 0, -1.51), new THREE.Vector3(x, 0, 7.36), new THREE.Vector3(side, 0, 0), 1.15)
+      parent.add(wall)
+      this.box(parent, this.mats.carved, 0.12, 0.42, 7.72, x + side * 0.04, GROUND_Y + 0.13, 3.5, 0.7)
+      this.eave(parent, new THREE.Vector3(x, 0, -1.51), new THREE.Vector3(x, 0, 7.36), new THREE.Vector3(side, 0, 0), 1.15)
     }
+
+    back.add(this.eastEnd)
 
     // Eaves around the courtyard side of the building
     this.eave(back, new THREE.Vector3(-14.1, 0, -0.36), new THREE.Vector3(-3.06, 0, -0.36), new THREE.Vector3(0, 0, -1), 1.15)
