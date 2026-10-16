@@ -821,6 +821,9 @@ export class JapaneseRoomService {
     for (const room of this.customRooms.values()) {
       room.interior.visible = zone === room.id || (zone !== 'study-room' && room.isDoorOpen)
     }
+    // Seen from outside, the dojo window shows a stand-in room whenever the real interior is hidden
+    const proxy = this.outdoor?.dojoInteriorProxy
+    if (proxy) proxy.visible = ![...this.customRooms.values()].some((r) => r.theme === 'meditation' && r.interior.visible)
 
     if (zone === 'study-room') {
       for (const spot of this.hallwaySpotLights) spot.active = false
@@ -848,9 +851,14 @@ export class JapaneseRoomService {
       if (this.hallwayLeftLight) this.hallwayLeftLight.active = true
       if (this.hallwayRightLight) this.hallwayRightLight.active = true
 
-      // Custom room lights: only spill into the corridor if the door is open or the player is near it
+      // Room lights reach the corridor only through an open door. Their ambient light is global (it
+      // would brighten the whole corridor, even with the corridor switched off), and their unshadowed
+      // ceiling lights would leak through a closed door, so neither is used from out here.
       for (const room of this.customRooms.values()) {
-        this.setRoomLightsActive(room, room.isDoorOpen || Math.abs(room.doorX - px) < 3.5)
+        for (const light of room.lights) {
+          if (light instanceof THREE.AmbientLight) light.visible = false
+          else light.active = room.isDoorOpen
+        }
       }
 
       this.ambientLight.visible = false
@@ -1162,7 +1170,9 @@ export class JapaneseRoomService {
       // Glazed window onto the raked karesansui courtyard behind the dojo (opening cut in createCustomRoom)
       const dojoWindow = createPictureWindow(2.9, 1.76, 0.06, p.walnutDark, this.windowGlass)
       dojoWindow.position.set(sx, 1.33, -0.33)
-      group.add(dojoWindow)
+      // Part of the room shell (not the interior), so the frame and glass are still there when the
+      // window is seen from outside while the dojo's interior isn't being drawn
+      ;(group.parent ?? group).add(dojoWindow)
       decals.push([sx - 1.7, 1.0, 0.75, 0.75], [sx + 1.7, 0.75, 0.85, 0.85], [sx + 1.45, 2.55, 1.3, 1.3], [sx, 0.95, 1.0, 1.0])
     } else if (theme === 'gallery') {
       place(createFramedPainting(p, 'mountains', 0.8, 1.0), sx - 1.1, -0.3, 0, 1.65)
@@ -1376,9 +1386,9 @@ export class JapaneseRoomService {
       m.receiveShadow = true
       this.scene.add(m)
     }
-    wallPiece(-0.35, 0.5, -3.1, -0.3)
-    wallPiece(2.7, 4.0, -3.1, -0.3)
-    wallPiece(0.5, 2.7, -3.1, -2.9)
+    wallPiece(-0.35, 0.5, -3.16, -0.3)
+    wallPiece(2.7, 4.0, -3.16, -0.3)
+    wallPiece(0.5, 2.7, -3.16, -2.9)
     wallPiece(0.5, 2.7, -0.5, -0.3)
     const studyWindow = createPictureWindow(2.4, 2.2, 0.12, p.walnutDark, this.windowGlass)
     studyWindow.rotation.y = Math.PI / 2
@@ -2773,6 +2783,7 @@ export class JapaneseRoomService {
     add(this.contactShadowRight)
     add(this.gardenBackdropMesh)
     add(this.outdoor?.sky)
+    add(this.outdoor?.dojoInteriorProxy)
     add(this.dustParticles)
     add(this.teaSteamParticles)
     this.shelfInteractiveMeshes.forEach(add)

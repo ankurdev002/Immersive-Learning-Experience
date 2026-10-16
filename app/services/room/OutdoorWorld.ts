@@ -522,6 +522,8 @@ export class OutdoorWorld {
   private readonly farForest: Array<{ mesh: THREE.InstancedMesh; total: number }> = []
   private readonly fernMeshes: THREE.InstancedMesh[] = []
   private skyMaterial: THREE.ShaderMaterial | null = null
+  /** Stand-in for the dojo interior, seen through its window from outside (see buildBuildingExterior) */
+  dojoInteriorProxy: THREE.Mesh | null = null
   private readonly mats: ReturnType<OutdoorWorld['createMaterials']>
   private readonly treePlacements = {
     front: { maple: [] as Placement[], pine: [] as Placement[], bamboo: [] as Placement[] },
@@ -637,8 +639,8 @@ export class OutdoorWorld {
       carved: this.lambert({ map: graniteTex, color: '#d8d6d0' }),
       stoneWall: this.scan('stoneWall', [1, 1], '#c9c3b8'),
       // The clay scan is used for its relief only, under a lime-white colour (as indoors)
-      plaster: this.scan('plaster', [1, 1], '#e6ddcc', {}, 0, true),
-      plasterShape: this.scan('plaster', [1 / 1.2, 1 / 1.2], '#e6ddcc', {}, 0, true),
+      plaster: this.scan('plaster', [1, 1], '#fbe9cf', {}, 0, true),
+      plasterShape: this.scan('plaster', [1 / 1.2, 1 / 1.2], '#fbe9cf', {}, 0, true),
       deck: this.scan('cedar', [28.2 / 1.0, 1.45 / 1.0], '#8e7864', {}, Math.PI / 2),
       darkWood: this.scan('cedar', [1, 1], '#5a3b28'),
       eaveWood: this.scan('cedar', [29 / 0.9, 2.3 / 0.9], '#7a5640', {}, Math.PI / 2),
@@ -948,7 +950,7 @@ export class OutdoorWorld {
     for (let i = 0; i < uv.count; i++) uv.setXY(i, pos.getX(i), pos.getY(i))
     parent.add(new THREE.Mesh(g, this.mats.plasterShape))
     // Granite plinth along the foot
-    this.box(parent, this.mats.granite, Math.abs(x1 - x0), 0.42, 0.12, (x0 + x1) / 2, GROUND_Y + 0.13, z - 0.04, 0.7)
+    this.box(parent, this.mats.carved, Math.abs(x1 - x0), 0.42, 0.12, (x0 + x1) / 2, GROUND_Y + 0.13, z - 0.04, 0.7)
   }
 
   private buildBuildingExterior() {
@@ -956,19 +958,41 @@ export class OutdoorWorld {
     const dojoHole: [number, number, number, number] = [this.dojoX - 1.45, this.dojoX + 1.45, 0.45, 2.21]
     // Room back walls (z = -0.3) and the study's back wall (z = -3.1), seen from the courtyard
     this.exteriorWall(back, -14.06, -3.06, -0.36, dojoHole)
-    // The dojo interior isn't drawn while you're elsewhere: from outside its window shows a dim,
-    // warm room behind the glass instead of the sky (the plane faces -Z, so it's culled from inside)
-    const roomBehind = new THREE.Mesh(
-      new THREE.PlaneGeometry(2.9, 1.76),
-      new THREE.MeshBasicMaterial({ color: '#2a2019', name: 'dojo-window-backdrop' })
-    )
-    roomBehind.rotation.y = Math.PI
-    roomBehind.position.set(this.dojoX, 1.33, -0.2)
-    back.add(roomBehind)
+    // The dojo's interior isn't drawn while you're elsewhere, so from outside its window would look
+    // straight through an empty shell. This dim stand-in room (inside faces only, unlit) fills it;
+    // the room service shows it exactly when the real interior is hidden.
+    const shell = new THREE.BoxGeometry(4.98, 3.88, 4.14)
+    const wallTone = new THREE.MeshBasicMaterial({ color: '#4a3d31', side: THREE.BackSide, name: 'dojo-proxy-wall' })
+    const proxyMaterials = [
+      wallTone,
+      wallTone,
+      new THREE.MeshBasicMaterial({ color: '#2e241c', side: THREE.BackSide, name: 'dojo-proxy-ceiling' }),
+      new THREE.MeshBasicMaterial({ color: '#6b5a3c', side: THREE.BackSide, name: 'dojo-proxy-floor' }),
+      wallTone,
+      wallTone,
+    ]
+    this.dojoInteriorProxy = new THREE.Mesh(shell, proxyMaterials)
+    this.dojoInteriorProxy.position.set(this.dojoX, 1.95, 1.79)
+    back.add(this.dojoInteriorProxy)
     this.exteriorWall(back, 3.06, 14.06, -0.36)
     this.exteriorWall(back, -3.06, 3.06, -3.16)
     // The study's left wall below and beside its window is built with the study (both faces)
-    this.box(back, this.mats.granite, 0.12, 0.42, 2.9, -3.1, GROUND_Y + 0.13, -1.7, 0.7)
+    this.box(back, this.mats.carved, 0.12, 0.42, 2.9, -3.1, GROUND_Y + 0.13, -1.7, 0.7)
+
+    // The building's two end walls (rooms + corridor, z -0.36..7.36): without them the far ends of
+    // the courtyard looked straight into the open side of the building
+    for (const side of [-1, 1]) {
+      // 2cm proud of the corridor end walls' outer faces (x = ±14.06) so the two never z-fight
+      const x = side * 14.08
+      const wall = new THREE.Mesh(new THREE.PlaneGeometry(7.72, 4.0 - (GROUND_Y - 0.05)), this.mats.plasterShape)
+      const uv = wall.geometry.getAttribute('uv') as THREE.BufferAttribute
+      for (let i = 0; i < uv.count; i++) uv.setXY(i, uv.getX(i) * 7.72, uv.getY(i) * 4.35)
+      wall.rotation.y = side * Math.PI / 2
+      wall.position.set(x, (4.0 + GROUND_Y - 0.05) / 2, 3.5)
+      back.add(wall)
+      this.box(back, this.mats.carved, 0.12, 0.42, 7.72, x + side * 0.04, GROUND_Y + 0.13, 3.5, 0.7)
+      this.eave(back, new THREE.Vector3(x, 0, -1.51), new THREE.Vector3(x, 0, 7.36), new THREE.Vector3(side, 0, 0), 1.15)
+    }
 
     // Eaves around the courtyard side of the building
     this.eave(back, new THREE.Vector3(-14.1, 0, -0.36), new THREE.Vector3(-3.06, 0, -0.36), new THREE.Vector3(0, 0, -1), 1.15)
@@ -983,6 +1007,12 @@ export class OutdoorWorld {
     deck.position.set(0, -0.035, 8.025)
     front.add(deck)
     this.box(front, this.mats.darkWood, 28.2, 0.3, 0.06, 0, -0.19, 8.76, 0.8)
+    // Closed ends: deck end boards and a barge board under each end of the veranda eave
+    for (const side of [-1, 1]) {
+      this.box(front, this.mats.darkWood, 0.06, 0.3, 1.46, side * 14.1, -0.19, 8.03, 0.8)
+      const barge = this.box(front, this.mats.darkWood, 0.06, 0.3, 2.2, side * 14.42, 3.98 - 0.137 - 0.08, 8.41, 0.8)
+      barge.rotation.x = Math.atan2(0.273, 2.1)
+    }
     this.box(front, this.mats.granite, 28.6, 0.36, 0.5, 0, GROUND_Y - 0.06, 8.45, 0.8)
     for (let x = -14; x <= 14.01; x += 3.5) this.box(front, this.mats.darkWood, 0.13, 3.62, 0.13, x, 1.775, 8.62, 0.6)
     this.box(front, this.mats.darkWood, 28.6, 0.2, 0.15, 0, 3.66, 8.62, 0.8)
